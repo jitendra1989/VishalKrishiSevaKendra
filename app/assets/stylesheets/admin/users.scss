@@ -1,0 +1,24 @@
+// Place all the styles related to the admin/users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-fields{
+	margin-top: 80px;
+	border: 1px solid #000;
+	padding: 25px;
+	img{
+		margin-bottom: 25px;
+	}
+}
+.profile-box{
+	margin-top: 40px;
+	border: 1px solid #ccc;
+	padding: 25px 40px;
+	.title, label{
+		width: 160px;
+		display: inline-block;
+	}
+	table{
+		width: 100%;
+	}
+}

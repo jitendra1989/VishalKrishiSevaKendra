@@ -1,0 +1,19 @@
+.row
+	.col-md-12
+		%h2 Admin
+	.col-md-10.col-md-offset-1
+		.profile-box
+			%table
+				%tr
+					%th Name
+					%th Outlet
+					%th Email
+					%th Contact No
+					%th Action
+				- @users.each do |user|
+					%tr
+						%td= user.name
+						%td #
+						%td= user.email
+						%td= user.phone
+						%td #

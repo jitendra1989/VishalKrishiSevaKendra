@@ -1,0 +1,16 @@
+= form_for [:admin, @user] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: "required"
+  .form-group
+    = f.label :username
+    = f.text_field :username, required: "required"
+  .form-group
+    = f.label :phone, 'Contact No'
+    = f.text_field :phone, required: "required"
+  .form-group
+    = f.label :email
+    = f.text_field :email, required: "required"
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", admin_root_path, class: "btn btn-default"

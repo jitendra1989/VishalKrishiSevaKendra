@@ -1,10 +1,16 @@
 FactoryGirl.define do
-	factory :user do
+	trait :basic_user_trait do
 		name { Faker::Name.name }
 		username { Faker::Internet.user_name }
-		password { Faker::Internet.password }
 		email { Faker::Internet.email }
-		phone { Faker::Number.number(10) }
+		phone { Faker::Number.number(10).to_i }
+	end
+	factory :basic_user, class: User do
+		basic_user_trait
+	end
+	factory :user do
+		basic_user_trait
+		password { Faker::Internet.password }
 		address { Faker::Address.street_address }
 		pincode { Faker::Number.number(6) }
 		city { Faker::Address.city }

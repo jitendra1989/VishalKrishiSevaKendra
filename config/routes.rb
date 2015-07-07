@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+
   namespace :admin do
     root 'users#dashboard'
+    resources :outlets, except: [:show]
     resources :users do
       collection do
         match 'login' => 'users#login', via: [:get, :post]

@@ -38,3 +38,15 @@ header{
 .actions a{
 	margin: 0 10px;
 }
+.profile-box{
+	margin-top: 40px;
+	border: 1px solid #ccc;
+	padding: 25px 40px;
+	.title, label{
+		width: 160px;
+		display: inline-block;
+	}
+	table{
+		width: 100%;
+	}
+}

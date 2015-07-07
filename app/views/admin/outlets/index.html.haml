@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    %h2 Outlets
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Outlet', new_admin_outlet_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th Country
+          %th State
+          %th City
+          %th.text-center Actions
+        - @outlets.each do |outlet|
+          %tr
+            %td= outlet.name
+            %td= outlet.country
+            %td= outlet.state
+            %td= outlet.city
+            %td.actions.text-center
+              = link_to edit_admin_outlet_path(outlet) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_outlet_path(outlet), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

@@ -26,7 +26,20 @@ class Admin::UsersController < Admin::ApplicationController
   def show
   end
 
+  def new
+    @user = User.new
+  end
+
   def edit
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to admin_users_url, notice: 'User was successfully created.'
+    else
+      render :new
+    end
   end
 
   def update
@@ -45,6 +58,6 @@ class Admin::UsersController < Admin::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :username, :email, :phone)
+      params.require(:user).permit(:name, :username, :email, :phone, :password, :password_confirmation, :address, :pincode, :city, :state, :country)
     end
 end

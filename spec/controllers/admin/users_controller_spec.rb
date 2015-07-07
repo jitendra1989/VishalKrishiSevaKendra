@@ -35,6 +35,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
 	describe 'Logged in actions' do
 		let(:valid_attributes) { FactoryGirl.attributes_for(:basic_user) }
+		let(:all_attributes) { FactoryGirl.attributes_for(:user) }
 		let(:invalid_attributes) { FactoryGirl.attributes_for(:basic_user, username: nil) }
 		before do
 			log_in user
@@ -45,7 +46,44 @@ RSpec.describe Admin::UsersController, type: :controller do
 				expect(assigns(:user)).to eq(user)
 			end
 		end
+		describe "GET #new" do
+			it "assigns a new user as @user" do
+				get :new
+				expect(assigns(:user)).to be_a_new(User)
+			end
+		end
+		describe "POST #create" do
+			context "with valid params" do
+				it "creates a new User" do
+					expect {
+						post :create, user: all_attributes
+					}.to change(User, :count).by(1)
+				end
 
+				it "assigns a newly created user as @user" do
+					post :create, user: all_attributes
+					expect(assigns(:user)).to be_a(User)
+					expect(assigns(:user)).to be_persisted
+				end
+
+				it "redirects to the created user" do
+					post :create, user: all_attributes
+					expect(response).to redirect_to(admin_users_url)
+				end
+			end
+
+			context "with invalid params" do
+				it "assigns a newly created but unsaved user as @user" do
+					post :create, user: invalid_attributes
+					expect(assigns(:user)).to be_a_new(User)
+				end
+
+				it "re-renders the 'new' template" do
+					post :create, user: invalid_attributes
+					expect(response).to render_template("new")
+				end
+			end
+		end
 		describe "GET #edit" do
 			it "assigns the requested user as @user" do
 				get :edit, id: user.id

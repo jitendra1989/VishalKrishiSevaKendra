@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 	let(:user) { FactoryGirl.build(:user) }
 	it { expect(user).to be_valid }
+	it { expect(user).to respond_to(:outlet) }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

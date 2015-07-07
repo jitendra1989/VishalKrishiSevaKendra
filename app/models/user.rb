@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	belongs_to :outlet
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	[:name, :username, :email, :phone, :address, :pincode, :city, :state, :country].each do |n|

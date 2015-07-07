@@ -16,7 +16,7 @@
 				- @users.each do |user|
 					%tr
 						%td= user.name
-						%td #
+						%td= user.outlet.try(:name)
 						%td= user.email
 						%td= user.phone
 						%td.actions.text-center

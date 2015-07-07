@@ -7,6 +7,9 @@
     = f.text_field :username, required: true
   - if @user.new_record?
     .form-group
+      = f.label :outlet_id
+      = f.select :outlet_id, Outlet.pluck(:name, :id)
+    .form-group
       = f.label :password
       = f.password_field :password, required: true
     .form-group

@@ -8,9 +8,9 @@
 					%p.text-left Use a valid username and password to gain access to the Administrator Back-end.
 					.form-group
 						= f.label :username
-						= f.text_field :username, required: "required"
+						= f.text_field :username, required: true
 					.form-group
 						= f.label :password
-						= f.password_field :password, required: "required"
+						= f.password_field :password, required: true
 					.form-group
 						= f.submit "Log in", class: "btn btn-primary pull-right", id: "submit"

@@ -12,13 +12,15 @@
 					%th Outlet
 					%th Email
 					%th Contact No
-					%th Action
+					%th.text-center Actions
 				- @users.each do |user|
 					%tr
 						%td= user.name
 						%td #
 						%td= user.email
 						%td= user.phone
-						%td
+						%td.actions.text-center
 							= link_to edit_admin_user_path(user) do
 								%span.glyphicon.glyphicon-pencil
+							= link_to admin_user_path(user), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+								%span.glyphicon.glyphicon-remove

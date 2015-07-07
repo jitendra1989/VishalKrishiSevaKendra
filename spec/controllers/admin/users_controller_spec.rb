@@ -122,6 +122,19 @@ RSpec.describe Admin::UsersController, type: :controller do
 			end
 		end
 
+		describe "DELETE #destroy" do
+		  it "destroys the requested user" do
+		    expect {
+		      delete :destroy, id: user.id
+		    }.to change(User, :count).by(-1)
+		  end
+
+		  it "redirects to the users list" do
+		    delete :destroy, id: user.id
+		    expect(response).to redirect_to(admin_users_url)
+		  end
+		end
+
 	end
 
 

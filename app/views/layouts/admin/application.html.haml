@@ -46,7 +46,7 @@
 									%ul.dropdown-menu
 										%li
 											= link_to 'Profile', admin_user_path(@current_user)
-											= link_to 'Logout', logout_admin_users_path, method: "delete"
+											= link_to 'Logout', logout_admin_users_path, method: :delete
 						.col-md-2
 							%span.pull-right= "Welcome #{@current_user.name}"
 			- [@user].each do |object|

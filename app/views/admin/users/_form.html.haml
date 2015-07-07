@@ -8,10 +8,10 @@
   - if @user.new_record?
     .form-group
       = f.label :password
-      = f.text_field :password, required: true
+      = f.password_field :password, required: true
     .form-group
       = f.label :password_confirmation
-      = f.text_field :password_confirmation, required: true
+      = f.password_field :password_confirmation, required: true
   .form-group
     = f.label :phone, 'Contact No'
     = f.text_field :phone, required: true

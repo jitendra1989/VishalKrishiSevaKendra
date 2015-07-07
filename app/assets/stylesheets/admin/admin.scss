@@ -28,3 +28,13 @@ header{
 		box-shadow: 0 0 2px 0 #c00;
 	}
 }
+.delete-link{
+	color: #c00;
+	&:hover, &:focus{
+		color: #500;
+
+	}
+}
+.actions a{
+	margin: 0 10px;
+}

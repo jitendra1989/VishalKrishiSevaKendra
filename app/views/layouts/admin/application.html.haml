@@ -35,8 +35,9 @@
 											= link_to 'Oustanding Partywise Report', "#"
 								%li
 									= link_to 'Admin', admin_users_path
-								%li
-									= link_to 'Outlet', admin_outlets_path
+								- if can? :manage, Outlet
+									%li
+										= link_to 'Outlet', admin_outlets_path
 								%li
 									= link_to 'Roles', "#"
 								%li.dropdown{ role: 'presentation' }

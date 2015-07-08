@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 gem 'haml-rails'
+gem 'cancancan', '~> 1.10'
 
 group :development do
   gem 'pry-rails'

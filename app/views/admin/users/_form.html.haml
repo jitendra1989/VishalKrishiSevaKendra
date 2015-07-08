@@ -5,14 +5,19 @@
   .form-group
     = f.label :username
     = f.text_field :username, required: true
-  - unless @user.role == 'super_admin'
+  - if @current_user.super_admin? || @current_user == @user
+    = f.hidden_field :role, value: User::ROLES.second
+  - else
     .form-group
       = f.label :role
-      = f.collection_select :role, User::ROLES.drop(1), :to_s, lambda{|i| i.to_s.humanize}
+      = f.collection_select :role, User::ROLES.drop(2), lambda{|i| i}, lambda{|i| i.humanize}
   - if @user.new_record?
-    .form-group
-      = f.label :outlet_id
-      = f.select :outlet_id, Outlet.pluck(:name, :id)
+    - if @current_user.super_admin?
+      .form-group
+        = f.label :outlet_id
+        = f.select :outlet_id, Outlet.pluck(:name, :id)
+    - else
+      = f.hidden_field :outlet_id, value: @current_user.outlet_id
     .form-group
       = f.label :password
       = f.password_field :password, required: true

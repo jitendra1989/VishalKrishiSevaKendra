@@ -21,6 +21,14 @@ RSpec.describe User, type: :model do
 		user.username = nil
 		expect(user).to_not be_valid
 	end
+	it "has a role" do
+		user.role = nil
+		expect(user).to_not be_valid
+	end
+	it "has a valid role" do
+		user.role = 'randomtext'
+		expect(user).to_not be_valid
+	end
 	describe "when username is already taken" do
 		before do
 			user.save
@@ -57,5 +65,11 @@ RSpec.describe User, type: :model do
 	it "has a valid country" do
 		user.country = nil
 		expect(user).to_not be_valid
+	end
+	describe "super admin check" do
+		let(:admin) { FactoryGirl.build(:user, role: "admin") }
+		let(:super_admin) { FactoryGirl.build(:user, role: "super_admin") }
+		it { expect(super_admin.super_admin?).to eq(true) }
+		it { expect(admin.super_admin?).to eq(false) }
 	end
 end

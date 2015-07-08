@@ -1,9 +1,10 @@
 class Admin::UsersController < Admin::ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:login]
+  load_and_authorize_resource
 
   def index
-    @users = User.all
+    @users = current_user.super_admin?? User.admin : current_user.outlet.users
   end
 
   def login

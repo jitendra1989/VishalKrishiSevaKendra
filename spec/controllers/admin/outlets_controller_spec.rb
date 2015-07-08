@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::OutletsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user, role: 'super_admin' ) }
   let(:outlet) { FactoryGirl.create(:outlet) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:outlet) }
   let(:invalid_attributes) { FactoryGirl.attributes_for(:outlet, name: nil) }

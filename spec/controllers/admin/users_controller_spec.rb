@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-	let(:user) { FactoryGirl.create(:user) }
+	let(:user) { FactoryGirl.create(:user, role: 'super_admin' ) }
 
 	describe 'GET #login' do
 		it "renders login if user not logged in" do
@@ -33,10 +33,10 @@ RSpec.describe Admin::UsersController, type: :controller do
 		end
 	end
 
-	describe 'Logged in actions' do
+	describe 'Logged in actions for super admin' do
 		let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
 		let(:all_attributes) { FactoryGirl.attributes_for(:user) }
-		let(:invalid_attributes) { FactoryGirl.attributes_for(:basic_user, username: nil) }
+		let(:invalid_attributes) { FactoryGirl.attributes_for(:user, username: nil) }
 		before do
 			log_in user
 		end
@@ -116,9 +116,9 @@ RSpec.describe Admin::UsersController, type: :controller do
 		end
 
 		describe "GET #index" do
-			it "assigns all users as @users" do
+			it "assigns all admin users as @users" do
 				get :index
-				expect(assigns(:users)).to eq(User.all)
+				expect(assigns(:users)).to eq(User.admin)
 			end
 		end
 
@@ -134,7 +134,19 @@ RSpec.describe Admin::UsersController, type: :controller do
 		    expect(response).to redirect_to(admin_users_url)
 		  end
 		end
+	end
 
+	describe 'Logged in actions for admin' do
+		let(:admin) { FactoryGirl.create(:user, role: 'admin' ) }
+		before do
+			log_in admin
+		end
+		describe "GET #index" do
+			it "assigns all outlet users as @users" do
+				get :index
+				expect(assigns(:users)).to eq(admin.outlet.users )
+			end
+		end
 	end
 
 

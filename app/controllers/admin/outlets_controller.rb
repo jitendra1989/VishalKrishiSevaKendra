@@ -1,5 +1,6 @@
 class Admin::OutletsController < Admin::ApplicationController
 	before_action :set_outlet, only: [:edit, :update, :destroy]
+	load_and_authorize_resource
 
 	def index
 		@outlets = Outlet.all

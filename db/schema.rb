@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707150300) do
+ActiveRecord::Schema.define(version: 20150708133806) do
 
   create_table "outlets", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150707150300) do
     t.string   "state",           limit: 255
     t.string   "country",         limit: 255
     t.integer  "outlet_id",       limit: 4
+    t.string   "role",            limit: 255
     t.boolean  "active",          limit: 1,   default: false, null: false
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false

@@ -34,7 +34,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 	end
 
 	describe 'Logged in actions' do
-		let(:valid_attributes) { FactoryGirl.attributes_for(:basic_user) }
+		let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
 		let(:all_attributes) { FactoryGirl.attributes_for(:user) }
 		let(:invalid_attributes) { FactoryGirl.attributes_for(:basic_user, username: nil) }
 		before do

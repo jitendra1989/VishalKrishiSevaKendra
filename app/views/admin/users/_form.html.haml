@@ -5,6 +5,10 @@
   .form-group
     = f.label :username
     = f.text_field :username, required: true
+  - unless @user.role == 'super_admin'
+    .form-group
+      = f.label :role
+      = f.collection_select :role, User::ROLES.drop(1), :to_s, lambda{|i| i.to_s.humanize}
   - if @user.new_record?
     .form-group
       = f.label :outlet_id

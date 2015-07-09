@@ -97,6 +97,11 @@ RSpec.describe User, type: :model do
 		end
 	end
 	describe "abilities" do
+		context "non logged in user" do
+			let(:guest) { User.new }
+			subject(:ability){ Ability.new(guest) }
+			it{ should be_able_to(:login, User) }
+		end
 		context "when is a super admin" do
 			subject(:ability){ Ability.new(super_admin) }
 			it{ should be_able_to(:manage, :all) }
@@ -106,6 +111,7 @@ RSpec.describe User, type: :model do
 			it{ should_not be_able_to(:manage, Outlet) }
 			it{ should_not be_able_to(:manage, User.new(role: "super_admin")) }
 			it{ should be_able_to(:manage, User.new(outlet: admin.outlet)) }
+			it{ should be_able_to(:dashboard, User) }
 		end
 		context "when is sales_executive" do
 			subject(:ability){ Ability.new(sales_executive) }
@@ -113,6 +119,7 @@ RSpec.describe User, type: :model do
 			it{ should_not be_able_to(:manage, User.new) }
 			it{ should_not be_able_to(:manage, User.new(outlet: sales_executive.outlet)) }
 			it{ should_not be_able_to(:manage, sales_executive) }
+			it{ should be_able_to(:dashboard, User) }
 		end
 		context "when is an production manager" do
 			subject(:ability){ Ability.new(production_manager) }
@@ -120,6 +127,7 @@ RSpec.describe User, type: :model do
 			it{ should_not be_able_to(:manage, User.new) }
 			it{ should_not be_able_to(:manage, User.new(outlet: production_manager.outlet)) }
 			it{ should_not be_able_to(:manage, production_manager) }
+			it{ should be_able_to(:dashboard, User) }
 		end
 	end
 end

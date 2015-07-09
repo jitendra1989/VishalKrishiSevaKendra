@@ -40,6 +40,12 @@ RSpec.describe Admin::UsersController, type: :controller do
 		before do
 			log_in user
 		end
+		describe "GET #dashboard" do
+			it "renders the dashboard page" do
+				get :dashboard
+				expect(response).to render_template(:dashboard)
+			end
+		end
 		describe "GET #show" do
 			it "assigns the requested user as @user" do
 				get :show, id: user.id

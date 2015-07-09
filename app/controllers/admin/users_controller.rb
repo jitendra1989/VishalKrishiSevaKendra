@@ -34,6 +34,9 @@ class Admin::UsersController < Admin::ApplicationController
   def edit
   end
 
+  def dashboard
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save

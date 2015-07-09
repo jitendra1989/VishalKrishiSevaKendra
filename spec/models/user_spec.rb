@@ -1,7 +1,12 @@
 require 'rails_helper'
+require "cancan/matchers"
 
 RSpec.describe User, type: :model do
 	let(:user) { FactoryGirl.build(:user) }
+	let(:super_admin) { FactoryGirl.build(:super_admin) }
+	let(:admin) { FactoryGirl.build(:admin) }
+	let(:sales_executive) { FactoryGirl.build(:sales_executive) }
+	let(:production_manager) { FactoryGirl.build(:production_manager) }
 	it { expect(user).to be_valid }
 	it { expect(user).to respond_to(:outlet) }
 	describe "when email format is invalid" do
@@ -67,10 +72,6 @@ RSpec.describe User, type: :model do
 		expect(user).to_not be_valid
 	end
 	describe 'role method checks' do
-		let(:super_admin) { FactoryGirl.build(:super_admin) }
-		let(:admin) { FactoryGirl.build(:admin) }
-		let(:sales_executive) { FactoryGirl.build(:sales_executive) }
-		let(:production_manager) { FactoryGirl.build(:production_manager) }
 		describe "super admin" do
 			it { expect(super_admin.super_admin?).to eq(true) }
 			it { expect(admin.super_admin?).to eq(false) }
@@ -93,6 +94,32 @@ RSpec.describe User, type: :model do
 			it { expect(admin.production_manager?).to eq(false) }
 			it { expect(sales_executive.production_manager?).to eq(false) }
 			it { expect(super_admin.production_manager?).to eq(false) }
+		end
+	end
+	describe "abilities" do
+		context "when is a super admin" do
+			subject(:ability){ Ability.new(super_admin) }
+			it{ should be_able_to(:manage, :all) }
+		end
+		context "when is an admin" do
+			subject(:ability){ Ability.new(admin) }
+			it{ should_not be_able_to(:manage, Outlet) }
+			it{ should_not be_able_to(:manage, User.new(role: "super_admin")) }
+			it{ should be_able_to(:manage, User.new(outlet: admin.outlet)) }
+		end
+		context "when is sales_executive" do
+			subject(:ability){ Ability.new(sales_executive) }
+			it{ should_not be_able_to(:manage, Outlet) }
+			it{ should_not be_able_to(:manage, User.new) }
+			it{ should_not be_able_to(:manage, User.new(outlet: sales_executive.outlet)) }
+			it{ should_not be_able_to(:manage, sales_executive) }
+		end
+		context "when is an production manager" do
+			subject(:ability){ Ability.new(production_manager) }
+			it{ should_not be_able_to(:manage, Outlet) }
+			it{ should_not be_able_to(:manage, User.new) }
+			it{ should_not be_able_to(:manage, User.new(outlet: production_manager.outlet)) }
+			it{ should_not be_able_to(:manage, production_manager) }
 		end
 	end
 end

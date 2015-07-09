@@ -38,6 +38,7 @@ gem 'cancancan', '~> 1.10'
 
 group :development do
   gem 'pry-rails'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do

@@ -3,10 +3,10 @@ require "cancan/matchers"
 
 RSpec.describe User, type: :model do
 	let(:user) { FactoryGirl.build(:user) }
-	let(:super_admin) { FactoryGirl.build(:super_admin) }
-	let(:admin) { FactoryGirl.build(:admin) }
-	let(:sales_executive) { FactoryGirl.build(:sales_executive) }
-	let(:production_manager) { FactoryGirl.build(:production_manager) }
+	let(:super_admin) { FactoryGirl.create(:super_admin) }
+	let(:admin) { FactoryGirl.create(:admin) }
+	let(:sales_executive) { FactoryGirl.create(:sales_executive) }
+	let(:production_manager) { FactoryGirl.create(:production_manager) }
 	it { expect(user).to be_valid }
 	it { expect(user).to respond_to(:outlet) }
 	describe "when email format is invalid" do
@@ -128,6 +128,7 @@ RSpec.describe User, type: :model do
 			it{ should_not be_able_to(:manage, User.new(outlet: production_manager.outlet)) }
 			it{ should_not be_able_to(:manage, production_manager) }
 			it{ should be_able_to(:dashboard, User) }
+			it{ should be_able_to(:logout, User) }
 		end
 	end
 end

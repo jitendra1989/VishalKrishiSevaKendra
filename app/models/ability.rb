@@ -11,9 +11,11 @@ class Ability
 				outlet_user.try(:outlet_id) == user.outlet_id
 			end
 		elsif user.sales_executive?
-		can :dashboard, User
 		elsif user.production_manager?
-		can :dashboard, User
+		end
+		if user.persisted?
+			can :logout, User
+			can :dashboard, User
 		end
 		can :login, User
 	end

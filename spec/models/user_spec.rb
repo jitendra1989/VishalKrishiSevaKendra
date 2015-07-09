@@ -66,10 +66,33 @@ RSpec.describe User, type: :model do
 		user.country = nil
 		expect(user).to_not be_valid
 	end
-	describe "super admin check" do
-		let(:admin) { FactoryGirl.build(:user, role: "admin") }
-		let(:super_admin) { FactoryGirl.build(:user, role: "super_admin") }
-		it { expect(super_admin.super_admin?).to eq(true) }
-		it { expect(admin.super_admin?).to eq(false) }
+	describe 'role method checks' do
+		let(:super_admin) { FactoryGirl.build(:super_admin) }
+		let(:admin) { FactoryGirl.build(:admin) }
+		let(:sales_executive) { FactoryGirl.build(:sales_executive) }
+		let(:production_manager) { FactoryGirl.build(:production_manager) }
+		describe "super admin" do
+			it { expect(super_admin.super_admin?).to eq(true) }
+			it { expect(admin.super_admin?).to eq(false) }
+			it { expect(sales_executive.super_admin?).to eq(false) }
+			it { expect(production_manager.super_admin?).to eq(false) }
+		end
+		describe "admin" do
+			it { expect(sales_executive.admin?).to eq(false) }
+			it { expect(admin.admin?).to eq(true) }
+			it { expect(production_manager.admin?).to eq(false) }
+		end
+		describe "sales executive" do
+			it { expect(sales_executive.sales_executive?).to eq(true) }
+			it { expect(admin.sales_executive?).to eq(false) }
+			it { expect(production_manager.sales_executive?).to eq(false) }
+			it { expect(super_admin.sales_executive?).to eq(false) }
+		end
+		describe "production manager" do
+			it { expect(production_manager.production_manager?).to eq(true) }
+			it { expect(admin.production_manager?).to eq(false) }
+			it { expect(sales_executive.production_manager?).to eq(false) }
+			it { expect(super_admin.production_manager?).to eq(false) }
+		end
 	end
 end

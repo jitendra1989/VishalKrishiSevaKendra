@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-	let(:user) { FactoryGirl.create(:user, role: 'super_admin' ) }
+	let(:user) { FactoryGirl.create(:super_admin) }
 
 	describe 'GET #login' do
 		it "renders login if user not logged in" do
@@ -137,7 +137,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 	end
 
 	describe 'Logged in actions for admin' do
-		let(:admin) { FactoryGirl.create(:user, role: 'admin' ) }
+		let(:admin) { FactoryGirl.create(:admin) }
 		before do
 			log_in admin
 		end

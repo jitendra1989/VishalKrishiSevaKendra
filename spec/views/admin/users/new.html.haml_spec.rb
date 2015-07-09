@@ -4,11 +4,11 @@ RSpec.describe "admin/users/new", type: :view do
 
 	let(:user) { User.new }
 
-  let(:admin) { FactoryGirl.create(:user, role: User::ROLES.first ) }
+  let(:super_admin) { FactoryGirl.create(:super_admin) }
 
 	it "renders the new user form" do
 	  assign(:user, user)
-	  assign(:current_user, admin)
+	  assign(:current_user, super_admin)
 	  render
 	  assert_select "form[action=?][method=?]", admin_users_path, "post" do
 	    assert_select "input#user_name[name=?]", "user[name]"

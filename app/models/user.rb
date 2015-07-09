@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 	validates :email, format: { with: VALID_EMAIL_REGEX }
 	has_secure_password
 
-	def super_admin?
-		role == ROLES.first
+	ROLES.each_with_index do |item, index|
+		define_method("#{item}?") { role == ROLES[index] }
 	end
 end

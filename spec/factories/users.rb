@@ -1,5 +1,5 @@
 FactoryGirl.define do
-	factory :user do
+	factory :user, aliases: [:production_manager] do
 		name { Faker::Name.name }
 		username { Faker::Internet.user_name }
 		email { Faker::Internet.email }
@@ -10,11 +10,20 @@ FactoryGirl.define do
 		city { Faker::Address.city }
 		state { Faker::Address.state }
 		country { Faker::Address.country }
+		role User::ROLES.fourth
 		outlet
-		role { User::ROLES.sample }
 		active false
 		factory :active_user do
 			active true
+		end
+		factory :super_admin do
+			role User::ROLES.first
+		end
+		factory :admin do
+			role User::ROLES.second
+		end
+		factory :sales_executive do
+			role User::ROLES.third
 		end
 	end
 end

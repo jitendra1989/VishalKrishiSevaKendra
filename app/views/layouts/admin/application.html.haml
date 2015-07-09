@@ -58,8 +58,8 @@
 											- if can? :read, @current_user
 												= link_to 'Profile', admin_user_path(@current_user)
 											= link_to 'Logout', logout_admin_users_path, method: :delete
-			- [@user].each do |object|
-				-if object && object.errors.any?
+			- [@user, @outlet, @category].each do |object|
+				-if object.try(:errors).try(:any?)
 					.alert.alert-danger
 						%ul
 							- object.errors.full_messages.each do |msg|

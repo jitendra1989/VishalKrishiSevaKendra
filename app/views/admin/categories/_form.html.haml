@@ -1,0 +1,7 @@
+= form_for [:admin, @category] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: true
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", :back, class: "btn btn-default"

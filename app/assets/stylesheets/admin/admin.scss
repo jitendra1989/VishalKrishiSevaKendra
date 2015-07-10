@@ -49,7 +49,11 @@ header{
 	table{
 		width: 100%;
 	}
-	select{
+	select, textarea{
 		width: 179px;
+	}
+	textarea{
+		height: 200px;
+		vertical-align: top;
 	}
 }

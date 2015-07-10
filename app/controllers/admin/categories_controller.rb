@@ -9,7 +9,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 	end
 
 	def index
-		@categories = Category.all
+		@categories = Category.roots
 	end
 
 	def create

@@ -1,0 +1,11 @@
+= content_tag_for :li, category do
+	= category.name
+	%span.actions.text-center
+		= link_to edit_admin_category_path(category) do
+			%span.glyphicon.glyphicon-pencil
+		= link_to admin_category_path(category), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+			%span.glyphicon.glyphicon-remove
+	- if category.children.size
+		%ul
+			- category.children.each do |sub_category|
+				= render 'category', category: sub_category

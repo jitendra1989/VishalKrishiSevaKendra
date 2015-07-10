@@ -4,17 +4,8 @@
   .col-md-10.col-md-offset-1
     .profile-box
       .text-right
-        =link_to 'New Categories', new_admin_category_path
+        =link_to 'New Category', new_admin_category_path
       %br
-      %table
-        %tr
-          %th Category
-          %th.text-center Actions
+      %ul.categories
         - @categories.each do |category|
-          %tr
-            %td= category.name
-            %td.actions.text-center
-              = link_to edit_admin_category_path(category) do
-                %span.glyphicon.glyphicon-pencil
-              = link_to admin_category_path(category), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-                %span.glyphicon.glyphicon-remove
+          = render 'category', category: category

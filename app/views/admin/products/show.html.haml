@@ -1,0 +1,22 @@
+.row
+	.col-md-12
+		%h2 Profile
+	.col-md-6.col-md-offset-3
+		.profile-box
+			.text-right
+				=link_to 'Edit Product', edit_admin_product_path(@product)
+			%p
+				%strong.title Name:
+				= @product.name
+			%p
+				%strong.title Code:
+				= @product.code
+			%p
+				%strong.title Description:
+				= @product.description
+			%p
+				%strong.title Price:
+				= @product.price
+			%p
+				%strong.title Active:
+				= @product.active

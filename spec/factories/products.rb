@@ -3,7 +3,7 @@ FactoryGirl.define do
 		name { Faker::Commerce.product_name }
 		code { Faker::Code.isbn }
 		description { Faker::Lorem.sentence }
-		price { Faker::Commerce.price }
+		price { BigDecimal.new(Faker::Commerce.price.to_s) }
 		active true
 		factory :inactive_product do
 			active false

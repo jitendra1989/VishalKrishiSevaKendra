@@ -36,6 +36,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'haml-rails'
 gem 'cancancan', '~> 1.10'
 gem 'ancestry'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :development do
   gem 'pry-rails'

@@ -11,6 +11,12 @@
   .form-group
     = f.label :price
     = f.text_field :price, required: true
+  = f.fields_for :images do |image|
+    .form-group
+      = image.label :name, "Image"
+      = image.file_field :name
+    - if image.object.name?
+      .form-group.text-center= image_tag(image.object.name.thumbnail.url)
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

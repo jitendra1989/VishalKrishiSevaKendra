@@ -65,6 +65,24 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				end
 			end
 
+			describe "with image" do
+				let(:cv_file) { fixture_file_upload('test.pdf', 'application/pdf') }
+				let(:png_file) { fixture_file_upload('test.png', 'image/png') }
+				it "creates a new Product image" do
+					expect {
+						post :create, product: valid_attributes.merge(images_attributes: [ { images_id: png_file } ])
+						}.to change(ProductImage, :count).by(1)
+				end
+				it "uploads the image" do
+					post :create, product: valid_attributes.merge(images_attributes: [ { images_id: png_file } ])
+					expect(response).to redirect_to(admin_products_url)
+				end
+				# it "renders the show page when a non pdf is uploaded" do
+				# 	post :update, candidate: { cv: png_file }
+				# 	expect(response).to render_template(:show)
+				# end
+			end
+
 			context "with invalid params" do
 				it "assigns a newly created but unsaved product as @product" do
 					post :create, product: invalid_attributes

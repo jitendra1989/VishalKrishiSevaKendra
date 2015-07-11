@@ -61,7 +61,7 @@
 											- if can? :read, @current_user
 												= link_to 'Profile', admin_user_path(@current_user)
 											= link_to 'Logout', logout_admin_users_path, method: :delete
-			- [@user, @outlet, @category].each do |object|
+			- [@user, @outlet, @category, @product].each do |object|
 				-if object.try(:errors).try(:any?)
 					.alert.alert-danger
 						%ul

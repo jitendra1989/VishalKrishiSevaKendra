@@ -70,17 +70,17 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				let(:png_file) { fixture_file_upload('test.png', 'image/png') }
 				it "creates a new Product image" do
 					expect {
-						post :create, product: valid_attributes.merge(images_attributes: [ { images_id: png_file } ])
+						post :create, product: valid_attributes.merge(images_attributes: [ name: png_file ])
 						}.to change(ProductImage, :count).by(1)
 				end
 				it "uploads the image" do
-					post :create, product: valid_attributes.merge(images_attributes: [ { images_id: png_file } ])
+					post :create, product: valid_attributes.merge(images_attributes: [ name: png_file ])
 					expect(response).to redirect_to(admin_products_url)
 				end
-				# it "renders the show page when a non pdf is uploaded" do
-				# 	post :update, candidate: { cv: png_file }
-				# 	expect(response).to render_template(:show)
-				# end
+				it "renders the show page when a non image is uploaded" do
+					post :create, product: valid_attributes.merge(images_attributes: [ name: cv_file ])
+					expect(response).to render_template(:new)
+				end
 			end
 
 			context "with invalid params" do
@@ -123,6 +123,16 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				it "re-renders the 'edit' template" do
 					put :update, id: product.id, product: invalid_attributes
 					expect(response).to render_template("edit")
+				end
+			end
+
+			describe "with image" do
+				let(:png_file) { fixture_file_upload('test.png', 'image/png') }
+				let!(:image) { FactoryGirl.create(:product_image, product: product) }
+				it "deletes an existing Product image" do
+					expect {
+						post :update, id: product.id, product: valid_attributes.merge(images_attributes: [ id: image.id, _destroy: true ])
+						}.to change(ProductImage, :count).by(-1)
 				end
 			end
 		end

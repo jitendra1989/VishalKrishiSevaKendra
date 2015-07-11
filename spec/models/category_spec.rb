@@ -5,6 +5,8 @@ RSpec.describe Category, type: :model do
 	let(:sub_category) { FactoryGirl.build(:sub_category, parent: category) }
 	it { expect(category).to be_valid }
 	it { expect(sub_category).to be_valid }
+	it { expect(category).to respond_to(:product_categories) }
+	it { expect(category).to respond_to(:products) }
 	it "has a valid name" do
 		category.name = nil
 		expect(category).to_not be_valid

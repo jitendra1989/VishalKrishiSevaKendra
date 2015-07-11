@@ -43,15 +43,18 @@
 										= link_to 'Outlets', admin_outlets_path
 								%li
 									= link_to 'Roles', "#"
-								%li.dropdown{ role: 'presentation' }
-									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
-										Product Management
-										%span.caret
-									%ul.dropdown-menu
-										%li
-											= link_to 'Categories', admin_categories_path
-										%li
-											= link_to 'Products', admin_products_path
+								- if can? :manage, Category or can? :manage, Product
+									%li.dropdown{ role: 'presentation' }
+										%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
+											Product Management
+											%span.caret
+										%ul.dropdown-menu
+											- if can? :manage, Category
+												%li
+													= link_to 'Categories', admin_categories_path
+											- if can? :manage, Product
+												%li
+													= link_to 'Products', admin_products_path
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Profile

@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-	before_action :set_product, only: [:edit, :update, :destroy, :show]
+	load_and_authorize_resource
 
 	def index
 		@products = Product.all
@@ -40,10 +40,6 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	private
-		def set_product
-			@product = Product.find(params[:id])
-		end
-
 		def product_params
 			params.require(:product).permit(:name, :code, :description, :price, :active, images_attributes:[:id, :name, :_destroy], category_ids: [])
 		end

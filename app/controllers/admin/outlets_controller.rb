@@ -1,5 +1,4 @@
 class Admin::OutletsController < Admin::ApplicationController
-	before_action :set_outlet, only: [:edit, :update, :destroy]
 	load_and_authorize_resource
 
 	def index
@@ -36,12 +35,6 @@ class Admin::OutletsController < Admin::ApplicationController
 	end
 
 	private
-		# Use callbacks to share common setup or constraints between actions.
-		def set_outlet
-			@outlet = Outlet.find(params[:id])
-		end
-
-		# Never trust parameters from the scary internet, only allow the white list through.
 		def outlet_params
 			params.require(:outlet).permit(:name, :country, :state, :city)
 		end

@@ -1,5 +1,4 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:login]
   load_and_authorize_resource
 
@@ -60,12 +59,6 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :username, :outlet_id, :role, :email, :phone, :password, :password_confirmation, :address, :pincode, :city, :state, :country)
     end

@@ -20,6 +20,12 @@
         = image_tag(image.object.name.thumbnail.url)
         = image.check_box :_destroy
         = image.label :_destroy, "Mark for deletion"
+  %strong Categories
+  = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
+    .form-group.category-checkboxes
+      = category.check_box
+      = category.label
+      = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

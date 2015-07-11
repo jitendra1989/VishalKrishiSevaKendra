@@ -135,6 +135,16 @@ RSpec.describe Admin::ProductsController, type: :controller do
 						}.to change(ProductImage, :count).by(-1)
 				end
 			end
+
+			describe "with categories" do
+				let(:category) { FactoryGirl.create(:category) }
+				let(:sub_category) { FactoryGirl.create(:sub_category) }
+				it "add the selected categories to the product" do
+					expect {
+						post :update, id: product.id, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
+						}.to change(ProductCategory, :count).by(2)
+				end
+			end
 		end
 
 		describe "DELETE #destroy" do

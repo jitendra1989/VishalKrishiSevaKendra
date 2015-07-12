@@ -6,7 +6,7 @@
     = f.label :username
     = f.text_field :username, required: true
   - if @current_user.super_admin? || @current_user == @user
-    = f.hidden_field :role, value: User::ROLES.second
+    = f.hidden_field :role, value: @user.role || User::ROLES.second
   - else
     .form-group
       = f.label :role

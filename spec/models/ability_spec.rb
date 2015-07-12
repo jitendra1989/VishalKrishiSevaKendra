@@ -15,6 +15,7 @@ RSpec.describe Ability, type: :model do
 	context "when is a super admin" do
 		subject(:ability){ Ability.new(super_admin) }
 		it{ should be_able_to(:manage, :all) }
+		it{ should_not be_able_to(:create, User.new(role: "super_admin")) }
 	end
 	context "when is an admin" do
 		subject(:ability){ Ability.new(admin) }
@@ -23,6 +24,9 @@ RSpec.describe Ability, type: :model do
 		it{ should_not be_able_to(:manage, Category) }
 		it{ should_not be_able_to(:manage, User.new(role: "super_admin")) }
 		it{ should be_able_to(:manage, User.new(outlet: admin.outlet)) }
+		it{ should_not be_able_to(:manage, User.new(role: "super_admin", outlet: admin.outlet)) }
+		it{ should_not be_able_to(:create, User.new(role: "admin")) }
+		it{ should be_able_to(:update, admin) }
 		it{ should be_able_to(:dashboard, User) }
 	end
 	context "when is sales_executive" do

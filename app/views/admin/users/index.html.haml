@@ -13,7 +13,7 @@
 					%th Role
 					%th Email
 					%th Contact No
-					%th.text-center Actions
+					%th.text-center{ colspan: 2 } Actions
 				- @users.each do |user|
 					%tr
 						%td= user.name
@@ -24,5 +24,7 @@
 						%td.actions.text-center
 							= link_to edit_admin_user_path(user) do
 								%span.glyphicon.glyphicon-pencil
-							= link_to admin_user_path(user), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-								%span.glyphicon.glyphicon-remove
+						%td.actions.text-center
+							- if can? :delete, user
+								= link_to admin_user_path(user), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+									%span.glyphicon.glyphicon-remove

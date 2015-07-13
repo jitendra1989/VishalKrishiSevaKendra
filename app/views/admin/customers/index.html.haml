@@ -1,0 +1,26 @@
+.row
+	.col-md-12
+		%h2 Customer
+	.col-md-10.col-md-offset-1
+		.profile-box
+			.text-right
+				=link_to 'Create Customer', new_admin_customer_path
+			%br
+			%table
+				%tr
+					%th Name
+					%th Address
+					%th Mobile
+					%th Email
+					%th.text-center Actions
+				- @customers.each do |customer|
+					%tr
+						%td= customer.name
+						%td= customer.address
+						%td= customer.mobile
+						%td= customer.email
+						%td.actions.text-center
+							= link_to edit_admin_customer_path(customer) do
+								%span.glyphicon.glyphicon-pencil
+							= link_to admin_customer_path(customer), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+								%span.glyphicon.glyphicon-remove

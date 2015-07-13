@@ -35,9 +35,16 @@
 											= link_to 'Oustanding Bills Report', "#"
 										%li
 											= link_to 'Oustanding Partywise Report', "#"
-								- if can? :manage, User
-									%li
-										= link_to 'Users', admin_users_path
+								%li.dropdown{ role: 'presentation' }
+									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
+										Users
+										%span.caret
+									%ul.dropdown-menu
+										- if can? :manage, User
+											%li
+												= link_to 'Users', admin_users_path
+										%li
+											= link_to 'Customers', admin_customers_path
 								- if can? :manage, Outlet
 									%li
 										= link_to 'Outlets', admin_outlets_path
@@ -64,7 +71,7 @@
 											- if can? :read, @current_user
 												= link_to 'Profile', admin_user_path(@current_user)
 											= link_to 'Logout', logout_admin_users_path, method: :delete
-			- [@user, @outlet, @category, @product].each do |object|
+			- [@user, @outlet, @category, @product, @customer].each do |object|
 				-if object.try(:errors).try(:any?)
 					.alert.alert-danger
 						%ul

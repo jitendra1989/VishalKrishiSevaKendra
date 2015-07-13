@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#dashboard'
+    resources :customers
     resources :products
     resources :outlets, except: [:show]
     resources :categories, except: [:show]

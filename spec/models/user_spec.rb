@@ -54,9 +54,17 @@ RSpec.describe User, type: :model do
 		user.address = nil
 		expect(user).to_not be_valid
 	end
-	it "has a valid pincode" do
-		user.pincode = nil
-		expect(user).to_not be_valid
+	describe "pincode" do
+		it "has a valid pincode" do
+			user.pincode = nil
+			expect(user).to_not be_valid
+		end
+		it "has 6 digits only" do
+			user.pincode = "1" * 8
+			expect(user).to_not be_valid
+			user.pincode = "1" * 6
+			expect(user).to be_valid
+		end
 	end
 	it "has a valid city" do
 		user.city = nil

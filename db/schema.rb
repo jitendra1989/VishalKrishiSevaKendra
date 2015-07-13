@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711094257) do
+ActiveRecord::Schema.define(version: 20150713051805) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -21,6 +21,23 @@ ActiveRecord::Schema.define(version: 20150711094257) do
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.integer  "mobile",          limit: 8
+    t.integer  "phone",           limit: 8
+    t.string   "address",         limit: 255
+    t.integer  "pincode",         limit: 4
+    t.string   "city",            limit: 255
+    t.string   "state",           limit: 255
+    t.string   "country",         limit: 255
+    t.string   "company_name",    limit: 255
+    t.string   "company_address", limit: 255
+    t.integer  "company_phone",   limit: 8
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "outlets", force: :cascade do |t|
     t.string   "name",       limit: 255

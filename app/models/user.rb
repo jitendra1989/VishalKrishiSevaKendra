@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	validates :username, uniqueness: { case_sensitive: false }
 	validates :role, inclusion: ROLES
 	validates :email, format: { with: VALID_EMAIL_REGEX }
+	validates :pincode, length: { is: 6 }
 	has_secure_password
 
 	ROLES.each_with_index do |item, index|

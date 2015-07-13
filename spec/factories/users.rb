@@ -6,7 +6,7 @@ FactoryGirl.define do
 		phone { Faker::Number.number(10).to_i }
 		password { Faker::Internet.password }
 		address { Faker::Address.street_address }
-		pincode { Faker::Number.number(6).to_i }
+		pincode { (1..6).to_a.shuffle.join.to_i }
 		city { Faker::Address.city }
 		state { Faker::Address.state }
 		country { Faker::Address.country }

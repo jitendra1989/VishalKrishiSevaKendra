@@ -5,6 +5,7 @@ RSpec.describe Quotation, type: :model do
   it { expect(quotation).to be_valid }
   it { expect(quotation).to respond_to(:customer) }
   it { expect(quotation).to respond_to(:user) }
+  it { expect(quotation).to respond_to(:products) }
 
   it "has a valid discount amount" do
     quotation.discount_amount = Faker::Lorem.word

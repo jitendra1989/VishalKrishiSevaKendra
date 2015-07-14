@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
 	let(:production_manager) { FactoryGirl.create(:production_manager) }
 	it { expect(user).to be_valid }
 	it { expect(user).to respond_to(:outlet) }
+	it { expect(user).to respond_to(:quotations) }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

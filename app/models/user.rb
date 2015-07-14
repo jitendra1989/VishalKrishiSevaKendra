@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	belongs_to :outlet
+	has_many :quotations
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	ROLES = %w[super_admin admin sales_executive production_manager]
 

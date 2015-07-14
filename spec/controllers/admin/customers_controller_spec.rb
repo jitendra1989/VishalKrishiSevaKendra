@@ -46,9 +46,15 @@ RSpec.describe Admin::CustomersController, type: :controller do
 				expect(assigns(:customer)).to be_an(Customer)
 				expect(assigns(:customer)).to be_persisted
 			end
-			it "redirects to the customer list" do
-				post :create, customer: valid_attributes
-				expect(response).to redirect_to(admin_customers_url)
+			describe "redirect action" do
+				it "redirects to the customer list" do
+					post :create, customer: valid_attributes
+					expect(response).to redirect_to(admin_customers_url)
+				end
+				it "redirects to the quotation form if quotation action is specified" do
+					post :create, customer: valid_attributes, next: :quotation
+					expect(response).to redirect_to(admin_quotations_url)
+				end
 			end
 		end
 		context "with invalid params" do
@@ -68,10 +74,15 @@ RSpec.describe Admin::CustomersController, type: :controller do
 				put :update, id: customer.id, customer: valid_attributes
 				expect(assigns(:customer)).to have_attributes(valid_attributes)
 			end
-
-			it "redirects to the customer list" do
-				put :update, id: customer.id, customer: valid_attributes
-				expect(response).to redirect_to(admin_customers_url)
+			describe "redirect action" do
+				it "redirects to the customer list" do
+					put :update, id: customer.id, customer: valid_attributes
+					expect(response).to redirect_to(admin_customers_url)
+				end
+				it "redirects to the quotation form if quotation action is specified" do
+					put :update, id: customer.id, customer: valid_attributes, next: :quotation
+					expect(response).to redirect_to(admin_quotations_url)
+				end
 			end
 		end
 
@@ -83,7 +94,6 @@ RSpec.describe Admin::CustomersController, type: :controller do
 
 			it "re-renders the 'edit' template" do
 				put :update, id: customer.id, customer: invalid_attributes
-				puts response.body
 				expect(response).to render_template("edit")
 			end
 		end

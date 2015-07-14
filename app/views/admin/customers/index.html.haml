@@ -20,6 +20,8 @@
 						%td= customer.mobile
 						%td= customer.email
 						%td.actions.text-center
+							= link_to new_admin_customer_quotation_path(customer), title: 'New Quote' do
+								%span.glyphicon.glyphicon-list-alt
 							= link_to edit_admin_customer_path(customer) do
 								%span.glyphicon.glyphicon-pencil
 							= link_to admin_customer_path(customer), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do

@@ -36,5 +36,6 @@
     = f.label :company_phone
     = f.text_field :company_phone
   .form-group.text-center
-    = f.submit "Submit", class: "btn btn-primary"
+    = f.button "Save", name: :next, value: :save, class: 'btn btn-primary'
+    = f.button "Save and add Quotation", name: :next, value: :quotation, class:  'btn btn-primary'
     = link_to "Cancel", :back, class: "btn btn-default"

@@ -15,7 +15,7 @@ class Admin::CustomersController < Admin::ApplicationController
 	def create
 		@customer = Customer.new(customer_params)
 		if @customer.save
-			redirect_to admin_customers_url, flash: { success: 'Customer was successfully created.' }
+			customer_redirect success: 'Customer was successfully created.'
 		else
 			render :new
 		end
@@ -24,7 +24,7 @@ class Admin::CustomersController < Admin::ApplicationController
 	def update
 		@customer = Customer.find(params[:id])
 		if @customer.update(customer_params)
-			redirect_to admin_customers_url, flash: { success: 'Customer was successfully updated.' }
+			customer_redirect success: 'Customer was successfully updated.'
 		else
 			render :edit
 		end
@@ -39,5 +39,9 @@ class Admin::CustomersController < Admin::ApplicationController
 	private
 		def customer_params
 			params.require(:customer).permit( :name, :email, :mobile, :phone, :address, :pincode, :city, :state, :country, :company_name, :company_address, :company_phone )
+		end
+
+		def customer_redirect(flash)
+			redirect_to (params[:next] == 'quotation' ? admin_quotations_url : admin_customers_url), flash: flash
 		end
 end

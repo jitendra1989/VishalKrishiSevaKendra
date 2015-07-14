@@ -1,0 +1,42 @@
+.row
+  .col-md-12
+    %h2 Quotation
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-center Quotation Form
+      %hr
+      .row
+        .col-md-8
+          .customer-info
+            Name:
+            %strong= @customer.name
+          .customer-info
+            Address:
+            %strong= @customer.address
+          .customer-info
+            Contact No:
+            %strong= @customer.mobile
+        .col-md-4
+          .customer-info
+            Quotation No:
+            %strong= Quotation.all.size + 1
+          .customer-info
+            Date:
+            %strong= Time.zone.now.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          = form_for [:admin, @quotation], url: admin_customer_quotations_path(@customer) do |f|
+            .form-group
+              = f.label :discount_amount
+              = f.number_field :discount_amount
+            - @quotation.products.build
+            = f.fields_for :products do |products|
+              .form-group
+                = products.label :product_id
+                = products.select :product_id, Product.pluck(:name, :id)
+              .form-group
+                = f.label :quantity
+                = products.text_field :quantity
+            .form-group.text-center
+              = f.submit "Submit", class: "btn btn-primary"
+              = link_to "Cancel", :back, class: "btn btn-default"

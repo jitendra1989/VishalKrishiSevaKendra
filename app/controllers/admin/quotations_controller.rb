@@ -24,6 +24,6 @@ class Admin::QuotationsController < Admin::ApplicationController
 
 	private
 		def quotation_params
-			params.require(:quotation).permit(:discount_amount)
+			params.require(:quotation).permit(:discount_amount, products_attributes: [:product_id, :quantity])
 		end
 end

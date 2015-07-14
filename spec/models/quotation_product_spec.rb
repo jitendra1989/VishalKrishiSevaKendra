@@ -5,23 +5,16 @@ RSpec.describe QuotationProduct, type: :model do
   it { expect(quotation_product).to be_valid }
 	it { expect(quotation_product).to respond_to(:quotation) }
 	it { expect(quotation_product).to respond_to(:product) }
-	it "has a valid price" do
-	  quotation_product.price = Faker::Lorem.word
-	  expect(quotation_product).to_not be_valid
-	  quotation_product.price = nil
-	  expect(quotation_product).to_not be_valid
-	end
-	it "has a valid quotation" do
-		quotation_product.quotation = nil
-		expect(quotation_product).to_not be_valid
-	end
 	it "has a valid product" do
 		quotation_product.product = nil
 		expect(quotation_product).to_not be_valid
 	end
-	it "has a valid name" do
-		quotation_product.name = nil
-		expect(quotation_product).to_not be_valid
+	describe 'Name and price assignment' do
+		before { quotation_product.valid? }
+		it 'assigns itself the name of the product' do
+			puts quotation_product.product_id
+			expect(quotation_product.name).to eq(quotation_product.product.name)
+		end
 	end
 	it "has a valid quantity" do
 		quotation_product.quantity = nil

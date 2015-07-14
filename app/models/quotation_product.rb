@@ -2,8 +2,13 @@ class QuotationProduct < ActiveRecord::Base
   belongs_to :quotation
   belongs_to :product
 
-  [:quotation_id, :product_id, :name].each { |n| validates n, presence: true }
+  before_validation :add_name_price
 
-  validates :price, numericality: true
+  validates :product_id, presence: true
   validates :quantity, numericality: { greater_than: 0, only_integer: true }
+
+  private
+    def add_name_price
+      self.assign_attributes(self.product.attributes.slice('name', 'price')) if self.product
+    end
 end

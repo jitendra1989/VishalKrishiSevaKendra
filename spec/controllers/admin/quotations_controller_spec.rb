@@ -34,6 +34,7 @@ RSpec.describe Admin::QuotationsController, type: :controller do
 	end
 
 	describe "POST #create" do
+		let(:product) { FactoryGirl.create(:product) }
 		context "with valid params" do
 			it "creates a new Quotation" do
 				expect {
@@ -50,6 +51,14 @@ RSpec.describe Admin::QuotationsController, type: :controller do
 			it "redirects to the quotation list" do
 				post :create, customer_id: customer.id, quotation: valid_attributes
 				expect(response).to redirect_to(admin_quotations_url)
+			end
+
+			describe "with product" do
+				it "creates a new QuotationProduct" do
+					expect {
+						post :create, customer_id: customer.id, quotation: valid_attributes.merge(products_attributes: [ product_id: product.id, quantity:  Faker::Number.between(1, 10) ])
+						}.to change(QuotationProduct, :count).by(1)
+				end
 			end
 		end
 

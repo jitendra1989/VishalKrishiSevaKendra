@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714054606) do
+ActiveRecord::Schema.define(version: 20150714125107) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -77,6 +77,19 @@ ActiveRecord::Schema.define(version: 20150714054606) do
     t.datetime "updated_at",                                                         null: false
   end
 
+  create_table "quotation_products", force: :cascade do |t|
+    t.integer  "quotation_id", limit: 4
+    t.integer  "product_id",   limit: 4
+    t.string   "name",         limit: 255
+    t.integer  "quantity",     limit: 4
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
+  add_index "quotation_products", ["product_id"], name: "index_quotation_products_on_product_id", using: :btree
+  add_index "quotation_products", ["quotation_id"], name: "index_quotation_products_on_quotation_id", using: :btree
+
   create_table "quotations", force: :cascade do |t|
     t.integer  "customer_id",     limit: 4
     t.integer  "user_id",         limit: 4
@@ -112,6 +125,8 @@ ActiveRecord::Schema.define(version: 20150714054606) do
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
+  add_foreign_key "quotation_products", "products"
+  add_foreign_key "quotation_products", "quotations"
   add_foreign_key "quotations", "customers"
   add_foreign_key "quotations", "users"
   add_foreign_key "users", "outlets"

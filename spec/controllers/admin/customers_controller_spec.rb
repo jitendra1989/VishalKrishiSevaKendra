@@ -53,7 +53,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 				end
 				it "redirects to the quotation form if quotation action is specified" do
 					post :create, customer: valid_attributes, next: :quotation
-					expect(response).to redirect_to(admin_quotations_url)
+					expect(response).to redirect_to(new_admin_customer_quotation_url(Customer.last))
 				end
 			end
 		end
@@ -81,7 +81,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 				end
 				it "redirects to the quotation form if quotation action is specified" do
 					put :update, id: customer.id, customer: valid_attributes, next: :quotation
-					expect(response).to redirect_to(admin_quotations_url)
+					expect(response).to redirect_to(new_admin_customer_quotation_url(customer))
 				end
 			end
 		end

@@ -42,6 +42,6 @@ class Admin::CustomersController < Admin::ApplicationController
 		end
 
 		def customer_redirect(flash)
-			redirect_to (params[:next] == 'quotation' ? admin_quotations_url : admin_customers_url), flash: flash
+			redirect_to (params[:next] == 'quotation' ? new_admin_customer_quotation_url(@customer) : admin_customers_url), flash: flash
 		end
 end

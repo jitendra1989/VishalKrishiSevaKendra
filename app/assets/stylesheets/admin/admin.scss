@@ -38,10 +38,12 @@ header{
 .actions a{
 	margin: 0 10px;
 }
-.profile-box{
+.profile-box, .main-content{
 	margin-top: 40px;
 	border: 1px solid #ccc;
 	padding: 25px 40px;
+}
+.profile-box{
 	.title, label{
 		width: 160px;
 		display: inline-block;

@@ -2,41 +2,56 @@
   .col-md-12
     %h2 Quotation
   .col-md-10.col-md-offset-1
-    .profile-box
-      .text-center Quotation Form
+    .quotation-form.main-content
+      .h3.text-center Quotation Form
       %hr
       .row
         .col-md-8
-          .customer-info
-            Name:
+          .quotation-info
+            .customer-labels Name:
             %strong= @customer.name
-          .customer-info
-            Address:
+          .quotation-info
+            .customer-labels Address:
             %strong= @customer.address
-          .customer-info
-            Contact No:
+          .quotation-info
+            .customer-labels Contact No:
             %strong= @customer.mobile
         .col-md-4
-          .customer-info
-            Quotation No:
+          .quotation-info
+            .customer-labels Quotation No:
             %strong= Quotation.all.size + 1
-          .customer-info
-            Date:
+          .quotation-info
+            .customer-labels Date:
             %strong= Time.zone.now.strftime '%d-%m-%Y'
       .row
         .col-md-12
           = form_for [:admin, @quotation], url: admin_customer_quotations_path(@customer) do |f|
-            .form-group
-              = f.label :discount_amount
-              = f.number_field :discount_amount
-            - @quotation.products.build
-            = f.fields_for :products do |products|
-              .form-group
-                = products.label :product_id
-                = products.select :product_id, Product.pluck(:name, :id)
-              .form-group
-                = f.label :quantity
-                = products.text_field :quantity
+            %table.table.table-striped.table-bordered
+              %thead
+                %tr
+                  %th{ width: '50%' } Product
+                  %th Qty
+                  %th{ width: '20%' } Rate
+                  %th{ width: '20%' } Amount
+              %tbody
+                - @quotation.products.build
+                = f.fields_for :products do |products|
+                  %tr
+                    %td= products.select :product_id, Product.pluck(:name, :id)
+                    %td= products.number_field :quantity, class: 'quantity-field', min: 1
+                    %td Rate
+                    %td Amount
+              %tfoot
+                %tr
+                  %td{ colspan: 3 } Total
+                  %td 0
+                %tr
+                  %td{ colspan: 3 } Discount %
+                  %td
+                    .input-group
+                      .input-group-addon &#8377;
+                      %input.form-control{ type: "text", 'aria-label' => 'Amount (to the nearest dollar)' }
+                      %span.input-group-addon .00
             .form-group.text-center
               = f.submit "Submit", class: "btn btn-primary"
               = link_to "Cancel", :back, class: "btn btn-default"

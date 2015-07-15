@@ -39,6 +39,7 @@ gem 'ancestry'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'cocoon'
+gem 'prawn'
 
 group :development do
   gem 'pry-rails'

@@ -5,6 +5,13 @@ class Admin::QuotationsController < Admin::ApplicationController
 
 	def show
 		@quotation = Quotation.find(params[:id])
+		respond_to do |format|
+			format.html
+			format.pdf do
+				pdf = QuotationPdf.new(@quotation)
+				send_data pdf.render, filename: "quotation_#{@quotation.id}.pdf", disposition: "inline"
+			end
+		end
 	end
 
 	def new

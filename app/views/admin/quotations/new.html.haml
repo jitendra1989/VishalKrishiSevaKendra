@@ -33,21 +33,28 @@
                   %th Qty
                   %th{ width: '20%' } Rate
                   %th{ width: '20%' } Amount
-              %tbody
-                - @quotation.products.build
+              %tbody.quotation-products
                 = f.fields_for :products do |product|
                   = render 'product_fields', f: product
                 %tr.add-more
                   %td{ colspan: 4 }
-                    = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more'
+                    = text_field_tag :product, '', 'data-url' => products_admin_quotations_path, class: 'autocomplete', autocomplete: 'off', placeholder: 'Search for product here'
+                    = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more', class: 'hidden add-product'
               %tfoot
                 %tr
                   %td{ colspan: 3 }
                     %strong Total
-                  %td 0
+                  %td.sub-total.text-right
                 %tr
-                  %td{ colspan: 3 }= f.label :discount_amount, 'Discount %'
-                  %td= f.text_field :discount_amount
+                  %td{ colspan: 3 }
+                    = f.label :discount_amount, 'Discount'
+                    = number_field_tag :discount_percent, 0, class: 'discount-percent text-right', min: 0, step: '0.01'
+                    \%
+                  %td= f.number_field :discount_amount, class: 'text-right', step: '0.01'
+                %tr
+                  %td{ colspan: 3 }
+                    %strong Full Total
+                  %td.full-total.text-right
             .form-group.text-center
               = f.submit "Submit", class: "btn btn-primary"
               = link_to "Cancel", :back, class: "btn btn-default"

@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#dashboard'
-    resources :quotations, only: [:index]
+    resources :quotations, only: [:index] do
+      collection do
+        get 'products'
+      end
+    end
     resources :customers, shallow: true do
       resources :quotations, only: [:new, :create, :show]
     end

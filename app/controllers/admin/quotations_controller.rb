@@ -22,6 +22,11 @@ class Admin::QuotationsController < Admin::ApplicationController
 		end
 	end
 
+	def products
+		@products = Product.where('name like ?', "%#{params[:q]}%")
+		render formats: :json
+	end
+
 	private
 		def quotation_params
 			params.require(:quotation).permit(:discount_amount, products_attributes: [:product_id, :quantity])

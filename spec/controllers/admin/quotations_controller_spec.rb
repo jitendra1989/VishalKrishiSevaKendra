@@ -73,4 +73,12 @@ RSpec.describe Admin::QuotationsController, type: :controller do
 			end
 		end
 	end
+
+	describe "GET #products" do
+		let(:product) { FactoryGirl.create(:product) }
+		it "returns products matching name provided via search" do
+			get :products, q: product.name
+			expect(assigns(:products)).to include(product)
+		end
+	end
 end

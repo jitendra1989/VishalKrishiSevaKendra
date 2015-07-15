@@ -22,4 +22,5 @@
             %td.actions.text-center
               = link_to admin_quotation_path(quotation) do
                 %span.glyphicon.glyphicon-search
-
+              =link_to admin_quotation_path(quotation,format: :pdf), target: :_blank do
+                %span.glyphicon.glyphicon-print

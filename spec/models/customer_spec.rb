@@ -4,6 +4,7 @@ RSpec.describe Customer, type: :model do
 	let(:customer) { FactoryGirl.build(:customer) }
 	it { expect(customer).to be_valid }
 	it { expect(customer).to respond_to(:quotations) }
+	it { expect(customer.full_address).to eq("#{customer.address}, #{customer.city}, #{customer.state} - #{customer.pincode}") }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

@@ -11,4 +11,8 @@ class Customer < ActiveRecord::Base
 	validates :pincode, length: { is: 6 }
 
 	before_save { self.email.downcase! }
+
+	def full_address
+		"#{address}, #{city}, #{state} - #{pincode}"
+	end
 end

@@ -7,4 +7,5 @@ class Quotation < ActiveRecord::Base
 
   [:discount_amount, :customer_id, :user_id].each { |n| validates n, presence: true }
   validates :discount_amount, numericality: true
+  validates :products, presence: true, on: :create
 end

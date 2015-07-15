@@ -12,7 +12,6 @@ RSpec.describe QuotationProduct, type: :model do
 	describe 'Name and price assignment' do
 		before { quotation_product.valid? }
 		it 'assigns itself the name of the product' do
-			puts quotation_product.product_id
 			expect(quotation_product.name).to eq(quotation_product.product.name)
 		end
 	end

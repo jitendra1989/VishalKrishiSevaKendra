@@ -1,0 +1,62 @@
+.row
+  .col-md-12
+    %h2 Quotation
+  .col-md-10.col-md-offset-1
+    .quotation-form.main-content
+      .h3.text-center Quotation Form
+      %hr
+      .row
+        .col-md-8
+          .quotation-info
+            .customer-labels Name:
+            %strong= @quotation.customer.name
+          .quotation-info
+            .customer-labels Address:
+            %strong= @quotation.customer.address
+          .quotation-info
+            .customer-labels Contact No:
+            %strong= @quotation.customer.mobile
+        .col-md-4
+          .quotation-info
+            .customer-labels Quotation No:
+            %strong= @quotation.id
+          .quotation-info
+            .customer-labels Date:
+            %strong= @quotation.created_at.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          %table.table.table-striped.table-bordered
+            %thead
+              %tr
+                %th{ width: '50%' } Product
+                %th Qty
+                %th{ width: '20%' } Rate
+                %th{ width: '20%' } Amount
+            %tbody
+              - total = 0
+              - @quotation.products.each do |product|
+                - amount = product.quantity * product.price
+                - total += amount
+                %tr
+                  %td= product.name
+                  %td.text-right= product.quantity
+                  %td.text-right= number_to_currency product.price
+                  %td.text-right= number_to_currency amount
+
+            %tfoot
+              %tr
+                %td{ colspan: 3 }
+                  %strong Total
+                %td
+                  %strong
+                    .text-right= number_to_currency total
+              %tr
+                %td{ colspan: 3 }
+                  %strong Discount %
+                %td.text-right= number_to_currency @quotation.discount_amount
+              %tr
+                %td{ colspan: 3 }
+                  %strong Final Total
+                %td
+                  %strong
+                    .text-right= number_to_currency total - @quotation.discount_amount

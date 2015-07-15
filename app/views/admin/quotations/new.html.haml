@@ -35,23 +35,19 @@
                   %th{ width: '20%' } Amount
               %tbody
                 - @quotation.products.build
-                = f.fields_for :products do |products|
-                  %tr
-                    %td= products.select :product_id, Product.pluck(:name, :id)
-                    %td= products.number_field :quantity, class: 'quantity-field', min: 1
-                    %td Rate
-                    %td Amount
+                = f.fields_for :products do |product|
+                  = render 'product_fields', f: product
+                %tr.add-more
+                  %td{ colspan: 4 }
+                    = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more'
               %tfoot
                 %tr
-                  %td{ colspan: 3 } Total
+                  %td{ colspan: 3 }
+                    %strong Total
                   %td 0
                 %tr
-                  %td{ colspan: 3 } Discount %
-                  %td
-                    .input-group
-                      .input-group-addon &#8377;
-                      %input.form-control{ type: "text", 'aria-label' => 'Amount (to the nearest dollar)' }
-                      %span.input-group-addon .00
+                  %td{ colspan: 3 }= f.label :discount_amount, 'Discount %'
+                  %td= f.text_field :discount_amount
             .form-group.text-center
               = f.submit "Submit", class: "btn btn-primary"
               = link_to "Cancel", :back, class: "btn btn-default"

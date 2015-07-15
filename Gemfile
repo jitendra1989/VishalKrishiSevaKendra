@@ -38,6 +38,7 @@ gem 'cancancan', '~> 1.10'
 gem 'ancestry'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'cocoon'
 
 group :development do
   gem 'pry-rails'

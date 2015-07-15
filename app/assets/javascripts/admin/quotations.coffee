@@ -37,6 +37,7 @@ quotationsReady = ->
 		$(insertedItem).find('.product-rate').html($('#product').data('price'))
 		$('#product').val ''
 		$('.add-product').addClass 'hidden'
+		$(insertedItem).find('.quantity-field').focus()
 		return
 	$(document).on 'keyup', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
 		calculateTotals($(this).hasClass 'discount-percent')

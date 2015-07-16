@@ -45,15 +45,24 @@
 												= link_to 'Users', admin_users_path
 										%li
 											= link_to 'Customers', admin_customers_path
+										%li
+											= link_to 'Roles', '#'
 								- if can? :manage, Outlet
 									%li
 										= link_to 'Outlets', admin_outlets_path
-								%li
-									= link_to 'Roles', "#"
+								%li.dropdown{ role: 'presentation' }
+									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
+										Orders
+										%span.caret
+									%ul.dropdown-menu
+										%li
+											= link_to 'Quotations', admin_quotations_path
+										%li
+											= link_to 'Orders', "#"
 								- if can? :manage, Category or can? :manage, Product
 									%li.dropdown{ role: 'presentation' }
 										%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
-											Product Management
+											Catalog
 											%span.caret
 										%ul.dropdown-menu
 											- if can? :manage, Category

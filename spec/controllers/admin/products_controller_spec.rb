@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Admin::ProductsController, type: :controller do
 	let(:user) { FactoryGirl.create(:super_admin) }
 	let(:product) { FactoryGirl.create(:product) }
-	let(:valid_attributes) { FactoryGirl.attributes_for(:product) }
+	let(:product_type) { FactoryGirl.create(:product_type) }
+	let(:valid_attributes) { FactoryGirl.attributes_for(:product).merge(product_type_id: product_type.id) }
 	let(:invalid_attributes) { FactoryGirl.attributes_for(:product, code: nil) }
 
 	describe "without login" do

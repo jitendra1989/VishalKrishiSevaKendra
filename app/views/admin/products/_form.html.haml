@@ -26,6 +26,9 @@
       = category.check_box
       = category.label
       = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
+  .form-group
+    = f.label :product_type_id
+    = f.select :product_type_id, ProductType.pluck(:name, :id)
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

@@ -5,6 +5,7 @@ RSpec.describe ProductType, type: :model do
 	it { expect(product_type).to be_valid }
 	it { expect(product_type).to respond_to(:product_type_taxes) }
 	it { expect(product_type).to respond_to(:taxes) }
+	it { expect(product_type).to respond_to(:products) }
 	it "has a valid product_type name" do
 		product_type.name = nil
 		expect(product_type).to_not be_valid

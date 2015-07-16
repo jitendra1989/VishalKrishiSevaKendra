@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716094520) do
+ActiveRecord::Schema.define(version: 20150716095506) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -84,14 +84,17 @@ ActiveRecord::Schema.define(version: 20150716094520) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "code",        limit: 255
-    t.text     "description", limit: 65535
-    t.decimal  "price",                     precision: 10, scale: 2
-    t.boolean  "active",      limit: 1,                              default: false, null: false
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.string   "name",            limit: 255
+    t.string   "code",            limit: 255
+    t.text     "description",     limit: 65535
+    t.decimal  "price",                         precision: 10, scale: 2
+    t.integer  "product_type_id", limit: 4
+    t.boolean  "active",          limit: 1,                              default: false, null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
   end
+
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
 
   create_table "quotation_products", force: :cascade do |t|
     t.integer  "quotation_id", limit: 4
@@ -150,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150716094520) do
   add_foreign_key "product_images", "products"
   add_foreign_key "product_type_taxes", "product_types"
   add_foreign_key "product_type_taxes", "taxes"
+  add_foreign_key "products", "product_types"
   add_foreign_key "quotation_products", "products"
   add_foreign_key "quotation_products", "quotations"
   add_foreign_key "quotations", "customers"

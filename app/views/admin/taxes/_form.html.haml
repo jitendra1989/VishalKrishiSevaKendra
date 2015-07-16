@@ -1,0 +1,10 @@
+= form_for [:admin, @tax] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: true
+  .form-group
+    = f.label :percentage
+    = f.number_field :percentage, required: true
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", :back, class: "btn btn-default"

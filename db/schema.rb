@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716092424) do
+ActiveRecord::Schema.define(version: 20150716094520) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -66,6 +66,16 @@ ActiveRecord::Schema.define(version: 20150716092424) do
   end
 
   add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
+
+  create_table "product_type_taxes", force: :cascade do |t|
+    t.integer  "product_type_id", limit: 4
+    t.integer  "tax_id",          limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "product_type_taxes", ["product_type_id"], name: "index_product_type_taxes_on_product_type_id", using: :btree
+  add_index "product_type_taxes", ["tax_id"], name: "index_product_type_taxes_on_tax_id", using: :btree
 
   create_table "product_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -138,6 +148,8 @@ ActiveRecord::Schema.define(version: 20150716092424) do
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
+  add_foreign_key "product_type_taxes", "product_types"
+  add_foreign_key "product_type_taxes", "taxes"
   add_foreign_key "quotation_products", "products"
   add_foreign_key "quotation_products", "quotations"
   add_foreign_key "quotations", "customers"

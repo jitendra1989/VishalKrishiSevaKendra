@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Tax, type: :model do
 	let(:tax) { FactoryGirl.build(:tax) }
 	it { expect(tax).to be_valid }
+	it { expect(tax).to respond_to(:product_type_taxes) }
+	it { expect(tax).to respond_to(:product_types) }
 	it "has a valid name" do
 		tax.name = nil
 		expect(tax).to_not be_valid

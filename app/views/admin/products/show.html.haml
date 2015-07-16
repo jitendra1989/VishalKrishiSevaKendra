@@ -1,6 +1,6 @@
 .row
 	.col-md-12
-		%h2 Profile
+		%h2 Product
 	.col-md-6.col-md-offset-3
 		.profile-box
 			.text-right
@@ -20,3 +20,6 @@
 			%p
 				%strong.title Active:
 				= @product.active
+			%p
+				%strong.title Product Type:
+				= @product.product_type.name

@@ -23,42 +23,28 @@
 										Reports
 										%span.caret
 									%ul.dropdown-menu
-										%li
-											= link_to 'Stock Report', "#"
-										%li
-											= link_to 'Daily Report', "#"
-										%li
-											= link_to 'Receipt Report', "#"
-										%li
-											= link_to 'Sales Report', "#"
-										%li
-											= link_to 'Oustanding Bills Report', "#"
-										%li
-											= link_to 'Oustanding Partywise Report', "#"
+										%li= link_to 'Stock Report', "#"
+										%li= link_to 'Daily Report', "#"
+										%li= link_to 'Receipt Report', "#"
+										%li= link_to 'Sales Report', "#"
+										%li= link_to 'Oustanding Bills Report', "#"
+										%li= link_to 'Oustanding Partywise Report', "#"
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Users
 										%span.caret
 									%ul.dropdown-menu
 										- if can? :manage, User
-											%li
-												= link_to 'Users', admin_users_path
-										%li
-											= link_to 'Customers', admin_customers_path
-										%li
-											= link_to 'Roles', '#'
-								- if can? :manage, Outlet
-									%li
-										= link_to 'Outlets', admin_outlets_path
+											%li= link_to 'Users', admin_users_path
+										%li= link_to 'Customers', admin_customers_path
+										%li= link_to 'Roles', '#'
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Orders
 										%span.caret
 									%ul.dropdown-menu
-										%li
-											= link_to 'Quotations', admin_quotations_path
-										%li
-											= link_to 'Orders', "#"
+										%li= link_to 'Quotations', admin_quotations_path
+										%li= link_to 'Orders', "#"
 								- if can? :manage, Category or can? :manage, Product
 									%li.dropdown{ role: 'presentation' }
 										%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
@@ -66,11 +52,21 @@
 											%span.caret
 										%ul.dropdown-menu
 											- if can? :manage, Category
-												%li
-													= link_to 'Categories', admin_categories_path
+												%li= link_to 'Categories', admin_categories_path
 											- if can? :manage, Product
-												%li
-													= link_to 'Products', admin_products_path
+												%li= link_to 'Products', admin_products_path
+								%li.dropdown{ role: 'presentation' }
+									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
+										Store Settings
+										%span.caret
+									%ul.dropdown-menu
+										%li= link_to 'Unit', "#"
+										%li= link_to 'Offer', "#"
+										%li= link_to 'Customise-Product', "#"
+										%li= link_to 'Taxes', admin_taxes_path
+										%li= link_to 'Taxes on Products', admin_product_types_path
+										- if can? :manage, Outlet
+											%li= link_to 'Outlets', admin_outlets_path
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Profile

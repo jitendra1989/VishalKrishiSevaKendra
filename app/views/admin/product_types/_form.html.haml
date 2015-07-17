@@ -1,0 +1,10 @@
+= form_for [:admin, @product_type], remote: true do |f|
+  .form-group= @product_type.name
+  = f.collection_check_boxes(:tax_ids, Tax.all, :id, :name) do |tax|
+    .form-group
+      = tax.check_box
+      = tax.label
+      = tax.object.percentage
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", :back, class: "btn btn-default"

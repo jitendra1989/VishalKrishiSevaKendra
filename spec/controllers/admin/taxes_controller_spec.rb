@@ -4,7 +4,7 @@ RSpec.describe Admin::TaxesController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
   let(:tax) { FactoryGirl.create(:tax) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:tax) }
-  let(:invalid_attributes) { FactoryGirl.attributes_for(:category, name: nil) }
+  let(:invalid_attributes) { FactoryGirl.attributes_for(:tax, name: nil) }
   before do
     log_in user
   end

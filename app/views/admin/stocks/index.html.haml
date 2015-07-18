@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    %h2 Stocks
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Stocks', new_admin_product_stock_path(@product)
+      %br
+      %table
+        %tr
+          %th Product
+          %th Quantity
+          %th Opening
+          %th Ordered
+          %th Invoiced
+          %th New Quantity
+          %th Code
+        - @stocks.each do |stock|
+          %tr
+            %td= @product.name
+            %td= stock.quantity
+            %td= stock.opening
+            %td= stock.ordered
+            %td= stock.invoiced
+            %td= stock.new_quantity
+            %td= stock.code

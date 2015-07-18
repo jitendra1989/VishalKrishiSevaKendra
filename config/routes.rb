@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     end
     resources :product_types, path: 'product-types', only: [:index, :edit, :update]
     resources :taxes, except: [:show]
-    resources :products
+    resources :products, shallow: true do
+      resources :stocks, only: [:new, :create, :index]
+    end
     resources :outlets, except: [:show]
     resources :categories, except: [:show]
     resources :users do

@@ -6,6 +6,7 @@ RSpec.describe Outlet, type: :model do
 	it { expect(outlet).to be_valid }
 	it { expect(outlet).to respond_to(:users) }
 	it { expect(superadmin.outlet.users).not_to include(superadmin) }
+	it { expect(outlet).to respond_to(:stock) }
 	it "has a valid name" do
 		outlet.name = nil
 		expect(outlet).to_not be_valid

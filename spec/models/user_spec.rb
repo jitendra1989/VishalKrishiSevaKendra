@@ -9,6 +9,8 @@ RSpec.describe User, type: :model do
 	it { expect(user).to be_valid }
 	it { expect(user).to respond_to(:outlet) }
 	it { expect(user).to respond_to(:quotations) }
+	it { expect(user).to respond_to(:user_permissions) }
+	it { expect(user).to respond_to(:permissions) }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

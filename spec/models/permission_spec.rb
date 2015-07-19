@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Permission, type: :model do
 	let(:permission) { FactoryGirl.build(:permission) }
 	it { expect(permission).to be_valid }
+	it { expect(permission).to respond_to(:user_permissions) }
+	it { expect(permission).to respond_to(:users) }
 	it "has a valid name" do
 		permission.name = nil
 		expect(permission).to_not be_valid

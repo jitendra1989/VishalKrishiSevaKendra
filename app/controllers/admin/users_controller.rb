@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = current_user.super_admin?? User.admin : current_user.outlet.users
+    @users = User.all
   end
 
   def login
@@ -60,6 +60,6 @@ class Admin::UsersController < Admin::ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :username, :outlet_id, :role, :email, :phone, :password, :password_confirmation, :address, :pincode, :city, :state, :country)
+      params.require(:user).permit(:name, :username, :outlet_id, :email, :phone, :password, :password_confirmation, :address, :pincode, :city, :state, :country)
     end
 end

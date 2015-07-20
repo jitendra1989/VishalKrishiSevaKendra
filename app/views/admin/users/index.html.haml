@@ -10,7 +10,6 @@
 				%tr
 					%th Name
 					%th Outlet
-					%th Role
 					%th Email
 					%th Contact No
 					%th.text-center{ colspan: 2 } Actions
@@ -18,7 +17,6 @@
 					%tr
 						%td= user.name
 						%td= user.outlet.try(:name)
-						%td= user.role.humanize
 						%td= user.email
 						%td= user.phone
 						%td.actions.text-center

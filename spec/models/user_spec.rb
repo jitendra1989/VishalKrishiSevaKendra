@@ -30,14 +30,6 @@ RSpec.describe User, type: :model do
 		user.username = nil
 		expect(user).to_not be_valid
 	end
-	it "has a role" do
-		user.role = nil
-		expect(user).to_not be_valid
-	end
-	it "has a valid role" do
-		user.role = 'randomtext'
-		expect(user).to_not be_valid
-	end
 	describe "when username is already taken" do
 		before do
 			user.save
@@ -82,30 +74,5 @@ RSpec.describe User, type: :model do
 	it "has a valid country" do
 		user.country = nil
 		expect(user).to_not be_valid
-	end
-	describe 'role method checks' do
-		describe "super admin" do
-			it { expect(super_admin.super_admin?).to eq(true) }
-			it { expect(admin.super_admin?).to eq(false) }
-			it { expect(sales_executive.super_admin?).to eq(false) }
-			it { expect(production_manager.super_admin?).to eq(false) }
-		end
-		describe "admin" do
-			it { expect(sales_executive.admin?).to eq(false) }
-			it { expect(admin.admin?).to eq(true) }
-			it { expect(production_manager.admin?).to eq(false) }
-		end
-		describe "sales executive" do
-			it { expect(sales_executive.sales_executive?).to eq(true) }
-			it { expect(admin.sales_executive?).to eq(false) }
-			it { expect(production_manager.sales_executive?).to eq(false) }
-			it { expect(super_admin.sales_executive?).to eq(false) }
-		end
-		describe "production manager" do
-			it { expect(production_manager.production_manager?).to eq(true) }
-			it { expect(admin.production_manager?).to eq(false) }
-			it { expect(sales_executive.production_manager?).to eq(false) }
-			it { expect(super_admin.production_manager?).to eq(false) }
-		end
 	end
 end

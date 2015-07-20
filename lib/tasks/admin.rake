@@ -1,5 +1,5 @@
 namespace :admin do
-	desc "TODO"
+	desc "Populate permissions based on admin controller actions"
 	task permissions: :environment do
 		setup_permissions
 	end

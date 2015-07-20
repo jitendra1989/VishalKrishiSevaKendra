@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   namespace :admin do
+  get 'permissions/index'
+  end
+
+  namespace :admin do
     root 'users#dashboard'
     resources :quotations, only: [:index] do
       collection do

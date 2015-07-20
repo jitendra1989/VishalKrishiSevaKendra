@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-  get 'permissions/index'
-  end
-
-  namespace :admin do
     root 'users#dashboard'
     resources :quotations, only: [:index] do
       collection do
@@ -19,6 +15,7 @@ Rails.application.routes.draw do
     resources :products, shallow: true do
       resources :stocks, only: [:new, :create, :index]
     end
+    resources :permissions, only: [:index]
     resources :outlets, except: [:show]
     resources :categories, except: [:show]
     resources :users do

@@ -8,7 +8,7 @@ class QuotationPdf < Prawn::Document
 		font "Helvetica"
 		text "#{quotation.customer.name}" , size: 12, style: :bold
 		move_down 5
-		text "#{quotation.customer.address}" , size: 10
+		text "#{quotation.customer.full_address}" , size: 10
 		move_down 5
 		text "Phone #{quotation.customer.mobile}" , size: 10
 		text_box "Number #{quotation.id}", at: [450, 650], size: 10

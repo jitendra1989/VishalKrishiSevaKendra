@@ -22,6 +22,7 @@
             %td= product.price
             %td= product.active
             %td.actions.text-center
+              = link_to "view stocks", admin_product_stocks_path(product)
               = link_to edit_admin_product_path(product) do
                 %span.glyphicon.glyphicon-pencil
               = link_to admin_product_path(product) do

@@ -146,6 +146,18 @@ ActiveRecord::Schema.define(version: 20150720103643) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "stocks", force: :cascade do |t|
+    t.integer  "quantity",   limit: 4
+    t.integer  "product_id", limit: 4
+    t.integer  "outlet_id",  limit: 4
+    t.text     "details",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "stocks", ["outlet_id"], name: "index_stocks_on_outlet_id", using: :btree
+  add_index "stocks", ["product_id"], name: "index_stocks_on_product_id", using: :btree
+
   create_table "taxes", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.float    "percentage", limit: 24
@@ -205,6 +217,8 @@ ActiveRecord::Schema.define(version: 20150720103643) do
   add_foreign_key "quotations", "users"
   add_foreign_key "role_permissions", "permissions"
   add_foreign_key "role_permissions", "roles"
+  add_foreign_key "stocks", "outlets"
+  add_foreign_key "stocks", "products"
   add_foreign_key "user_permissions", "permissions"
   add_foreign_key "user_permissions", "users"
   add_foreign_key "user_roles", "roles"

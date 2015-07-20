@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	has_many :quotations
 	has_many :user_permissions
 	has_many :permissions, through: :user_permissions
+	has_many :user_roles
+	has_many :roles, through: :user_roles
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	ROLES = %w[super_admin admin sales_executive production_manager]
 

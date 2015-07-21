@@ -16,13 +16,6 @@ RSpec.describe Admin::RolesController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "returns http success" do
-      get :show, id: role.id
-      expect(assigns(:role)).to eq(role)
-    end
-  end
-
   describe "GET #new" do
     it "assigns a new role as @role" do
       get :new

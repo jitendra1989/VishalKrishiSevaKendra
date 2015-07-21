@@ -7,6 +7,7 @@ RSpec.describe Permission, type: :model do
 	it { expect(permission).to respond_to(:users) }
 	it { expect(permission).to respond_to(:roles) }
 	it { expect(permission).to respond_to(:role_permissions) }
+	it { expect(permission.name_with_description).to eq("#{permission.name}, #{permission.description}") }
 	it "has a valid name" do
 		permission.name = nil
 		expect(permission).to_not be_valid

@@ -45,7 +45,7 @@ namespace :admin do
 				action_desc = "Delete Only"
 			else
 				cancan_action = action.to_s
-				action_desc = "Other action: " << cancan_action
+				action_desc = cancan_action.capitalize
 			end
 			return action_desc, cancan_action
 		end

@@ -36,9 +36,19 @@
     = f.label :country
     = f.text_field :country, required: true
   .form-group.permissions
-    = f.collection_check_boxes(:role_ids, Role.pluck(:id, :name), :first, :second) do |b|
-      = b.check_box
-      = b.label
+    %strong Roles and Permissions
+    %br
+    %br
+    = f.collection_check_boxes(:role_ids, Role.all, :id, :name) do |b|
+      .product_type.text-center
+        .styled-checkboxes
+          = b.check_box class: 'role-selector'
+          = b.label
+        - b.object.permissions.each do |permission|
+          .styled-checkboxes.role-permissions{ class: "permissions-#{b.object.id}" }
+            = check_box_tag 'user[permission_ids][]', permission.id, @user.permissions.pluck(:id).include?(permission.id), id: "user_permission_ids_#{permission.id}"
+            = label_tag "user_permission_ids_#{permission.id}", "#{permission.name} #{permission.description}"
+      %br
       %br
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"

@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
 	belongs_to :outlet
 	has_many :quotations
-	has_many :user_permissions
+	has_many :user_permissions, dependent: :destroy
 	has_many :permissions, through: :user_permissions
-	has_many :user_roles
+	has_many :user_roles, dependent: :destroy
 	has_many :roles, through: :user_roles
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

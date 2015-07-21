@@ -11,4 +11,11 @@ RSpec.describe Role, type: :model do
 		role.name = nil
 		expect(role).not_to be_valid
 	end
+	describe "when name is already taken" do
+		let(:role_with_same_name) { FactoryGirl.build(:role, name: role.name) }
+		before do
+			role.save
+		end
+		it { expect(role_with_same_name).not_to be_valid }
+	end
 end

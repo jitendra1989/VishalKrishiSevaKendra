@@ -70,3 +70,27 @@ header{
 		width: auto;
 	}
 }
+.styled-checkboxes{
+	height: 40px;
+	display: inline-block;
+	margin-bottom: 5px;
+	label {
+	width: 200px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	}
+	input{
+		visibility: hidden;
+		position: absolute;
+	}
+	input:checked + label{
+		background: #286090;
+		color: #fff;
+	}
+}
+.role-permissions {
+	label{
+		font-weight: normal;
+	}
+}

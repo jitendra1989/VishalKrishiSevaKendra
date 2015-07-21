@@ -3,22 +3,18 @@ class Ability
 
 	def initialize(user)
 		user ||= User.new
-		user.permissions.each do |permission|
-			 if permission.subject_id.nil?
-				 can permission.action.to_sym, class_name(permission.subject_class)
-			 else
-				 can permission.action.to_sym, class_name(permission.subject_class), id: permission.subject_id
-			 end
+		user.permissions.pluck(:name, :action).each do |permission|
+			can permission[1].to_sym, class_name(permission[0])
 		 end
 		can :login, User
 	end
 
 	private
-		def class_name(subject_class)
-			if subject_class == 'all'
-				subject_class.to_sym
+		def class_name(name)
+			if name == 'all'
+				name.to_sym
 			else
-				subject_class.constantize
+				name.constantize
 			end
 		end
 end

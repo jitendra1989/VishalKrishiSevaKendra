@@ -3,7 +3,7 @@ class Admin::ApplicationController < ApplicationController
 	before_action :require_login
 
 	def self.permission
-		[self.controller_name.classify, self.controller_name.classify ]
+		self.controller_name.classify
 	end
 
 	private

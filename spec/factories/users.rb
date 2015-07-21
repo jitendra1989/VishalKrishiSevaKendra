@@ -22,7 +22,7 @@ FactoryGirl.define do
 		factory :sales_executive do
 		end
 		after(:create) do |user|
-		  user.permissions << FactoryGirl.create(:permission, subject_class: :all, action: :manage)
+		  user.permissions << FactoryGirl.create(:permission, name: :all, action: :manage)
 		end
 	end
 end

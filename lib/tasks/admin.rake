@@ -6,7 +6,7 @@ namespace :admin do
 
 	private
 		def setup_permissions
-			write_permission("all", "manage", "Everything", "Every Action", true)
+			write_permission("all", "manage", "Every Action", true)
 
 			controllers = Dir.new("#{Rails.root}/app/controllers/admin").entries
 			controllers.each do |controller|
@@ -17,12 +17,12 @@ namespace :admin do
 
 			Admin::ApplicationController.subclasses.each do |controller|
 				if controller.respond_to?(:permission)
-					klass, description = controller.permission
-					write_permission(klass, "manage", description, "All operations")
+					klass = controller.permission
+					write_permission(klass, "manage", "All operations")
 					controller.action_methods.each do |action|
 						if action.to_s.index("_callback").nil?
 							action_desc, cancan_action = eval_cancan_action(action)
-							write_permission(klass, cancan_action, description, action_desc)
+							write_permission(klass, cancan_action, action_desc)
 						end
 					end
 				end
@@ -50,12 +50,11 @@ namespace :admin do
 			return action_desc, cancan_action
 		end
 
-		def write_permission(class_name, cancan_action, name, description, force_id_1 = false)
-			permission = Permission.find_or_initialize_by(subject_class: class_name, action: cancan_action)
+		def write_permission(class_name, cancan_action, description, force_id_1 = false)
+			permission = Permission.find_or_initialize_by(name: class_name, action: cancan_action)
 			unless permission
 				permission.id = 1 if force_id_1
 			end
-			permission.name = name
 			permission.description = description
 			permission.save
 		end

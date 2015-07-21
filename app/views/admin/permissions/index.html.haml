@@ -7,12 +7,10 @@
       %table
         %tr
           %th Name
-          %th Subject
           %th Action
           %th Description
         - @permissions.each do |permission|
           %tr
             %td= permission.name
-            %td= permission.subject_class
             %td= permission.action
             %td= permission.description

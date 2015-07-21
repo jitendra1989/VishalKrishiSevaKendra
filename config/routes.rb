@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#dashboard'
+    resources :roles
     resources :quotations, only: [:index] do
       collection do
         get 'products'

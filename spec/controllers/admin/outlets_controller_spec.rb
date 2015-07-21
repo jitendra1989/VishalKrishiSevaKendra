@@ -107,5 +107,4 @@ RSpec.describe Admin::OutletsController, type: :controller do
         expect(response).to redirect_to(admin_outlets_url)
     end
   end
-
 end

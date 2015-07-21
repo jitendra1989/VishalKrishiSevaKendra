@@ -108,6 +108,15 @@ RSpec.describe Admin::UsersController, type: :controller do
 					expect(response).to redirect_to(admin_users_url)
 				end
 
+				describe "with roles" do
+					let(:role) { FactoryGirl.create(:role) }
+					it "add the selected roles to the user" do
+						expect {
+							post :update, id: user.id, user: valid_attributes.merge(role_ids: [role.id])
+							}.to change(UserRole, :count).by(1)
+					end
+				end
+
 			context "with invalid params" do
 				it "assigns the user as @user" do
 					put :update, id: user.id, user: invalid_attributes
@@ -129,16 +138,16 @@ RSpec.describe Admin::UsersController, type: :controller do
 		end
 
 		describe "DELETE #destroy" do
-		  it "destroys the requested user" do
-		    expect {
-		      delete :destroy, id: user.id
-		    }.to change(User, :count).by(-1)
-		  end
+			it "destroys the requested user" do
+				expect {
+					delete :destroy, id: user.id
+				}.to change(User, :count).by(-1)
+			end
 
-		  it "redirects to the users list" do
-		    delete :destroy, id: user.id
-		    expect(response).to redirect_to(admin_users_url)
-		  end
+			it "redirects to the users list" do
+				delete :destroy, id: user.id
+				expect(response).to redirect_to(admin_users_url)
+			end
 		end
 	end
 
@@ -154,6 +163,4 @@ RSpec.describe Admin::UsersController, type: :controller do
 			end
 		end
 	end
-
-
 end

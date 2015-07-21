@@ -1,0 +1,12 @@
+= form_for [:admin, @role] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: true
+  .form-group.permissions
+    = f.collection_check_boxes(:permission_ids, Permission.all, :id, :name_with_description) do |b|
+      = b.check_box
+      = b.label
+      %br
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", :back, class: "btn btn-default"

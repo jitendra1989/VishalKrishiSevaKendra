@@ -29,7 +29,11 @@ class ProductImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [400, -1]
   end
 
-  version :thumbnail, from_version: :medium do
+  version :small, from_version: :medium do
+    process resize_to_fill: [230, -1]
+  end
+
+  version :thumbnail, from_version: :small do
     process resize_to_fill: [70, -1]
   end
 

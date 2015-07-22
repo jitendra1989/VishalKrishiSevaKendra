@@ -23,6 +23,12 @@ describe ProductImageUploader, type: :uploader do
     end
   end
 
+  describe 'the small version' do
+    it "generates a png image 230 pixels wide" do
+      expect(@uploader.small).to have_width(230)
+    end
+  end
+
   describe 'the medium version' do
     it "generates a png image 400 pixels wide" do
       expect(@uploader.medium).to have_width(400)

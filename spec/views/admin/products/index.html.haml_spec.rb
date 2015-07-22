@@ -7,6 +7,6 @@ RSpec.describe "admin/products/index", type: :view do
 	it "renders attributes in <p>" do
 		assign(:products, products)
 		render
-		expect(rendered).to have_css('.product-box')
+		expect(rendered).to have_css('.product-container')
 	end
 end

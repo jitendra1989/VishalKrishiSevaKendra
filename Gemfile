@@ -45,6 +45,7 @@ gem "kaminari"
 group :development do
   gem 'pry-rails'
   gem 'spring-commands-rspec'
+  gem "bullet"
 end
 
 group :development, :test do

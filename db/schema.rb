@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722103522) do
+ActiveRecord::Schema.define(version: 20150722103625) do
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.integer  "cart_id",    limit: 4
+    t.integer  "quantity",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
+  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
     t.integer  "customer_id", limit: 4
@@ -216,6 +227,8 @@ ActiveRecord::Schema.define(version: 20150722103522) do
   add_index "users", ["outlet_id"], name: "index_users_on_outlet_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "customers"
   add_foreign_key "carts", "outlets"
   add_foreign_key "carts", "users"

@@ -8,6 +8,7 @@ RSpec.describe Product, type: :model do
 	it { expect(product).to respond_to(:categories) }
 	it { expect(product).to respond_to(:product_type) }
 	it { expect(product).to respond_to(:stocks) }
+	it { expect(product).to respond_to(:cart_items) }
 	it "has a valid name" do
 		product.name = nil
 		expect(product).to_not be_valid

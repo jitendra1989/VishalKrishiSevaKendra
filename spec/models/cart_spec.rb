@@ -6,6 +6,7 @@ RSpec.describe Cart, type: :model do
   it { expect(cart).to respond_to(:customer) }
   it { expect(cart).to respond_to(:user) }
   it { expect(cart).to respond_to(:outlet) }
+  it { expect(cart).to respond_to(:items) }
 
   describe "per customer per outlet" do
   	let(:duplicate_cart) { FactoryGirl.build(:cart, customer: cart.customer, outlet: cart.outlet) }

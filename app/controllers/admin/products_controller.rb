@@ -2,7 +2,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
-		@products = Product.all.page(params[:page])
+		@products = Product.all.page(params[:page]).per(20)
 	end
 
 	def edit

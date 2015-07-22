@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
 	it { expect(user).to respond_to(:permissions) }
 	it { expect(user).to respond_to(:user_roles) }
 	it { expect(user).to respond_to(:roles) }
+	it { expect(user).to respond_to(:carts) }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

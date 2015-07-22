@@ -4,6 +4,7 @@ RSpec.describe Customer, type: :model do
 	let(:customer) { FactoryGirl.build(:customer) }
 	it { expect(customer).to be_valid }
 	it { expect(customer).to respond_to(:quotations) }
+	it { expect(customer).to respond_to(:carts) }
 	it { expect(customer.full_address).to eq("#{customer.address}, #{customer.city}, #{customer.state} - #{customer.pincode}") }
 	describe "when email format is invalid" do
 		it "is invalid" do

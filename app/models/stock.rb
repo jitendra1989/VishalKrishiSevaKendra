@@ -10,7 +10,7 @@ class Stock < ActiveRecord::Base
 
   private
     def set_defaults
-      self.opening, self.ordered, self.invoiced = self.product.outlet_stock(self.outlet), 0, 0
+      self.opening, self.ordered, self.invoiced = self.product.outlet_stock_quantity(self.outlet), 0, 0
       self.quantity = self.opening + self.new_quantity.to_i
     end
 end

@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
 	validates :price, numericality: true
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 
-	def outlet_stock(outlet)
+	def outlet_stock_quantity(outlet)
 		self.stocks.where(outlet: outlet).last.try(:quantity) || 0
 	end
 end

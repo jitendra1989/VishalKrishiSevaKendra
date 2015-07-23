@@ -37,11 +37,11 @@ RSpec.describe Product, type: :model do
 			product.save!
 		end
 		it 'returns 0 if no stock in the requested outlet' do
-			expect(product.outlet_stock(stock.outlet)).to eq(0)
+			expect(product.outlet_stock_quantity(stock.outlet)).to eq(0)
 		end
 		it 'returns the count of stock present in the requested outlet' do
 			stock.save!
-			expect(product.outlet_stock(stock.outlet)).to eq(stock.quantity)
+			expect(product.outlet_stock_quantity(stock.outlet)).to eq(stock.quantity)
 		end
 	end
 end

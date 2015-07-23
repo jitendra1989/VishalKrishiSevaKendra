@@ -1,7 +1,7 @@
 = form_for [:admin, @product, @stock] do |f|
   .form-group
     %label Current Quantity
-    = @product.outlet_stock(@current_user.outlet)
+    = @product.outlet_stock_quantity(@current_user.outlet)
   .form-group
     = f.label :new_quantity
     = f.number_field :new_quantity, required: true

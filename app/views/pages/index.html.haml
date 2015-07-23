@@ -1,2 +1,10 @@
-%h1 Pages#index
-%p Find me in app/views/pages/index.html.haml
+.row
+  - @products.each do |product|
+    .col-md-3
+      .product-box
+        .product-image= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
+        .product-name= product.name
+        .product-code= product.code
+        .product-description= product.description
+        .product-price= product.price
+

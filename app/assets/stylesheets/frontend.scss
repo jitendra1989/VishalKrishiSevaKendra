@@ -2,12 +2,17 @@ $navbar-default-bg: rgba(0,0,0,0.42);
 $navbar-default-border: transparent;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-hover-bg: transparent;
+$navbar-default-link-color: #c3c3c3;
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 body{
 	background: url('background.jpg') center center;
+}
+.main-content{
+	background: #fff;
+	padding: 30px 15px;
 }
 .sprites {
 	background: url(sprites.png) no-repeat;

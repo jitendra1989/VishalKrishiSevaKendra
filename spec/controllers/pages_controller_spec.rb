@@ -7,6 +7,10 @@ RSpec.describe PagesController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
+    it "assigns first 8 products as @products" do
+      get :index
+      expect(assigns(:products)).to eq(Product.first(8))
+    end
   end
 
   describe "GET #about" do

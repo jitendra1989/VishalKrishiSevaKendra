@@ -7,4 +7,44 @@
 		= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
 		= javascript_include_tag 'application', 'data-turbolinks-track' => true
 		= csrf_meta_tags
-	%body= yield
+	%body
+		.container
+			%header
+				.row
+					.col-md-12
+						= link_to root_path do
+							= image_tag 'logo.png'
+						%nav.navbar.navbar-default
+							.navbar-header
+								%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#main-nav', 'aria-expanded' => false }
+									%span.sr-only Toggle navigation
+									%span.icon-bar
+									%span.icon-bar
+									%span.icon-bar
+							#main-nav.collapse.navbar-collapse.main-nav
+								%ul.nav.navbar-nav
+									%li.hidden-xs.hidden-sm{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.home
+											Home
+									%li{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.about
+											About Us
+									%li{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.collection
+											Collection
+									%li{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.projects
+											Projects
+									%li{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.clients
+											Clients
+									%li{ role: 'presentation' }
+										= link_to '#' do
+											%span.sprites.nav-icons.contact
+											Contact Us
+			= yield

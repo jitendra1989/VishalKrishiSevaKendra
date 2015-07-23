@@ -1,3 +1,49 @@
+$navbar-default-bg: rgba(0,0,0,0.42);
+$navbar-default-border: transparent;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-link-hover-bg: transparent;
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body{
+	background: url('background.jpg') center center;
+}
+.sprites {
+	background: url(sprites.png) no-repeat;
+	display: inline-block;
+}
+.nav-icons{
+	width: 33px;
+	height: 33px;
+	vertical-align: middle;
+}
+.home { background-position: 0 -272px; }
+.about {  background-position: 0 0; }
+.collection { background-position: 0 -136px; }
+.projects { background-position: 0 -340px; }
+.clients { background-position: 0 -68px; }
+.contact { background-position: 0 -204px; }
+
+.main-nav a:hover{
+	.home { background-position: 0 -306px; }
+	.about { background-position: 0 -34px; }
+	.collection { background-position: 0 -170px; }
+	.projects{ background-position: 0 -374px; }
+	.clients { background-position: 0 -102px; }
+	.contact { background-position: 0 -238px; }
+}
+.navbar-nav > li > a {
+	padding-top: 10px;
+	padding-bottom: 0;
+}
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+	.navbar-nav > li > a {
+		padding: 10px 29px;
+	}
+}
+@media (min-width: $screen-lg-min) {
+	.navbar-nav > li > a {
+		width: 184px;
+	}
+}

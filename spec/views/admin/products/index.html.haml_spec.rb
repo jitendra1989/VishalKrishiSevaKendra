@@ -5,6 +5,7 @@ RSpec.describe "admin/products/index", type: :view do
 	let(:products) { Product.all.page(params[:page]) }
 
 	it "renders attributes in <p>" do
+		FactoryGirl.create(:product)
 		assign(:products, products)
 		render
 		expect(rendered).to have_css('.product-container')

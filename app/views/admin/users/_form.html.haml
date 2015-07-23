@@ -39,7 +39,7 @@
     %strong Roles and Permissions
     %br
     %br
-    = f.collection_check_boxes(:role_ids, Role.all, :id, :name) do |b|
+    = f.collection_check_boxes(:role_ids, Role.all.includes(:permissions), :id, :name) do |b|
       .product_type.text-center
         .styled-checkboxes
           = b.check_box class: 'role-selector'

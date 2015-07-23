@@ -14,6 +14,12 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
+    resources :carts, only: [:index] do
+      collection do
+        post 'add'
+        get 'view'
+      end
+    end
     resources :customers, shallow: true do
       resources :quotations, only: [:new, :create, :show]
     end

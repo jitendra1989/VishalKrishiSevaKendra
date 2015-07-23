@@ -4,4 +4,11 @@ class Cart < ActiveRecord::Base
   belongs_to :outlet
   has_many :items, class_name: CartItem, dependent: :destroy
   validates :customer_id, uniqueness: { scope: :outlet_id }
+  validates :outlet_id, presence: true
+
+  def add(product_id, quantity)
+    cart_item = CartItem.find_or_initialize_by(cart: self, product_id: product_id)
+    cart_item.quantity += quantity.to_i
+    cart_item.save!
+  end
 end

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  root 'pages#index'
+  get 'pages/about'
+  get 'pages/projects'
+  get 'pages/clients'
+  get 'pages/contact'
+
   namespace :admin do
     root 'users#dashboard'
     resources :roles, except: [:show]

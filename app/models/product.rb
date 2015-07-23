@@ -9,4 +9,8 @@ class Product < ActiveRecord::Base
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
 	validates :price, numericality: true
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
+
+	def outlet_stock(outlet)
+		self.stocks.where(outlet: outlet).last.try(:quantity) || 0
+	end
 end

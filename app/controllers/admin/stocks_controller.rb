@@ -4,14 +4,9 @@ class Admin::StocksController < Admin::ApplicationController
     @stock = @product.stocks.build
   end
 
-  def edit
-    @stock = Stock.find(params[:id])
-    @product = @stock.product
-  end
-
   def index
     @product = Product.find(params[:product_id])
-  	@stocks = @product.stocks
+    @stocks = @product.stocks
   end
 
   def create
@@ -26,6 +21,6 @@ class Admin::StocksController < Admin::ApplicationController
 
   private
     def stock_params
-      params.require(:stock).permit(:quantity, :opening, :ordered, :invoiced, :new_quantity, :code)
+      params.require(:stock).permit(:new_quantity, :code)
     end
 end

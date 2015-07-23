@@ -5,7 +5,7 @@ RSpec.describe Admin::StocksController, type: :controller do
   let(:product) { FactoryGirl.create(:product) }
   let(:stock) { FactoryGirl.create(:stock, product: product) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:stock) }
-  let(:invalid_attributes) { FactoryGirl.attributes_for(:stock, quantity: nil) }
+  let(:invalid_attributes) { FactoryGirl.attributes_for(:stock, new_quantity: nil) }
   before do
     log_in user
   end

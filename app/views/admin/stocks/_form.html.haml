@@ -1,16 +1,7 @@
 = form_for [:admin, @product, @stock] do |f|
   .form-group
-    = f.label :quantity
-    = f.number_field :quantity, required: true
-  .form-group
-    = f.label :opening
-    = f.number_field :opening, required: true
-  .form-group
-    = f.label :ordered
-    = f.number_field :ordered, required: true
-  .form-group
-    = f.label :invoiced
-    = f.number_field :invoiced, required: true
+    %label Current Quantity
+    = @product.outlet_stock(@current_user.outlet)
   .form-group
     = f.label :new_quantity
     = f.number_field :new_quantity, required: true

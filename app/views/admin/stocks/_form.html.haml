@@ -16,7 +16,7 @@
     = f.number_field :new_quantity, required: true
   .form-group
     = f.label :code
-    = f.number_field :code, required: true
+    = f.text_field :code, required: true
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

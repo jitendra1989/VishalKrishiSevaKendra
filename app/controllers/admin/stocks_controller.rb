@@ -6,7 +6,7 @@ class Admin::StocksController < Admin::ApplicationController
 
   def index
     @product = Product.find(params[:product_id])
-    @stocks = @product.stocks
+    @stocks = @product.stocks.where(outlet: current_user.outlet)
   end
 
   def create

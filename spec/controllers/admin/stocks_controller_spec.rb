@@ -19,10 +19,13 @@ RSpec.describe Admin::StocksController, type: :controller do
   end
 
   describe "GET #index" do
+    before do
+      FactoryGirl.create(:stock, product: product)
+    end
     it "assigns all product stocks as @stocks" do
       get :index, product_id: product.id
       expect(assigns(:product)).to eq(product)
-      expect(assigns(:stocks)).to eq(product.stocks)
+      expect(assigns(:stocks)).to eq(product.stocks.where(outlet: user.outlet))
     end
   end
 

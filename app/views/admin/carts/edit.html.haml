@@ -18,7 +18,7 @@
 					.col-md-3
 						= item.product.name
 					.col-md-2
-						= form_tag admin_carts_path do
+						= form_tag admin_cart_path, method: :patch do
 							= hidden_field_tag :product_id, item.product.id
 							= number_field_tag :quantity, item.quantity, min: 1, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity
 							= button_tag 'Update',  class: 'btn btn-primary'

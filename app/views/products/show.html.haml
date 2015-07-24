@@ -1,2 +1,37 @@
-%h1 Products#show
-%p Find me in app/views/products/show.html.haml
+.row
+	%h1.text-center= @product.name
+	.col-md-4
+		= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'img-responsive product-medium', 'data-toggle' => 'modal', 'data-target' => '.images-modal'
+		.thumbnail-gallery.main-thumbnails
+			- @product.images.each do |image|
+				= image_tag image.name.try(:thumbnail).try(:url), data: { 'medium-url' => image.name.try(:medium).try(:url) }, class: 'product-thumbnail'
+	.col-md-4
+		.profile-box
+			%strong.title Item Overview:
+			%hr
+			= @product.description
+			%p
+				%strong.title Name:
+				= @product.name
+			%p
+				%strong.title Code:
+				= @product.code
+			%p
+				%strong.title Price:
+				= @product.price
+			%p
+				%strong.title Product Type:
+				= @product.product_type.name
+	.col-md-4
+.modal.fade.images-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'myLargeModalLabel' }
+	.modal-dialog.modal-lg
+		.modal-content
+			.row.full-height
+				.col-md-8.text-center.full-height
+					.popup-image.full-height
+						.image-container.full-height
+							= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'product-medium'
+				.col-md-2.col-md-offset-1
+					.thumbnail-gallery
+						- @product.images.each do |image|
+							= image_tag image.name.try(:thumbnail).try(:url), data: { 'medium-url' => image.name.try(:medium).try(:url) }, class: 'product-thumbnail'

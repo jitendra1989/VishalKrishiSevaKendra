@@ -1,3 +1,39 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.main-thumbnails{
+	max-height: 100px;
+}
+.thumbnail-gallery{
+	overflow: hidden;
+	padding-top: 10px;
+	text-align: center;
+}
+.images-modal{
+	.modal-dialog, .modal-content{
+		height: 96%;
+	}
+	.modal-content{
+		.popup-image{
+			.image-container{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+	.thumbnail-gallery{
+		.product-thumbnail{
+			margin: 5px;
+			vertical-align: center;
+			border: 1px solid	#ccc;
+		}
+		padding-top: 50px;
+	}
+	}
+}
+

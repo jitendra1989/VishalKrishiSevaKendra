@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/collapse
+//= require bootstrap/modal
 //= require pages
+//= require products
 // require_tree .

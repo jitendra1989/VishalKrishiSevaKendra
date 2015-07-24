@@ -13,5 +13,6 @@
  * require_tree .
  *= require frontend
  *= require pages
+ *= require products
  *= require_self
  */

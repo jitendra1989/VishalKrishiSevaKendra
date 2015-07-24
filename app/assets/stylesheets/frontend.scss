@@ -10,6 +10,19 @@ $navbar-default-link-color: #c3c3c3;
 body{
 	background: url('background.jpg') center center;
 }
+a, a:hover, a:focus{
+	text-decoration: none;
+	color: #fff;
+}
+footer{
+	padding: 20px;
+	color: #fff;
+	background: #000;
+	span{
+		vertical-align: middle;
+		display: inline-block;
+	}
+}
 .main-content{
 	background: #fff;
 	padding: 30px 15px;
@@ -24,9 +37,9 @@ body{
 	vertical-align: middle;
 }
 .home { background-position: 0 -272px; }
-.about {  background-position: 0 0; }
+.about { background-position: 0 0; }
 .collection { background-position: 0 -136px; }
-.projects { background-position: 0 -340px; }
+.projects { background-position: 0 -374px; }
 .clients { background-position: 0 -68px; }
 .contact { background-position: 0 -204px; }
 
@@ -34,13 +47,23 @@ body{
 	.home { background-position: 0 -306px; }
 	.about { background-position: 0 -34px; }
 	.collection { background-position: 0 -170px; }
-	.projects{ background-position: 0 -374px; }
+	.projects{ background-position: 0 -340px; }
 	.clients { background-position: 0 -102px; }
 	.contact { background-position: 0 -238px; }
 }
 .navbar-nav > li > a {
 	padding-top: 10px;
 	padding-bottom: 0;
+}
+.facebook{
+	width: 32px;
+	height: 32px;
+	background-position: 0 -408px;
+}
+.phone{
+	width: 16px;
+	height: 16px;
+	background-position: 0 -441px;
 }
 @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
 	.navbar-nav > li > a {

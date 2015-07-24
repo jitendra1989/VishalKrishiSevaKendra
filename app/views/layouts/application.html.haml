@@ -48,3 +48,20 @@
 											%span.sprites.nav-icons.contact
 											Contact Us
 			.main-content= yield
+			%footer
+				.row
+					.col-md-6
+						= link_to 'https://www.facebook.com/pages/Damian-de-Goa/532272703493618', target: :_blank do
+							%span.sprites.facebook
+							Follow Us
+					.col-md-6.text-right
+						%a{ href: 'tel:+918322417045' }
+							%span.sprites.phone
+							0832 - 2417045
+						\/
+						%a{ href: 'tel:+918322413737' } 2413737
+						\/
+						%a{ href: 'tel:+918322412126' } 2412126
+						%br
+						%br
+						© #{Time.now.year} Karbens InfoTech Ltd., All Rights Reserved.

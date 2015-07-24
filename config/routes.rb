@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       collection do
         post 'add'
       end
+      member do
+        delete 'remove/:product_id' => 'carts#remove', as: :remove
+      end
     end
     resources :customers, shallow: true do
       resources :quotations, only: [:new, :create, :show]

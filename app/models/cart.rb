@@ -15,6 +15,12 @@ class Cart < ActiveRecord::Base
   def update_item(product_id, quantity)
     cart_item = self.items.find_or_initialize_by(product_id: product_id)
     new_quantity = quantity.to_i - cart_item.quantity
-    self.add_item(product_id, new_quantity)
+    new_quantity == 0 ? self.delete_item(product_id) : self.add_item(product_id, new_quantity)
+  end
+
+  def delete_item(product_id)
+    cart_item = self.items.find_or_initialize_by(product_id: product_id)
+    self.outlet.product_stock(product_id).return_to_stock(cart_item.quantity)
+    cart_item.delete
   end
 end

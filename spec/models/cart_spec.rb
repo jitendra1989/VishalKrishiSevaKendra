@@ -43,5 +43,19 @@ RSpec.describe Cart, type: :model do
         expect(cart.items.find_by(product: product).quantity).to eq(quantity)
       end
     end
+    describe "Delete item from cart" do
+      before do
+        cart.update_item(product.id, quantity)
+      end
+      it 'restores the product quantity to the stock' do
+        stock_before_deletion = cart.outlet.product_stock(product).quantity
+        cart.delete_item(product.id)
+        expect(cart.outlet.product_stock(product).quantity).to eq(stock_before_deletion + quantity)
+      end
+      it 'deletes the item from cart' do
+        cart.delete_item(product.id)
+        expect(cart.items.find_by(product: product)).to be_nil
+      end
+    end
   end
 end

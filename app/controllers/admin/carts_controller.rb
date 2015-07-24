@@ -25,6 +25,12 @@ class Admin::CartsController < Admin::ApplicationController
 		@cart = Cart.find(params[:id])
 	end
 
+	def remove
+		@cart = Cart.find(params[:id])
+		@cart.delete_item(params[:product_id])
+		redirect_to edit_admin_cart_url(@cart)
+	end
+
 	private
 		def set_cart
 		end

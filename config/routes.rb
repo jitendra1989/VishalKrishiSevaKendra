@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'pages#index'
+  root 'products#index'
   get 'pages/about'
   get 'pages/projects'
   get 'pages/clients'
   get 'pages/contact'
+  resources :products, only: [:show]
 
   namespace :admin do
     root 'users#dashboard'

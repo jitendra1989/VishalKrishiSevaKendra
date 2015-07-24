@@ -30,6 +30,11 @@ RSpec.describe Admin::CartsController, type: :controller do
 					}.to change(CartItem, :count).by(1)
 			end
 			it "creates a new cart if not exists" do
+				expect{
+					post :add, product_id: product.id, quantity: 1
+					}.to change(Cart, :count).by(1)
+			end
+			it "assigns the cart as @cart" do
 				post :add, product_id: product.id, quantity: 1
 				expect(assigns(:cart)).to be_a(Cart)
 			end

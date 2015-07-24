@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "admin/carts/view", type: :view do
+RSpec.describe "admin/carts/edit", type: :view do
   let(:cart) { FactoryGirl.create(:cart) }
 
   it "renders attributes in <p>" do

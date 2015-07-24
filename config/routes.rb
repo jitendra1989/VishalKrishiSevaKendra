@@ -15,11 +15,9 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
-    resources :carts, only: [:index] do
+    resources :carts, only: [:index, :update, :edit] do
       collection do
         post 'add'
-        post 'update'
-        get 'view'
       end
     end
     resources :customers, shallow: true do

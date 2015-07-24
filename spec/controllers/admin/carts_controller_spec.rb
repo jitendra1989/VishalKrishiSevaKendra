@@ -49,7 +49,7 @@ RSpec.describe Admin::CartsController, type: :controller do
 
 			it "redirects to the cart page" do
 				post :add, product_id: product.id, quantity: 1
-				expect(response).to redirect_to(view_admin_carts_url)
+				expect(response).to redirect_to(edit_admin_cart_url(session[:cart_id]))
 			end
 		end
 
@@ -63,35 +63,24 @@ RSpec.describe Admin::CartsController, type: :controller do
 			end
 
 			it "updates the existing cart item quantity" do
-				post :update, product_id: product.id, quantity: 1
+				patch :update, id: cart.id, product_id: product.id, quantity: 1
 				expect(cart.items.find_by(product: product).quantity).to eq(1)
 			end
 			it "assigns the cart as @cart" do
-				post :update, product_id: product.id, quantity: 1
+				patch :update, id: cart.id, product_id: product.id, quantity: 1
 				expect(assigns(:cart)).to be_a(Cart)
 			end
 
 			it "redirects to the cart page" do
-				post :update, product_id: product.id, quantity: 1
-				expect(response).to redirect_to(view_admin_carts_url)
-			end
-
-			it "redirects to the index page if no cart is active" do
-				session[:cart_id] = nil
-				post :update, product_id: product.id, quantity: 1
-				expect(response).to redirect_to(admin_carts_url)
+				patch :update, id: cart.id, product_id: product.id, quantity: 1
+				expect(response).to redirect_to(edit_admin_cart_url(cart))
 			end
 		end
 
-		describe "GET #view" do
+		describe "GET #edit" do
 			it "assigns the active cart as @cart" do
-				session[:cart_id] = cart.id
-				get :view
+				get :edit, id: cart.id
 				expect(assigns(:cart)).to eq(cart)
-			end
-			it "redirects to the index page if no cart is active" do
-				get :view
-				expect(response).to redirect_to(admin_carts_url)
 			end
 		end
 	end

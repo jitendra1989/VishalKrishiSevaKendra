@@ -12,7 +12,7 @@
   - if product.outlet_stock_quantity(@current_user.outlet) > 0
     = form_tag add_admin_carts_path do
       = hidden_field_tag :product_id, product.id
-      = select_tag :quantity, options_for_select(1..product.outlet_stock_quantity(@current_user.outlet))
+      = number_field_tag :quantity, 1, min: 1, max: product.outlet_stock_quantity(@current_user.outlet)
       = button_tag class: 'btn btn-primary' do
         %span.glyphicon.glyphicon-shopping-cart
   = link_to admin_product_path(product), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do

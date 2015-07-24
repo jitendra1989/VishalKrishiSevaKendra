@@ -23,4 +23,17 @@ RSpec.describe Outlet, type: :model do
 		outlet.country = nil
 		expect(outlet).to_not be_valid
 	end
+	describe 'product stock' do
+		let(:stock) { FactoryGirl.build(:stock, outlet: outlet) }
+		before do
+			outlet.save!
+		end
+		it 'returns nil if no stock for the requested product' do
+			expect(outlet.product_stock(stock.product)).to be_nil
+		end
+		it 'returns the latest stock present in the requested outlet' do
+			stock.save!
+			expect(outlet.product_stock(stock.product)).to eq(stock)
+		end
+	end
 end

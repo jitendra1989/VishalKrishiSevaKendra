@@ -22,6 +22,7 @@ RSpec.describe Cart, type: :model do
   describe "Add to cart" do
     let(:product) { FactoryGirl.create(:product) }
     let(:quantity) { Faker::Number.digit.to_i }
+    let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: cart.outlet) }
     it 'adds product to the cart' do
       expect{
         cart.add(product.id, quantity)
@@ -30,6 +31,11 @@ RSpec.describe Cart, type: :model do
     it 'adds product quantity to the cart' do
       cart.add(product.id, quantity)
       expect(cart.items.find_by(product: product).quantity).to be >= quantity
+    end
+    it 'adds only available product stock if outlet stock is less than requested quantity' do
+      previous_quantity = cart.items.find_by(product: product).try(:quantity) || 0
+      cart.add(product.id, product_stock.quantity*100)
+      expect(cart.items.find_by(product: product).quantity).to eq(previous_quantity + product_stock.try(:quantity).to_i)
     end
   end
 end

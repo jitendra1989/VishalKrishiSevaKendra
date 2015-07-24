@@ -24,6 +24,7 @@ RSpec.describe Admin::CartsController, type: :controller do
 
 		describe "POST #add" do
 			let(:product) { FactoryGirl.create(:product) }
+			let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: user.outlet) }
 
 			it 'adds the product to the cart' do
 				expect{
@@ -47,7 +48,7 @@ RSpec.describe Admin::CartsController, type: :controller do
 			end
 
 			it "redirects to the cart page" do
-				post :add
+				post :add, product_id: product.id, quantity: 1
 				expect(response).to redirect_to(view_admin_carts_url)
 			end
 		end

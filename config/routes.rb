@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :carts, only: [:index] do
       collection do
         post 'add'
+        post 'update'
         get 'view'
       end
     end

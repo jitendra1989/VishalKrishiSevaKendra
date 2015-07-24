@@ -25,17 +25,23 @@ RSpec.describe Cart, type: :model do
     let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: cart.outlet) }
     it 'adds product to the cart' do
       expect{
-        cart.add(product.id, quantity)
+        cart.add_item(product.id, quantity)
         }.to change(CartItem, :count).by(1)
     end
     it 'adds product quantity to the cart' do
-      cart.add(product.id, quantity)
+      cart.add_item(product.id, quantity)
       expect(cart.items.find_by(product: product).quantity).to be >= quantity
     end
     it 'adds only available product stock if outlet stock is less than requested quantity' do
       previous_quantity = cart.items.find_by(product: product).try(:quantity) || 0
-      cart.add(product.id, product_stock.quantity*100)
+      cart.add_item(product.id, product_stock.quantity*100)
       expect(cart.items.find_by(product: product).quantity).to eq(previous_quantity + product_stock.try(:quantity).to_i)
+    end
+    describe "Update cart" do
+      it 'updates product quantity in the cart' do
+        cart.update_item(product.id, quantity)
+        expect(cart.items.find_by(product: product).quantity).to eq(quantity)
+      end
     end
   end
 end

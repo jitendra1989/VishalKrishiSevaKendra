@@ -12,6 +12,8 @@ RSpec.describe Admin::CartsController, type: :controller do
 	end
 
 	describe "Logged in user" do
+		let(:product) { FactoryGirl.create(:product) }
+		let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: user.outlet) }
 		before do
 			log_in user
 		end
@@ -23,8 +25,6 @@ RSpec.describe Admin::CartsController, type: :controller do
 		end
 
 		describe "POST #add" do
-			let(:product) { FactoryGirl.create(:product) }
-			let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: user.outlet) }
 
 			it 'adds the product to the cart' do
 				expect{
@@ -35,6 +35,11 @@ RSpec.describe Admin::CartsController, type: :controller do
 				expect{
 					post :add, product_id: product.id, quantity: 1
 					}.to change(Cart, :count).by(1)
+			end
+			it "uses an abandoned cart if exists" do
+				abandoned_cart = FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil)
+				post :add, product_id: product.id, quantity: 1
+				expect(assigns(:cart)).to eq(abandoned_cart)
 			end
 			it "user the existing cart if present" do
 				session[:cart_id] = cart.id
@@ -54,9 +59,6 @@ RSpec.describe Admin::CartsController, type: :controller do
 		end
 
 		describe "POST #update" do
-			let(:product) { FactoryGirl.create(:product) }
-			let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: user.outlet) }
-
 			before do
 				cart.add_item(product, 1)
 				session[:cart_id] = cart.id
@@ -81,6 +83,24 @@ RSpec.describe Admin::CartsController, type: :controller do
 			it "assigns the active cart as @cart" do
 				get :edit, id: cart.id
 				expect(assigns(:cart)).to eq(cart)
+			end
+		end
+
+		describe "DELETE #remove" do
+			before do
+				cart.add_item(product.id, 10)
+			end
+			it "redirects to the cart page" do
+				delete :remove, id: cart.id, product_id: product.id
+				expect(response).to redirect_to(edit_admin_cart_url(cart.id))
+			end
+			it "assigns selected cart as @cart" do
+				delete :remove, id: cart.id, product_id: product.id
+				expect(assigns(:cart)).to eq(cart)
+			end
+			it "removes the selected item from the cart" do
+				delete :remove, id: cart.id, product_id: product.id
+				expect(cart.reload.items.where(product: product).size).to eq(0)
 			end
 		end
 	end

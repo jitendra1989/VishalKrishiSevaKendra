@@ -16,6 +16,12 @@ class Stock < ActiveRecord::Base
     available_quantity
   end
 
+  def return_to_stock(product_quantity)
+    self.quantity += product_quantity
+    self.in_carts -= product_quantity
+    save
+  end
+
   private
     def set_defaults
       self.opening, self.in_carts, self.ordered, self.invoiced = self.product.outlet_stock_quantity(self.outlet), 0, 0, 0

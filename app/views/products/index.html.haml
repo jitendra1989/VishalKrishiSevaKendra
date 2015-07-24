@@ -9,5 +9,5 @@
           = link_to product.name, product_path(product)
         .product-code= product.code
         .product-description= product.description
-        .product-price= product.price
+        .product-price= number_to_currency product.price_with_taxes
 

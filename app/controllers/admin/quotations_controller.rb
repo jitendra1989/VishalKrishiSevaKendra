@@ -1,6 +1,6 @@
 class Admin::QuotationsController < Admin::ApplicationController
 	def index
-		@quotations = Quotation.all
+		@quotations = Quotation.includes(:customer).all
 	end
 
 	def show

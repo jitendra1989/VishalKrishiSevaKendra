@@ -3,14 +3,13 @@
 		%h2 Active Cart
 	.col-md-10.col-md-offset-1
 		.profile-box
-			.text-right
-				=link_to 'New Stocks', '#'
 			%br
 			.row
 				.col-md-5 Product
 				.col-md-2 Quantity
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
+				.col-md-1
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-2
@@ -20,7 +19,10 @@
 					.col-md-2
 						= form_tag admin_cart_path, method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 1, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity
 							= button_tag 'Update',  class: 'btn btn-primary'
-					.col-md-2.text-right= number_to_currency item.product.price
-					.col-md-2.text-right= number_to_currency item.product.price * item.quantity
+					.col-md-2.text-right= number_to_currency item.product.price_with_taxes
+					.col-md-2.text-right= number_to_currency item.product.price_with_taxes * item.quantity
+					.col-md-1.actions.text-center
+						= link_to remove_admin_cart_path(@cart, item.product_id), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+							%span.glyphicon.glyphicon-remove

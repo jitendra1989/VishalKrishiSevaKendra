@@ -3,7 +3,7 @@
   .product-name= product.name
   .product-code= product.code
   .product-description= product.description
-  .product-price= product.price
+  .product-price= number_to_currency product.price_with_taxes
   = link_to "view stocks", admin_product_stocks_path(product)
   = link_to edit_admin_product_path(product) do
     %span.glyphicon.glyphicon-pencil

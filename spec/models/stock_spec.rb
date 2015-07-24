@@ -69,5 +69,21 @@ RSpec.describe Stock, type: :model do
         expect(initial_stock.add_to_cart(1)).to eq(1)
       end
     end
+    describe 'Return to stock' do
+      let(:added_quantity) { initial_stock.quantity/3 }
+      before do
+        initial_stock.add_to_cart(added_quantity)
+      end
+      it 'reverts the requested quantity to quantity' do
+        cart_quantity = initial_stock.in_carts
+        initial_stock.return_to_stock(added_quantity)
+        expect(initial_stock.reload.in_carts).to eq(cart_quantity - added_quantity)
+      end
+      it 'subtracts the requested quantity from in carts' do
+        cart_quantity = initial_stock.in_carts
+        initial_stock.return_to_stock(added_quantity)
+        expect(initial_stock.reload.in_carts).to eq(cart_quantity - added_quantity)
+      end
+    end
   end
 end

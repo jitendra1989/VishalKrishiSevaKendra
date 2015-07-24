@@ -44,4 +44,17 @@ RSpec.describe Product, type: :model do
 			expect(product.outlet_stock_quantity(stock.outlet)).to eq(stock.quantity)
 		end
 	end
+
+	describe 'price with taxes' do
+		before do
+			product.save!
+			product.product_type.taxes << FactoryGirl.create_list(:tax, 2)
+		end
+		it 'returns the price plus the applicable taxes for the product' do
+			taxes = product.product_type.taxes.pluck(:percentage)
+			tax_amount = 0
+			taxes.each { |tax| tax_amount += product.price * tax/100 }
+			expect(product.price_with_taxes).to eq(product.price + tax_amount)
+		end
+	end
 end

@@ -24,11 +24,11 @@
 							#main-nav.collapse.navbar-collapse.main-nav
 								%ul.nav.navbar-nav
 									%li.hidden-xs.hidden-sm{ role: 'presentation' }
-										= link_to '#' do
+										= link_to root_path do
 											%span.sprites.nav-icons.home
 											Home
 									%li{ role: 'presentation' }
-										= link_to '#' do
+										= link_to pages_about_path do
 											%span.sprites.nav-icons.about
 											About Us
 									%li{ role: 'presentation' }
@@ -36,15 +36,15 @@
 											%span.sprites.nav-icons.collection
 											Collection
 									%li{ role: 'presentation' }
-										= link_to '#' do
+										= link_to pages_projects_path do
 											%span.sprites.nav-icons.projects
 											Projects
 									%li{ role: 'presentation' }
-										= link_to '#' do
+										= link_to pages_clients_path do
 											%span.sprites.nav-icons.clients
 											Clients
 									%li{ role: 'presentation' }
-										= link_to '#' do
+										= link_to pages_contact_path do
 											%span.sprites.nav-icons.contact
 											Contact Us
 			.main-content= yield

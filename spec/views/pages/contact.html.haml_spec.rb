@@ -1,5 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "pages/contact.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+RSpec.describe "pages/contact", type: :view do
+
+    it "renders attributes in <div>" do
+      render
+      expect(rendered).to match(/Address/)
+      expect(rendered).to have_css('iframe')
+    end
+  end

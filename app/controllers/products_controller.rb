@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.first(8)
+    @products = Product.includes(:product_type).first(8)
   end
 
 end

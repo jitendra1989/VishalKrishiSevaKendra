@@ -1,6 +1,6 @@
 class Admin::ProductTypesController < Admin::ApplicationController
 	def index
-		@product_types = ProductType.all
+		@product_types = ProductType.includes(:taxes).all
 	end
 
 	def edit

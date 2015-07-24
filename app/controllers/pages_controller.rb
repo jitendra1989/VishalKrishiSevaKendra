@@ -1,7 +1,4 @@
 class PagesController < ApplicationController
-  def index
-    @products = Product.first(8)
-  end
 
   def about
   end

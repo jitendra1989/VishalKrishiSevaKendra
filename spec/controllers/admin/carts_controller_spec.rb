@@ -36,6 +36,11 @@ RSpec.describe Admin::CartsController, type: :controller do
 					post :add, product_id: product.id, quantity: 1
 					}.to change(Cart, :count).by(1)
 			end
+			it "uses an abandoned cart if exists" do
+				abandoned_cart = FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil)
+				post :add, product_id: product.id, quantity: 1
+				expect(assigns(:cart)).to eq(abandoned_cart)
+			end
 			it "user the existing cart if present" do
 				session[:cart_id] = cart.id
 				expect{

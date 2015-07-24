@@ -8,6 +8,7 @@ RSpec.describe Stock, type: :model do
   it { expect(stock).to respond_to(:opening) }
   it { expect(stock).to respond_to(:new_quantity) }
   it { expect(stock).to respond_to(:ordered) }
+  it { expect(stock).to respond_to(:in_carts) }
   it { expect(stock).to respond_to(:invoiced) }
   it "has a valid product" do
     stock.product = nil
@@ -32,6 +33,7 @@ RSpec.describe Stock, type: :model do
     let(:initial_stock) { FactoryGirl.create(:stock) }
     it 'has opening amount of zero' do
       expect(initial_stock.opening).to eq 0
+      expect(initial_stock.in_carts).to eq 0
       expect(initial_stock.ordered).to eq 0
       expect(initial_stock.invoiced).to eq 0
     end
@@ -43,6 +45,28 @@ RSpec.describe Stock, type: :model do
       let(:new_stock) { FactoryGirl.create(:stock, product: initial_stock.product, outlet: initial_stock.outlet) }
       it 'has the previous stock as opening' do
         expect(new_stock.opening).to eq (initial_stock.quantity)
+      end
+    end
+    describe 'Add to cart' do
+      it 'adds the requested quantity to in_carts' do
+        added_quantity = initial_stock.quantity
+        initial_stock.add_to_cart(added_quantity)
+        expect(initial_stock.reload.in_carts).to eq(added_quantity)
+      end
+      it 'subtracts the requested quantity from stock quantity' do
+        initial_quantity = initial_stock.quantity
+        added_quantity = initial_stock.add_to_cart(initial_quantity)
+        expect(initial_stock.reload.quantity).to eq(initial_quantity - added_quantity)
+      end
+      it 'adds only available quantity' do
+        added_quantity = initial_stock.quantity
+        initial_stock.add_to_cart(added_quantity*10)
+        expect(initial_stock.reload.in_carts).to eq(added_quantity)
+      end
+      it 'returns the available quantity to be added to cart' do
+        added_quantity = initial_stock.quantity/3
+        expect(initial_stock.add_to_cart(added_quantity)).to eq(added_quantity)
+        expect(initial_stock.add_to_cart(1)).to eq(1)
       end
     end
   end

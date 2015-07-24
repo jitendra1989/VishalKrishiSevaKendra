@@ -5,5 +5,5 @@
 		= link_to_remove_association f do
 			%span.glyphicon.glyphicon-remove.delete-link.pull-right
 	%td= f.number_field :quantity, class: 'quantity-field text-right', min: 1
-	%td.product-rate.text-right= f.object.price
-	%td.product-amount.text-right= f.object.price * f.object.quantity if f.object.quantity
+	%td.product-rate.text-right= number_to_currency f.object.try(:price_with_taxes)
+	%td.product-amount.text-right= f.object.try(:price_with_taxes) * f.object.quantity if f.object.quantity

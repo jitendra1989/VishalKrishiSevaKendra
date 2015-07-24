@@ -13,4 +13,11 @@ class Product < ActiveRecord::Base
 	def outlet_stock_quantity(outlet)
 		self.stocks.where(outlet: outlet).last.try(:quantity) || 0
 	end
+
+	def price_with_taxes
+		taxes = self.product_type.taxes.pluck(:percentage)
+		tax_amount = 0
+		taxes.each { |tax| tax_amount += self.price * tax/100 }
+		self.price + tax_amount
+	end
 end

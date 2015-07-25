@@ -1,4 +1,4 @@
-= form_for [:admin, @category], url: form_url do |f|
+= form_for [:admin, @category], url: form_path, remote: true do |f|
   .form-group
     = f.label :name
     = f.text_field :name, required: true

@@ -1,0 +1,1 @@
+$('#category_<%= @category.parent.id %>').append('<%= j (render 'form', form_path: admin_category_categories_path(@category.parent) ) %>');

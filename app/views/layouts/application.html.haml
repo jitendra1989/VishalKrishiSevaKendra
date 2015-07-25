@@ -47,6 +47,24 @@
 										= link_to pages_contact_path do
 											%span.sprites.nav-icons.contact
 											Contact Us
+						%nav.navbar.navbar-default
+							.navbar-category
+								%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#category-nav', 'aria-expanded' => false }
+									%span.sr-only Toggle navigation
+									%span.icon-bar
+									%span.icon-bar
+									%span.icon-bar
+							#category-nav.collapse.navbar-collapse.category-nav
+								%ul.nav.navbar-nav
+									- Category.roots.each do |category|
+										%li.root-category{ role: 'presentation' }
+											= link_to category_path(category), role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
+												= category.name
+											- if category.has_children?
+												%ul
+													- category.children.each do |category|
+														%li{ role: 'presentation' }
+															= link_to category.name, category_path(category)
 			.main-content= yield
 			%footer
 				.row

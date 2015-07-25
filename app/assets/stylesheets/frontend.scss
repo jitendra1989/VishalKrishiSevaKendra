@@ -69,6 +69,24 @@ footer{
 	height: 16px;
 	background-position: 0 -441px;
 }
+.category-nav{
+	.root-category{
+		ul{
+			display: none;
+			position: absolute;
+			background: #141414;
+			z-index: 1;
+			padding: 10px;
+			list-style: none;
+			li{
+				padding: 10px;
+			}
+		}
+		&:hover ul{
+			display: block;
+		}
+	}
+}
 @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
 	.navbar-nav > li > a {
 		padding: 10px 29px;

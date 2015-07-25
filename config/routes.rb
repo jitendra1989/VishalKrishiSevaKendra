@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'pages/projects'
   get 'pages/clients'
   get 'pages/contact'
+  resources :categories, only: [:show]
   resources :products, only: [:show]
 
   namespace :admin do

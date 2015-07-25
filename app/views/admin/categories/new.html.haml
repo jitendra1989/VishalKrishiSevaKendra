@@ -5,5 +5,5 @@
 		.profile-box
 			.text-right
 				=link_to 'View Categories', admin_categories_path
-			= render 'form', form_url: @category.root?? admin_categories_path : admin_category_categories_path(@category.parent)
+			= render 'form', form_path: @category.root?? admin_categories_path : admin_category_categories_path(@category.parent)
 

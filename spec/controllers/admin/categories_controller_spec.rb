@@ -21,6 +21,13 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       get :new
       expect(assigns(:category)).to be_a_new(Category)
     end
+    describe 'new child category' do
+      it "returns http success" do
+        get :new, category_id: category.id
+        expect(assigns(:category)).to be_a_new(Category)
+        expect(assigns(:category).parent).to eq(category)
+      end
+    end
   end
 
   describe "GET #edit" do
@@ -40,7 +47,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       it "assigns a newly created category as @category" do
         post :create, category: valid_attributes
-          expect(assigns(:category)).to be_an(Category)
+          expect(assigns(:category)).to be_a(Category)
           expect(assigns(:category)).to be_persisted
       end
 
@@ -60,6 +67,21 @@ RSpec.describe Admin::CategoriesController, type: :controller do
           post :create, category: invalid_attributes
           expect(response).to render_template("new")
       end
+    end
+  end
+  describe 'POST #create child category' do
+    before do
+      category.reload
+    end
+    it "creates a new Category" do
+      expect {
+        post :create, category_id: category.id, category: valid_attributes
+      }.to change(Category, :count).by(1)
+    end
+
+    it "assigns a newly created category as @category" do
+      post :create, category_id: category.id, category: valid_attributes
+        expect(assigns(:category).parent).to eq(category)
     end
   end
 

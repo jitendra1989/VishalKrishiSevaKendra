@@ -10,6 +10,7 @@
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
 				.col-md-1
+			- total = 0
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-2
@@ -19,10 +20,22 @@
 					.col-md-2
 						= form_tag admin_cart_path, method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity, class: 'cart-quantity'
 							= button_tag 'Update',  class: 'btn btn-primary'
 					.col-md-2.text-right= number_to_currency item.product.price_with_taxes
-					.col-md-2.text-right= number_to_currency item.product.price_with_taxes * item.quantity
+					.col-md-2.text-right
+						- amount = item.product.price_with_taxes * item.quantity
+						- total += amount
+						= number_to_currency amount
 					.col-md-1.actions.text-center
 						= link_to remove_admin_cart_path(@cart, item.product_id), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
 							%span.glyphicon.glyphicon-remove
+			%hr
+			.row.text-right
+				.col-md-offset-7.col-md-2 Total
+				.col-md-2= number_to_currency total
+				.col-md-1
+			%hr
+			.row
+				.col-md-12.text-right
+					= link_to 'Add Customer Info', admin_customers_path, class: 'btn btn-primary'

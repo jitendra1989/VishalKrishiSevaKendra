@@ -1,5 +1,5 @@
 class Admin::CartsController < Admin::ApplicationController
-	before_action :set_cart, only: [:edit, :update]
+	before_action :set_cart, only: [:edit, :update, :remove, :destroy]
 
 	def index
 		@carts = Cart.where(outlet: current_user.outlet)
@@ -16,22 +16,25 @@ class Admin::CartsController < Admin::ApplicationController
 	end
 
 	def update
-		@cart = Cart.find(params[:id])
 		@cart.update_item(params[:product_id], params[:quantity])
 		redirect_to edit_admin_cart_url(@cart), flash: { success: 'Your cart was successfully updated.' }
 	end
 
 	def edit
-		@cart = Cart.find(params[:id])
 	end
 
 	def remove
-		@cart = Cart.find(params[:id])
-		@cart.delete_item(params[:product_id])
+		@cart.destroy_item(params[:product_id])
 		redirect_to edit_admin_cart_url(@cart)
+	end
+
+	def destroy
+		@cart.destroy
+		redirect_to admin_carts_url, flash: { info: 'Cart was successfully deleted.' }
 	end
 
 	private
 		def set_cart
+			@cart = Cart.find(params[:id])
 		end
 end

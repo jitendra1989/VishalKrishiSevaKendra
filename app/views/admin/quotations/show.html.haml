@@ -52,7 +52,7 @@
                     .text-right= number_to_currency total
               %tr
                 %td{ colspan: 3 }
-                  %strong Discount %
+                  %strong= "Discount #{(@quotation.discount_amount*100/total).round(2)}%"
                 %td.text-right= number_to_currency @quotation.discount_amount
               %tr
                 %td{ colspan: 3 }

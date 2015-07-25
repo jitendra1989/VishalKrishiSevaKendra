@@ -103,5 +103,19 @@ RSpec.describe Admin::CartsController, type: :controller do
 				expect(cart.reload.items.where(product: product).size).to eq(0)
 			end
 		end
+		describe "DELETE #destroy" do
+			let!(:deletable_cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet) }
+			it "destroys the requested cart" do
+				expect {
+					delete :destroy, id: deletable_cart.id
+				}.to change(Cart, :count).by(-1)
+			end
+
+			it "redirects to the carts list" do
+					delete :destroy, id: deletable_cart.id
+					expect(response).to redirect_to(admin_carts_url)
+			end
+		end
 	end
+
 end

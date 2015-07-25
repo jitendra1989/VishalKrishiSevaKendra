@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
-    resources :carts, only: [:index, :update, :edit] do
+    resources :carts, except: [:new, :create, :show] do
       collection do
         post 'add'
       end

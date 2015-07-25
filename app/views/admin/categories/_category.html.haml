@@ -1,9 +1,9 @@
 = content_tag_for :li, category do
-	= category.name
+	%span.category-name= category.name
 	%span.actions.text-center
-		= link_to new_admin_category_category_path(category) do
+		= link_to new_admin_category_category_path(category), remote: true do
 			%span.glyphicon.glyphicon-plus
-		= link_to edit_admin_category_path(category) do
+		= link_to edit_admin_category_path(category), remote: true do
 			%span.glyphicon.glyphicon-pencil
 		= link_to admin_category_path(category), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
 			%span.glyphicon.glyphicon-remove

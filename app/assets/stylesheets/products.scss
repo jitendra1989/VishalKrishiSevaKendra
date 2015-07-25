@@ -14,6 +14,9 @@
 		height: 96%;
 	}
 	.modal-content{
+		padding: 10px;
+	}
+	.modal-content{
 		.popup-image{
 			.image-container{
 				position: absolute;
@@ -25,15 +28,29 @@
 				justify-content: center;
 				align-items: center;
 			}
+			img{
+				max-height: 95%;
+			}
 		}
-	.thumbnail-gallery{
-		.product-thumbnail{
-			margin: 5px;
-			vertical-align: center;
-			border: 1px solid	#ccc;
+		.thumbnail-gallery{
+			padding-top: 50px;
+			.product-thumbnail{
+				margin: 5px;
+				vertical-align: center;
+				border: 1px solid	#ccc;
+			}
 		}
-		padding-top: 50px;
-	}
+		.zoom-image{
+			cursor: zoom-in;
+		}
+		.zoom-out{
+			cursor: zoom-out;
+		}
 	}
 }
-
+@media (min-width: 768px) {
+	.modal-xl {
+		width: 90%;
+		max-width:1200px;
+	}
+}

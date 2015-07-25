@@ -13,7 +13,7 @@ quotationsReady = ->
 			return
 		if percentage
 			percent = parseFloat $('.discount-percent').val()
-			discount = Math.round(subtotal * percent/100)/100
+			discount = Math.round(subtotal * percent/100)
 			$('#quotation_discount_amount').val(discount)
 		else
 			discount = parseFloat $('#quotation_discount_amount').val()

@@ -1,7 +1,8 @@
-= form_for [:admin, @category] do |f|
+= form_for [:admin, @category.parent, @category] do |f|
   .form-group
     = f.label :name
     = f.text_field :name, required: true
+    = f.hidden_field :parent_id
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

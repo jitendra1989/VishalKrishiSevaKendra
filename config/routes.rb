@@ -30,7 +30,9 @@ Rails.application.routes.draw do
     end
     resources :permissions, only: [:index]
     resources :outlets, except: [:show]
-    resources :categories, except: [:show]
+    resources :categories, except: [:show], shallow: true do
+      resources :categories, only: [:new, :create]
+    end
     resources :users do
       collection do
         match 'login' => 'users#login', via: [:get, :post]

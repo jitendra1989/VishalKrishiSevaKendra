@@ -2,7 +2,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def new
-		@category = Category.new
+		@category = Category.new(parent_id: params[:category_id])
 	end
 
 	def edit
@@ -13,7 +13,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 	end
 
 	def create
-		@category = Category.new(category_params)
+		@category = Category.new(category_params.merge(parent_id: params[:category_id]))
 		if @category.save
 			redirect_to admin_categories_url, flash: { success: 'Category was successfully created.' }
 		else

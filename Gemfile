@@ -48,6 +48,11 @@ group :development do
   gem 'pry-rails'
   gem 'spring-commands-rspec'
   gem 'bullet'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
+  gem 'capistrano-faster-assets'
+  gem 'capistrano-passenger'
 end
 
 group :development, :test do

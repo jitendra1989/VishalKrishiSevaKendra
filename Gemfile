@@ -40,7 +40,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'cocoon'
 gem 'prawn'
-gem "kaminari"
+gem 'kaminari'
+gem 'friendly_id'
 
 group :development do
   gem 'pry-rails'

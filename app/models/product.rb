@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+	extend FriendlyId
+	friendly_id :name, use: :slugged
+
 	has_many :product_categories, dependent: :destroy
 	has_many :stocks
 	has_many :cart_items

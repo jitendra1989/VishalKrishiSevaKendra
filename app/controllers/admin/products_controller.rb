@@ -1,5 +1,6 @@
 class Admin::ProductsController < Admin::ApplicationController
-	load_and_authorize_resource
+	before_action :set_product, only: [:show, :edit, :update, :destroy]
+	authorize_resource
 
 	def index
 		@products = Product.includes(:product_type).all.page(params[:page]).per(20)
@@ -42,5 +43,9 @@ class Admin::ProductsController < Admin::ApplicationController
 	private
 		def product_params
 			params.require(:product).permit(:name, :code, :description, :product_type_id, :price, :active, images_attributes:[:id, :name, :_destroy], category_ids: [])
+		end
+
+		def set_product
+			@product = Product.friendly.find(params[:id])
 		end
 end

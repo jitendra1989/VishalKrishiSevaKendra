@@ -4,7 +4,7 @@ RSpec.describe ProductsController, type: :controller do
   let(:product) { FactoryGirl.create(:product) }
   describe "GET #show" do
     it "returns http success" do
-      get :show, id: product.id
+      get :show, id: product.friendly_id
       expect(assigns(:product)).to eq(product)
     end
   end

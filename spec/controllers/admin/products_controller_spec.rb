@@ -41,7 +41,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
 
 		describe "GET #show" do
 			it "returns http success" do
-				get :show, id: product.id
+				get :show, id: product.friendly_id
 				expect(assigns(:product)).to eq(product)
 			end
 		end

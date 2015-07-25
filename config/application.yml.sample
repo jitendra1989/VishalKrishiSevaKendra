@@ -1,0 +1,6 @@
+DATABASE_USERNAME: database_user
+DATABASE_PASSWORD: <database_password>
+production:
+  SECRET_KEY_BASE: <secret_key>
+  DATABASE_USERNAME: database_user
+  DATABASE_PASSWORD: <database_password>

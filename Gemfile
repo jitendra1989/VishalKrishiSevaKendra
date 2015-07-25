@@ -42,11 +42,12 @@ gem 'cocoon'
 gem 'prawn'
 gem 'kaminari'
 gem 'friendly_id'
+gem 'figaro'
 
 group :development do
   gem 'pry-rails'
   gem 'spring-commands-rspec'
-  gem "bullet"
+  gem 'bullet'
 end
 
 group :development, :test do

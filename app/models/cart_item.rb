@@ -4,4 +4,10 @@ class CartItem < ActiveRecord::Base
 
   validates :quantity, presence: true
   validates :quantity, numericality: true
+  before_destroy :return_stock
+
+  private
+    def return_stock
+      self.cart.outlet.product_stock(self.product).return_to_stock(self.quantity)
+    end
 end

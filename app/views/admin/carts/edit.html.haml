@@ -2,7 +2,7 @@
 	.col-md-12
 		%h2 Active Cart
 	.col-md-10.col-md-offset-1
-		.profile-box
+		.main-content
 			%br
 			.row
 				.col-md-5 Product
@@ -10,7 +10,7 @@
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
 				.col-md-1
-			- total = 0
+			- subtotal = 0
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-2
@@ -20,20 +20,33 @@
 					.col-md-2
 						= form_tag admin_cart_path, method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity, class: 'cart-quantity'
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity, class: 'cart-quantity', 'data-price' => item.product.price_with_taxes
 							= button_tag 'Update',  class: 'btn btn-primary'
 					.col-md-2.text-right= number_to_currency item.product.price_with_taxes
 					.col-md-2.text-right
 						- amount = item.product.price_with_taxes * item.quantity
-						- total += amount
+						- subtotal += amount
 						= number_to_currency amount
 					.col-md-1.actions.text-center
 						= link_to remove_admin_cart_path(@cart, item.product_id), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
 							%span.glyphicon.glyphicon-remove
 			%hr
 			.row.text-right
+				.col-md-offset-7.col-md-2 Subtotal
+				.col-md-2.subtotal{ 'data-subtotal' => subtotal }= number_to_currency subtotal
+				.col-md-1
+			%hr
+			.row.text-right.totals
+				.col-md-offset-5.col-md-4
+					Discount
+					= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right', min: 0, step: '0.01'
+					\%
+				.col-md-2= number_field_tag :discount_amount, 0, class: 'cart-discount-amount text-right', step: '0.01'
+				.col-md-1
+			%hr
+			.row.text-right
 				.col-md-offset-7.col-md-2 Total
-				.col-md-2= number_to_currency total
+				.col-md-2.full-total= number_to_currency subtotal
 				.col-md-1
 			%hr
 			.row

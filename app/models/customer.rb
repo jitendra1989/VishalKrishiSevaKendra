@@ -16,4 +16,13 @@ class Customer < ActiveRecord::Base
 	def full_address
 		"#{address}, #{city}, #{state} - #{pincode}"
 	end
+
+	def activate_cart(user)
+		customer_cart = user.outlet.carts.find_by(customer: self)
+		unless customer_cart
+			customer_cart = user.outlet.carts.find_or_create_by(customer: nil)
+			customer_cart.update(user: user, customer: self)
+		end
+		customer_cart
+	end
 end

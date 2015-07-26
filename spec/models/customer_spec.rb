@@ -80,4 +80,27 @@ RSpec.describe Customer, type: :model do
 		customer.country = nil
 		expect(customer).to_not be_valid
 	end
+	describe 'activate cart' do
+		let(:user) { FactoryGirl.create(:user) }
+		let!(:customer_cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: customer) }
+		let!(:blank_cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil) }
+		before do
+			customer.save!
+		end
+		it 'returns the customer cart for the current outlet' do
+			expect(customer.activate_cart(user)).to eq(customer_cart)
+		end
+		describe 'no active cart for the current outlet' do
+			before do
+				customer_cart.destroy!
+			end
+			it 'assigns the first blank cart' do
+				customer.activate_cart(user)
+				expect(blank_cart.reload.customer).to eq(customer)
+			end
+			it 'returns the first blank cart' do
+				expect(customer.activate_cart(user)).to eq(blank_cart)
+			end
+		end
+	end
 end

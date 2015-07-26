@@ -70,6 +70,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 	end
 	describe "PUT #update" do
 		context "with valid params" do
+			let(:cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil) }
 			it "updates the requested customer" do
 				put :update, id: customer.id, customer: valid_attributes
 				expect(assigns(:customer)).to have_attributes(valid_attributes)
@@ -82,6 +83,11 @@ RSpec.describe Admin::CustomersController, type: :controller do
 				it "redirects to the quotation form if quotation action is specified" do
 					put :update, id: customer.id, customer: valid_attributes, next: :quotation
 					expect(response).to redirect_to(new_admin_customer_quotation_url(customer))
+				end
+				it "redirects to the cart page if cart action is specified" do
+					session[:cart_id] = cart.id
+					put :update, id: customer.id, customer: valid_attributes, next: :cart
+					expect(response).to redirect_to(edit_admin_cart_url(cart))
 				end
 			end
 		end

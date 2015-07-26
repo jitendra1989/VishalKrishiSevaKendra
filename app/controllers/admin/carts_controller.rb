@@ -23,6 +23,10 @@ class Admin::CartsController < Admin::ApplicationController
 	def edit
 	end
 
+	def assign
+		redirect_to edit_admin_cart_url(Customer.find(params[:customer_id]).activate_cart(current_user))
+	end
+
 	def remove
 		@cart.destroy_item(params[:product_id])
 		redirect_to edit_admin_cart_url(@cart)

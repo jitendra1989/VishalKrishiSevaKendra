@@ -112,8 +112,27 @@ RSpec.describe Admin::CartsController, type: :controller do
 			end
 
 			it "redirects to the carts list" do
-					delete :destroy, id: deletable_cart.id
-					expect(response).to redirect_to(admin_carts_url)
+				delete :destroy, id: deletable_cart.id
+				expect(response).to redirect_to(admin_carts_url)
+			end
+		end
+
+		describe "POST #assign" do
+			let(:customer) { FactoryGirl.create(:customer) }
+			let(:new_cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil) }
+
+			before do
+				session[:cart_id] = new_cart.id
+			end
+
+			it 'adds the customer to the cart' do
+				post :assign, customer_id: customer.id
+				expect(new_cart.reload.customer).to eq(customer)
+			end
+
+			it "redirects to the cart page" do
+				post :assign, customer_id: customer.id
+				expect(response).to redirect_to(edit_admin_cart_url(new_cart))
 			end
 		end
 	end

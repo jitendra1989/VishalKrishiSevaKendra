@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :carts, except: [:new, :create, :show] do
       collection do
         post 'add'
+        post 'assign/:customer_id' => 'carts#assign', as: :assign
       end
       member do
         delete 'remove/:product_id' => 'carts#remove', as: :remove

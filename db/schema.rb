@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726161444) do
+ActiveRecord::Schema.define(version: 20150726162138) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -62,6 +62,19 @@ ActiveRecord::Schema.define(version: 20150726161444) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id",   limit: 4
+    t.integer  "product_id", limit: 4
+    t.string   "name",       limit: 255
+    t.integer  "quantity",   limit: 4
+    t.decimal  "price",                  precision: 10, scale: 2
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "customer_id",     limit: 4
@@ -247,6 +260,8 @@ ActiveRecord::Schema.define(version: 20150726161444) do
   add_foreign_key "carts", "customers"
   add_foreign_key "carts", "outlets"
   add_foreign_key "carts", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "outlets"
   add_foreign_key "orders", "users"

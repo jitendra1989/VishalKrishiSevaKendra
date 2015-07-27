@@ -12,6 +12,7 @@
           %th Country
           %th State
           %th City
+          %th Online Store
           %th.text-center Actions
         - @outlets.each do |outlet|
           %tr
@@ -19,6 +20,7 @@
             %td= outlet.country
             %td= outlet.state
             %td= outlet.city
+            %td= outlet.online_store?? 'Online' : 'Outlet Only'
             %td.actions.text-center
               = link_to edit_admin_outlet_path(outlet) do
                 %span.glyphicon.glyphicon-pencil

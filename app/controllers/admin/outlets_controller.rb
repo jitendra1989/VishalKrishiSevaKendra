@@ -36,6 +36,6 @@ class Admin::OutletsController < Admin::ApplicationController
 
 	private
 		def outlet_params
-			params.require(:outlet).permit(:name, :country, :state, :city)
+			params.require(:outlet).permit(:name, :country, :state, :city, :online_store)
 		end
 end

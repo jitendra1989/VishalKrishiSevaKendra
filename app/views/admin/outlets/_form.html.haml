@@ -11,6 +11,9 @@
   .form-group
     = f.label :city
     = f.text_field :city, required: true
+  .form-group
+    = f.label :online_store
+    = f.check_box :online_store
   .form-group.text-center
-    = f.submit "Submit", class: "btn btn-primary"
-    = link_to "Cancel", :back, class: "btn btn-default"
+    = f.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'

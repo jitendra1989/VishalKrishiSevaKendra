@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::OutletsController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
   let(:outlet) { FactoryGirl.create(:outlet) }
-  let(:valid_attributes) { FactoryGirl.attributes_for(:outlet) }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:online_outlet) }
   let(:invalid_attributes) { FactoryGirl.attributes_for(:outlet, name: nil) }
   before do
     log_in user
@@ -42,6 +42,7 @@ RSpec.describe Admin::OutletsController, type: :controller do
         post :create, outlet: valid_attributes
           expect(assigns(:outlet)).to be_an(Outlet)
           expect(assigns(:outlet)).to be_persisted
+          expect(assigns(:outlet)).to have_attributes(valid_attributes)
       end
 
       it "redirects to the outlet list" do
@@ -73,6 +74,7 @@ RSpec.describe Admin::OutletsController, type: :controller do
       it "assigns the requested outlet as @outlet" do
         put :update, id: outlet.id, outlet: valid_attributes
         expect(assigns(:outlet)).to eq(outlet)
+        expect(assigns(:outlet)).to have_attributes(valid_attributes)
       end
 
       it "redirects to the outlet list" do

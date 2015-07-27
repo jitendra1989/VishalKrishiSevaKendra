@@ -1,19 +1,21 @@
 .product-box
-  .product-image= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
-  .product-name= product.name
+  = link_to admin_product_path(product) do
+    .product-image= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
+  = link_to admin_product_path(product) do
+    .product-name= product.name
   .product-code= product.code
   .product-description= product.description
   .product-price= number_to_currency product.price_with_taxes
-  = link_to "view stocks", admin_product_stocks_path(product)
-  = link_to edit_admin_product_path(product) do
-    %span.glyphicon.glyphicon-pencil
-  = link_to admin_product_path(product) do
-    %span.glyphicon.glyphicon-search
+  .pull-left
+    = link_to 'Stock', admin_product_stocks_path(product), class: 'btn btn-default'
+    = link_to edit_admin_product_path(product), class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-pencil
+    = link_to admin_product_path(product), method: :delete, class: 'delete-link btn btn-default', 'data-confirm' => 'Are you sure?' do
+      %span.glyphicon.glyphicon-remove
   - if product.outlet_stock_quantity(@current_user.outlet) > 0
-    = form_tag add_admin_carts_path do
-      = hidden_field_tag :product_id, product.id
-      = number_field_tag :quantity, 1, min: 1, max: product.outlet_stock_quantity(@current_user.outlet)
-      = button_tag class: 'btn btn-primary' do
-        %span.glyphicon.glyphicon-shopping-cart
-  = link_to admin_product_path(product), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-    %span.glyphicon.glyphicon-remove
+    .pull-right
+      = form_tag add_admin_carts_path, class: 'form-inline inline-form' do
+        = hidden_field_tag :product_id, product.id
+        = number_field_tag :quantity, 1, min: 1, max: product.outlet_stock_quantity(@current_user.outlet), class: 'product-quantity text-right form-control'
+        = button_tag class: 'btn btn-default' do
+          %span.glyphicon.glyphicon-shopping-cart

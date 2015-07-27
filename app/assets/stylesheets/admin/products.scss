@@ -8,9 +8,7 @@
 	width: auto;
 }
 .product-box{
-	padding: 10px;
-	border: 0px solid #ccc;
-	height: 330px;
+	height: 360px;
 }
 .product-container{
 	border: 1px solid #ccc;
@@ -22,4 +20,15 @@
 	overflow: hidden;
 	background: #ccc;
 }
-
+.product-name, .product-description{
+	height: 20px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.product-quantity{
+	max-width: 50px;
+}
+.inline-form{
+	display: inline-block;
+}

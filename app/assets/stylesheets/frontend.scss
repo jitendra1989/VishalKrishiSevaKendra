@@ -70,7 +70,14 @@ footer{
 	background-position: 0 -441px;
 }
 .category-nav{
+	ul {
+		width: 100%;
+	}
+	.root-category-link{
+		text-align: center;
+	}
 	.root-category{
+		width: 20%;
 		ul{
 			display: none;
 			position: absolute;

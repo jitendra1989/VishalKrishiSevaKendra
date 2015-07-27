@@ -58,7 +58,7 @@
 								%ul.nav.navbar-nav
 									- Category.roots.each do |category|
 										%li.root-category{ role: 'presentation' }
-											= link_to category_path(category), role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
+											= link_to category_path(category), class: 'root-category-link', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
 												= category.name
 											- if category.has_children?
 												%ul

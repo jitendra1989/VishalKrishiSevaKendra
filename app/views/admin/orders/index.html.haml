@@ -1,0 +1,25 @@
+.row
+	.col-md-12
+		%h2 Orders
+	.col-md-10.col-md-offset-1
+		.profile-box
+			%br
+			%table
+				%tr
+					%th Order No
+					%th Order Date
+					%th Order Time
+					%th Customer
+					%th Contact No
+					%th Status
+				- @orders.each do |order|
+					%tr
+						%td= order.id
+						%td= order.created_at.strftime '%d-%m-%Y'
+						%td= order.created_at.strftime '%H:%M'
+						%td= order.customer.name
+						%td= order.customer.mobile
+						/ %td= order.status
+						%td.actions.text-center
+							= link_to admin_order_path(order) do
+								%span.glyphicon.glyphicon-search

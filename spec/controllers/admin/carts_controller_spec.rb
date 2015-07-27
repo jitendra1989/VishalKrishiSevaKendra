@@ -83,6 +83,8 @@ RSpec.describe Admin::CartsController, type: :controller do
 			it "assigns the active cart as @cart" do
 				get :edit, id: cart.id
 				expect(assigns(:cart)).to eq(cart)
+				expect(session[:cart_id]).to eq(cart.id)
+				expect(assigns(:order)).to be_a_new(Order)
 			end
 		end
 

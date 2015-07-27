@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	belongs_to :outlet
 	has_many :carts
 	has_many :quotations
+	has_many :orders
 	has_many :user_permissions, dependent: :destroy
 	has_many :permissions, through: :user_permissions
 	has_many :user_roles, dependent: :destroy

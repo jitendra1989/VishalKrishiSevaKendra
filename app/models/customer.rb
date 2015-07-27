@@ -1,6 +1,7 @@
 class Customer < ActiveRecord::Base
 	has_many :quotations
 	has_many :carts
+	has_many :orders
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	[:name, :email, :mobile, :phone, :address, :pincode, :city, :state, :country].each do |n|

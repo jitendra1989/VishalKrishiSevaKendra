@@ -2,7 +2,7 @@ class Admin::CartsController < Admin::ApplicationController
 	before_action :set_cart, only: [:edit, :update, :remove, :destroy]
 
 	def index
-		@carts = Cart.where(outlet: current_user.outlet)
+		@carts = Cart.includes(:customer, :user).where(outlet: current_user.outlet)
 	end
 
 	def add
@@ -21,6 +21,8 @@ class Admin::CartsController < Admin::ApplicationController
 	end
 
 	def edit
+		session[:cart_id] = @cart.id
+		@order = current_user.orders.build(outlet: current_user.outlet)
 	end
 
 	def assign

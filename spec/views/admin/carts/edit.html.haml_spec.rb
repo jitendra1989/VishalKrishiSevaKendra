@@ -5,6 +5,7 @@ RSpec.describe "admin/carts/edit", type: :view do
 
   it "renders attributes in <p>" do
     assign(:cart, cart)
+    assign(:order, Order.new)
     render
     expect(rendered).to match(/Product/)
     expect(rendered).to match(/Price/)

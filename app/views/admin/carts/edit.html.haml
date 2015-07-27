@@ -36,21 +36,23 @@
 				.col-md-2.subtotal{ 'data-subtotal' => subtotal }= number_to_currency subtotal
 				.col-md-1
 			%hr
-			.row.text-right.totals
-				.col-md-offset-5.col-md-4
-					Discount
-					= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right', min: 0, step: '0.01'
-					\%
-				.col-md-2= number_field_tag :discount_amount, 0, class: 'cart-discount-amount text-right', step: '0.01'
-				.col-md-1
-			%hr
-			.row.text-right
-				.col-md-offset-7.col-md-2 Total
-				.col-md-2.full-total= number_to_currency subtotal
-				.col-md-1
-			%hr
-			.row
-				.col-md-6
-					= link_to 'Add Items to Cart', admin_products_path, class: 'btn btn-primary'
-				.col-md-6.text-right
-					= link_to 'Add Customer Info', admin_customers_path, class: 'btn btn-primary' if @cart.customer.nil?
+			= form_for [:admin, @order] do |f|
+				.row.text-right.totals
+					.col-md-offset-5.col-md-4
+						Discount
+						= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right', min: 0, step: '0.01'
+						\%
+					.col-md-2= f.number_field :discount_amount, class: 'cart-discount-amount text-right', step: '0.01'
+					.col-md-1
+				%hr
+				.row.text-right
+					.col-md-offset-7.col-md-2 Total
+					.col-md-2.full-total= number_to_currency subtotal
+					.col-md-1
+				%hr
+				.row
+					.col-md-6
+						= link_to 'Add Items to Cart', admin_products_path, class: 'btn btn-primary'
+					.col-md-6.text-right
+						= link_to 'Add Customer Info', admin_customers_path, class: 'btn btn-primary' if @cart.customer.nil?
+						= f.submit 'Place Order', class: 'btn btn-primary'

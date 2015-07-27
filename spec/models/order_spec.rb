@@ -40,14 +40,20 @@ RSpec.describe Order, type: :model do
         order.save!
       }.to change(OrderItem, :count).by(cart_items_count)
     end
+    it 'destroys the existing cart' do
+      expect{
+        order.save!
+      }.to change(Cart, :count).by(-1)
+    end
     describe 'stock control' do
       it 'adds the requested quantity to ordered' do
         order.save!
         expect(stock.reload.ordered).to eq(order.items.find_by(product: stock.product).quantity)
       end
-      it 'subtracts the requested quantity from in carts' do
+      it 'subtracts the requested quantity from quantity' do
+        stock_quantity = stock.quantity
         order.save!
-        expect(stock.reload.in_carts).to eq(0)
+        expect(stock.reload.quantity).to eq(stock_quantity - order.items.find_by(product: stock.product).quantity)
       end
     end
   end

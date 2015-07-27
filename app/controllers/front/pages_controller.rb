@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class Front::PagesController < Front::ApplicationController
 
   def about
   end

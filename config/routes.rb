@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
 
-  root 'products#index'
-  get 'pages/about'
-  get 'pages/projects'
-  get 'pages/clients'
-  get 'pages/contact'
-  resources :categories, only: [:show]
-  resources :products, only: [:show]
+  namespace :front, path: '' do
+    resources :customers, only: [:edit] do
+      collection do
+        match 'login' => 'customers#login', via: [:get, :post]
+        delete 'logout'
+      end
+    end
+    resources :categories, only: [:show]
+    resources :products, only: [:show]
+
+    root 'products#index'
+    get 'pages/about'
+    get 'pages/projects'
+    get 'pages/clients'
+    get 'pages/contact'
+  end
 
   namespace :admin do
     root 'users#dashboard'

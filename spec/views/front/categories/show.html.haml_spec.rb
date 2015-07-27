@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "categories/show", type: :view do
+RSpec.describe "front/categories/show", type: :view do
   let(:category) { FactoryGirl.create(:category) }
 
   before do

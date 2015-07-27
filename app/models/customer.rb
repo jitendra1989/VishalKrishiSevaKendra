@@ -14,6 +14,8 @@ class Customer < ActiveRecord::Base
 
 	before_save { self.email.downcase! }
 
+	has_secure_password
+
 	def full_address
 		"#{address}, #{city}, #{state} - #{pincode}"
 	end

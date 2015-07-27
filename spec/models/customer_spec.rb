@@ -36,6 +36,10 @@ RSpec.describe Customer, type: :model do
 		customer.name = nil
 		expect(customer).to_not be_valid
 	end
+	it "has a password" do
+		customer.password = nil
+		expect(customer).to_not be_valid
+	end
 	describe "mobile" do
 		it "has a valid mobile" do
 			customer.mobile = nil

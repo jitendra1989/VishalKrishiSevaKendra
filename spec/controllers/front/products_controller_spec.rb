@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProductsController, type: :controller do
+RSpec.describe Front::ProductsController, type: :controller do
   let(:product) { FactoryGirl.create(:product) }
   describe "GET #show" do
     it "returns http success" do

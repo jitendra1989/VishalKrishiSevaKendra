@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "products/index", type: :view do
+RSpec.describe "front/products/index", type: :view do
 	let(:products) { Product.first(8) }
 
 	it "renders products" do

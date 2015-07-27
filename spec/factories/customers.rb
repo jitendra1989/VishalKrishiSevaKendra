@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :customer do
   	name { Faker::Name.name }
+    password { Faker::Internet.password }
   	email { Faker::Internet.email }
   	mobile { (2..10).to_a.shuffle.join.to_i }
   	phone { (2..10).to_a.shuffle.join.to_i }

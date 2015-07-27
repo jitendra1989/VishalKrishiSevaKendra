@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CategoriesController, type: :controller do
+RSpec.describe Front::CategoriesController, type: :controller do
 	let(:category) { FactoryGirl.create(:category) }
   describe "GET #show" do
     it "returns http success" do

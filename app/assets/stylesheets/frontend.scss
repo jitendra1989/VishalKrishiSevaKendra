@@ -94,6 +94,15 @@ footer{
 		}
 	}
 }
+ label{
+ 	display: inline-block;
+ 	width: 160px;
+}
+.customer-name span{
+	color: #fff;
+	font-weight: bold;
+	padding-right: 30px;
+}
 @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
 	.navbar-nav > li > a {
 		padding: 10px 29px;

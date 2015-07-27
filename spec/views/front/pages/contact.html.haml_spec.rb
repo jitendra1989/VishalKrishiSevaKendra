@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "pages/contact", type: :view do
+RSpec.describe "front/pages/contact", type: :view do
 
     it "renders attributes in <div>" do
       render

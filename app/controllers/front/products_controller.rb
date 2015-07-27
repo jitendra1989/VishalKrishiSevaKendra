@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Front::ProductsController < Front::ApplicationController
 	def show
 		@product = Product.friendly.find(params[:id])
 	end

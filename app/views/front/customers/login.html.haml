@@ -1,0 +1,35 @@
+.row
+	.col-md-6
+		%fieldset
+			%h3 Existing Customer
+			%hr
+		.login-fields
+			= form_for @customer, url: login_front_customers_path do |f|
+				%fieldset
+					.form-group
+						= f.label :email
+						= f.email_field :email, required: true
+					.form-group
+						= f.label :password
+						= f.password_field :password, required: true
+					.form-group
+						= f.submit "Log in", class: "btn btn-primary pull-right"
+	.col-md-6
+		%fieldset
+			%h3 New Customer
+			%hr
+			%p.text-left PLease create and account below.
+			.login-fields
+				= form_for @customer, url: login_front_customers_path do |f|
+					%fieldset
+						.form-group
+							= f.label :email
+							= f.email_field :email, required: true
+						.form-group
+							= f.label :password
+							= f.password_field :password, required: true
+						.form-group
+							= f.label :password_confirmation
+							= f.password_field :password_confirmation, required: true
+						.form-group
+							= f.submit "Log in", class: "btn btn-primary pull-right"

@@ -9,6 +9,21 @@
 	padding-top: 10px;
 	text-align: center;
 }
+.product-box{
+	overflow: hidden;
+	height: 360px;
+	.price-cart{
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		height: 42px;
+		padding: 3px 0;
+	}
+}
+.product-image{
+	background: #ccc;
+	height: 200px;
+	overflow: hidden;
+}
 .images-modal{
 	.modal-dialog, .modal-content{
 		height: 96%;

@@ -23,4 +23,8 @@ class Product < ActiveRecord::Base
 		taxes.each { |tax| tax_amount += self.price * tax/100 }
 		self.price + tax_amount
 	end
+
+	def online_stock
+		self.stocks.select(:quantity).where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').map(&:quantity).inject(:+) || 0
+	end
 end

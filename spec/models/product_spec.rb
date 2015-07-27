@@ -57,4 +57,17 @@ RSpec.describe Product, type: :model do
 			expect(product.price_with_taxes).to eq(product.price + tax_amount)
 		end
 	end
+	describe 'online stock' do
+		let(:stock) { FactoryGirl.build(:stock, product: product, outlet: FactoryGirl.create(:online_outlet)) }
+		before do
+			product.save!
+		end
+		it 'returns 0 if no stock present' do
+			expect(product.online_stock).to eq(0)
+		end
+		it 'returns the total of product stock for all online stores' do
+			stock.save!
+			expect(product.online_stock).to eq(stock.quantity)
+		end
+	end
 end

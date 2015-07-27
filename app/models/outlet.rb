@@ -5,6 +5,8 @@ class Outlet < ActiveRecord::Base
 	has_many :orders
 	[:name, :city, :state, :country].each { |n| validates n, presence: true }
 
+	scope :online_outlets, -> { where(online_store: true) }
+
 	def product_stock(product)
 		self.stocks.where(product: product).last
 	end

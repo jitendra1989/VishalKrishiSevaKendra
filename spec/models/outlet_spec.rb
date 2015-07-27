@@ -37,4 +37,7 @@ RSpec.describe Outlet, type: :model do
 			expect(outlet.product_stock(stock.product)).to eq(stock)
 		end
 	end
+	it "returns all online outlets" do
+		expect(Outlet.online_outlets).to eq(Outlet.where(online_store: true))
+	end
 end

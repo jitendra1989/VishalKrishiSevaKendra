@@ -23,9 +23,10 @@ class Order < ActiveRecord::Base
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           stock = self.outlet.product_stock(cart_item.product)
           stock.ordered += cart_item.quantity
-          stock.in_carts -= cart_item.quantity
+          stock.quantity -= cart_item.quantity
           stock.save!
         end
+        cart.destroy!
       end
     end
 

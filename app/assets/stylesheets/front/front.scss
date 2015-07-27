@@ -98,10 +98,12 @@ footer{
  	display: inline-block;
  	width: 160px;
 }
-.customer-name span{
+input{
+	color: #000;
+}
+.customer-menu{
 	color: #fff;
-	font-weight: bold;
-	padding-right: 30px;
+	padding: 10px;
 }
 @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
 	.navbar-nav > li > a {

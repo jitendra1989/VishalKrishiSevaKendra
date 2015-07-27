@@ -14,12 +14,15 @@
 					.col-md-6
 						= link_to front_root_path do
 							= image_tag 'logo.png'
-					.col-md-6.text-right.customer-name
-						- if customer_logged_in?
-							%span= "Welcome  :#{@current_customer.name}"
-							= link_to 'Log out', logout_front_customers_path, method: :delete
-						-	else
-							= link_to 'Sign In', login_front_customers_path
+					.col-md-6.text-right
+						.customer-menu
+							- if customer_logged_in?
+								%span= "Welcome  #{@current_customer.name} | "
+								= link_to 'View Account', view_front_customers_path
+								|
+								= link_to 'Log out', logout_front_customers_path, method: :delete
+							-	else
+								= link_to 'Sign In', login_front_customers_path
 				.row
 					.col-md-12
 						%nav.navbar.navbar-default

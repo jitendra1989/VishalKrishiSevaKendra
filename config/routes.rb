@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :front, path: '' do
-    resources :customers, only: [:edit] do
+    resources :customers, only: [:create] do
       collection do
+        get 'view'
         match 'login' => 'customers#login', via: [:get, :post]
         delete 'logout'
       end

@@ -34,10 +34,16 @@ RSpec.describe Front::CustomersController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
-    it "assigns the requested customer as @customer" do
-      get :edit, id: customer.id
-      expect(assigns(:customer)).to eq(customer)
+  describe "GET #view" do
+    it "redirects to login page if customer not logged in" do
+      get :view
+      expect(response).to redirect_to(login_front_customers_url)
+    end
+
+    it "assigns the logged in customer as @customer" do
+      customer_log_in customer
+      get :view
+      expect(response).to render_template(:view)
     end
   end
 

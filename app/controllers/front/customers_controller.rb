@@ -1,4 +1,5 @@
 class Front::CustomersController < Front::ApplicationController
+	before_action :require_login, except: [:login]
 	def login
 		if request.post?
 			@customer = Customer.find_by(email: params[:customer][:email])
@@ -10,7 +11,6 @@ class Front::CustomersController < Front::ApplicationController
 		else
 			@customer = Customer.new
 		end
-
 		redirect_to front_root_url if logged_in?
 	end
 
@@ -19,7 +19,11 @@ class Front::CustomersController < Front::ApplicationController
 		redirect_to front_root_url
 	end
 
-	def edit
-		@customer = Customer.find(params[:id])
+	def view
 	end
+
+	private
+		def require_login
+			redirect_to login_front_customers_url unless logged_in?
+		end
 end

@@ -1,5 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "customers/login.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe "front/customers/login", type: :view do
+
+	it "renders product info" do
+		assign(:customer, Customer.new)
+		render
+		expect(rendered).to have_css('.login-fields')
+	end
 end

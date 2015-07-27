@@ -30,7 +30,7 @@
 				.col-md-10.text-center.full-height
 					.popup-image.full-height
 						.image-container.full-height
-							= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'product-medium zoom-image', data: { 'large-url' => @product.images.first.name.try(:url), 'medium-url' => @product.images.first.name.try(:medium).try(:url), zoomed: false }
+							= image_tag @product.images.try(:first).try(:name).try(:medium).try(:url), class: 'product-medium zoom-image', data: { 'large-url' => @product.images.try(:first).try(:name).try(:url), 'medium-url' => @product.images.try(:first).try(:name).try(:medium).try(:url), zoomed: false }
 				.col-md-1
 					.thumbnail-gallery
 						- @product.images.each do |image|

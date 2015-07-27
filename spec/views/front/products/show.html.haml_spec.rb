@@ -1,5 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "products/show.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe "front/products/show", type: :view do
+	let(:product) { FactoryGirl.create(:product) }
+
+	it "renders product info" do
+		assign(:product, product)
+		render
+		expect(rendered).to include(product.name)
+	end
 end

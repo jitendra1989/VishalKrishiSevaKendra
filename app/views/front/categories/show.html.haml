@@ -1,15 +1,19 @@
 .row
-  .col-md-12
-    %h1= @category.name
-    %br
-  - @category.products.includes(:product_type).each do |product|
-    .col-md-3
-      .product-box
-        .product-image
-          = link_to front_product_path(product) do
-            = image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
-        .product-name
-          = link_to product.name, front_product_path(product)
-        .product-code= product.code
-        .product-description= product.description
-        .product-price= number_to_currency product.price_with_taxes
+  .col-md-2
+    = render 'category_menu'
+  .col-md-10
+    .row
+      .col-md-12
+        %h1= @category.name
+        %br
+      - @category.products.includes(:product_type).each do |product|
+        .col-md-3
+          .product-box
+            .product-image
+              = link_to front_product_path(product) do
+                = image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
+            .product-name
+              = link_to product.name, front_product_path(product)
+            .product-code= product.code
+            .product-description= product.description
+            .product-price= number_to_currency product.price_with_taxes

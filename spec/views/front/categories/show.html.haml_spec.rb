@@ -8,6 +8,7 @@ RSpec.describe "front/categories/show", type: :view do
   end
 
   it "renders category" do
+  	view.lookup_context.prefixes << "front/application" # https://github.com/rails/rails/issues/5213
   	assign(:category, category)
   	render
   	expect(rendered).to have_css('.product-box')

@@ -1,0 +1,2 @@
+module Front::CartsHelper
+end

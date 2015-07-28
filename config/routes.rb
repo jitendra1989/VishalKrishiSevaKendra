@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     end
     resources :categories, only: [:show]
     resources :products, only: [:show]
+    resource :cart, only: [:edit, :update] do
+      collection do
+        post 'add'
+        delete 'remove/:product_id' => 'carts#remove', as: :remove
+      end
+    end
 
     root 'products#index'
     get 'pages/about'

@@ -70,4 +70,30 @@ RSpec.describe Product, type: :model do
 			expect(product.online_stock).to eq(stock.quantity)
 		end
 	end
+	describe 'Add to online cart' do
+		let(:stock) { FactoryGirl.build(:stock, product: product, outlet: FactoryGirl.create(:online_outlet)) }
+		let(:more_stock) { FactoryGirl.build(:stock, product: product, outlet: FactoryGirl.create(:online_outlet)) }
+		let(:cart) { FactoryGirl.create(:online_cart) }
+		before do
+			product.save!
+		end
+		it 'returns 0 if no stock present' do
+			expect(product.add_to_online_cart(stock.quantity, cart.id)).to eq(0)
+		end
+		context 'when stock is present' do
+			before do
+				stock.save!
+				more_stock.save!
+			end
+			it 'adds to cart from all applicable online stores' do
+				expect(product.add_to_online_cart(stock.quantity, cart.id)).to eq(stock.quantity)
+			end
+			it 'adds to cart from all applicable online stores' do
+				expect(product.add_to_online_cart(stock.quantity + more_stock.quantity-10, cart.id )).to eq(more_stock.quantity + stock.quantity-10)
+			end
+			it 'adds to cart only from available stock' do
+				expect(product.add_to_online_cart(stock.quantity + more_stock.quantity*10, cart.id )).to eq(more_stock.quantity + stock.quantity)
+			end
+		end
+	end
 end

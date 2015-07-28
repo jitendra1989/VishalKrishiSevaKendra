@@ -85,5 +85,17 @@ RSpec.describe Stock, type: :model do
         expect(initial_stock.reload.in_carts).to eq(cart_quantity - added_quantity)
       end
     end
+    describe 'online_cart_id' do
+      let(:initial_stock) { FactoryGirl.create(:stock, outlet: FactoryGirl.create(:online_outlet)) }
+      let(:online_cart) { FactoryGirl.create(:online_cart) }
+      let(:another_online_cart) { FactoryGirl.create(:online_cart) }
+      it 'adds the online cart id if provided' do
+        added_quantity = initial_stock.quantity/3
+        initial_stock.add_to_cart(added_quantity, online_cart.id)
+        initial_stock.add_to_cart(added_quantity, another_online_cart.id)
+        expect(initial_stock.online_carts[online_cart.id]).to eq(added_quantity)
+        expect(initial_stock.online_carts[another_online_cart.id]).to eq(added_quantity)
+      end
+    end
   end
 end

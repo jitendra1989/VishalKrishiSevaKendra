@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-	let(:customer) { FactoryGirl.build(:customer) }
+	let(:unsaved_customer) { FactoryGirl.build(:customer) }
+	let(:customer) { FactoryGirl.create(:customer) }
 	it { expect(customer).to be_valid }
 	it { expect(customer).to respond_to(:quotations) }
 	it { expect(customer).to respond_to(:carts) }
@@ -11,14 +12,14 @@ RSpec.describe Customer, type: :model do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
 			addresses.each do |invalid_address|
-				customer.email = invalid_address
-				expect(customer).not_to be_valid
+				unsaved_customer.email = invalid_address
+				expect(unsaved_customer).not_to be_valid
 			end
 		end
 	end
 	describe "when email is already taken" do
 		before do
-			customer.save
+			unsaved_customer.save
 			customer_with_same_email = customer.dup
 			customer_with_same_email.save
 		end
@@ -27,9 +28,9 @@ RSpec.describe Customer, type: :model do
 	describe "when a mixed case email address is entered" do
 		let(:mixed_case_email) { "MiXeDCase@InteRneT.com" }
 		it "should all be lowercase" do
-			customer.email = mixed_case_email
-			customer.save
-			expect(customer.reload.email).to eq mixed_case_email.downcase
+			unsaved_customer.email = mixed_case_email
+			unsaved_customer.save
+			expect(unsaved_customer.reload.email).to eq mixed_case_email.downcase
 		end
 	end
 	it "has a valid name" do
@@ -37,8 +38,8 @@ RSpec.describe Customer, type: :model do
 		expect(customer).to_not be_valid
 	end
 	it "has a password" do
-		customer.password = nil
-		expect(customer).to_not be_valid
+		unsaved_customer.password = nil
+		expect(unsaved_customer).to_not be_valid
 	end
 	describe "mobile" do
 		it "has a valid mobile" do

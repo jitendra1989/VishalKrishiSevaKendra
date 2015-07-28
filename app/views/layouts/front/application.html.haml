@@ -18,11 +18,11 @@
 						.customer-menu
 							- if customer_logged_in?
 								%span= "Welcome  #{@current_customer.name} | "
-								= link_to 'View Account', view_front_customers_path
+								= link_to 'Edit Account', edit_front_customer_path
 								|
-								= link_to 'Log out', logout_front_customers_path, method: :delete
+								= link_to 'Log out', logout_front_customer_path, method: :delete
 							-	else
-								= link_to 'Sign In', login_front_customers_path
+								= link_to 'Sign In', login_front_customer_path
 				.row
 					.col-md-12
 						%nav.navbar.navbar-default
@@ -76,7 +76,16 @@
 													- category.children.each do |category|
 														%li{ role: 'presentation' }
 															= link_to category.name, front_category_path(category)
-			.main-content= yield
+			.main-content
+				- [@current_customer, @customer].each do |object|
+					-if object.try(:errors).try(:any?)
+						.alert.alert-danger
+							%ul
+								- object.errors.full_messages.each do |msg|
+									%li= msg
+				- flash.each do |message_type, message|
+					.alert{class: "alert-#{message_type}" }= message
+				= yield
 			%footer
 				.row
 					.col-md-6

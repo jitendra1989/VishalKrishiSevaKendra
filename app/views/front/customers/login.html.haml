@@ -4,7 +4,7 @@
 			%h3 Existing Customer
 			%hr
 		.login-fields
-			= form_for @customer, url: login_front_customers_path do |f|
+			= form_for @customer, url: login_front_customer_path do |f|
 				%fieldset
 					.form-group
 						= f.label :email
@@ -13,14 +13,14 @@
 						= f.label :password
 						= f.password_field :password, required: true
 					.form-group
-						= f.submit "Log in", class: "btn btn-default pull-right"
+						= f.submit 'Log in', class: 'btn btn-default pull-right'
 	.col-md-4.col-md-offset-3
 		%fieldset
 			%h3 New Customer
 			%hr
 			%p.text-left Please create an account below.
 			.login-fields
-				= form_for @customer, url: login_front_customers_path do |f|
+				= form_for @customer, url: front_customer_path do |f|
 					%fieldset
 						.form-group
 							= f.label :email
@@ -32,4 +32,4 @@
 							= f.label :password_confirmation
 							= f.password_field :password_confirmation, required: true
 						.form-group
-							= f.submit "Log in", class: "btn btn-default pull-right"
+							= f.submit 'Create Account', class: 'btn btn-default pull-right'

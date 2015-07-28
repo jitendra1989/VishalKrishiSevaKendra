@@ -38,7 +38,7 @@ class Admin::CustomersController < Admin::ApplicationController
 
 	private
 		def customer_params
-			params.require(:customer).permit( :name, :password, :email, :mobile, :phone, :address, :pincode, :city, :state, :country, :company_name, :company_address, :company_phone )
+			params.require(:customer).permit( :name, :password, :password_confirmation, :email, :mobile, :phone, :address, :pincode, :city, :state, :country, :company_name, :company_address, :company_phone )
 		end
 
 		def customer_redirect(flash)

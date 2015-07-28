@@ -38,6 +38,12 @@ footer{
 	background: asset_url('sprites.png') no-repeat;
 	display: inline-block;
 }
+.field_with_errors{
+	display: inline-block;
+	input{
+		box-shadow: 0 0 0 2px #c00;
+	}
+}
 .nav-icons{
 	width: 33px;
 	height: 33px;

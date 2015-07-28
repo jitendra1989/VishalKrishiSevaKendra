@@ -2,7 +2,7 @@
   .col-md-12
     %h1= @category.name
     %br
-  - @category.products.includes(:product_type).each do |product|
+  - @category.products.each do |product|
     .col-md-3
       .product-box
         .product-image

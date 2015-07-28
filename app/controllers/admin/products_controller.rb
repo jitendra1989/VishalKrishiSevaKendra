@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	authorize_resource
 
 	def index
-		@products = Product.includes(:product_type).all.page(params[:page]).per(20)
+		@products = Product.all.page(params[:page]).per(20)
 	end
 
 	def edit

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727181038) do
+ActiveRecord::Schema.define(version: 20150728114730) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(version: 20150727181038) do
   end
 
   add_index "online_carts", ["customer_id"], name: "index_online_carts_on_customer_id", using: :btree
+
+  create_table "online_orders", force: :cascade do |t|
+    t.integer  "customer_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "online_orders", ["customer_id"], name: "index_online_orders_on_customer_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id",   limit: 4
@@ -285,6 +293,7 @@ ActiveRecord::Schema.define(version: 20150727181038) do
   add_foreign_key "online_cart_items", "online_carts"
   add_foreign_key "online_cart_items", "products"
   add_foreign_key "online_carts", "customers"
+  add_foreign_key "online_orders", "customers"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"

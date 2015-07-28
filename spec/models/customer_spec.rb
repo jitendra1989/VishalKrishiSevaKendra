@@ -111,4 +111,42 @@ RSpec.describe Customer, type: :model do
 			end
 		end
 	end
+	describe 'Merge customer carts' do
+		let(:customer_cart) { FactoryGirl.create(:online_cart, customer: customer) }
+		let(:session_cart) { FactoryGirl.create(:online_cart, customer: nil) }
+		before do
+			FactoryGirl.create_list(:online_cart_item, 3, cart: session_cart)
+		end
+		describe 'without existing cart' do
+			it 'assigns customer to the active cart' do
+				customer.set_online_cart(session_cart.id)
+				expect(session_cart.reload.customer).to eq(customer)
+			end
+			it 'returns the customer cart id' do
+				expect(customer.set_online_cart(session_cart.id)).to eq(session_cart.id)
+			end
+			it 'returns nil if no cart has been created yet' do
+				expect(customer.set_online_cart(nil)).to eq(nil)
+			end
+		end
+		describe 'with existing cart' do
+			before do
+				FactoryGirl.create_list(:online_cart_item, 3, cart: customer_cart)
+			end
+			it 'merges customer cart with session cart if specified' do
+				customer_cart_items_count = customer_cart.items.count
+				session_cart_items_count = session_cart.items.count
+				customer.set_online_cart(session_cart.id)
+				expect(customer_cart.reload.items.count).to eq(customer_cart_items_count + session_cart_items_count)
+			end
+			it "destroys the session based cart" do
+				expect{
+					customer.set_online_cart(session_cart.id)
+					}.to change(OnlineCart, :count).by(-1)
+			end
+			it 'returns the customer cart id' do
+				expect(customer.set_online_cart(session_cart.id)).to eq(customer_cart.id)
+			end
+		end
+	end
 end

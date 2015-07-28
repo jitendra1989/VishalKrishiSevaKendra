@@ -3,6 +3,7 @@ module Front::Sessions
 	private
 		def log_in(customer)
 			session[:customer_id] = customer.id
+			session[:online_cart_id] = customer.set_online_cart(session[:online_cart_id])
 		end
 
 		def current_customer
@@ -14,7 +15,6 @@ module Front::Sessions
 		end
 
 		def log_out
-			session.delete(:customer_id)
-			@current_customer = nil
+			@current_customer = session[:customer_id] = session[:online_cart_id] = nil
 		end
 end

@@ -1,6 +1,6 @@
 .row
 	.col-md-12
-		%h2 Active Cart
+		%h2 Your Shopping Cart
 	.col-md-10.col-md-offset-1
 		.main-content
 			%br
@@ -36,3 +36,8 @@
 				.col-md-2.subtotal{ 'data-subtotal' => subtotal }= number_to_currency subtotal
 				.col-md-1
 			%hr
+			.row
+				.col-md-6
+					= link_to 'Continue Shopping', front_root_path, class: 'btn btn-default'
+				.col-md-6.text-right
+					= link_to 'Proceed To Checkout', new_front_order_path, class: 'btn btn-default' unless @cart.items.empty?

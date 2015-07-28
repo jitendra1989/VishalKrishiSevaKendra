@@ -30,4 +30,17 @@ class Customer < ActiveRecord::Base
 		end
 		customer_cart
 	end
+
+	def set_online_cart(online_cart_id)
+		if online_cart_id
+			session_cart = OnlineCart.find(online_cart_id)
+			if self.online_cart
+				session_cart.items.each { |item| self.online_cart.items << item }
+				session_cart.delete
+			else
+				self.update(online_cart: session_cart)
+			end
+		end
+		self.online_cart.try(:id)
+	end
 end

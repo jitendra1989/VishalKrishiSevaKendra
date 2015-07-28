@@ -1,15 +1,17 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the Front::CartsHelper. For example:
-#
-# describe Front::CartsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe Front::CartsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+	let(:online_cart) { FactoryGirl.create(:online_cart) }
+	before do
+		FactoryGirl.create_list(:online_cart_item, 3, cart: online_cart)
+	end
+	describe "online_cart_count" do
+		it "returns 0 if no cart is set" do
+			expect(helper.online_cart_count).to eq(0)
+		end
+		it "returns the count of items in cart if cart is initialised" do
+			session[:online_cart_id] = online_cart.id
+			expect(helper.online_cart_count).to eq(online_cart.items.count)
+		end
+	end
 end

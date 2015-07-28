@@ -26,7 +26,7 @@
 						.cart-menu
 							= link_to edit_front_cart_path do
 								%span.glyphicon.glyphicon-shopping-cart
-								%span.badge= OnlineCart.find(session[:online_cart_id]).try(:items).try(:count) || 0
+								%span.badge= online_cart_count
 				.row
 					.col-md-12
 						%nav.navbar.navbar-default

@@ -18,10 +18,8 @@ class Product < ActiveRecord::Base
 	end
 
 	def price_with_taxes
-		taxes = self.product_type.taxes.pluck(:percentage)
-		tax_amount = 0
-		taxes.each { |tax| tax_amount += self.price * tax/100 }
-		self.price + tax_amount
+		taxes = ProductType.find(self.product_type_id).taxes.pluck(:percentage).sum
+		self.price + (self.price * taxes/100)
 	end
 
 	def online_stock

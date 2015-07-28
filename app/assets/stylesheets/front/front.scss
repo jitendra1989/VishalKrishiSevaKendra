@@ -78,6 +78,19 @@ footer{
 	height: 16px;
 	background-position: 0 -441px;
 }
+.cart-menu{
+	position: relative;
+	margin-top: 10px;
+	.glyphicon{
+		font-size: 30px;
+	}
+	.badge{
+		position: absolute;
+		top: -5px;
+		right: -10px;
+		background: #c00;
+	}
+}
 .category-nav{
 	li a{
 		display: block;

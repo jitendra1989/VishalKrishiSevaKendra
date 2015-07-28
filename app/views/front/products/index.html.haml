@@ -12,7 +12,7 @@
         .price-cart
           .product-price.inline-block= number_to_currency product.price_with_taxes
           - if product.online_stock > 0
-            = form_tag '#', class: 'form-inline inline-block pull-right' do
+            = form_tag add_front_cart_path, class: 'form-inline inline-block pull-right' do
               = hidden_field_tag :product_id, product.id
               = hidden_field_tag :quantity, 1
               = button_tag class: 'btn btn-default' do

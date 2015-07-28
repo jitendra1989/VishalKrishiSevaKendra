@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727164949) do
+ActiveRecord::Schema.define(version: 20150727181038) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -63,6 +63,26 @@ ActiveRecord::Schema.define(version: 20150727164949) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  create_table "online_cart_items", force: :cascade do |t|
+    t.integer  "product_id",     limit: 4
+    t.integer  "online_cart_id", limit: 4
+    t.integer  "quantity",       limit: 4, default: 0, null: false
+    t.integer  "integer",        limit: 4, default: 0, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "online_cart_items", ["online_cart_id"], name: "index_online_cart_items_on_online_cart_id", using: :btree
+  add_index "online_cart_items", ["product_id"], name: "index_online_cart_items_on_product_id", using: :btree
+
+  create_table "online_carts", force: :cascade do |t|
+    t.integer  "customer_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "online_carts", ["customer_id"], name: "index_online_carts_on_customer_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id",   limit: 4
@@ -262,6 +282,9 @@ ActiveRecord::Schema.define(version: 20150727164949) do
   add_foreign_key "carts", "customers"
   add_foreign_key "carts", "outlets"
   add_foreign_key "carts", "users"
+  add_foreign_key "online_cart_items", "online_carts"
+  add_foreign_key "online_cart_items", "products"
+  add_foreign_key "online_carts", "customers"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"

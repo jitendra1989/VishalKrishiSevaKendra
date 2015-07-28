@@ -18,9 +18,9 @@
 					.col-md-2
 						= item.product.name
 					.col-md-3
-						= form_tag front_cart_path, method: :patch do
+						= form_tag front_cart_path, class: 'form-inline', method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity', 'data-price' => item.product.price_with_taxes
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity form-control', 'data-price' => item.product.price_with_taxes
 							= button_tag 'Update',  class: 'btn btn-default'
 					.col-md-2.text-right= number_to_currency item.product.price_with_taxes
 					.col-md-2.text-right

@@ -10,8 +10,6 @@ class Admin::OrdersController < Admin::ApplicationController
 			if @order.save
 				session[:cart_id] = nil
 				redirect_to admin_orders_url, flash: { success: 'Order was successfully created.' }
-			else
-				render :edit
 			end
 		else
 			redirect_to admin_carts_url

@@ -47,7 +47,7 @@ RSpec.describe Admin::OrdersController, type: :controller do
             }.to change(OrderItem, :count).by(1)
         end
 
-        it "assigns a newly created quotation as @quotation" do
+        it "assigns a newly created order as @order" do
           post :create, order: valid_attributes
           expect(assigns(:order)).to be_an(Order)
           expect(assigns(:order)).to be_persisted
@@ -58,31 +58,6 @@ RSpec.describe Admin::OrdersController, type: :controller do
           expect(response).to redirect_to(admin_orders_url)
         end
       end
-
-      # context "with invalid params" do
-      #   it "assigns a newly created but unsaved quotation as @quotation" do
-      #     post :create, customer_id: customer.id, quotation: invalid_attributes
-      #     expect(assigns(:quotation)).to be_a_new(Quotation)
-      #   end
-      #   it "re-renders the 'new' template" do
-      #     post :create, customer_id: customer.id, quotation: invalid_attributes
-      #     expect(response).to render_template("new")
-      #   end
-      # end
     end
-
-    # describe "GET #show" do
-    #   it "returns http success" do
-    #     get :show
-    #     expect(response).to have_http_status(:success)
-    #   end
-    # end
-
-    # describe "GET #edit" do
-    #   it "returns http success" do
-    #     get :edit
-    #     expect(response).to have_http_status(:success)
-    #   end
-    # end
   end
 end

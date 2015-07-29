@@ -92,25 +92,38 @@ footer{
 	}
 }
 .category-nav{
-	li a{
-		display: block;
-		padding: 10px;
+	.all-category{
+		padding-left: 10px;
 	}
 	.root-category{
-		ul{
+		& > a {
+			padding: 10px;
+			display: block;
+		}
+		&:hover a{
+				background: #696969;
+			}
+		.sub-category{
 			display: none;
-			margin-left: 110px;
-			margin-top: -32px;
+			margin-left: 155px;
+			margin-top: -40px;
 			position: absolute;
 			background: #696969;
 			z-index: 1;
 			padding: 10px;
-			list-style: none;
 			width: 250px;
+			border: 3px solid #fff;
+			ul{
+				padding-left: 5px;
+			}
 		}
 		&:hover ul{
 			display: block;
 		}
+	}
+	.category-name{
+		display: inline-block;
+		width: 70%;
 	}
 }
  label{

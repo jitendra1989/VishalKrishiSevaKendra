@@ -17,13 +17,6 @@ RSpec.describe Admin::CouponCodesController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "returns http success" do
-      get :show, id: coupon_code
-      expect(assigns(:coupon_code)).to eq(coupon_code)
-    end
-  end
-
   describe "GET #new" do
     it "assigns a new coupon_code as @coupon_code" do
         get :new

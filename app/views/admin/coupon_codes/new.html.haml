@@ -1,2 +1,8 @@
-%h1 Admin::CouponCodes#new
-%p Find me in app/views/admin/coupon_codes/new.html.haml
+.row
+	.col-md-12
+		%h2 Create Coupon Code
+	.col-md-6.col-md-offset-3
+		.profile-box
+			.text-right
+				=link_to 'View Coupon Code', admin_coupon_codes_path
+			= render 'form'

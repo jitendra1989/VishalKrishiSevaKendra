@@ -1,0 +1,16 @@
+= form_for [:admin, @coupon_code] do |f|
+  .form-group
+    = f.label :code
+    = f.text_field :code, required: true
+  .form-group
+    = f.label :percent
+    = f.number_field :percent, required: true
+  .form-group
+    = f.label :active_from
+    = f.date_field :active_from, required: true
+  .form-group
+    = f.label :active_to
+    = f.date_field :active_to, required: true
+  .form-group.text-center
+    = f.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'

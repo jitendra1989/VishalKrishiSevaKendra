@@ -3,10 +3,6 @@ class Admin::CouponCodesController < Admin::ApplicationController
     @coupon_codes = CouponCode.all
   end
 
-  def show
-    @coupon_code = CouponCode.find(params[:id])
-  end
-
   def new
     @coupon_code = CouponCode.new
   end

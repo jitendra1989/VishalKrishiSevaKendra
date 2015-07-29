@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'users#dashboard'
     resources :roles, except: [:show]
-    resources :coupon_codes, except: [:destroy]
+    resources :coupon_codes, except: [:destroy, :show]
     resources :quotations, only: [:index] do
       collection do
         get 'products'

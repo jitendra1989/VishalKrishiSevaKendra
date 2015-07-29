@@ -4,15 +4,15 @@
   .col-md-10
     .row
       - @products.each do |product|
-        .col-md-3
+        .col-md-3.col-sm-4.col-xs-6
           .product-box
             .product-image
               = link_to front_product_path(product) do
                 = image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
             .product-name
               = link_to product.name, front_product_path(product)
-            .product-code= product.code
-            .product-description= product.description
+            .product-code.hidden-xs= product.code
+            .product-description.hidden-xs= product.description
             .price-cart
               .product-price.inline-block= number_to_currency product.price_with_taxes
               - if product.online_stock > 0

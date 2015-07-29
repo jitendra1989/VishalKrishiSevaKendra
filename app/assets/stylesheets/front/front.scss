@@ -79,25 +79,37 @@ footer{
 	background-position: 0 -441px;
 }
 .category-nav{
+	.all-category{
+		padding-left: 10px;
+	}
 	li a{
 		display: block;
 		padding: 10px;
 	}
 	.root-category{
+		&:hover a{
+				display: block;
+				background: #696969;
+			}
 		ul{
 			display: none;
-			margin-left: 110px;
-			margin-top: -32px;
+			margin-left: 155px;
+			margin-top: -40px;
 			position: absolute;
 			background: #696969;
 			z-index: 1;
 			padding: 10px;
 			list-style: none;
 			width: 250px;
+			border: 3px solid #fff;
 		}
 		&:hover ul{
 			display: block;
 		}
+	}
+	.category-name{
+		display: inline-block;
+		width: 85%;
 	}
 }
  label{

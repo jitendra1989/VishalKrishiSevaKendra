@@ -1,11 +1,15 @@
 .category-nav
+	%strong.h4 All Categories
+	%span.all-category.glyphicon.glyphicon-menu-down
 	%ul.list-unstyled
 		- Category.roots.each do |category|
 			%li.root-category
 				= link_to front_category_path(category) do
-					= category.name
+					%span.category-name= category.name
+					%span.glyphicon.glyphicon-menu-right
 				- if category.has_children?
 					%ul
 						- category.children.each do |category|
 							%li
+							%strong
 								= link_to category.name, front_category_path(category)

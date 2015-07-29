@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728115216) do
+ActiveRecord::Schema.define(version: 20150729083728) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20150728115216) do
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+
+  create_table "coupon_codes", force: :cascade do |t|
+    t.string   "code",        limit: 255
+    t.decimal  "percent",                 precision: 10, scale: 2
+    t.boolean  "active",      limit: 1,                            default: false, null: false
+    t.datetime "active_from"
+    t.datetime "active_to"
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",            limit: 255

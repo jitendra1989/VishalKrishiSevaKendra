@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :front, path: '' do
+    namespace :front, path: '' do
     resource :customer, only: [:create, :edit, :update] do
       collection do
         match 'login' => 'customers#login', via: [:get, :post]
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'users#dashboard'
     resources :roles, except: [:show]
+    resources :coupon_codes, except: [:destroy]
     resources :quotations, only: [:index] do
       collection do
         get 'products'

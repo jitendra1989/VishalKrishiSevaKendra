@@ -8,8 +8,10 @@ RSpec.describe CouponCode, type: :model do
     expect(coupon_code).to_not be_valid
   end
   it "has a valid percent" do
+    coupon_code.percent = Faker::Lorem.word
+    expect(coupon_code).not_to be_valid
     coupon_code.percent = nil
-    expect(coupon_code).to_not be_valid
+    expect(coupon_code).not_to be_valid
   end
   it "has a valid active_from" do
     coupon_code.active_from = nil

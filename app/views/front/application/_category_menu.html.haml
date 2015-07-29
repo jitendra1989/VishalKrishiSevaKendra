@@ -2,14 +2,17 @@
 	%strong.h4 All Categories
 	%span.all-category.glyphicon.glyphicon-menu-down
 	%ul.list-unstyled
-		- Category.roots.each do |category|
+		- Category.roots.each do |root_category|
 			%li.root-category
-				= link_to front_category_path(category) do
-					%span.category-name= category.name
+				= link_to front_category_path(root_category) do
+					%span.category-name= root_category.name
 					%span.glyphicon.glyphicon-menu-right
-				- if category.has_children?
-					%ul
-						- category.children.each do |category|
+				- if root_category.has_children?
+					%ul.sub-category.list-unstyled
+						- root_category.children.each do |sub_category|
 							%li
-							%strong
-								= link_to category.name, front_category_path(category)
+								%strong= link_to sub_category.name, front_category_path(sub_category)
+								- if sub_category.has_children?
+									%ul.list-unstyled
+										- sub_category.children.each do |category|
+											%li= link_to category.name, front_category_path(category)

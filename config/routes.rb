@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         match 'login' => 'customers#login', via: [:get, :post]
         delete 'logout'
       end
+      resources :orders, only: [:index]
     end
     resources :categories, only: [:show]
     resources :products, only: [:show]
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
         delete 'remove/:product_id' => 'carts#remove', as: :remove
       end
     end
+    resource :order, only: [:create, :new]
 
     root 'products#index'
     get 'pages/about'

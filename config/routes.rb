@@ -16,7 +16,11 @@ Rails.application.routes.draw do
         delete 'remove/:product_id' => 'carts#remove', as: :remove
       end
     end
-    resource :order, only: [:create, :new]
+    resource :order, only: [:create, :new] do
+      collection do
+        get 'success'
+      end
+    end
 
     root 'products#index'
     get 'pages/about'

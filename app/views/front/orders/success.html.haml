@@ -1,0 +1,26 @@
+.row
+	.col-md-12
+		%h2 Order Success
+	.col-md-10.col-md-offset-1
+		.main-content
+			%br
+			.row
+				.col-md-6 Product
+				.col-md-2 Quantity
+				.col-md-2.text-right Price
+				.col-md-2.text-right Amount
+			- subtotal = 0
+			- @order.items.includes(:product).each do |item|
+				.row
+					.col-md-3= image_tag item.product.images.first.name.thumbnail
+					.col-md-3= item.name
+					.col-md-2= item.quantity
+					.col-md-2.text-right= number_to_currency item.price
+					.col-md-2.text-right
+						- amount = item.price * item.quantity
+						- subtotal += amount
+						= number_to_currency amount
+			%hr
+			.row.text-right
+				.col-md-offset-8.col-md-2 Total
+				.col-md-2= number_to_currency subtotal

@@ -3,10 +3,14 @@
     = f.label :name
     = f.text_field :name, required: true
   .form-group.permissions
-    = f.collection_check_boxes(:permission_ids, Permission.all, :id, :name_with_description) do |b|
-      = b.check_box
-      = b.label
-      %br
+    - permission = nil
+    = f.collection_check_boxes(:permission_ids, Permission.all, :id, :description) do |b|
+      - if permission != b.object.name
+        .h4.text-capitalize= b.object.name
+        - permission = b.object.name
+      .styled-checkboxes
+        = b.check_box class: 'role-selector'
+        = b.label
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

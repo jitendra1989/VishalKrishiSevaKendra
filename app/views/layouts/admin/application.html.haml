@@ -37,7 +37,8 @@
 										- if can? :manage, User
 											%li= link_to 'Users', admin_users_path
 										%li= link_to 'Customers', admin_customers_path
-										%li= link_to 'Roles', '#'
+										%li= link_to 'Roles', admin_roles_path
+										%li= link_to 'Available Permissions', admin_permissions_path
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Orders

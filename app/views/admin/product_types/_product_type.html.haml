@@ -10,3 +10,6 @@
     - product_type.taxes.each do |tax|
       .col-md-6= tax.name
       .col-md-6= tax.percentage
+.row
+  .col-md-12
+    = 'Workshop Required' if product_type.require_workshop?

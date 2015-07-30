@@ -1,5 +1,10 @@
 = form_for [:admin, @product_type], remote: true do |f|
-  .form-group= @product_type.name
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: true
+  .form-group
+    = f.label :require_workshop
+    = f.check_box :require_workshop
   = f.collection_check_boxes(:tax_ids, Tax.all, :id, :name) do |tax|
     .form-group
       = tax.check_box

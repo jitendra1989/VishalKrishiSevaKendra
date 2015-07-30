@@ -18,6 +18,6 @@ class Admin::ProductTypesController < Admin::ApplicationController
 
 	private
 	  def product_type_params
-	    params.require(:product_type).permit(tax_ids: [])
+	    params.require(:product_type).permit(:name, :require_workshop, tax_ids: [])
 	  end
 end

@@ -4,7 +4,7 @@ FactoryGirl.define do
     percent { rand(1..5) }
     active false
     active_from { Faker::Date.between(4.days.ago, Date.today) }
-    active_to { Faker::Date.forward(10) }
+    active_to { Faker::Date.forward(10).to_time }
   end
 
 end

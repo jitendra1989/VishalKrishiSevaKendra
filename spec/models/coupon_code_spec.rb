@@ -21,4 +21,9 @@ RSpec.describe CouponCode, type: :model do
     coupon_code.active_to = nil
     expect(coupon_code).to_not be_valid
   end
+  it "has a valid date range" do
+    coupon_code.active_from = Time.zone.tomorrow
+    coupon_code.active_to = Time.zone.now
+    expect(coupon_code).to_not be_valid
+  end
 end

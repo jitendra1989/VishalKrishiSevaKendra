@@ -5,12 +5,12 @@
   .form-group
     = f.label :percent
     = f.number_field :percent, required: true
-  .form-group
+  .form-group.datetime-selector
     = f.label :active_from
-    = f.date_field :active_from, required: true
-  .form-group
+    = f.datetime_select :active_from, required: true, prompt: true
+  .form-group.datetime-selector
     = f.label :active_to
-    = f.date_field :active_to, required: true
+    = f.datetime_select :active_to, required: true, prompt: true
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

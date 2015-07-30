@@ -4,7 +4,7 @@
   .col-md-10.col-md-offset-1
     .profile-box
       .text-right
-        =link_to 'New Coupon Code', new_admin_coupon_code_path
+        = link_to 'New Coupon Code', new_admin_coupon_code_path
       %br
       %table
         %tr
@@ -17,8 +17,8 @@
           %tr
             %td= coupon_code.code
             %td= coupon_code.percent
-            %td= coupon_code.active_from
-            %td= coupon_code.active_to
+            %td= coupon_code.active_from.strftime '%d-%b-%Y %H:%M'
+            %td= coupon_code.active_to.strftime '%d-%b-%Y %H:%M'
             %td.actions.text-center
               = link_to edit_admin_coupon_code_path(coupon_code) do
                 %span.glyphicon.glyphicon-pencil

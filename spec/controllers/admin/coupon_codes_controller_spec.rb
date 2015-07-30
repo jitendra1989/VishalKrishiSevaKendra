@@ -66,11 +66,6 @@ RSpec.describe Admin::CouponCodesController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      it "updates the requested coupon_code" do
-          put :update, id: coupon_code.id, coupon_code: valid_attributes
-          expect(assigns(:coupon_code)).to have_attributes(valid_attributes)
-      end
-
       it "assigns the requested coupon_code as @coupon_code" do
         put :update, id: coupon_code.id, coupon_code: valid_attributes
         expect(assigns(:coupon_code)).to eq(coupon_code)

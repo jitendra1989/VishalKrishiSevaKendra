@@ -1,2 +1,62 @@
-%h1 Admin::Orders#show
-%p Find me in app/views/admin/orders/show.html.haml
+.row
+  .col-md-12
+    %h2 Order
+  .col-md-10.col-md-offset-1
+    .order-form.main-content
+      .h3.text-center Order Details
+      %hr
+      .row
+        .col-md-8
+          .order-info
+            .customer-labels Name:
+            %strong= @order.customer.name
+          .order-info
+            .customer-labels Address:
+            %strong= @order.customer.full_address
+          .order-info
+            .customer-labels Contact No:
+            %strong= @order.customer.mobile
+        .col-md-4
+          .order-info
+            .customer-labels Order No:
+            %strong= @order.id
+          .order-info
+            .customer-labels Date:
+            %strong= @order.created_at.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          %table.table.table-striped.table-bordered
+            %thead
+              %tr
+                %th{ width: '50%' } Product
+                %th Qty
+                %th{ width: '20%' } Rate
+                %th{ width: '20%' } Amount
+            %tbody
+              - total = 0
+              - @order.items.each do |item|
+                - amount = item.quantity * item.price
+                - total += amount
+                %tr
+                  %td= item.name
+                  %td.text-right= item.quantity
+                  %td.text-right= number_to_currency item.price
+                  %td.text-right= number_to_currency amount
+
+            %tfoot
+              %tr
+                %td{ colspan: 3 }
+                  %strong Total
+                %td
+                  %strong
+                    .text-right= number_to_currency total
+              %tr
+                %td{ colspan: 3 }
+                  %strong= "Discount #{(@order.discount_amount*100/total).round(2)}%"
+                %td.text-right= number_to_currency @order.discount_amount
+              %tr
+                %td{ colspan: 3 }
+                  %strong Final Total
+                %td
+                  %strong
+                    .text-right= number_to_currency total - @order.discount_amount

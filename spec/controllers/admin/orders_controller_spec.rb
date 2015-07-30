@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::OrdersController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
+  let(:order) { FactoryGirl.create(:order) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:order) }
 
   describe "Without login" do
@@ -19,6 +20,13 @@ RSpec.describe Admin::OrdersController, type: :controller do
       it "assigns all store orders as @orders" do
         get :index
         expect(assigns(:orders)).to eq(Order.where(outlet: user.outlet))
+      end
+    end
+
+    describe "GET #show" do
+      it "assigns the requested order as @order" do
+        get :show, id: order.id
+        expect(assigns(:order)).to eq(order)
       end
     end
 

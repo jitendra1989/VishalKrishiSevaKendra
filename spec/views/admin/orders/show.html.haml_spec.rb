@@ -1,5 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "orders/show.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe "admin/orders/show", type: :view do
+  let(:order) { FactoryGirl.create(Order) }
+
+  	it "renders attributes in <p>" do
+  		assign(:order, order)
+  		render
+  		expect(rendered).to match(/Order No/)
+  	end
 end

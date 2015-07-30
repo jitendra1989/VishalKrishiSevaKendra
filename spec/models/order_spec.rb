@@ -6,6 +6,7 @@ RSpec.describe Order, type: :model do
   it { expect(order).to respond_to(:customer) }
   it { expect(order).to respond_to(:user) }
   it { expect(order).to respond_to(:items) }
+  it { expect(order).to respond_to(:receipts) }
   it { expect(order).to respond_to(:cart_id) }
 
   it "has a valid discount amount" do

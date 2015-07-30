@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   belongs_to :customer
   belongs_to :user
   belongs_to :outlet
+  has_many :receipts, dependent: :destroy
   has_many :items, class: OrderItem, dependent: :destroy
 
   attr_accessor :cart_id

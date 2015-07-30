@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 	has_many :permissions, through: :user_permissions
 	has_many :user_roles, dependent: :destroy
 	has_many :roles, through: :user_roles
+	has_many :receipts, dependent: :destroy
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	[:name, :username, :email, :phone, :address, :pincode, :city, :state, :country].each do |n|

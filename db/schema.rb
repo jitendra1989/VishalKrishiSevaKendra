@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730114538) do
+ActiveRecord::Schema.define(version: 20150730190319) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -234,6 +234,18 @@ ActiveRecord::Schema.define(version: 20150730114538) do
   add_index "quotations", ["customer_id"], name: "index_quotations_on_customer_id", using: :btree
   add_index "quotations", ["user_id"], name: "index_quotations_on_user_id", using: :btree
 
+  create_table "receipts", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.decimal  "amount",                 precision: 10, scale: 2
+    t.integer  "order_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "receipts", ["order_id"], name: "index_receipts_on_order_id", using: :btree
+  add_index "receipts", ["user_id"], name: "index_receipts_on_user_id", using: :btree
+
   create_table "role_permissions", force: :cascade do |t|
     t.integer  "role_id",       limit: 4
     t.integer  "permission_id", limit: 4
@@ -335,6 +347,8 @@ ActiveRecord::Schema.define(version: 20150730114538) do
   add_foreign_key "quotation_products", "quotations"
   add_foreign_key "quotations", "customers"
   add_foreign_key "quotations", "users"
+  add_foreign_key "receipts", "orders"
+  add_foreign_key "receipts", "users"
   add_foreign_key "role_permissions", "permissions"
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "stocks", "outlets"

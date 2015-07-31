@@ -11,7 +11,8 @@
 					%th Order Time
 					%th Customer
 					%th Contact No
-					%th Status
+					%th Receipts
+					%th.text-center Actions
 				- @orders.each do |order|
 					%tr
 						%td= order.id
@@ -19,7 +20,7 @@
 						%td= order.created_at.strftime '%H:%M'
 						%td= order.customer.name
 						%td= order.customer.mobile
-						/ %td= order.status
+						%td= order.receipts.size
 						%td.actions.text-center
-							= link_to admin_order_path(order) do
-								%span.glyphicon.glyphicon-search
+							= link_to 'View', admin_order_path(order)
+							= link_to 'New Receipt', new_admin_order_receipt_path(order)

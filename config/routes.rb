@@ -38,7 +38,9 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
-    resources :orders, only: [:index, :create, :show, :edit]
+    resources :orders, only: [:index, :create, :show, :edit], shallow: true do
+      resources :receipts, only: [:new, :create, :show]
+    end
     resources :carts, except: [:new, :create, :show] do
       collection do
         post 'add'

@@ -13,6 +13,10 @@ class Order < ActiveRecord::Base
   after_initialize :add_customer, if: :new_record?
   after_create :add_cart_items
 
+  def unpaid_amount
+    self.items.pluck(:price).sum - (self.receipts.pluck(:amount).sum + self.discount_amount)
+  end
+
   private
     def add_customer
       self.customer = Cart.find(self.cart_id).customer if self.cart_id

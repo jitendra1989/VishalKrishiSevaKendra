@@ -1,0 +1,38 @@
+.row
+  .col-md-12
+    %h2 New Receipt
+  .col-md-10.col-md-offset-1
+    .quotation-form.main-content
+      .h3.text-center Receipt Voucher
+      %hr
+      = form_for [:admin, @order, @receipt] do |f|
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th{ width: '33%' }
+                %strong Amount:
+                = number_to_currency @order.unpaid_amount
+              %th{ width: '33%' }
+                = f.label :code, 'Receipt No'
+                = f.text_field :code
+              %th{ width: '33%' }
+                %strong Date:
+                = Time.zone.now.strftime '%d-%m-%Y'
+            %tr
+              %th.text-center{ colspan: 2 } Particulars
+              %th.text-center= f.label :amount
+          %tbody
+            %tr
+              %td{ colspan: 2 }
+                Received with thanks from :
+                %br
+                %br
+                %strong= @order.customer.name
+                %br
+                = @order.customer.full_address
+              %td.text-center
+                %br
+                = f.number_field :amount
+        .form-group.text-center
+          = f.submit "Submit", class: "btn btn-primary"
+          = link_to "Cancel", :back, class: "btn btn-default"

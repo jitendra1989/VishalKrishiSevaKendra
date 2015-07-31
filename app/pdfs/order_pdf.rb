@@ -17,34 +17,11 @@ class OrderPdf < Prawn::Document
 			transparent(0.5) { stroke_bounds }
 		end
 		line_items(order)
-		# move_down 20
-		# font "Helvetica"
-		# text "#{order.customer.name}" , size: 12, style: :bold
-		# move_down 5
-		# text "#{order.customer.full_address}" , size: 10
-		# move_down 5
-		# text "Phone #{order.customer.mobile}" , size: 10
-		# text_box "Number #{order.id}", at: [450, 650], size: 10
-		# text_box "Date #{order.customer.created_at.strftime('%d-%m-%Y')}", at: [450, 630], size: 10
-		# move_down 10
 		stroke_horizontal_rule
 		move_down 10
 		total_items(order)
-		# total = 0
-		# order.items.each do |item|
-		# 	amount = item.price * item.quantity
-		# 	total += amount
-		# end
 		move_down order.items.size * 20
 		move_down 10
-		# text_box "Total", style: :bold, at: [0, 590 - (20 * order.items.size)]
-		# text_box "Discount", style: :bold, at: [0, 570 - (20 * order.items.size)]
-		# text_box "Final Total", style: :bold, at: [0, 550 - (20 * order.items.size)]
-		# move_down 10
-		# text_box "#{total}", style: :bold, at: [460, 590 - (20 * order.items.size)]
-		# text_box "#{order.discount_amount}", style: :bold, at: [460, 570 - (20 * order.items.size)]
-		# text_box "#{total - order.discount_amount}", style: :bold, at: [460, 550 - (20 * order.items.size)]
-		# move_down 60
 		text_box "for Damian de Goa", style: :bold, at: [420, 460 - (20 * order.items.size)]
 		text_box "Authorized Signatory", at: [420, 400 - (20 * order.items.size)]
 		text_box "TERMS & CONDITIONS FOR BUSINESS", style: :bold, at: [0, 380 - (20 * order.items.size)]

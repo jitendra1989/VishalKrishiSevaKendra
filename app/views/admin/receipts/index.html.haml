@@ -22,5 +22,6 @@
 						%td= receipt.amount
 						%td= Receipt::PAYMENT_METHODS[receipt.payment_method]
 						%td.actions.text-center
-							= link_to 'Print', '#'
+							= link_to admin_receipt_path(receipt, format: :pdf), target: :_blank do
+								%span.glyphicon.glyphicon-print
 

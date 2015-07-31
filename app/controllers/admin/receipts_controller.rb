@@ -1,14 +1,27 @@
 class Admin::ReceiptsController < Admin::ApplicationController
-	before_action :set_order, only: [:new, :index, :create]
+	before_action :set_order, only: [:new, :create]
 	def new
 		@receipt = @order.receipts.build
 	end
 
 	def index
-		@receipts = @order.receipts
+		if params[:order_id]
+			@order = Order.find(params[:order_id])
+			@receipts = @order.receipts
+		else
+			@receipts = Receipt.includes(:order).all
+		end
 	end
 
 	def show
+		@receipt = Receipt.find(params[:id])
+		respond_to do |format|
+			format.html
+			format.pdf do
+				pdf = ReceiptPdf.new(@receipt)
+				send_data pdf.render, filename: "receipt_#{@receipt.id}.pdf", disposition: "inline"
+			end
+		end
 	end
 
 	def create
@@ -26,6 +39,6 @@ class Admin::ReceiptsController < Admin::ApplicationController
 		end
 
 		def set_order
-			@order = Order.find(params[:order_id])
+			@order = Order.find(params[:order_id]) if params[:order_id]
 		end
 end

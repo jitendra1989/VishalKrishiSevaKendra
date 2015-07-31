@@ -23,7 +23,7 @@ class ReceiptPdf < Prawn::Document
 		end
 	end
 	def receipt_body(receipt)
-		[["Particulars", "Amount"],[receipt_particulars(receipt),"#{receipt.amount}" ],["Total","#{receipt.amount}" ],["Amount in words", "xxx"]]
+		[["Particulars", "Amount"],[receipt_particulars(receipt),"#{receipt.amount}" ],["Total","#{receipt.amount}" ],["Amount in words: #{receipt.amount_in_words}", '']]
 	end
 	def receipt_particulars(receipt)
 		output = "Received with thanks from :\n\n<b>#{receipt.order.customer.name}</b>\n#{receipt.order.customer.full_address}\n\nPayment Through : #{Receipt::PAYMENT_METHODS[receipt.payment_method]}"

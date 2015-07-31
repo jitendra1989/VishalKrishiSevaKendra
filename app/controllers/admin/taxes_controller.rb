@@ -1,4 +1,5 @@
 class Admin::TaxesController < Admin::ApplicationController
+  load_and_authorize_resource
   def new
     @tax = Tax.new
   end

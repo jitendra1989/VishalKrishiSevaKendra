@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Receipt, type: :model do
 	let(:order) { FactoryGirl.create(:order) }
-	let(:receipt) { FactoryGirl.build(:receipt, order: order) }
+	let(:receipt) { FactoryGirl.build(:receipt, order: order, amount: 1) }
 	before do
 		order.items << FactoryGirl.create_list(:order_item, 2, order: nil)
 	end
@@ -15,7 +15,7 @@ RSpec.describe Receipt, type: :model do
 		expect(receipt).not_to be_valid
 		receipt.amount = nil
 		expect(receipt).to_not be_valid
-		receipt.amount = receipt.order.unpaid_amount * 2
+		receipt.amount = receipt.order.unpaid_amount * 20
 		expect(receipt).to_not be_valid
 	end
 	it "has a valid user" do

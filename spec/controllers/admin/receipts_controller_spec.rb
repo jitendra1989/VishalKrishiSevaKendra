@@ -4,7 +4,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
   let(:order) { FactoryGirl.create(:order) }
   let(:receipt) { FactoryGirl.create(:receipt, order: order) }
-  let(:valid_attributes) { FactoryGirl.attributes_for(:receipt) }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:receipt, amount: 10) }
   let(:invalid_attributes) { FactoryGirl.attributes_for(:receipt, amount: nil) }
 
   describe "without login" do
@@ -16,7 +16,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
   describe 'after login' do
     before do
-      order.items << FactoryGirl.create_list(:order_item, 2, order: nil)
+      order.items << FactoryGirl.create_list(:order_item, 10, order: nil)
       log_in user
     end
     describe "GET #new" do

@@ -24,3 +24,5 @@
 						%td.actions.text-center
 							= link_to 'View', admin_order_path(order)
 							= link_to 'New Receipt', new_admin_order_receipt_path(order)
+							= link_to admin_order_path(order, format: :pdf), target: :_blank do
+								%span.glyphicon.glyphicon-print

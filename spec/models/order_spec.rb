@@ -64,7 +64,8 @@ RSpec.describe Order, type: :model do
       expect(order.unpaid_amount).to eq(order.items.pluck(:price).sum - order.discount_amount)
     end
     it 'returns the whole order amount minus discount minus total of order receipts' do
-      FactoryGirl.create_list(:receipt, 2, order: order)
+      order.items << FactoryGirl.create_list(:order_item, 4, order: nil)
+      FactoryGirl.create_list(:receipt, 2, order: order, amount: 1)
       expect(order.unpaid_amount).to eq(order.items.pluck(:price).sum - order.discount_amount - order.receipts.pluck(:amount).sum)
     end
   end

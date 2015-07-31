@@ -7,6 +7,8 @@ class Ability
 			can permission[1].to_sym, class_name(permission[0])
 		 end
 		can :login, User
+		can :logout, User
+		can :dashboard, User
 	end
 
 	private

@@ -1,4 +1,5 @@
 class Admin::CustomersController < Admin::ApplicationController
+	load_and_authorize_resource
 	def edit
 		@customer = Customer.find(params[:id])
 	end

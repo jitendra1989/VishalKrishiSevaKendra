@@ -1,4 +1,5 @@
 class Admin::CouponCodesController < Admin::ApplicationController
+  load_and_authorize_resource
   def index
     @coupon_codes = CouponCode.all
   end

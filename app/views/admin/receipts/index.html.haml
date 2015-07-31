@@ -1,0 +1,26 @@
+.row
+	.col-md-12
+		%h2 Receipts
+	.col-md-10.col-md-offset-1
+		.profile-box
+			%br
+			%table
+				%tr
+					%th Order No
+					%th Receipt No
+					%th Receipt Date
+					%th Cheque No
+					%th Amount
+					%th Payment Mode
+					%th.text-center Actions
+				- @receipts.each do |receipt|
+					%tr
+						%td= receipt.order.id
+						%td= receipt.id
+						%td= receipt.created_at.strftime '%d-%m-%Y'
+						%td= receipt.cheque_number
+						%td= receipt.amount
+						%td= Receipt::PAYMENT_METHODS[receipt.payment_method]
+						%td.actions.text-center
+							= link_to 'Print', '#'
+

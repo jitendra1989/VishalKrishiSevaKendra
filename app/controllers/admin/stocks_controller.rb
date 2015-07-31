@@ -1,5 +1,7 @@
 class Admin::StocksController < Admin::ApplicationController
   before_action :set_product, only: [:new, :index, :create]
+  load_and_authorize_resource :product
+  load_and_authorize_resource :stock, through: :product, shallow: true
 
   def new
     @stock = @product.stocks.build

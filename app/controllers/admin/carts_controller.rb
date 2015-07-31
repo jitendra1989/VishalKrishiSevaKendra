@@ -1,5 +1,6 @@
 class Admin::CartsController < Admin::ApplicationController
 	before_action :set_cart, only: [:edit, :update, :remove, :destroy]
+	load_and_authorize_resource
 
 	def index
 		@carts = Cart.includes(:customer, :user).where(outlet: current_user.outlet)

@@ -1,4 +1,6 @@
 class Admin::QuotationsController < Admin::ApplicationController
+	load_and_authorize_resource :customer
+	load_and_authorize_resource :quotation, through: :customer, shallow: true
 	def index
 		@quotations = Quotation.includes(:customer).all
 	end

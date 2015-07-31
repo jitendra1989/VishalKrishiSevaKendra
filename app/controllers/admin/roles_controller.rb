@@ -1,4 +1,5 @@
 class Admin::RolesController < Admin::ApplicationController
+  load_and_authorize_resource
   def index
     @roles = Role.all
   end

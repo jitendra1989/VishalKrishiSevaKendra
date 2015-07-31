@@ -33,6 +33,20 @@
               %td.text-center
                 %br
                 = f.number_field :amount
+            %tr
+              %td{ colspan: 3 }
+                = f.label :payment_method
+                = f.select :payment_method, Receipt::PAYMENT_METHODS.map{ |p| [p[1], p[0]] }, {include_blank: 'Select'}
+                .payment-info{ class: ["payment-info-#{Receipt::PAYMENT_METHODS.keys.second}", (@receipt.payment_method == Receipt::PAYMENT_METHODS.keys.second ? '': 'hidden')] }
+                  = f.label :cheque_number
+                  = f.number_field :cheque_number
+                  = f.label :cheque_date
+                  = f.text_field :cheque_date
+                  = f.label :cheque_bank, 'Drawn On'
+                  = f.text_field :cheque_bank
+                .payment-info{ class: ["payment-info-#{Receipt::PAYMENT_METHODS.keys.third}", (@receipt.payment_method == Receipt::PAYMENT_METHODS.keys.third ? '': 'hidden')] }
+                  = f.label :card_number
+                  = f.text_field :card_number
         .form-group.text-center
           = f.submit "Submit", class: "btn btn-primary"
           = link_to "Cancel", :back, class: "btn btn-default"

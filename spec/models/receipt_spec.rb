@@ -58,4 +58,9 @@ RSpec.describe Receipt, type: :model do
 			expect(receipt).to_not be_valid
 		end
 	end
+	describe "amount in words" do
+		it 'returns a string' do
+			expect(receipt.amount_in_words).to be_a(String)
+		end
+	end
 end

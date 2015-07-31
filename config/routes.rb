@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       end
     end
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do
-      resources :receipts, only: [:new, :create, :show]
+      resources :receipts, only: [:new, :create, :show, :index]
     end
     resources :carts, except: [:new, :create, :show] do
       collection do

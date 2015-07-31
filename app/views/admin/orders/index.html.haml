@@ -20,7 +20,7 @@
 						%td= order.created_at.strftime '%H:%M'
 						%td= order.customer.name
 						%td= order.customer.mobile
-						%td= order.receipts.size
+						%td= link_to order.receipts.size, admin_order_receipts_path(order)
 						%td.actions.text-center
 							= link_to 'View', admin_order_path(order)
 							= link_to 'New Receipt', new_admin_order_receipt_path(order)

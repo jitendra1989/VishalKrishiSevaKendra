@@ -76,14 +76,19 @@ RSpec.describe Order, type: :model do
     end
   end
   describe 'unpaid amount' do
-    before { order.save! }
-    it 'returns the whole order amount minus discount if newly placed order' do
-      expect(order.unpaid_amount).to eq(order.items.pluck(:price).sum - order.discount_amount)
+    let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
+    let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
+    before do
+      order.cart_id = cart.id
+      cart.add_item(stock.product.id, stock.quantity)
+      order.save!
+    end
+    it 'returns the whole order amount if newly placed order' do
+      expect(order.unpaid_amount).to eq(order.total)
     end
     it 'returns the whole order amount minus discount minus total of order receipts' do
-      order.items << FactoryGirl.create_list(:order_item, 4, order: nil)
-      FactoryGirl.create_list(:receipt, 2, order: order, amount: 1)
-      expect(order.unpaid_amount).to eq(order.items.pluck(:price).sum - order.discount_amount - order.receipts.pluck(:amount).sum)
+      FactoryGirl.create_list(:receipt, 2, order: order)
+      expect(order.unpaid_amount).to eq(order.total - order.receipts.pluck(:amount).sum)
     end
   end
   describe 'total' do

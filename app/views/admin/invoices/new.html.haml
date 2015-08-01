@@ -44,9 +44,9 @@
                   %tr
                     %td.text-right= index + 1
                     %td.text-right= order.created_at.strftime('%d-%m-%Y')
-                    %td.text-right= order.total
-                    %td.text-right Tax
+                    %td.text-right= order.subtotal
+                    %td.text-right= order.tax_amount
                     %td.text-right= order.discount_amount
-                    %td.text-right Total
+                    %td.text-right= order.subtotal + order.tax_amount - order.discount_amount
                     %td Action
 

@@ -2,13 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Admin::ReceiptsController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
-  let(:order) { FactoryGirl.create(:order) }
+  let(:order) { FactoryGirl.build(:order) }
+  let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
+  let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
   let(:receipt) { FactoryGirl.create(:receipt, order: order) }
+
   let(:valid_attributes) { FactoryGirl.attributes_for(:receipt, amount: 10) }
   let(:invalid_attributes) { FactoryGirl.attributes_for(:receipt, amount: nil) }
 
   describe "without login" do
     it "redirects to the login page" do
+      order.save!
       get :new, order_id: order.id
       expect(response).to redirect_to(login_admin_users_url)
     end
@@ -16,7 +20,9 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
   describe 'after login' do
     before do
-      order.items << FactoryGirl.create_list(:order_item, 10, order: nil)
+      order.cart_id = cart.id
+      cart.add_item(stock.product.id, stock.quantity)
+      order.save!
       log_in user
     end
     describe "GET #new" do

@@ -14,11 +14,11 @@ class Order < ActiveRecord::Base
   after_create :add_cart_items
 
   def unpaid_amount
-    self.items.pluck(:price).sum - (self.receipts.pluck(:amount).sum + self.discount_amount)
+    self.subtotal + self.tax_amount - (self.receipts.pluck(:amount).sum + self.discount_amount)
   end
 
   def total
-    self.items.pluck(:price).sum - self.discount_amount
+    self.subtotal + self.tax_amount - self.discount_amount
   end
 
   private

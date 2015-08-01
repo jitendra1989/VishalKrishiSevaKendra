@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731085844) do
+ActiveRecord::Schema.define(version: 20150801065321) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -142,10 +142,12 @@ ActiveRecord::Schema.define(version: 20150731085844) do
     t.integer  "customer_id",     limit: 4
     t.integer  "user_id",         limit: 4
     t.integer  "outlet_id",       limit: 4
+    t.decimal  "subtotal",                  precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "tax_amount",                precision: 10, scale: 2, default: 0.0, null: false
     t.decimal  "discount_amount",           precision: 10, scale: 2
-    t.integer  "receipts_count",  limit: 4,                          default: 0, null: false
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.integer  "receipts_count",  limit: 4,                          default: 0,   null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree

@@ -41,6 +41,23 @@ RSpec.describe Order, type: :model do
         order.save!
       }.to change(OrderItem, :count).by(cart_items_count)
     end
+    describe 'subtotal and taxes' do
+      let!(:subtotal) { cart.items.includes(:product).pluck('price * quantity').sum }
+      before do
+        cart.items.first.product.product_type.taxes << FactoryGirl.create(:tax)
+        order.save!
+      end
+      it 'sets the order subtotal without taxes' do
+        expect(order.subtotal).to eq(subtotal)
+      end
+      it 'sets order taxes amount equal to product taxes times quantity' do
+        tax_amount = 0
+        order.items.includes(:product).each do |item|
+          tax_amount += (item.quantity * item.product.tax_amount)
+        end
+        expect(order.tax_amount).to eq(tax_amount)
+      end
+    end
     it 'destroys the existing cart' do
       expect{
         order.save!

@@ -7,8 +7,8 @@ class Order < ActiveRecord::Base
 
   attr_accessor :cart_id
 
-  [:discount_amount, :customer_id, :user_id, :outlet_id].each { |n| validates n, presence: true }
-  validates :discount_amount, numericality: true
+  [:customer_id, :user_id, :outlet_id].each { |n| validates n, presence: true }
+  [:subtotal, :tax_amount, :discount_amount].each { |n| validates n, numericality: true }
 
   after_initialize :add_customer, if: :new_record?
   after_create :add_cart_items
@@ -24,17 +24,22 @@ class Order < ActiveRecord::Base
   private
     def add_customer
       self.customer = Cart.find(self.cart_id).customer if self.cart_id
+      self.subtotal, self.tax_amount = 0, 0
     end
     def add_cart_items
       if self.cart_id
+        self.subtotal, self.tax_amount = 0, 0
         cart = Cart.includes(:items).find(self.cart_id)
         cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
+          self.subtotal += cart_item.product.price * cart_item.quantity
+          self.tax_amount += cart_item.product.tax_amount * cart_item.quantity
           stock = self.outlet.product_stock(cart_item.product)
           stock.ordered += cart_item.quantity
           stock.quantity -= cart_item.quantity
           stock.save!
         end
+        save!
         cart.destroy!
       end
     end

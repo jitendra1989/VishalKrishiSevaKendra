@@ -52,7 +52,7 @@
 				%hr
 				.row
 					.col-md-6
-						= link_to 'Add Items to Cart', admin_products_path, class: 'btn btn-primary'
+						= link_to 'Continue Shopping', :back, class: 'btn btn-primary'
 					.col-md-6.text-right
 						= link_to 'Add Customer Info', admin_customers_path, class: 'btn btn-primary' if @cart.customer.nil?
 						= f.submit 'Place Order', class: 'btn btn-primary' if @cart.customer

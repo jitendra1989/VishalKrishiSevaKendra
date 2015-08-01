@@ -52,7 +52,7 @@
           %h4.modal-title#cross-sell-label Cross Sell
         .modal-body
           .row
-            = f.collection_check_boxes(:cross_sell_ids, Product.pluck(:id, :name), :first, :second) do |product|
+            = f.collection_check_boxes(:cross_sale_product_ids, Product.pluck(:id, :name), :first, :second) do |product|
               .col-md-4
                 = product.check_box
                 = product.label

@@ -5,12 +5,12 @@ RSpec.describe SalesRelationship, type: :model do
 	it { expect(sales_relationship).to be_valid }
 	it { expect(sales_relationship).to respond_to(:product) }
 	it { expect(sales_relationship).to respond_to(:related_product) }
-	it "has a valid product" do
-		sales_relationship.product = nil
-		expect(sales_relationship).not_to be_valid
-	end
 	it "has a valid related_product" do
 		sales_relationship.related_product = nil
+		expect(sales_relationship).not_to be_valid
+	end
+	it "cannot have self as related_product" do
+		sales_relationship.product = sales_relationship.related_product
 		expect(sales_relationship).not_to be_valid
 	end
 end

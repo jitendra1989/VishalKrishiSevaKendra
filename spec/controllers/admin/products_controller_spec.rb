@@ -6,6 +6,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
 	let(:product_type) { FactoryGirl.create(:product_type) }
 	let(:valid_attributes) { FactoryGirl.attributes_for(:product).merge(product_type_id: product_type.id) }
 	let(:invalid_attributes) { FactoryGirl.attributes_for(:product, code: nil) }
+	let(:related_product) { FactoryGirl.create(:product) }
 
 	let(:category) { FactoryGirl.create(:category) }
 	let(:sub_category) { FactoryGirl.create(:sub_category) }
@@ -74,6 +75,14 @@ RSpec.describe Admin::ProductsController, type: :controller do
 					expect {
 						post :create, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
 						}.to change(ProductCategory, :count).by(2)
+				end
+			end
+
+			describe "with cross sell" do
+				it "add the selected cross sell products to the product" do
+					expect {
+						post :create, product: valid_attributes.merge(cross_sale_product_ids: [related_product.id])
+						}.to change(CrossSell, :count).by(1)
 				end
 			end
 			describe "with image" do
@@ -152,6 +161,14 @@ RSpec.describe Admin::ProductsController, type: :controller do
 					expect {
 						post :update, id: product.id, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
 						}.to change(ProductCategory, :count).by(2)
+				end
+			end
+
+			describe "with cross sell" do
+				it "add the selected cross sell products to the product" do
+					expect {
+						post :update, id: product.id, product: valid_attributes.merge(cross_sale_product_ids: [related_product.id])
+						}.to change(CrossSell, :count).by(1)
 				end
 			end
 		end

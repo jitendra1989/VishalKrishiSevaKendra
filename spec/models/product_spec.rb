@@ -64,23 +64,17 @@ RSpec.describe Product, type: :model do
 			product.product_type.taxes << FactoryGirl.create_list(:tax, 2)
 		end
 		it 'returns the the applicable taxes for the product' do
-			taxes = product.product_type.taxes.pluck(:percentage)
-			tax_amount = 0
-			taxes.each { |tax| tax_amount += product.price * tax/100 }
-			expect(product.tax_amount).to eq(tax_amount)
+			taxes = product.price * product.product_type.taxes.pluck(:percentage).sum/100
+			expect(product.tax_amount).to eq(taxes)
 		end
 		it 'returns the price plus the applicable taxes for the product' do
-			taxes = product.product_type.taxes.pluck(:percentage)
-			tax_amount = 0
-			taxes.each { |tax| tax_amount += product.price * tax/100 }
-			expect(product.price_with_taxes).to eq(product.price + tax_amount)
+			taxes = product.price * product.product_type.taxes.pluck(:percentage).sum/100
+			expect(product.price_with_taxes).to eq(product.price + taxes)
 		end
 
 		it 'returns the sale price plus the applicable taxes for the product' do
-			taxes = product.product_type.taxes.pluck(:percentage)
-			tax_amount = 0
-			taxes.each { |tax| tax_amount += product.sale_price * tax/100 }
-			expect(product.sale_price_with_taxes).to eq(product.sale_price + tax_amount)
+			taxes = product.sale_price * product.product_type.taxes.pluck(:percentage).sum/100
+			expect(product.sale_price_with_taxes).to eq(product.sale_price + taxes)
 		end
 	end
 	describe "online price" do

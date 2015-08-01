@@ -1,0 +1,7 @@
+.nested-fields.form-group
+	= f.label :name, 'Image'
+	= f.file_field :name
+	.form-group.text-center
+		- if f.object.name?
+			= image_tag(f.object.name.thumbnail.url)
+			= link_to_remove_association '', f, class: 'glyphicon glyphicon-remove delete-link'

@@ -11,15 +11,11 @@
   .form-group
     = f.label :price
     = f.text_field :price, required: true
-  = f.fields_for :images do |image|
-    .form-group
-      = image.label :name, "Image"
-      = image.file_field :name
-    - if image.object.name?
-      .form-group.text-center
-        = image_tag(image.object.name.thumbnail.url)
-        = image.check_box :_destroy
-        = image.label :_destroy, "Mark for deletion"
+  #images
+    = f.fields_for :images do |image|
+      = render 'image_fields', f: image
+    .links
+      = link_to_add_association 'add image', f, :images, class: 'add-product btn btn-primary'
   %strong Categories
   = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
     .form-group.category-checkboxes
@@ -30,5 +26,5 @@
     = f.label :product_type_id
     = f.select :product_type_id, ProductType.pluck(:name, :id)
   .form-group.text-center
-    = f.submit "Submit", class: "btn btn-primary"
-    = link_to "Cancel", :back, class: "btn btn-default"
+    = f.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'

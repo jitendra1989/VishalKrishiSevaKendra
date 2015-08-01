@@ -1,2 +1,24 @@
-%h1 Admin::Invoices#index
-%p Find me in app/views/admin/invoices/index.html.haml
+.row
+	.col-md-12
+		%h2 Invoices
+	.col-md-10.col-md-offset-1
+		.profile-box
+			%br
+			%table
+				%tr
+					%th Name
+					%th Invoice No
+					%th Invoice Date
+					%th Amount
+					%th Receipts
+					%th.text-center Actions
+				- @invoices.each do |invoice|
+					%tr
+						%td= invoice.customer.name
+						%td= invoice.id
+						%td= invoice.created_at.strftime '%d-%m-%Y'
+						%td= invoice.amount
+						%td.actions.text-center
+							= link_to admin_invoice_path(invoice, format: :pdf), target: :_blank do
+								%span.glyphicon.glyphicon-print
+

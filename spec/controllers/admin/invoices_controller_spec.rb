@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Admin::InvoicesController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
   let(:customer) { FactoryGirl.create(:customer) }
+  let(:invoice) { FactoryGirl.create(:invoice) }
+  let(:order) { FactoryGirl.create(:order) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:invoice) }
 
   describe "without login" do
@@ -25,6 +27,19 @@ RSpec.describe Admin::InvoicesController, type: :controller do
       end
     end
 
+    describe "GET #index" do
+      it "assigns all order invoices as @invoices" do
+        get :index
+        expect(assigns(:invoices)).to eq(Invoice.all)
+      end
+    end
+
+    describe "GET #show" do
+      it "assigns the requested invoice as @invoice" do
+        get :show, id: invoice.id
+        expect(assigns(:invoice)).to eq(invoice)
+      end
+    end
 
     describe "POST #create" do
       let(:order) { FactoryGirl.create(:order, customer: customer) }

@@ -8,6 +8,9 @@ class Product < ActiveRecord::Base
 	belongs_to :product_type
 	has_many :categories, through: :product_categories
 	has_many :images, class_name: ProductImage, dependent: :destroy
+	has_many :sales_relationships, dependent: :destroy
+	has_many :cross_sells
+	has_many :cross_sale_products, through: :cross_sells, source: :related_product
 
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
 	[:price, :sale_price].each { |n| validates n, numericality: true }

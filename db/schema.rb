@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801104037) do
+ActiveRecord::Schema.define(version: 20150801170806) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -280,6 +280,17 @@ ActiveRecord::Schema.define(version: 20150801104037) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "sales_relationships", force: :cascade do |t|
+    t.integer  "product_id",         limit: 4
+    t.integer  "related_product_id", limit: 4
+    t.string   "type",               limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "sales_relationships", ["product_id"], name: "index_sales_relationships_on_product_id", using: :btree
+  add_index "sales_relationships", ["related_product_id"], name: "index_sales_relationships_on_related_product_id", using: :btree
+
   create_table "stocks", force: :cascade do |t|
     t.integer  "quantity",   limit: 4
     t.integer  "product_id", limit: 4
@@ -371,6 +382,8 @@ ActiveRecord::Schema.define(version: 20150801104037) do
   add_foreign_key "receipts", "users"
   add_foreign_key "role_permissions", "permissions"
   add_foreign_key "role_permissions", "roles"
+  add_foreign_key "sales_relationships", "products"
+  add_foreign_key "sales_relationships", "products", column: "related_product_id"
   add_foreign_key "stocks", "outlets"
   add_foreign_key "stocks", "products"
   add_foreign_key "user_permissions", "permissions"

@@ -7,6 +7,9 @@ RSpec.describe Admin::ProductsController, type: :controller do
 	let(:valid_attributes) { FactoryGirl.attributes_for(:product).merge(product_type_id: product_type.id) }
 	let(:invalid_attributes) { FactoryGirl.attributes_for(:product, code: nil) }
 
+	let(:category) { FactoryGirl.create(:category) }
+	let(:sub_category) { FactoryGirl.create(:sub_category) }
+
 	describe "without login" do
 		it "redirects to the login page" do
 			get :index
@@ -66,6 +69,13 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				end
 			end
 
+			describe "with categories" do
+				it "add the selected categories to the product" do
+					expect {
+						post :create, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
+						}.to change(ProductCategory, :count).by(2)
+				end
+			end
 			describe "with image" do
 				let(:cv_file) { fixture_file_upload('test.pdf', 'application/pdf') }
 				let(:png_file) { fixture_file_upload('test.png', 'image/png') }
@@ -138,8 +148,6 @@ RSpec.describe Admin::ProductsController, type: :controller do
 			end
 
 			describe "with categories" do
-				let(:category) { FactoryGirl.create(:category) }
-				let(:sub_category) { FactoryGirl.create(:sub_category) }
 				it "add the selected categories to the product" do
 					expect {
 						post :update, id: product.id, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])

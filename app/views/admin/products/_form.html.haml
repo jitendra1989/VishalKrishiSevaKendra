@@ -18,7 +18,7 @@
     = f.fields_for :images do |image|
       = render 'image_fields', f: image
     .links
-      = link_to_add_association 'add image', f, :images, class: 'add-product btn btn-primary'
+      = link_to_add_association 'Add Image', f, :images, class: 'add-product btn btn-primary'
   %strong Categories
   = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
     .form-group.category-checkboxes

@@ -39,7 +39,7 @@
                 %tr.add-more
                   %td{ colspan: 4 }
                     = text_field_tag :product, '', 'data-url' => products_admin_quotations_path, class: 'autocomplete', autocomplete: 'off', placeholder: 'Search for product here'
-                    = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more', class: 'hidden add-product'
+                    = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more', class: 'hidden add-product btn btn-primary'
               %tfoot
                 %tr
                   %td{ colspan: 3 }

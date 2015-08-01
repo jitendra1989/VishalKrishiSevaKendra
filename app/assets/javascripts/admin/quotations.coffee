@@ -39,7 +39,7 @@ quotationsReady = ->
 		$('.add-product').addClass 'hidden'
 		$(insertedItem).find('.quantity-field').focus()
 		return
-	$(document).on 'keyup', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
+	$(document).on 'change', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
 		calculateTotals($(this).hasClass 'discount-percent')
 		return
 	return

@@ -32,7 +32,7 @@
             %table.table.table-striped.table-bordered
               %thead
                 %tr
-                  %th.text-right Sr. No
+                  %th.text-right Order. No
                   %th.text-right Order Date
                   %th.text-right Amount
                   %th.text-right Tax
@@ -40,13 +40,24 @@
                   %th.text-right Total
                   %th Action
               %tbody.quotation-products
-                - @customer.orders.each_with_index do |order, index|
+                = f.collection_check_boxes(:order_ids, @customer.orders, :id, :id) do |order|
                   %tr
-                    %td.text-right= index + 1
-                    %td.text-right= order.created_at.strftime('%d-%m-%Y')
-                    %td.text-right= order.subtotal
-                    %td.text-right= order.tax_amount
-                    %td.text-right= order.discount_amount
-                    %td.text-right= order.subtotal + order.tax_amount - order.discount_amount
-                    %td Action
-
+                    %td.text-right= order.object.id
+                    %td.text-right= order.object.created_at.strftime('%d-%m-%Y')
+                    %td.text-right= order.object.subtotal
+                    %td.text-right= order.object.tax_amount
+                    %td.text-right= order.object.discount_amount
+                    %td.text-right= order.object.subtotal + order.object.tax_amount - order.object.discount_amount
+                    %td.text-center
+                      - if order.object.invoice_id
+                        = link_to 'Invoice', admin_invoice_path(order.object.invoice_id), class: 'btn btn-default'
+                      - else
+                        - if order.object.unpaid_amount > 0
+                          Unpaid Order
+                        - else
+                          = order.check_box
+              %tfoot
+                %tr
+                  %td.text-center{ colspan: 7 }
+                    = f.submit 'Generate Invoice', class: 'btn btn-primary'
+                    = link_to "Cancel", :back, class: 'btn btn-default'

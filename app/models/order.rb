@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   belongs_to :customer, counter_cache: true
   belongs_to :user
   belongs_to :outlet
+  belongs_to :invoice
   has_many :receipts, dependent: :destroy
   has_many :items, class: OrderItem, dependent: :destroy
 

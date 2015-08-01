@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801065321) do
+ActiveRecord::Schema.define(version: 20150801094522) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -148,9 +148,11 @@ ActiveRecord::Schema.define(version: 20150801065321) do
     t.integer  "receipts_count",  limit: 4,                          default: 0,   null: false
     t.datetime "created_at",                                                       null: false
     t.datetime "updated_at",                                                       null: false
+    t.integer  "invoice_id",      limit: 4
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["invoice_id"], name: "index_orders_on_invoice_id", using: :btree
   add_index "orders", ["outlet_id"], name: "index_orders_on_outlet_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
@@ -351,6 +353,7 @@ ActiveRecord::Schema.define(version: 20150801065321) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "invoices"
   add_foreign_key "orders", "outlets"
   add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "categories"

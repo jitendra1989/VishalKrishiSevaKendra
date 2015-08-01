@@ -1,6 +1,8 @@
 FactoryGirl.define do
 	factory :invoice do
 		customer
-		amount { BigDecimal.new(Faker::Commerce.price.to_s) }
-  end
+		after(:build) do |invoice|
+			invoice.orders << FactoryGirl.build(:order, customer: invoice.customer)
+		end
+	end
 end

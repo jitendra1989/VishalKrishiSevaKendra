@@ -2,6 +2,7 @@ class Customer < ActiveRecord::Base
 	has_many :quotations
 	has_many :carts
 	has_many :orders
+	has_many :invoices
 	has_one :online_cart
 	has_many :online_orders
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

@@ -52,7 +52,9 @@ Rails.application.routes.draw do
     end
     resources :customers, shallow: true do
       resources :quotations, only: [:new, :create, :show]
+      resources :invoices, only: [:new, :create, :show]
     end
+    resources :invoices, only: [:index]
     resources :product_types, path: 'product-types', only: [:index, :edit, :update]
     resources :taxes, except: [:show]
     resources :products, shallow: true do

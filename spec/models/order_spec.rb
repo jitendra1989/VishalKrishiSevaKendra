@@ -69,4 +69,10 @@ RSpec.describe Order, type: :model do
       expect(order.unpaid_amount).to eq(order.items.pluck(:price).sum - order.discount_amount - order.receipts.pluck(:amount).sum)
     end
   end
+  describe 'total' do
+    before { order.save! }
+    it 'returns the whole order amount minus discount' do
+      expect(order.total).to eq(order.items.pluck(:price).sum - order.discount_amount)
+    end
+  end
 end

@@ -7,6 +7,7 @@ RSpec.describe Customer, type: :model do
 	it { expect(customer).to respond_to(:quotations) }
 	it { expect(customer).to respond_to(:carts) }
 	it { expect(customer).to respond_to(:orders) }
+	it { expect(customer).to respond_to(:invoices) }
 	it { expect(customer).to respond_to(:online_cart) }
 	it { expect(customer).to respond_to(:online_orders) }
 	it { expect(customer.full_address).to eq("#{customer.address}, #{customer.city}, #{customer.state} - #{customer.pincode}") }

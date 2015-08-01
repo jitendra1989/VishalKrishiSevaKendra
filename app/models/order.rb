@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  belongs_to :customer
+  belongs_to :customer, counter_cache: true
   belongs_to :user
   belongs_to :outlet
   has_many :receipts, dependent: :destroy
@@ -15,6 +15,10 @@ class Order < ActiveRecord::Base
 
   def unpaid_amount
     self.items.pluck(:price).sum - (self.receipts.pluck(:amount).sum + self.discount_amount)
+  end
+
+  def total
+    self.items.pluck(:price).sum - self.discount_amount
   end
 
   private

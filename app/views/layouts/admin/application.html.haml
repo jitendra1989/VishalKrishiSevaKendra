@@ -17,6 +17,12 @@
 								= image_tag 'logo.png'
 						.col-md-7
 							%span.pull-right= "Welcome #{@current_user.name}"
+							.row
+								.col-md-10
+									.cart-menu
+										= link_to active_cart_url do
+											%span.glyphicon.glyphicon-shopping-cart.pull-right
+											%span.badge= cart_count
 							%ul.nav.nav-tabs
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }

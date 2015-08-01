@@ -101,3 +101,17 @@ header{
 		font-weight: normal;
 	}
 }
+.cart-menu{
+	position: relative;
+	margin-top: 10px;
+	.glyphicon{
+		font-size: 30px;
+		color: #fff;
+	}
+	.badge{
+		position: absolute;
+		top: -5px;
+		right: -10px;
+		background: #c00;
+	}
+}

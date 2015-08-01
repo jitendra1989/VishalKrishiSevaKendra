@@ -12,7 +12,9 @@
 					%th Address
 					%th Mobile
 					%th Email
+					%th Orders
 					%th.text-center Sales
+					%th.text-center After Sales
 					%th.text-center Actions
 				- @customers.each do |customer|
 					%tr
@@ -20,9 +22,12 @@
 						%td= customer.address
 						%td= customer.mobile
 						%td= customer.email
+						%td.text-center= customer.orders.size
 						%td.actions.text-center
 							= link_to 'New Quote', new_admin_customer_quotation_path(customer)
 							= link_to 'Assign to Cart', assign_admin_carts_path(customer), method: :post
+						%td.actions.text-center
+							= link_to 'New Invoice', new_admin_customer_invoice_path(customer)
 						%td.actions.text-center
 							= link_to edit_admin_customer_path(customer) do
 								%span.glyphicon.glyphicon-pencil

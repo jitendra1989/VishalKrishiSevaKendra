@@ -1,11 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Receipt, type: :model do
-	let(:order) { FactoryGirl.create(:order) }
+	let(:order) { FactoryGirl.build(:order) }
+	let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
+	let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
 	let(:receipt) { FactoryGirl.build(:receipt, order: order, amount: 1) }
 	before do
-		order.items << FactoryGirl.create_list(:order_item, 2, order: nil)
+	  order.cart_id = cart.id
+	  cart.add_item(stock.product.id, stock.quantity)
+	  order.save!
 	end
+
 	it { expect(receipt).to be_valid }
 	it { expect(receipt).to respond_to(:user) }
 	it { expect(receipt).to respond_to(:order) }

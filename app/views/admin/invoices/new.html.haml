@@ -1,0 +1,52 @@
+.row
+  .col-md-12
+    %h2 New Invoice
+  .col-md-10.col-md-offset-1
+    .quotation-form.main-content
+      .h3.text-center Invoice Form
+      %hr
+      .row
+        .col-md-8
+          .quotation-info
+            .customer-labels Name:
+            %strong= @customer.name
+          .quotation-info
+            .customer-labels Address:
+            %strong= @customer.full_address
+          .quotation-info
+            .customer-labels Contact No:
+            %strong= @customer.mobile
+          .quotation-info
+            .customer-labels Email:
+            %strong= @customer.email
+        .col-md-4
+          .quotation-info
+            .customer-labels Invoice No:
+            %strong= Invoice.all.size + 1
+          .quotation-info
+            .customer-labels Date:
+            %strong= Time.zone.now.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          = form_for [:admin, @customer, @invoice] do |f|
+            %table.table.table-striped.table-bordered
+              %thead
+                %tr
+                  %th.text-right Sr. No
+                  %th.text-right Order Date
+                  %th.text-right Amount
+                  %th.text-right Tax
+                  %th.text-right Discount
+                  %th.text-right Total
+                  %th Action
+              %tbody.quotation-products
+                - @customer.orders.each_with_index do |order, index|
+                  %tr
+                    %td.text-right= index + 1
+                    %td.text-right= order.created_at.strftime('%d-%m-%Y')
+                    %td.text-right= order.subtotal
+                    %td.text-right= order.tax_amount
+                    %td.text-right= order.discount_amount
+                    %td.text-right= order.subtotal + order.tax_amount - order.discount_amount
+                    %td Action
+

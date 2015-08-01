@@ -14,20 +14,50 @@
   .form-group
     = f.label :sale_price
     = f.number_field :sale_price
-  #images
-    = f.fields_for :images do |image|
-      = render 'image_fields', f: image
-    .links
-      = link_to_add_association 'Add Image', f, :images, class: 'add-product btn btn-primary'
-  %strong Categories
-  = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
-    .form-group.category-checkboxes
-      = category.check_box
-      = category.label
-      = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
   .form-group
     = f.label :product_type_id
     = f.select :product_type_id, ProductType.pluck(:name, :id)
+  #images
+    = f.fields_for :images do |image|
+      = render 'image_fields', f: image
+    .links.text-center
+      = link_to_add_association 'Add More Images', f, :images, class: 'add-product btn btn-primary'
+  %br
+  .form-group.text-center
+    %button.btn.btn-primary{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.categories-modal' }
+      Select Categories
+    %button.btn.btn-primary{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.cross-sell-modal' }
+      Cross Sell Products
+  .modal.fade.categories-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'product-category-label' }
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+            %span{ 'aria-hidden' => true } &times;
+          %h4.modal-title#product-category-label Categories
+        .modal-body
+          = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
+            .form-group.category-checkboxes
+              = category.check_box
+              = category.label
+              = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
+        .modal-footer
+          %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close
+  .modal.fade.cross-sell-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'cross-sell-label' }
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+            %span{ 'aria-hidden' => true } &times;
+          %h4.modal-title#cross-sell-label Cross Sell
+        .modal-body
+          .row
+            = f.collection_check_boxes(:cross_sell_ids, Product.pluck(:id, :name), :first, :second) do |product|
+              .col-md-4
+                = product.check_box
+                = product.label
+        .modal-footer
+          %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

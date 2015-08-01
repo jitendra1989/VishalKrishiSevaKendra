@@ -30,9 +30,20 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
     describe "GET #index" do
       it "assigns all order receipts as @receipts" do
+        get :index
+        expect(assigns(:receipts)).to eq(Receipt.all)
+      end
+      it "assigns all order receipts as @receipts" do
         get :index, order_id: order.id
         expect(assigns(:order)).to eq(order)
         expect(assigns(:receipts)).to eq(order.receipts)
+      end
+    end
+
+    describe "GET #show" do
+      it "assigns the requested receipt as @receipt" do
+        get :show, id: receipt.id
+        expect(assigns(:receipt)).to eq(receipt)
       end
     end
 

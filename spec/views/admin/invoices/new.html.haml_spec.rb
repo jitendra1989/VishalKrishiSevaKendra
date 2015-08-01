@@ -1,5 +1,13 @@
 require 'rails_helper'
+RSpec.describe "admin/invoices/new", type: :view do
 
-RSpec.describe "invoices/new.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+	let(:customer) { FactoryGirl.create(:customer) }
+
+	it "renders attributes in <p>" do
+		assign(:customer, customer)
+		assign(:invoice, Invoice.new)
+		render
+		expect(rendered).to match(/Name/)
+		expect(rendered).to match(/Address/)
+	end
 end

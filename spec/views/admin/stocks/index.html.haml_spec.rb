@@ -9,7 +9,6 @@ RSpec.describe "admin/stocks/index", type: :view do
     assign(:stocks, stocks)
     assign(:product, product)
     render
-    expect(rendered).to match(/Product/)
     expect(rendered).to match(/Quantity/)
   end
 end

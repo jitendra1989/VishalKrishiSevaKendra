@@ -38,7 +38,7 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
-    resources :receipts, only: [:index]
+    resources :receipts, only: [:index, :show]
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do
       resources :receipts, except: [:edit, :update, :destroy]
     end

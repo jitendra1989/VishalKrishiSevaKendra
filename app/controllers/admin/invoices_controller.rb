@@ -1,10 +1,15 @@
 class Admin::InvoicesController < Admin::ApplicationController
   def index
+    @invoices = Invoice.all
   end
 
   def new
     @customer = Customer.find(params[:customer_id])
     @invoice = @customer.invoices.build
+  end
+
+  def show
+    @invoice = Invoice.find(params[:id])
   end
 
   def create

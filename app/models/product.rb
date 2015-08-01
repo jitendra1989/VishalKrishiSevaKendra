@@ -10,7 +10,10 @@ class Product < ActiveRecord::Base
 	has_many :images, class_name: ProductImage, dependent: :destroy
 
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
-	validates :price, numericality: true
+	[:price, :sale_price].each { |n| validates n, numericality: true }
+	validates :sale_price, numericality: { less_than: :price }, if: :price
+
+
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 
 	def outlet_stock_quantity(outlet)

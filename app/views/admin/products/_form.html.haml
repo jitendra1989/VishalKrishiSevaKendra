@@ -10,7 +10,10 @@
     = f.text_area :description, required: true
   .form-group
     = f.label :price
-    = f.text_field :price, required: true
+    = f.number_field :price, required: true
+  .form-group
+    = f.label :sale_price
+    = f.number_field :sale_price
   #images
     = f.fields_for :images do |image|
       = render 'image_fields', f: image

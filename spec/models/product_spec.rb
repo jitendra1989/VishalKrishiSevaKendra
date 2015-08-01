@@ -27,6 +27,16 @@ RSpec.describe Product, type: :model do
 		product.price = nil
 		expect(product).to_not be_valid
 	end
+	it "has a valid sale price" do
+		product.sale_price = Faker::Lorem.word
+		expect(product).to_not be_valid
+		product.sale_price = nil
+		expect(product).to_not be_valid
+	end
+	it 'has a sale price smaller than actual price' do
+		product.sale_price = product.price * 100
+		expect(product).not_to be_valid
+	end
 	it "has a valid product_type" do
 		product.product_type = nil
 		expect(product).to_not be_valid

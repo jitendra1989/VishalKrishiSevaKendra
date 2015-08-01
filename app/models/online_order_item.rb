@@ -9,6 +9,9 @@ class OnlineOrderItem < ActiveRecord::Base
 
   private
     def add_name_price
-      self.assign_attributes(self.product.attributes.slice('name', 'price')) if self.product
+      if self.product
+        self.name = self.product.name
+        self.price = self.product.online_price
+      end
     end
 end

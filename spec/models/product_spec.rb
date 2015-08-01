@@ -72,6 +72,22 @@ RSpec.describe Product, type: :model do
 			taxes.each { |tax| tax_amount += product.price * tax/100 }
 			expect(product.price_with_taxes).to eq(product.price + tax_amount)
 		end
+
+		it 'returns the sale price plus the applicable taxes for the product' do
+			taxes = product.product_type.taxes.pluck(:percentage)
+			tax_amount = 0
+			taxes.each { |tax| tax_amount += product.sale_price * tax/100 }
+			expect(product.sale_price_with_taxes).to eq(product.sale_price + tax_amount)
+		end
+	end
+	describe "online price" do
+		it 'returns sale_price_with_taxes if greater than 0' do
+			expect(product.online_price).to eq(product.sale_price_with_taxes)
+		end
+		it 'returns price_with_taxes if no sale price listed' do
+			product.sale_price = 0
+			expect(product.online_price).to eq(product.price_with_taxes)
+		end
 	end
 	describe 'online stock' do
 		let(:stock) { FactoryGirl.build(:stock, product: product, outlet: FactoryGirl.create(:online_outlet)) }

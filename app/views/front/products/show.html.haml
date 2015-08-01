@@ -22,7 +22,7 @@
 						= @product.code
 					%p
 						%strong.title Price:
-						= number_to_currency @product.price_with_taxes
+						= decorated_frontend_price(@product)
 					%p
 						%strong.title Product Type:
 						= @product.product_type.name

@@ -16,4 +16,4 @@
               = link_to product.name, front_product_path(product)
             .product-code= product.code
             .product-description= product.description
-            .product-price= number_to_currency product.price_with_taxes
+            .product-price= decorated_frontend_price(product)

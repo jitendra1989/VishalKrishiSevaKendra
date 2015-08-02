@@ -44,6 +44,9 @@ RSpec.describe Product, type: :model do
 		product.product_type = nil
 		expect(product).to_not be_valid
 	end
+	it "returns all online saleable product" do
+		expect(Product.online).to eq(Product.where(saleable_online: true))
+	end
 	describe 'outlet stock' do
 		let(:stock) { FactoryGirl.build(:stock, product: product) }
 		before do

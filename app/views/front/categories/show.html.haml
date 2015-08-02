@@ -6,7 +6,7 @@
       .col-md-12
         %h1= @category.name
         %br
-      - @category.products.each do |product|
+      - @category.products.online.each do |product|
         .col-md-3
           .product-box
             .product-image

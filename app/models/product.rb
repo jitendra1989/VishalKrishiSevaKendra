@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
 	[:price, :sale_price].each { |n| validates n, numericality: true }
 	validates :sale_price, numericality: { less_than: :price }, if: :price
 
+	scope :online, -> { where(saleable_online: true) }
 
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 

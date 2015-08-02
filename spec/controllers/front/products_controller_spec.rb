@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Front::ProductsController, type: :controller do
-  let(:product) { FactoryGirl.create(:product) }
+  let(:product) { FactoryGirl.create(:online_product) }
   describe "GET #show" do
     it "returns http success" do
       get :show, id: product.friendly_id

@@ -17,6 +17,9 @@
   .form-group
     = f.label :product_type_id
     = f.select :product_type_id, ProductType.pluck(:name, :id)
+  .form-group
+    = f.label :saleable_online, 'Sell Online'
+    = f.check_box :saleable_online
   #images
     = f.fields_for :images do |image|
       = render 'image_fields', f: image

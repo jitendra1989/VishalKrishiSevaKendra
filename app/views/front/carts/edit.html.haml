@@ -38,6 +38,6 @@
 			%hr
 			.row
 				.col-md-6
-					= link_to 'Continue Shopping', front_root_path, class: 'btn btn-default'
+					= link_to 'Continue Shopping', :back, class: 'btn btn-default'
 				.col-md-6.text-right
 					= link_to 'Proceed To Checkout', new_front_order_path, class: 'btn btn-default' unless @cart.items.empty?

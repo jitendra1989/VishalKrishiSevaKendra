@@ -30,6 +30,15 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.full-description{
+	max-height: 200px;
+	overflow-y: scroll;
+}
+.product-quantity{
+	width: 50px;
+	height: 40px;
+	color: #000;
+}
 .images-modal{
 	.modal-dialog, .modal-content{
 		height: 96%;

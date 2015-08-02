@@ -1,7 +1,5 @@
 .row
-	.col-md-2
-		= render 'category_menu'
-	.col-md-10
+	.col-md-12
 		.row
 			.col-md-12
 				%h1.text-center= @product.name
@@ -12,22 +10,21 @@
 						= image_tag image.name.try(:thumbnail).try(:url), data: { 'medium-url' => image.name.try(:medium).try(:url) }, class: 'product-thumbnail'
 			.col-md-4
 				.profile-box
-					%strong.title Item Overview:
-					%hr
-					= @product.description
-					%p
-						%strong.title Name:
-						= @product.name
-					%p
-						%strong.title Code:
-						= @product.code
-					%p
-						%strong.title Price:
-						= decorated_frontend_price(@product)
-					%p
-						%strong.title Product Type:
-						= @product.product_type.name
+					.text-center
+						%strong.title Item Overview
+						%hr
+					.full-description= @product.description
 			.col-md-4
+				- if @product.online_stock > 0
+					= form_tag add_front_cart_path do
+						= hidden_field_tag :product_id, @product.id
+						= select_tag :quantity, options_for_select(1..[@product.online_stock, 10].min), class: 'product-quantity text-right'
+						%span.h4.pull-right
+							%strong.title Price:
+							= decorated_frontend_price(@product)
+						%br
+						%br
+						= button_tag 'Buy Now', class: 'btn btn-default btn-block btn-lg'
 			- if @product.cross_sale_products.size > 0
 				.col-md-12
 					.row

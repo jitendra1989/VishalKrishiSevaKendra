@@ -32,12 +32,12 @@
 					%br
 					%br
 					.out-of-stock.bg-warning.text-center Out of Stock
-			- if @product.cross_sale_products.size > 0
+			- if @product.cross_sale_products.online.size > 0
 				.col-md-12
 					.row
 						.col-md-12
 							%h3 You might also like
-						- @product.cross_sale_products.limit(4).each do |product|
+						- @product.cross_sale_products.online.limit(4).each do |product|
 							.col-md-3.col-sm-4.col-xs-6
 								.product-box
 									.product-image

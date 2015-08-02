@@ -3,7 +3,8 @@
 		= render 'category_menu'
 	.col-md-10
 		.row
-			%h1.text-center= @product.name
+			.col-md-12
+				%h1.text-center= @product.name
 			.col-md-4
 				= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'img-responsive product-medium', 'data-toggle' => 'modal', 'data-target' => '.images-modal'
 				.thumbnail-gallery.main-thumbnails
@@ -27,6 +28,29 @@
 						%strong.title Product Type:
 						= @product.product_type.name
 			.col-md-4
+			- if @product.cross_sale_products.size > 0
+				.col-md-12
+					.row
+						.col-md-12
+							%h3 You might also like
+						- @product.cross_sale_products.limit(4).each do |product|
+							.col-md-3.col-sm-4.col-xs-6
+								.product-box
+									.product-image
+										= link_to front_product_path(product) do
+											= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
+									.product-name
+										= link_to product.name, front_product_path(product)
+									.product-code.hidden-xs= product.code
+									.product-description.hidden-xs= product.description
+									.price-cart
+										.product-price.inline-block= decorated_frontend_price(product)
+										- if product.online_stock > 0
+											= form_tag add_front_cart_path, class: 'form-inline inline-block pull-right' do
+												= hidden_field_tag :product_id, product.id
+												= hidden_field_tag :quantity, 1
+												= button_tag class: 'btn btn-default' do
+													%span.glyphicon.glyphicon-shopping-cart
 		.modal.fade.images-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'myLargeModalLabel' }
 			.modal-dialog.modal-xl
 				.modal-content

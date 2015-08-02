@@ -25,6 +25,13 @@
 						%br
 						%br
 						= button_tag 'Buy Now', class: 'btn btn-default btn-block btn-lg'
+				- else
+					%span.h4
+						%strong.title Price:
+						= decorated_frontend_price(@product)
+					%br
+					%br
+					.out-of-stock.bg-warning.text-center Out of Stock
 			- if @product.cross_sale_products.size > 0
 				.col-md-12
 					.row

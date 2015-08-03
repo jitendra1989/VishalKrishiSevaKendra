@@ -78,4 +78,9 @@ RSpec.describe User, type: :model do
 		user.country = nil
 		expect(user).to_not be_valid
 	end
+	describe "on send password reset" do
+		it "sends an email" do
+			expect{ user.send_password_reset }.to change { ActionMailer::Base.deliveries.count }.by(1)
+		end
+	end
 end

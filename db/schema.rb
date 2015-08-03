@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802145645) do
+ActiveRecord::Schema.define(version: 20150803083717) do
+
+  create_table "banners", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "image",      limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -332,20 +340,22 @@ ActiveRecord::Schema.define(version: 20150802145645) do
   add_index "user_roles", ["user_id"], name: "index_user_roles_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.string   "username",        limit: 255
-    t.string   "password_digest", limit: 255
-    t.string   "email",           limit: 255
-    t.integer  "phone",           limit: 8
-    t.string   "address",         limit: 255
-    t.integer  "pincode",         limit: 4
-    t.string   "city",            limit: 255
-    t.string   "state",           limit: 255
-    t.string   "country",         limit: 255
-    t.integer  "outlet_id",       limit: 4
-    t.boolean  "active",          limit: 1,   default: false, null: false
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.string   "name",                   limit: 255
+    t.string   "username",               limit: 255
+    t.string   "password_digest",        limit: 255
+    t.string   "email",                  limit: 255
+    t.integer  "phone",                  limit: 8
+    t.string   "address",                limit: 255
+    t.integer  "pincode",                limit: 4
+    t.string   "city",                   limit: 255
+    t.string   "state",                  limit: 255
+    t.string   "country",                limit: 255
+    t.integer  "outlet_id",              limit: 4
+    t.boolean  "active",                 limit: 1,   default: false, null: false
+    t.string   "password_reset_token",   limit: 255
+    t.datetime "password_reset_sent_at"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "users", ["outlet_id"], name: "index_users_on_outlet_id", using: :btree

@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 productsReady = ->
+	$('#slider').nivoSlider
+		pauseOnHover: false
+		prevText: '<'
+		nextText: '>'
 	$('.product-thumbnail').click (e) ->
 		$('.product-medium').attr('src', $(this).data('medium-url'))
 		.data('large-url', $(this).data('large-url')).data('medium-url', $(this).data('medium-url'))

@@ -31,6 +31,58 @@ RSpec.describe Admin::UsersController, type: :controller do
 			delete :logout
 			expect(response).to redirect_to(login_admin_users_url)
 		end
+
+		describe "reset-password" do
+			it "renders forgot_password" do
+				get :forgot_password
+				expect(response).to render_template(:forgot_password)
+			end
+			it "redirects to the login page with a flash notice" do
+				post :forgot_password, user: { username: user.username }
+				expect(response).to redirect_to(login_admin_users_url)
+				expect(flash[:info]).to eq('We have sent an email with password reset instructions.')
+			end
+		end
+
+		describe "on accessing link from email" do
+			before do
+				user.password_reset_token = 'XXXXXXXXXXXXXXXXXXXX'
+				user.password_reset_sent_at = 1.hour.ago
+				user.save!
+			end
+			describe "GET recover-password" do
+				it "renders recover_password if user not logged in" do
+					get :recover_password, { token: user.password_reset_token }
+					expect(response).to render_template(:recover_password)
+				end
+			end
+
+			describe "POST recover-password" do
+				it "renders recover_password if passwords don't match" do
+					password = Faker::Internet.password(6, 25)
+					post :recover_password, { user: { password: password, password_confirmation: "misMatch"}, token: user.password_reset_token  }
+					expect(response).to render_template(:recover_password)
+				end
+
+				describe "when link has expired" do
+					before do
+						user.password_reset_sent_at = 3.hours.ago
+						user.save!
+					end
+					it "renders forgot-password if link has expired" do
+						password = Faker::Internet.password(6, 25)
+						post :recover_password, { user: { password: password, password_confirmation: password}, token: user.password_reset_token  }
+						expect(response).to redirect_to( forgot_password_admin_users_url)
+					end
+				end
+
+			it "renders login on successful password update" do
+				password = Faker::Internet.password(6, 25)
+				post :recover_password, { user: { password: password, password_confirmation: password}, token: user.password_reset_token  }
+				expect(response).to redirect_to(login_admin_users_url)
+			end
+			end
+		end
 	end
 
 	describe 'Logged in actions for super admin' do

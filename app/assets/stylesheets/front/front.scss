@@ -18,10 +18,13 @@ body{
 a, a:hover, a:focus{
 	text-decoration: none;
 }
+header a, footer a{
+	color: #fff;
+}
 footer{
 	padding: 20px;
 	color: #fff;
-	background: #000;
+	background: $navbar-default-bg;
 	span{
 		vertical-align: middle;
 		display: inline-block;
@@ -66,10 +69,6 @@ footer{
 	.projects{ background-position: 0 -340px; }
 	.clients { background-position: 0 -102px; }
 	.contact { background-position: 0 -238px; }
-}
-.navbar-nav > li > a {
-	padding-top: 10px;
-	padding-bottom: 0;
 }
 .facebook{
 	width: 32px;

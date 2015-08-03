@@ -6,6 +6,8 @@ class Ability
 		user.permissions.pluck(:name, :action).each do |permission|
 			can permission[1].to_sym, class_name(permission[0])
 		 end
+		can :forgot_password, User
+		can :recover_password, User
 		can :login, User
 		can :logout, User
 		can :dashboard, User

@@ -78,6 +78,7 @@
 										%li= link_to 'Taxes on Products', admin_product_types_path
 										- if can? :manage, Outlet
 											%li= link_to 'Outlets', admin_outlets_path
+										%li= link_to 'Banners', admin_banners_path
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Profile

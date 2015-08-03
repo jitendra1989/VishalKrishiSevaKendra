@@ -66,10 +66,13 @@ Rails.application.routes.draw do
     resources :categories, except: [:show], shallow: true do
       resources :categories, only: [:new, :create]
     end
+    resources :banners
     resources :users do
       collection do
         match 'login' => 'users#login', via: [:get, :post]
         delete 'logout'
+        match 'forgot-password' => 'users#forgot_password', via: [:get, :post]
+        match 'recover-password/:token' => 'users#recover_password', via: [:get, :post], as: :recover_password
       end
     end
   end

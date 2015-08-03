@@ -1,10 +1,18 @@
 .row
   .col-md-12
     .row
+      .col-md-2
+      .col-md-8
+        .nivo-slider#slider
+          - @banners.each do |banner|
+            = link_to banner.url do
+              = image_tag banner.image
+      .col-md-2
+    .row
       - @products.each do |product|
         .col-lg-2.col-md-3.col-sm-4.col-xs-6
           .product-box
-            .product-image
+            .product-image.text-center
               = link_to front_product_path(product) do
                 = image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
             .product-name

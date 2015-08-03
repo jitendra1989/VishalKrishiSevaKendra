@@ -20,11 +20,10 @@
 	}
 }
 .product-image{
-	background: #ccc;
 	height: 200px;
 	overflow: hidden;
 	a{
-		display: block;
+		display: inline-block;
 	}
 }
 .product-name, .product-description{

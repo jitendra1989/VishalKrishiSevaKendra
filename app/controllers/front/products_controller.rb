@@ -4,6 +4,7 @@ class Front::ProductsController < Front::ApplicationController
 	end
 
 	def index
+		@banners = Banner.all
 		@products = Product.online.first(8)
 	end
 

@@ -41,4 +41,4 @@
 				.col-md-6
 					= link_to 'Continue Shopping', :back, class: 'btn btn-default'
 				.col-md-6.text-right
-					= link_to 'Proceed To Checkout', new_front_order_path, class: 'btn btn-default' unless @cart.items.empty?
+					= link_to 'Proceed To Checkout', new_front_order_path, class: 'btn btn-primary' unless @cart.items.empty?

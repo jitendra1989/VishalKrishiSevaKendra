@@ -1,10 +1,8 @@
 .row
-  .col-md-2
-    = render 'category_menu'
-  .col-md-10
+  .col-md-12
     .row
       - @products.each do |product|
-        .col-md-3.col-sm-4.col-xs-6
+        .col-lg-2.col-md-3.col-sm-4.col-xs-6
           .product-box
             .product-image
               = link_to front_product_path(product) do
@@ -19,5 +17,5 @@
                 = form_tag add_front_cart_path, class: 'form-inline inline-block pull-right' do
                   = hidden_field_tag :product_id, product.id
                   = hidden_field_tag :quantity, 1
-                  = button_tag class: 'btn btn-default' do
+                  = button_tag class: 'btn btn-primary' do
                     %span.glyphicon.glyphicon-shopping-cart

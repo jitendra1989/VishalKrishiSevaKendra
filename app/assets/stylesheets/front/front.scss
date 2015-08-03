@@ -3,6 +3,8 @@ $navbar-default-border: transparent;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-hover-bg: transparent;
 $navbar-default-link-color: #c3c3c3;
+
+$brand-primary: #740403 !default; // #337ab7
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -10,9 +12,11 @@ $navbar-default-link-color: #c3c3c3;
 body{
 	background: asset_url('background.jpg') center center;
 }
+.main-container{
+	max-width: 2048px;
+}
 a, a:hover, a:focus{
 	text-decoration: none;
-	color: #fff;
 }
 footer{
 	padding: 20px;
@@ -30,9 +34,8 @@ footer{
 	display: inline-block;
 }
 .main-content{
-	background: #141414;
+	background: #fff;
 	padding: 30px 15px;
-	color: #c3c3c3
 }
 .sprites {
 	background: asset_url('sprites.png') no-repeat;
@@ -81,6 +84,9 @@ footer{
 .cart-menu{
 	position: relative;
 	margin-top: 10px;
+	a{
+		color: #fff;
+	}
 	.glyphicon{
 		font-size: 30px;
 	}
@@ -89,41 +95,6 @@ footer{
 		top: -5px;
 		right: -10px;
 		background: #c00;
-	}
-}
-.category-nav{
-	.all-category{
-		padding-left: 10px;
-	}
-	.root-category{
-		& > a {
-			padding: 10px;
-			display: block;
-		}
-		&:hover a{
-				background: #696969;
-			}
-		.sub-category{
-			display: none;
-			margin-left: 155px;
-			margin-top: -40px;
-			position: absolute;
-			background: #696969;
-			z-index: 1;
-			padding: 10px;
-			width: 250px;
-			border: 3px solid #fff;
-			ul{
-				padding-left: 5px;
-			}
-		}
-		&:hover ul{
-			display: block;
-		}
-	}
-	.category-name{
-		display: inline-block;
-		width: 70%;
 	}
 }
  label{

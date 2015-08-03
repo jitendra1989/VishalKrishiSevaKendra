@@ -8,7 +8,7 @@
 		= javascript_include_tag 'front/application', 'data-turbolinks-track' => true
 		= csrf_meta_tags
 	%body
-		.container
+		.container-fluid.main-container
 			%header
 				.row
 					.col-md-6
@@ -29,39 +29,7 @@
 								%span.badge= online_cart_count
 				.row
 					.col-md-12
-						%nav.navbar.navbar-default
-							.navbar-header
-								%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#main-nav', 'aria-expanded' => false }
-									%span.sr-only Toggle navigation
-									%span.icon-bar
-									%span.icon-bar
-									%span.icon-bar
-							#main-nav.collapse.navbar-collapse.main-nav
-								%ul.nav.navbar-nav
-									%li.hidden-xs.hidden-sm{ role: 'presentation' }
-										= link_to front_root_path do
-											%span.sprites.nav-icons.home
-											Home
-									%li{ role: 'presentation' }
-										= link_to front_pages_about_path do
-											%span.sprites.nav-icons.about
-											About Us
-									%li{ role: 'presentation' }
-										= link_to '#' do
-											%span.sprites.nav-icons.collection
-											Collection
-									%li{ role: 'presentation' }
-										= link_to front_pages_projects_path do
-											%span.sprites.nav-icons.projects
-											Projects
-									%li{ role: 'presentation' }
-										= link_to front_pages_clients_path do
-											%span.sprites.nav-icons.clients
-											Clients
-									%li{ role: 'presentation' }
-										= link_to front_pages_contact_path do
-											%span.sprites.nav-icons.contact
-											Contact Us
+						= render 'category_menu'
 			.main-content
 				- [@current_customer, @customer].each do |object|
 					-if object.try(:errors).try(:any?)

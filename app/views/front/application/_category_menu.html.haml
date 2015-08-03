@@ -1,18 +1,21 @@
-.category-nav
-	%strong.h4 All Categories
-	%span.all-category.glyphicon.glyphicon-menu-down
-	%ul.list-unstyled
-		- Category.roots.each do |root_category|
-			%li.root-category
-				= link_to front_category_path(root_category) do
-					%span.category-name= root_category.name
-					%span.glyphicon.glyphicon-menu-right
-				- if root_category.has_children?
-					%ul.sub-category.list-unstyled
-						- root_category.children.each do |sub_category|
-							%li
-								%strong= link_to sub_category.name, front_category_path(sub_category)
-								- if sub_category.has_children?
-									%ul.list-unstyled
-										- sub_category.children.each do |category|
-											%li= link_to category.name, front_category_path(category)
+%nav.navbar.navbar-default
+	.navbar-header
+		%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#main-nav', 'aria-expanded' => false }
+			%span.sr-only Toggle navigation
+			%span.icon-bar
+			%span.icon-bar
+			%span.icon-bar
+	#main-nav.collapse.navbar-collapse.main-nav
+		%ul.nav.navbar-nav
+			- Category.roots.each do |root_category|
+				%li.text-center{ role: 'presentation' }
+					= link_to root_category.name, front_category_path(root_category), class: 'dropdown-toggle', 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false
+					- if root_category.has_children?
+						%ul.sub-categories.dropdown-menu
+							- root_category.children.each do |sub_category|
+								%li
+									= link_to sub_category.name, front_category_path(sub_category)
+									- if sub_category.has_children?
+										%ul
+											- sub_category.children.each do |category|
+												%li= link_to category.name, front_category_path(category)

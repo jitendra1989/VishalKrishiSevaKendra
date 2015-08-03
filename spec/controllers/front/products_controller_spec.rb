@@ -14,9 +14,9 @@ RSpec.describe Front::ProductsController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
-    it "assigns first 8 products as @products" do
+    it "assigns first 24 products as @products" do
       get :index
-      expect(assigns(:products)).to eq(Product.online.first(8))
+      expect(assigns(:products)).to eq(Product.online.first(24))
       expect(assigns(:banners)).to eq(Banner.all)
     end
   end

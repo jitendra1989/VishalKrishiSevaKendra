@@ -13,6 +13,13 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Mailer configuration
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: "http://localhost:3000" }
+  config.action_mailer.smtp_settings = { openssl_verify_mode: 'none' }
+  config.action_mailer.asset_host = config.action_mailer.default_url_options[:host]
+
   # Enable mail interceptor for development
   config.mail_interceptor = true
 

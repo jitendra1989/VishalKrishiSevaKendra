@@ -13,4 +13,5 @@
 						= f.label :password
 						= f.password_field :password, required: true
 					.form-group
+						= link_to 'Forgot Password?', forgot_password_admin_users_path, class: 'pull-left'
 						= f.submit "Log in", class: "btn btn-primary pull-right", id: "submit"

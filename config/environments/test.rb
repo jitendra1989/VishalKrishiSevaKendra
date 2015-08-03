@@ -34,6 +34,9 @@ Rails.application.configure do
   # Disable mail interceptor for test
   config.mail_interceptor = false
 
+  # Mailer configuration
+  config.action_mailer.default_url_options = { host: "http://localhost:3000" }
+
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
 

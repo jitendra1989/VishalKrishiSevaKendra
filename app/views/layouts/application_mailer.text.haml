@@ -1,0 +1,18 @@
+= @common[:site_name]
+= "\n\n"
+= "Dear #{@recepient_name}"
+= "\n\n"
+= yield
+= "\n\n"
+Best Regards,
+= "\n\n"
+= @custom_sender || 'Damian De Goa Team'
+= "\n\n"
+- unless @common[:site_url].nil?
+	= @common[:site_url]
+	= "\n\n"
+= "This email is automatically generated, please do not reply to this mail. If you have questions or need support please write to #{@common[:reply_to]}"
+= "\n\n"
+- if @reference_number
+	= t('mail.office_use')
+	= @reference_number

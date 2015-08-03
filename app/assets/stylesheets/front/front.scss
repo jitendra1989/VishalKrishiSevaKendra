@@ -110,6 +110,9 @@ input{
 .navbar-nav li:hover .sub-categories{
 	display: block;
 }
+.top-search{
+	margin: 7px 0;
+}
 @media (min-width: $screen-lg-min) {
 	.navbar-nav > li > a {
 		width: 184px;

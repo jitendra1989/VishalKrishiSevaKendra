@@ -4,7 +4,9 @@
     = f.text_field :name, required: true
   .form-group
     = f.label :image
-    = f.file_field :image, required: true
+    = f.file_field :image
+    %br
+    Ideal Dimensions for Main Banner : 990 X 392
   .form-group
     = f.label :url, 'Link To'
     = f.text_field :url, required: true

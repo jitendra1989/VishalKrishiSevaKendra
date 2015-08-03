@@ -16,7 +16,8 @@ RSpec.describe Front::ProductsController, type: :controller do
     end
     it "assigns first 8 products as @products" do
       get :index
-      expect(assigns(:products)).to eq(Product.first(8))
+      expect(assigns(:products)).to eq(Product.online.first(8))
+      expect(assigns(:banners)).to eq(Banner.all)
     end
   end
 end

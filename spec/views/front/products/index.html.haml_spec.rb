@@ -7,6 +7,7 @@ RSpec.describe "front/products/index", type: :view do
 		view.lookup_context.prefixes << "front/application" # https://github.com/rails/rails/issues/5213
 		FactoryGirl.create(:product)
 		assign(:products, products)
+		assign(:banners, Banner.all)
 		render
 		expect(rendered).to have_css('.product-box')
 	end

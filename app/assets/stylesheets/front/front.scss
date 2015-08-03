@@ -110,3 +110,8 @@ input{
 .navbar-nav li:hover .sub-categories{
 	display: block;
 }
+@media (min-width: $screen-lg-min) {
+	.navbar-nav > li > a {
+		width: 184px;
+	}
+}

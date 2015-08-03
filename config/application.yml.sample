@@ -6,3 +6,5 @@ production:
   SECRET_KEY_BASE: <secret_key>
   DATABASE_USERNAME: database_user
   DATABASE_PASSWORD: <database_password>
+  ACTION_MAILER_HOST: <action_mailer_host>
+  ACTION_MAILER_ASSET_HOST: <action_mailer_asset_host>

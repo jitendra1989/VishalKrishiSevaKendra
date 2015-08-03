@@ -10,6 +10,13 @@ class Admin::InvoicesController < Admin::ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = InvoicePdf.new(@invoice, view_context)
+        send_data pdf.render, filename: "invoice_#{@invoice.id}.pdf", disposition: "inline"
+      end
+    end
   end
 
   def create

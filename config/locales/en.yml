@@ -24,4 +24,4 @@ en:
   number:
     currency:
       format:
-        unit: '&#8377; '
+        unit: 'INR '

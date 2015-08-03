@@ -9,7 +9,7 @@
 		%ul.nav.navbar-nav
 			- Category.roots.each do |root_category|
 				%li.text-center{ role: 'presentation' }
-					= link_to root_category.name, front_category_path(root_category), class: 'dropdown-toggle', 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false
+					= link_to root_category.name, front_category_path(root_category)
 					- if root_category.has_children?
 						%ul.sub-categories.dropdown-menu
 							- root_category.children.each do |sub_category|

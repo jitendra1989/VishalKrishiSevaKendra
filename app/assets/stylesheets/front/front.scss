@@ -107,13 +107,6 @@ input{
 	color: #fff;
 	padding: 10px;
 }
-@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
-	.navbar-nav > li > a {
-		padding: 10px 29px;
-	}
-}
-@media (min-width: $screen-lg-min) {
-	.navbar-nav > li > a {
-		width: 184px;
-	}
+.navbar-nav li:hover .sub-categories{
+	display: block;
 }

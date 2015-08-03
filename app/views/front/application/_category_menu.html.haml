@@ -8,18 +8,19 @@
 	.collapse.navbar-collapse.main-nav#main-nav
 		%ul.nav.navbar-nav
 			- Category.roots.each do |root_category|
-				%li.text-center{ role: 'presentation' }
-					= link_to root_category.name, front_category_path(root_category)
+				%li{ role: 'presentation' }
+					= link_to root_category.name, front_category_path(root_category), class: 'text-center'
 					- if root_category.has_children?
 						.sub-categories
-							%ul.list-unstyled.text-left
+							.row
 								- root_category.children.each do |sub_category|
-									%li
-										= link_to sub_category.name, front_category_path(sub_category)
-										- if sub_category.has_children?
-											%ul.list-unstyled
-												- sub_category.children.each do |category|
-													%li= link_to category.name, front_category_path(category)
+									.col-md-2
+										.sub-category
+											= link_to sub_category.name, front_category_path(sub_category), class: 'sub-category-link'
+											- if sub_category.has_children?
+												%ul.list-unstyled
+													- sub_category.children.each do |category|
+														%li= link_to category.name, front_category_path(category)
 		%ul.top-search.pull-right
 			%li
 				= form_tag search_front_products_path, method: :get do

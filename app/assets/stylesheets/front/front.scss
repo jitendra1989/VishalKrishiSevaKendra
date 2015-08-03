@@ -107,6 +107,12 @@ input{
 	color: #fff;
 	padding: 10px;
 }
+.top-search{
+	max-width: 250px;
+	li{
+		display: inline-block;
+	}
+}
 .navbar-nav li:hover .sub-categories{
 	display: block;
 }

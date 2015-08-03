@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    %h2 Banners
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Banner', new_admin_banner_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th Image
+          %th Link
+          %th.text-center Actions
+        - @banners.each do |banner|
+          %tr
+            %td= banner.name
+            %td= image_tag banner.image.small
+            %td= banner.url
+            %td.actions.text-center
+              = link_to edit_admin_banner_path(banner) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_banner_path(banner), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

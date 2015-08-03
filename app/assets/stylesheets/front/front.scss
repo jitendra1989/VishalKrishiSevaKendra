@@ -142,6 +142,15 @@ input{
 		color: #000;
 	}
 }
+.top-search{
+	max-width: 250px;
+	li{
+		display: inline-block;
+	}
+}
+.top-search{
+	margin: 7px 0;
+}
 @media (min-width: $screen-lg-min) {
 	.navbar-nav > li > a {
 		width: 184px;

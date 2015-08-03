@@ -5,7 +5,7 @@
 			%span.icon-bar
 			%span.icon-bar
 			%span.icon-bar
-	#main-nav.collapse.navbar-collapse.main-nav
+	.collapse.navbar-collapse.main-nav#main-nav
 		%ul.nav.navbar-nav
 			- Category.roots.each do |root_category|
 				%li.text-center{ role: 'presentation' }
@@ -20,3 +20,11 @@
 											%ul.list-unstyled
 												- sub_category.children.each do |category|
 													%li= link_to category.name, front_category_path(category)
+		%ul.top-search.pull-right
+			%li
+				= form_tag search_front_products_path, method: :get do
+					.input-group
+						= text_field_tag :search, params[:search], placeholder: 'Search for Products', class: 'form-control'
+						%span.input-group-btn
+							%button.btn.btn-default{ type: 'button' }
+								%span.glyphicon.glyphicon-search

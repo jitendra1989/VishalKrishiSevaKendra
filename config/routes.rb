@@ -9,7 +9,11 @@ Rails.application.routes.draw do
       resources :orders, only: [:index]
     end
     resources :categories, only: [:show]
-    resources :products, only: [:show]
+    resources :products, only: [:show] do
+      collection do
+        get 'search'
+      end
+    end
     resource :cart, only: [:edit, :update] do
       collection do
         post 'add'

@@ -11,11 +11,12 @@
 				%li.text-center{ role: 'presentation' }
 					= link_to root_category.name, front_category_path(root_category)
 					- if root_category.has_children?
-						%ul.sub-categories.dropdown-menu
-							- root_category.children.each do |sub_category|
-								%li
-									= link_to sub_category.name, front_category_path(sub_category)
-									- if sub_category.has_children?
-										%ul
-											- sub_category.children.each do |category|
-												%li= link_to category.name, front_category_path(category)
+						.sub-categories
+							%ul.list-unstyled.text-left
+								- root_category.children.each do |sub_category|
+									%li
+										= link_to sub_category.name, front_category_path(sub_category)
+										- if sub_category.has_children?
+											%ul.list-unstyled
+												- sub_category.children.each do |category|
+													%li= link_to category.name, front_category_path(category)

@@ -107,8 +107,40 @@ input{
 	color: #fff;
 	padding: 10px;
 }
-.navbar-nav li:hover .sub-categories{
-	display: block;
+.sub-categories{
+	display: none;
+	position: absolute;
+	background-color: #ffece2;
+	z-index: 1;
+	width: 100%;
+	left: 0;
+	padding: 10px;
+	box-shadow: 0px -3px 1px 0px  #740403 inset;
+}
+.main-nav{
+	position: relative;
+	.nav > li	{
+		position: static;
+	}
+}
+.navbar-nav li{
+	ul{
+		list-style: none;
+		li{
+			a{
+				font-weight: bold;
+			}
+			ul li a{
+				font-weight: normal;
+			}
+		}
+	}
+	&:hover .sub-categories{
+		display: block;
+	}
+	a{
+		color: #000;
+	}
 }
 @media (min-width: $screen-lg-min) {
 	.navbar-nav > li > a {

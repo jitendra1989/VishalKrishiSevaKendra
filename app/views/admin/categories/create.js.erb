@@ -1,2 +1,6 @@
-$('#new_category').remove();
-$('#category_<%= @category.siblings.offset(1).last.id %>').html('<%= j (render 'category', category: @category ) %>');
+$('.new_category').remove();
+<% if @category.root? %>
+	$('.categories').append('<%= j (render 'category', category: @category ) %>');
+<% else %>
+	$('#category_<%= @category.parent.id %> > ul').append('<%= j (render 'category', category: @category ) %>');
+<% end %>

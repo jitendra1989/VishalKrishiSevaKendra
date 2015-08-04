@@ -1,0 +1,13 @@
+= form_for [:admin, @content_page] do |f|
+	.form-group
+		= f.label :title
+		= f.text_field :title, required: true
+	.form-group
+		= f.label :content
+		= f.text_area :content, required: true
+	.form-group
+		= f.label :slug
+		= f.text_field :slug, required: true
+	.form-group.text-center
+		= f.submit 'Submit', class: 'btn btn-primary'
+		= link_to 'Cancel', :back, class: 'btn btn-default'

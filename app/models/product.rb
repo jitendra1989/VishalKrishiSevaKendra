@@ -12,6 +12,7 @@ class Product < ActiveRecord::Base
 	has_many :cross_sells
 	has_many :cross_sale_products, through: :cross_sells, source: :related_product
 	has_many :product_attributes
+	has_many :specifications, class_name: Attribute, through: :product_attributes
 
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
 	[:price, :sale_price].each { |n| validates n, numericality: true }
@@ -20,6 +21,7 @@ class Product < ActiveRecord::Base
 	scope :online, -> { where(saleable_online: true) }
 
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
+	accepts_nested_attributes_for :product_attributes, reject_if: :all_blank, allow_destroy:true
 
 	def outlet_stock_quantity(outlet)
 		self.stocks.where(outlet: outlet).last.try(:quantity) || 0

@@ -1,0 +1,17 @@
+.form-group.text-center
+  %button.btn.btn-primary{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.categories-modal' } Select Categories
+.modal.fade.categories-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'product-category-label' }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+          %span{ 'aria-hidden' => true } &times;
+        %h4.modal-title#product-category-label Categories
+      .modal-body
+        = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
+          .form-group.category-checkboxes
+            = category.check_box
+            = category.label
+            = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
+      .modal-footer
+        %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close

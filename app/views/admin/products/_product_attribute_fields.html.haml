@@ -1,0 +1,8 @@
+.nested-fields.form-inline
+  .form-group
+    = f.select :attribute_id, Attribute.pluck(:name, :id)
+  .form-group
+    = f.text_field :value, placeholder: 'Value'
+  %span
+    = link_to_remove_association f, class: 'delete-link' do
+      %span.glyphicon.glyphicon-remove

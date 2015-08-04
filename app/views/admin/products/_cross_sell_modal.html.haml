@@ -1,0 +1,17 @@
+.form-group.text-center
+  %button.btn.btn-primary{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.cross-sell-modal' } Cross Sell Products
+.modal.fade.cross-sell-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'cross-sell-label' }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+          %span{ 'aria-hidden' => true } &times;
+        %h4.modal-title#cross-sell-label Cross Sell
+      .modal-body
+        .row
+          = f.collection_check_boxes(:cross_sale_product_ids, Product.pluck(:id, :name), :first, :second) do |product|
+            .col-md-4
+              = product.check_box
+              = product.label
+      .modal-footer
+        %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close

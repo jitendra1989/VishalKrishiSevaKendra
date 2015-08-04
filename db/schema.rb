@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803083717) do
+ActiveRecord::Schema.define(version: 20150804041835) do
+
+  create_table "attributes", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.boolean  "outlet_only", limit: 1,   default: false, null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255

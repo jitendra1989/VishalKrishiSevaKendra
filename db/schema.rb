@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804081414) do
+ActiveRecord::Schema.define(version: 20150804101212) do
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -180,7 +180,10 @@ ActiveRecord::Schema.define(version: 20150804081414) do
     t.boolean  "online_store", limit: 1,   default: false, null: false
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.datetime "deleted_at"
   end
+
+  add_index "outlets", ["deleted_at"], name: "index_outlets_on_deleted_at", using: :btree
 
   create_table "permissions", force: :cascade do |t|
     t.string   "name",        limit: 255

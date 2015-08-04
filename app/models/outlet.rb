@@ -1,4 +1,6 @@
 class Outlet < ActiveRecord::Base
+	acts_as_paranoid
+
 	has_many :users
 	has_many :stocks
 	has_many :carts

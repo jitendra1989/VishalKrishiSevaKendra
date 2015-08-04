@@ -45,6 +45,7 @@ gem 'kaminari'
 gem 'friendly_id'
 gem 'figaro'
 gem 'unitwise'
+gem 'paranoia'
 
 group :development do
   gem 'pry-rails'

@@ -11,6 +11,7 @@ class Product < ActiveRecord::Base
 	has_many :sales_relationships, dependent: :destroy
 	has_many :cross_sells
 	has_many :cross_sale_products, through: :cross_sells, source: :related_product
+	has_many :product_attributes
 
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
 	[:price, :sale_price].each { |n| validates n, numericality: true }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804062748) do
+ActiveRecord::Schema.define(version: 20150804071655) do
 
   create_table "attributes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -197,6 +197,17 @@ ActiveRecord::Schema.define(version: 20150804062748) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  create_table "product_attributes", force: :cascade do |t|
+    t.integer  "product_id",   limit: 4
+    t.integer  "attribute_id", limit: 4
+    t.string   "value",        limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "product_attributes", ["attribute_id"], name: "index_product_attributes_on_attribute_id", using: :btree
+  add_index "product_attributes", ["product_id"], name: "index_product_attributes_on_product_id", using: :btree
 
   create_table "product_categories", force: :cascade do |t|
     t.integer  "product_id",  limit: 4
@@ -395,6 +406,8 @@ ActiveRecord::Schema.define(version: 20150804062748) do
   add_foreign_key "orders", "invoices"
   add_foreign_key "orders", "outlets"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_attributes", "attributes"
+  add_foreign_key "product_attributes", "products"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"

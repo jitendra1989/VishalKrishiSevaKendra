@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "admin/products/index", type: :view do
 
-	let(:products) { Product.all.page(params[:page]) }
+	let(:products) { Product.all.page(1) }
 	let(:user) { FactoryGirl.create(:user) }
 
 	it "renders attributes in <p>" do

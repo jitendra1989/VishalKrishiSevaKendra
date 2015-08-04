@@ -5,12 +5,17 @@ class Admin::CustomersController < Admin::ApplicationController
 	end
 
 	def index
-		@customers = Customer.all
+		@customers = Customer.all.page(params[:page])
 
 	end
 
 	def new
 		@customer = Customer.new
+	end
+
+	def search
+		@customers = Customer.where('name like ? or email like ?', "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
+		render :index
 	end
 
 	def create

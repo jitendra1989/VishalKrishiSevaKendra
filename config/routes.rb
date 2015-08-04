@@ -57,6 +57,9 @@ Rails.application.routes.draw do
       end
     end
     resources :customers, shallow: true do
+      collection do
+        get 'search'
+      end
       resources :quotations, only: [:new, :create, :show]
       resources :invoices, only: [:new, :create, :show]
     end

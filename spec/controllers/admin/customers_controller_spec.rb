@@ -19,7 +19,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 	describe "GET #index" do
 		it "assigns all customers as @customers" do
 			get :index
-			expect(assigns(:customers)).to eq(Customer.all)
+			expect(assigns(:customers)).to eq(Customer.all.page(1))
 		end
 		it "renders the application layout" do
 			get :index
@@ -115,6 +115,15 @@ RSpec.describe Admin::CustomersController, type: :controller do
 		it "redirects to the customers list" do
 			delete :destroy, id: delete_customer.id
 			expect(response).to redirect_to(admin_customers_url)
+		end
+	end
+
+
+	describe "GET #search" do
+		it "returns customers matching name provided via search" do
+			get :search, q: customer.name
+			expect(assigns(:customers)).to include(customer)
+			expect(response).to render_template(:index)
 		end
 	end
 end

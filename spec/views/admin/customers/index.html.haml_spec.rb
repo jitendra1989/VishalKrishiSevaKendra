@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "admin/customers/index", type: :view do
 
-	let(:customers) { Customer.all }
+	let(:customers) { Customer.all.page(1) }
 
 	it "renders attributes in <p>" do
 		assign(:customers, customers)

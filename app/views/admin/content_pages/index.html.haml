@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    %h2 Content Page
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Content Page', new_admin_content_page_path
+      %br
+      %table
+        %tr
+          %th Title
+          %th Content
+          %th Slug
+          %th.text-center Actions
+        - @content_pages.each do |content_page|
+          %tr
+            %td= content_page.title
+            %td= content_page.content[1..50]
+            %td= content_page.slug
+            %td.actions.text-center
+              = link_to edit_admin_content_page_path(content_page) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_content_page_path(content_page), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

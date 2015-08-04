@@ -1,7 +1,6 @@
-class Attribute < ActiveRecord::Base
+class Specification < ActiveRecord::Base
 	UNITS = %w(meter gram)
-	has_many :product_attributes
-
+	has_many :product_specifications, dependent: :destroy
 
 	validates :name, presence: true
 	validates :units, inclusion: { in: UNITS }

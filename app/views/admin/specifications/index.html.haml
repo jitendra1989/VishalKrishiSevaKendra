@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    %h2 Specifications
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Specification', new_admin_specification_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th Type
+          %th Units
+          %th.text-center Actions
+        - @specifications.each do |specification|
+          %tr
+            %td= specification.name
+            %td= specification.required?? 'Required' : 'Optional'
+            %td= specification.units
+            %td.actions.text-center
+              = link_to edit_admin_specification_path(specification) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_specification_path(specification), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

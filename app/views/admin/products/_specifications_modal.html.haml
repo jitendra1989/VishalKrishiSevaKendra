@@ -1,0 +1,18 @@
+.form-group.text-center
+  %button.btn.btn-primary{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.specifications-modal' } Specifications
+.modal.fade.specifications-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'specifications-label' }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+          %span{ 'aria-hidden' => true } &times;
+        %h4.modal-title#specifications-label Specifications
+      .modal-body
+        #specifications
+          = f.fields_for :product_specifications do |specification|
+            = render 'product_specification_fields', f: specification
+          .links
+            %br
+            = link_to_add_association 'Add Specification', f, :product_specifications, class: 'add-product btn btn-primary'
+      .modal-footer
+        %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close

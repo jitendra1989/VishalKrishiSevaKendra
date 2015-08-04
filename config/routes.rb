@@ -71,7 +71,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:new, :create]
     end
     resources :banners, except: [:show]
-    resources :attributes, except: [:show]
+    resources :specifications, except: [:show]
     resources :users do
       collection do
         match 'login' => 'users#login', via: [:get, :post]

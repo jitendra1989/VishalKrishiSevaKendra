@@ -1,4 +1,4 @@
-= form_for [:admin, @attribute] do |f|
+= form_for [:admin, @specification] do |f|
   .form-group
     = f.label :name
     = f.text_field :name, required: true
@@ -7,7 +7,7 @@
     = f.check_box :required
   .form-group
     = f.label :units
-    = f.select :units, Attribute::UNITS, {include_blank: 'Select Unit'}
+    = f.select :units, Specification::UNITS, {include_blank: 'Select Unit'}
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

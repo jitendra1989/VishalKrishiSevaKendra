@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804071655) do
-
-  create_table "attributes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.boolean  "required",   limit: 1,   default: false, null: false
-    t.string   "units",      limit: 255
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-  end
+ActiveRecord::Schema.define(version: 20150804081414) do
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -198,17 +190,6 @@ ActiveRecord::Schema.define(version: 20150804071655) do
     t.datetime "updated_at",                null: false
   end
 
-  create_table "product_attributes", force: :cascade do |t|
-    t.integer  "product_id",   limit: 4
-    t.integer  "attribute_id", limit: 4
-    t.string   "value",        limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "product_attributes", ["attribute_id"], name: "index_product_attributes_on_attribute_id", using: :btree
-  add_index "product_attributes", ["product_id"], name: "index_product_attributes_on_product_id", using: :btree
-
   create_table "product_categories", force: :cascade do |t|
     t.integer  "product_id",  limit: 4
     t.integer  "category_id", limit: 4
@@ -227,6 +208,17 @@ ActiveRecord::Schema.define(version: 20150804071655) do
   end
 
   add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
+
+  create_table "product_specifications", force: :cascade do |t|
+    t.integer  "product_id",       limit: 4
+    t.integer  "specification_id", limit: 4
+    t.string   "value",            limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "product_specifications", ["product_id"], name: "index_product_specifications_on_product_id", using: :btree
+  add_index "product_specifications", ["specification_id"], name: "index_product_specifications_on_specification_id", using: :btree
 
   create_table "product_type_taxes", force: :cascade do |t|
     t.integer  "product_type_id", limit: 4
@@ -327,6 +319,14 @@ ActiveRecord::Schema.define(version: 20150804071655) do
   add_index "sales_relationships", ["product_id"], name: "index_sales_relationships_on_product_id", using: :btree
   add_index "sales_relationships", ["related_product_id"], name: "index_sales_relationships_on_related_product_id", using: :btree
 
+  create_table "specifications", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.boolean  "required",   limit: 1,   default: false, null: false
+    t.string   "units",      limit: 255
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.integer  "quantity",   limit: 4
     t.integer  "product_id", limit: 4
@@ -406,11 +406,11 @@ ActiveRecord::Schema.define(version: 20150804071655) do
   add_foreign_key "orders", "invoices"
   add_foreign_key "orders", "outlets"
   add_foreign_key "orders", "users"
-  add_foreign_key "product_attributes", "attributes"
-  add_foreign_key "product_attributes", "products"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
+  add_foreign_key "product_specifications", "products"
+  add_foreign_key "product_specifications", "specifications"
   add_foreign_key "product_type_taxes", "product_types"
   add_foreign_key "product_type_taxes", "taxes"
   add_foreign_key "products", "product_types"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804041835) do
+ActiveRecord::Schema.define(version: 20150804050926) do
 
   create_table "attributes", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 20150804041835) do
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+
+  create_table "content_pages", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.string   "slug",       limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "coupon_codes", force: :cascade do |t|
     t.string   "code",        limit: 255

@@ -34,6 +34,6 @@ class Admin::AttributesController < Admin::ApplicationController
 
 	private
 		def attribute_params
-			params.require(:attribute).permit(:name)
+			params.require(:attribute).permit(:name, :required, :units)
 		end
 end

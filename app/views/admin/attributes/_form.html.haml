@@ -3,8 +3,11 @@
     = f.label :name
     = f.text_field :name, required: true
   .form-group
-    = f.label :outlet_only
-    = f.check_box :outlet_only
+    = f.label :required
+    = f.check_box :required
+  .form-group
+    = f.label :units
+    = f.select :units, Attribute::UNITS, {include_blank: 'Select Unit'}
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

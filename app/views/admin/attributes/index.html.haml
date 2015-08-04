@@ -10,11 +10,13 @@
         %tr
           %th Name
           %th Type
+          %th Units
           %th.text-center Actions
         - @attributes.each do |attribute|
           %tr
             %td= attribute.name
-            %td= attribute.outlet_only?? 'Outlet Only' : 'Basic Attribute'
+            %td= attribute.required?? 'Required' : 'Optional'
+            %td= attribute.units
             %td.actions.text-center
               = link_to edit_admin_attribute_path(attribute) do
                 %span.glyphicon.glyphicon-pencil

@@ -44,6 +44,7 @@ gem 'prawn-table'
 gem 'kaminari'
 gem 'friendly_id'
 gem 'figaro'
+gem 'unitwise'
 
 group :development do
   gem 'pry-rails'

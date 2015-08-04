@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :attribute do
     name { Faker::Lorem.word }
-    outlet_only false
-    factory :outlet_attribute do
-    	outlet_only true
+    required false
+    units { Attribute::UNITS.sample }
+    factory :required_attribute do
+      required true
     end
   end
 

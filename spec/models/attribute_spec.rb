@@ -7,4 +7,8 @@ RSpec.describe Attribute, type: :model do
 		attribute.name = nil
 		expect(attribute).to_not be_valid
 	end
+	it "has only allowed units" do
+		attribute.units = 'randomtext'
+		expect(attribute).to_not be_valid
+	end
 end

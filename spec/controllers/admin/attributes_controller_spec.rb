@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::AttributesController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
   let(:attribute) { FactoryGirl.create(:attribute) }
-  let(:valid_attributes) { FactoryGirl.attributes_for(:attribute) }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:required_attribute) }
   let(:invalid_attributes) { FactoryGirl.attributes_for(:attribute, name: nil) }
   before do
     log_in user
@@ -67,7 +67,7 @@ RSpec.describe Admin::AttributesController, type: :controller do
     context "with valid params" do
       it "updates the requested attribute" do
           put :update, id: attribute.id, attribute: valid_attributes
-          expect(assigns(:attribute).name).to eq(valid_attributes[:name])
+          expect(assigns(:attribute)).to have_attributes(valid_attributes)
       end
 
       it "assigns the requested attribute as @attribute" do

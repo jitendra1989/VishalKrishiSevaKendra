@@ -1,0 +1,22 @@
+.row
+  .col-md-12
+    %h2 Attributes
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Attribute', new_admin_attribute_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th Type
+          %th.text-center Actions
+        - @attributes.each do |attribute|
+          %tr
+            %td= attribute.name
+            %td= attribute.outlet_only?? 'Outlet Only' : 'Basic Attribute'
+            %td.actions.text-center
+              = link_to edit_admin_attribute_path(attribute) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_attribute_path(attribute), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

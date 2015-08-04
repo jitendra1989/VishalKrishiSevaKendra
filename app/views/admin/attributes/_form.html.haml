@@ -1,0 +1,10 @@
+= form_for [:admin, @attribute] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, required: true
+  .form-group
+    = f.label :outlet_only
+    = f.check_box :outlet_only
+  .form-group.text-center
+    = f.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'

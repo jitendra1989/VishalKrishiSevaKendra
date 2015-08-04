@@ -5,12 +5,12 @@
   .form-group
     = f.label :percent
     = f.number_field :percent, required: true
-  .form-group.datetime-selector
+  .form-group
     = f.label :active_from
-    = f.datetime_select :active_from, required: true, prompt: true
-  .form-group.datetime-selector
+    = f.text_field :active_from, required: true, value: @coupon_code.try(:active_from).try(:strftime, "%d-%m-%Y %H:%M")
+  .form-group
     = f.label :active_to
-    = f.datetime_select :active_to, required: true, prompt: true
+    = f.text_field :active_to, required: true, value: @coupon_code.try(:active_to).try(:strftime, "%d-%m-%Y %H:%M")
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

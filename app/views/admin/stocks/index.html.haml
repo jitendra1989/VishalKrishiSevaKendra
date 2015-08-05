@@ -5,7 +5,7 @@
   .col-md-10.col-md-offset-1
     .profile-box
       .text-right
-        =link_to 'New Stocks', new_admin_product_stock_path(@product)
+        = link_to 'New Stock', new_admin_product_stock_path(@product)
       %br
       %table
         %tr
@@ -16,6 +16,9 @@
           %th Invoiced
           %th New Quantity
           %th Code
+          %th Supplier Name
+          %th Invoice Date
+          %th Invoice Number
         - @stocks.each do |stock|
           %tr
             %td= stock.quantity
@@ -25,3 +28,6 @@
             %td= stock.invoiced
             %td= stock.new_quantity
             %td= stock.code
+            %td= stock.supplier_name
+            %td= stock.invoice_date
+            %td= stock.invoice_number

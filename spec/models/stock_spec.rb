@@ -10,6 +10,9 @@ RSpec.describe Stock, type: :model do
   it { expect(stock).to respond_to(:ordered) }
   it { expect(stock).to respond_to(:in_carts) }
   it { expect(stock).to respond_to(:invoiced) }
+  it { expect(stock).to respond_to(:supplier_name) }
+  it { expect(stock).to respond_to(:invoice_date) }
+  it { expect(stock).to respond_to(:invoice_number) }
   it "has a valid product" do
     stock.product = nil
     expect(stock).to_not be_valid

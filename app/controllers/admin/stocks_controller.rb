@@ -22,7 +22,7 @@ class Admin::StocksController < Admin::ApplicationController
 
   private
     def stock_params
-      params.require(:stock).permit(:new_quantity, :code)
+      params.require(:stock).permit(:new_quantity, :code, :supplier_name, :invoice_date, :invoice_number)
     end
 
     def set_product

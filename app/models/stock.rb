@@ -3,7 +3,7 @@ class Stock < ActiveRecord::Base
   belongs_to :outlet
   before_create :set_defaults
 
-  store :details, accessors: [ :opening, :in_carts, :ordered, :invoiced, :new_quantity, :code, :online_carts], coder: JSON
+  store :details, accessors: [ :opening, :in_carts, :ordered, :invoiced, :new_quantity, :code, :online_carts, :supplier_name, :invoice_date, :invoice_number], coder: JSON
 
   [:product_id, :outlet_id, :code].each { |n| validates n, presence: true }
   [:new_quantity].each { |n| validates n, numericality: true }

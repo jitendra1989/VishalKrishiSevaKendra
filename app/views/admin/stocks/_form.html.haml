@@ -8,6 +8,15 @@
   .form-group
     = f.label :code
     = f.text_field :code, required: true
+  .form-group
+    = f.label :supplier_name
+    = f.text_field :supplier_name
+  .form-group
+    = f.label :invoice_date
+    = f.text_field :invoice_date, readonly: true, value: @stock.try(:active_from).try(:strftime, "%d-%m-%Y")
+  .form-group
+    = f.label :invoice_number
+    = f.text_field :invoice_number
   .form-group.text-center
-    = f.submit "Submit", class: "btn btn-primary"
-    = link_to "Cancel", :back, class: "btn btn-default"
+    = f.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'

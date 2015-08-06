@@ -32,7 +32,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
   describe "GET #edit" do
     it "returns http success" do
-      get :edit, id: category.id
+      get :edit, id: category.friendly_id
       expect(assigns(:category)).to eq(category)
     end
   end

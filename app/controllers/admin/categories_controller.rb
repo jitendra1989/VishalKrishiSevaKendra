@@ -1,5 +1,6 @@
 class Admin::CategoriesController < Admin::ApplicationController
-	load_and_authorize_resource
+	before_action :set_category, only: [:edit, :update, :destroy]
+	authorize_resource
 
 	def new
 		@category = Category.new(parent_id: params[:category_id])
@@ -45,5 +46,9 @@ class Admin::CategoriesController < Admin::ApplicationController
 	private
 		def category_params
 			params.require(:category).permit(:name)
+		end
+
+		def set_category
+			@category = Category.friendly.find(params[:id])
 		end
 end

@@ -1,7 +1,7 @@
 = content_tag_for :li, category do
 	%span.category-name= category.name
 	%span.actions.text-center
-		= link_to new_admin_category_category_path(category), remote: true do
+		= link_to new_admin_category_category_path(category.id), remote: true do
 			%span.glyphicon.glyphicon-plus
 		= link_to edit_admin_category_path(category), remote: true do
 			%span.glyphicon.glyphicon-pencil

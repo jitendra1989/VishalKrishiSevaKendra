@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806090053) do
+ActiveRecord::Schema.define(version: 20150806104517) do
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -50,9 +50,11 @@ ActiveRecord::Schema.define(version: 20150806090053) do
     t.string   "ancestry",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "slug",       limit: 255
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
   create_table "content_pages", force: :cascade do |t|
     t.string   "title",      limit: 255

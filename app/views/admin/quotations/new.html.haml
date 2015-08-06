@@ -26,6 +26,8 @@
           .quotation-info
             .customer-labels Date:
             %strong= Time.zone.now.strftime '%d-%m-%Y'
+          .quotation-info
+          = link_to 'Edit Customer Informarion', edit_admin_customer_path(@customer), class: 'btn btn-info'
       .row
         .col-md-12
           = form_for [:admin, @quotation], url: admin_customer_quotations_path(@customer) do |f|
@@ -59,5 +61,5 @@
                     %strong Full Total
                   %td.full-total.text-right
             .form-group.text-center
-              = f.submit "Submit", class: "btn btn-primary"
-              = link_to "Cancel", :back, class: "btn btn-default"
+              = f.submit 'Submit', class: 'btn btn-primary'
+              = link_to 'Cancel', :back, class: 'btn btn-default'

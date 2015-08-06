@@ -1,6 +1,13 @@
 .row
   .col-md-12
     .row
+      .col-md-12.breadcrumbs
+        = link_to 'Home', front_root_path
+        &gt;
+        - @category.ancestors.each do |category|
+          = link_to category.name, [:front, category]
+          &gt;
+        = @category.name
       .col-md-12
         %h1= @category.name
         %br

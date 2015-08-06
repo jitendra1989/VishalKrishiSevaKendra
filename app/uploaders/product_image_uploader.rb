@@ -22,7 +22,7 @@ class ProductImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_to_fill: [800, -1]
+  process resize_to_fill: [1290, -1]
 
   # Create different versions of your uploaded files:
   version :medium do

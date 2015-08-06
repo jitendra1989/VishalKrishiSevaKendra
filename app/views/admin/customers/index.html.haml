@@ -8,9 +8,9 @@
 				.col-md-4
 					= form_tag search_admin_customers_path, method: :get do
 						.input-group
-							= text_field_tag :q, params[:q], placeholder: 'Search for Name or Email', class: 'form-control'
+							= text_field_tag :q, params[:q], placeholder: 'Search for Name or Mobile or Email', class: 'form-control'
 							%span.input-group-btn.text-left
-								%button.btn.btn-default{ type: 'button' }
+								%button.btn.btn-default{ type: 'submit' }
 									%span.glyphicon.glyphicon-search
 				.col-md-4.text-right
 					=link_to 'Create Customer', new_admin_customer_path

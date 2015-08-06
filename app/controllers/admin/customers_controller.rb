@@ -14,7 +14,7 @@ class Admin::CustomersController < Admin::ApplicationController
 	end
 
 	def search
-		@customers = Customer.where('name like ? or email like ?', "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
+		@customers = Customer.where('name like ? or mobile like ? or email like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
 		render :index
 	end
 

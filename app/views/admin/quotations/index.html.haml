@@ -12,6 +12,7 @@
           %th Quotation Date
           %th Customer Name
           %th Mobile
+          %th Email
           %th.text-center Actions
         - @quotations.each do |quotation|
           %tr
@@ -19,6 +20,7 @@
             %td= quotation.created_at.strftime '%d-%m-%Y'
             %td= quotation.customer.name
             %td= quotation.customer.mobile
+            %td= quotation.customer.email
             %td.actions.text-center
               = link_to admin_quotation_path(quotation) do
                 %span.glyphicon.glyphicon-search

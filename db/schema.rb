@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804101212) do
+ActiveRecord::Schema.define(version: 20150806090053) do
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -252,8 +252,10 @@ ActiveRecord::Schema.define(version: 20150804101212) do
     t.boolean  "active",          limit: 1,                              default: false, null: false
     t.datetime "created_at",                                                             null: false
     t.datetime "updated_at",                                                             null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
 

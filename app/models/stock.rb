@@ -6,7 +6,7 @@ class Stock < ActiveRecord::Base
   store :details, accessors: [ :opening, :in_carts, :ordered, :invoiced, :new_quantity, :code, :online_carts, :supplier_name, :invoice_date, :invoice_number], coder: JSON
 
   [:product_id, :outlet_id, :code].each { |n| validates n, presence: true }
-  validates :new_quantity, numericality: {greater_than: 0 }
+  validates :new_quantity, numericality: {greater_than: 0, only_integer: true }
 
   def add_to_cart(product_quantity, cart_id = nil)
     available_quantity = [self.quantity, product_quantity].min

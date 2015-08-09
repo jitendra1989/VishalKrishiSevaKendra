@@ -22,7 +22,7 @@ class Admin::OrdersController < Admin::ApplicationController
 		respond_to do |format|
 			format.html
 			format.pdf do
-				pdf = OrderPdf.new(@order)
+				pdf = OrderPdf.new(@order, view_context)
 				send_data pdf.render, filename: "order_#{@order.id}.pdf", disposition: "inline"
 			end
 		end

@@ -40,9 +40,10 @@
 				.row.text-right.totals
 					.col-md-offset-5.col-md-4
 						Discount
-						= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right', min: 0, step: '0.01'
+						= f.hidden_field :discount_amount, class: 'cart-discount-amount'
+						= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right', min: 0, step: 'any'
 						\%
-					.col-md-2= f.number_field :discount_amount, class: 'cart-discount-amount text-right', step: '0.01'
+					.col-md-2.text-right.cart-discount
 					.col-md-1
 				%hr
 				.row.text-right

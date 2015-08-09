@@ -14,7 +14,7 @@
         - @taxes.each do |tax|
           %tr
             %td= tax.name
-            %td= tax.percentage
+            %td= "#{tax.percentage}%"
             %td.actions.text-center
               = link_to edit_admin_tax_path(tax) do
                 %span.glyphicon.glyphicon-pencil

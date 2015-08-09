@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :invoice
   has_many :receipts, dependent: :destroy
   has_many :items, class: OrderItem, dependent: :destroy
+  has_many :taxes, class: OrderTax, dependent: :destroy
 
   attr_accessor :cart_id
 

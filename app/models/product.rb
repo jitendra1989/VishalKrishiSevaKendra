@@ -16,6 +16,8 @@ class Product < ActiveRecord::Base
 	has_many :product_specifications
 	has_many :specifications, through: :product_specifications, dependent: :destroy
 
+	delegate :taxes, to: :product_type
+
 	[:name, :code, :description, :product_type_id].each { |n| validates n, presence: true }
 	[:price, :sale_price].each { |n| validates n, numericality: true }
 	validates :sale_price, numericality: { less_than: :price }, if: :price

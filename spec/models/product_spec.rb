@@ -14,6 +14,7 @@ RSpec.describe Product, type: :model do
 	it { expect(product).to respond_to(:cross_sale_products) }
 	it { expect(product).to respond_to(:product_specifications) }
 	it { expect(product).to respond_to(:specifications) }
+	it { expect(product).to respond_to(:taxes) }
 	it "has a valid name" do
 		product.name = nil
 		expect(product).to_not be_valid

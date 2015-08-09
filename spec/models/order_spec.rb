@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let(:order) { FactoryGirl.build(:order) }
+  let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
+  let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
+
+  before do
+    order.cart_id = cart.id
+    cart.add_item(stock.product.id, stock.quantity)
+  end
   it { expect(order).to be_valid }
   it { expect(order).to respond_to(:customer) }
   it { expect(order).to respond_to(:user) }
@@ -31,12 +38,6 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'after order creation' do
-    let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
-    let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
-    before do
-      order.cart_id = cart.id
-      cart.add_item(stock.product.id, stock.quantity)
-    end
     it 'adds all cart products to itself' do
       cart_items_count = cart.items.size
       expect{
@@ -78,11 +79,7 @@ RSpec.describe Order, type: :model do
     end
   end
   describe 'unpaid amount' do
-    let!(:stock) { FactoryGirl.create(:stock, outlet: order.outlet) }
-    let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
     before do
-      order.cart_id = cart.id
-      cart.add_item(stock.product.id, stock.quantity)
       order.save!
     end
     it 'returns the whole order amount if newly placed order' do
@@ -95,8 +92,18 @@ RSpec.describe Order, type: :model do
   end
   describe 'total' do
     before { order.save! }
-    it 'returns the whole order amount minus discount' do
-      expect(order.total).to eq(order.items.pluck(:price).sum - order.discount_amount)
+    it 'returns the whole order amount plus taxes minus discount' do
+      total = 0
+      order.items.each { |item| total = item.price * item.quantity }
+      expect(order.total).to eq(total + order.tax_amount - order.discount_amount)
+    end
+  end
+
+  describe 'Order Taxes' do
+    it 'creates order tax entries' do
+      expect{
+        order.save!
+      }.to change(OrderTax, :count).by(2) # 2 Taxes are added while creating factory
     end
   end
 end

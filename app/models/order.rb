@@ -31,15 +31,23 @@ class Order < ActiveRecord::Base
     def add_cart_items
       if self.cart_id
         self.subtotal, self.tax_amount = 0, 0
+        taxes_on_products = {}
         cart = Cart.includes(:items).find(self.cart_id)
         cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           self.subtotal += cart_item.product.price * cart_item.quantity
           self.tax_amount += cart_item.product.tax_amount * cart_item.quantity
+          cart_item.product.taxes.each do |tax|
+            taxes_on_products[tax.name] ||= 0
+            taxes_on_products[tax.name] += (cart_item.product.price * cart_item.quantity) * tax.percentage/100
+          end
           stock = self.outlet.product_stock(cart_item.product)
           stock.ordered += cart_item.quantity
           stock.quantity -= cart_item.quantity
           stock.save!
+        end
+        taxes_on_products.each do |tax|
+          self.taxes.create(name: tax[0], amount: tax[1])
         end
         save!
         cart.destroy!

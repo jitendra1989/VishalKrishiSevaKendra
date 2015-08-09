@@ -33,15 +33,12 @@
                 %th{ width: '20%' } Rate
                 %th{ width: '20%' } Amount
             %tbody
-              - total = 0
               - @order.items.each do |item|
-                - amount = item.quantity * item.price
-                - total += amount
                 %tr
                   %td= item.name
                   %td.text-right= item.quantity
                   %td.text-right= number_to_currency item.price
-                  %td.text-right= number_to_currency amount
+                  %td.text-right= number_to_currency item.quantity * item.price
 
             %tfoot
               %tr
@@ -49,14 +46,19 @@
                   %strong Total
                 %td
                   %strong
-                    .text-right= number_to_currency total
+                    .text-right= number_to_currency @order.subtotal
+              - @order.taxes.each do |tax|
+                %tr
+                  %td{ colspan: 3 }
+                    %strong= tax.name
+                  %td.text-right= number_to_currency tax.amount
               %tr
                 %td{ colspan: 3 }
-                  %strong= "Discount #{(@order.discount_amount*100/total).round(2)}%"
-                %td.text-right= number_to_currency @order.discount_amount
+                  %strong= "Discount #{(@order.discount_amount*100/(@order.subtotal + @order.tax_amount)).round(2)}%"
+                %td.text-right= number_to_currency -@order.discount_amount
               %tr
                 %td{ colspan: 3 }
                   %strong Final Total
                 %td
                   %strong
-                    .text-right= number_to_currency total - @order.discount_amount
+                    .text-right= number_to_currency @order.total

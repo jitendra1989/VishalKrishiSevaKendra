@@ -1,0 +1,22 @@
+.row
+  .col-md-12
+    %h2 Online Taxes
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Tax', new_admin_online_tax_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th Percentage
+          %th.text-center Actions
+        - @online_taxes.each do |online_tax|
+          %tr
+            %td= online_tax.name
+            %td= "#{online_tax.percentage}%"
+            %td.actions.text-center
+              = link_to edit_admin_online_tax_path(online_tax) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_online_tax_path(online_tax), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

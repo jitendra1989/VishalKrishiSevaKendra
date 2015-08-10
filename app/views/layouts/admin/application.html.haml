@@ -74,8 +74,9 @@
 										%li= link_to 'Specifications', admin_specifications_path
 										%li= link_to 'Offer', "#"
 										%li= link_to 'Customise-Product', "#"
+										%li= link_to 'Online Taxes', admin_online_taxes_path
 										%li= link_to 'Taxes', admin_taxes_path
-										%li= link_to 'Taxes on Products', admin_product_types_path
+										%li= link_to 'Taxes by Product Type', admin_product_types_path
 										- if can? :manage, Outlet
 											%li= link_to 'Outlets', admin_outlets_path
 										%li= link_to 'Banners', admin_banners_path

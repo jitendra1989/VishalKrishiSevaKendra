@@ -17,7 +17,7 @@
 					.col-md-2= item.quantity
 					.col-md-2.text-right= number_to_currency item.product.online_price
 					.col-md-2.text-right
-						- amount = item.product.online_price * item.quantity
+						- amount = item.product.online_price_with_taxes * item.quantity
 						- subtotal += amount
 						= number_to_currency amount
 			%hr

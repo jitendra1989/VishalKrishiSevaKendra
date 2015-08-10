@@ -9,7 +9,6 @@
 				.col-md-2 Quantity
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
-			- subtotal = 0
 			- @order.items.includes(:product).each do |item|
 				.row
 					.col-md-3= image_tag item.product.images.first.name.thumbnail
@@ -17,10 +16,15 @@
 					.col-md-2= item.quantity
 					.col-md-2.text-right= number_to_currency item.price
 					.col-md-2.text-right
-						- amount = item.price * item.quantity
-						- subtotal += amount
-						= number_to_currency amount
+						= number_to_currency item.price * item.quantity
 			%hr
 			.row.text-right
+				.col-md-offset-8.col-md-2 Subtotal
+				.col-md-2= number_to_currency @order.subtotal
+			- @order.taxes.each do |tax|
+				.row.text-right
+					.col-md-offset-8.col-md-2= tax.name
+					.col-md-2= number_to_currency tax.amount
+			.row.text-right
 				.col-md-offset-8.col-md-2 Total
-				.col-md-2= number_to_currency subtotal
+				.col-md-2= number_to_currency @order.subtotal + @order.tax_amount

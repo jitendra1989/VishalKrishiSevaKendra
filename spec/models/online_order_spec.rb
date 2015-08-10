@@ -33,7 +33,7 @@ RSpec.describe OnlineOrder, type: :model do
       }.to change(OnlineCart, :count).by(-1)
     end
     describe 'subtotal and taxes' do
-      let!(:subtotal) { online_cart.items.includes(:product).pluck('price * quantity').sum }
+      let!(:subtotal) { online_cart.items.includes(:product).pluck('sale_price * quantity').sum }
       before do
         online_order.save!
       end
@@ -54,6 +54,13 @@ RSpec.describe OnlineOrder, type: :model do
         stock_quantity = stock.quantity
         online_order.save!
         expect(stock.reload.quantity).to eq(stock_quantity - online_order.items.find_by(product: stock.product).quantity)
+      end
+    end
+    describe 'Order Taxes' do
+      it 'creates order tax entries' do
+        expect{
+          online_order.save!
+        }.to change(OnlineOrderTax, :count).by(1)
       end
     end
   end

@@ -98,12 +98,23 @@ RSpec.describe Product, type: :model do
 		end
 	end
 	describe "online price" do
-		it 'returns sale_price_with_online_taxes if greater than 0' do
-			expect(product.online_price).to eq(product.sale_price_with_online_taxes)
+		context 'without taxes' do
+			it 'returns sale_price if greater than 0' do
+				expect(product.online_price).to eq(product.sale_price)
+			end
+			it 'returns price if no sale price listed' do
+				product.sale_price = 0
+				expect(product.online_price).to eq(product.price)
+			end
 		end
-		it 'returns price_with_online_taxes if no sale price listed' do
-			product.sale_price = 0
-			expect(product.online_price).to eq(product.price_with_online_taxes)
+		context 'with taxes' do
+			it 'returns sale_price_with_online_taxes if greater than 0' do
+				expect(product.online_price_with_taxes).to eq(product.sale_price_with_online_taxes)
+			end
+			it 'returns price_with_online_taxes if no sale price listed' do
+				product.sale_price = 0
+				expect(product.online_price_with_taxes).to eq(product.price_with_online_taxes)
+			end
 		end
 	end
 	describe 'online stock' do

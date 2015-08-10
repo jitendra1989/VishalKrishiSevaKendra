@@ -20,11 +20,11 @@
 					.col-md-3
 						= form_tag front_cart_path, class: 'form-inline', method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity form-control', 'data-price' => item.product.online_price
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity form-control', 'data-price' => item.product.online_price_with_taxes
 							= button_tag 'Update',  class: 'btn btn-default'
-					.col-md-2.text-right= number_to_currency item.product.online_price
+					.col-md-2.text-right= number_to_currency item.product.online_price_with_taxes
 					.col-md-2.text-right
-						- amount = item.product.online_price * item.quantity
+						- amount = item.product.online_price_with_taxes * item.quantity
 						- subtotal += amount
 						= number_to_currency amount
 					.col-md-1.actions.text-center

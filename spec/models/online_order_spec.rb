@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe OnlineOrder, type: :model do
   let(:online_order) { FactoryGirl.build(:online_order) }
+  let!(:stock) { FactoryGirl.create(:stock, outlet: FactoryGirl.create(:online_outlet)) }
+  let(:online_cart) { FactoryGirl.create(:online_cart) }
+  let!(:online_tax) { FactoryGirl.create(:online_tax) }
+  before do
+    online_order.online_cart_id = online_cart.id
+    online_cart.add_item(stock.product.id, stock.quantity)
+  end
+
   it { expect(online_order).to be_valid }
   it { expect(online_order).to respond_to(:customer) }
   it { expect(online_order).to respond_to(:items) }
@@ -13,12 +21,6 @@ RSpec.describe OnlineOrder, type: :model do
   end
 
   describe 'after online_order creation' do
-    let!(:stock) { FactoryGirl.create(:stock, outlet: FactoryGirl.create(:online_outlet)) }
-    let(:online_cart) { FactoryGirl.create(:online_cart) }
-    before do
-      online_order.online_cart_id = online_cart.id
-      online_cart.add_item(stock.product.id, stock.quantity)
-    end
     it 'adds all cart products to itself' do
       cart_items_count = online_cart.items.size
       expect{
@@ -29,6 +31,19 @@ RSpec.describe OnlineOrder, type: :model do
       expect{
         online_order.save!
       }.to change(OnlineCart, :count).by(-1)
+    end
+    describe 'subtotal and taxes' do
+      let!(:subtotal) { online_cart.items.includes(:product).pluck('price * quantity').sum }
+      before do
+        online_order.save!
+      end
+      it 'sets the order subtotal without taxes' do
+        expect(online_order.subtotal).to eq(subtotal)
+      end
+      it 'sets order taxes amount equal to online taxes times subtotal' do
+        tax_amount = subtotal * OnlineTax.pluck(:percentage).sum/100
+        expect(online_order.tax_amount).to eq(tax_amount)
+      end
     end
     describe 'stock control' do
       it 'adds the requested quantity to ordered' do

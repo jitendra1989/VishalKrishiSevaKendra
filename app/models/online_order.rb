@@ -17,17 +17,19 @@ class OnlineOrder < ActiveRecord::Base
 
     def add_cart_items
       if self.online_cart_id
+        self.subtotal = 0
         online_cart = OnlineCart.includes(:items).find(self.online_cart_id)
         online_cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
+          self.subtotal += cart_item.product.price * cart_item.quantity
           cart_item.product.stocks.where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').each do |stock|
             if stock.online_carts.try(:include?, self.online_cart_id.to_s)
               stock.ordered += stock.online_carts[self.online_cart_id.to_s]
               stock.quantity -= stock.online_carts[self.online_cart_id.to_s]
               stock.save!
-            else
             end
           end
+          self.tax_amount = self.subtotal * OnlineTax.pluck(:percentage).sum/100
         end
         online_cart.destroy!
       end

@@ -43,6 +43,18 @@ class Product < ActiveRecord::Base
 		self.sale_price + (self.sale_price * taxes_on_product)
 	end
 
+	def online_tax_amount
+		self.price * online_taxes_on_product
+	end
+
+	def price_with_online_taxes
+		self.price + (self.price * online_taxes_on_product)
+	end
+
+	def sale_price_with_online_taxes
+		self.sale_price + (self.sale_price * online_taxes_on_product)
+	end
+
 	def online_stock
 		self.stocks.select(:quantity).where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').map(&:quantity).inject(:+) || 0
 	end
@@ -63,10 +75,14 @@ class Product < ActiveRecord::Base
 	end
 
 	def online_price
-		self.sale_price > 0 ? self.sale_price_with_taxes : self.price_with_taxes
+		self.sale_price > 0 ? self.sale_price_with_online_taxes : self.price_with_online_taxes
 	end
 	private
 		def taxes_on_product
 			ProductType.find(self.product_type_id).taxes.pluck(:percentage).sum/100
+		end
+
+		def online_taxes_on_product
+			OnlineTax.pluck(:percentage).sum/100
 		end
 end

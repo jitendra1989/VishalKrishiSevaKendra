@@ -82,14 +82,28 @@ RSpec.describe Product, type: :model do
 			taxes = product.sale_price * product.product_type.taxes.pluck(:percentage).sum/100
 			expect(product.sale_price_with_taxes).to eq(product.sale_price + taxes)
 		end
+		context 'online taxes' do
+			it 'returns the the applicable online taxes for the product' do
+				taxes = product.price * OnlineTax.pluck(:percentage).sum/100
+				expect(product.online_tax_amount).to eq(taxes)
+			end
+			it 'returns the price plus the applicable online taxes for the product' do
+				taxes = product.price * OnlineTax.pluck(:percentage).sum/100
+				expect(product.price_with_online_taxes).to eq(product.price + taxes)
+			end
+			it 'returns the sale price plus the applicable online taxes for the product' do
+				taxes = product.sale_price * OnlineTax.pluck(:percentage).sum/100
+				expect(product.sale_price_with_online_taxes).to eq(product.sale_price + taxes)
+			end
+		end
 	end
 	describe "online price" do
-		it 'returns sale_price_with_taxes if greater than 0' do
-			expect(product.online_price).to eq(product.sale_price_with_taxes)
+		it 'returns sale_price_with_online_taxes if greater than 0' do
+			expect(product.online_price).to eq(product.sale_price_with_online_taxes)
 		end
-		it 'returns price_with_taxes if no sale price listed' do
+		it 'returns price_with_online_taxes if no sale price listed' do
 			product.sale_price = 0
-			expect(product.online_price).to eq(product.price_with_taxes)
+			expect(product.online_price).to eq(product.price_with_online_taxes)
 		end
 	end
 	describe 'online stock' do

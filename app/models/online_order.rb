@@ -1,6 +1,7 @@
 class OnlineOrder < ActiveRecord::Base
   belongs_to :customer
   has_many :items, class: OnlineOrderItem, dependent: :destroy
+  has_many :taxes, class: OnlineOrderTax, dependent: :destroy
 
   attr_accessor :online_cart_id
 

@@ -5,6 +5,7 @@ RSpec.describe OnlineOrder, type: :model do
   it { expect(online_order).to be_valid }
   it { expect(online_order).to respond_to(:customer) }
   it { expect(online_order).to respond_to(:items) }
+  it { expect(online_order).to respond_to(:taxes) }
 
   it "has a valid customer" do
     online_order.customer = nil

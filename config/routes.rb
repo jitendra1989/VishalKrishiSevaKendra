@@ -31,12 +31,13 @@ Rails.application.routes.draw do
     get 'pages/projects'
     get 'pages/clients'
     get 'pages/contact'
+    resources :pages, only: [:show]
   end
 
   namespace :admin do
     root 'users#dashboard'
     resources :roles, except: [:show]
-    resources :content_pages, except: [:show]
+    resources :content_pages, path: 'content-pages', except: [:show]
     resources :coupon_codes, except: [:destroy, :show]
     resources :quotations, only: [:index] do
       collection do

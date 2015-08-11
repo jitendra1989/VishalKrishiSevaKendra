@@ -1,5 +1,8 @@
 class ContentPage < ActiveRecord::Base
-	[:title, :content, :slug].each do |n|
+	extend FriendlyId
+	friendly_id :title, use: :slugged
+
+	[:title, :content].each do |n|
 		validates n, presence: true
 	end
 end

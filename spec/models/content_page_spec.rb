@@ -11,8 +11,4 @@ RSpec.describe ContentPage, type: :model do
   	content_page.content = nil
   	expect(content_page).to_not be_valid
   end
-  it "has a valid slug" do
-  	content_page.slug = nil
-  	expect(content_page).to_not be_valid
-  end
 end

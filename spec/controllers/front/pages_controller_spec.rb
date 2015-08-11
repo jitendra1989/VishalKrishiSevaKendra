@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Front::PagesController, type: :controller do
 
+  let(:page) { FactoryGirl.create(:content_page) }
+  describe "GET #show" do
+    it "returns http success" do
+      get :show, id: page
+      expect(assigns(:page)).to eq(page)
+    end
+  end
+
+
   describe "GET #about" do
     it "returns http success" do
       get :about

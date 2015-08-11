@@ -1,10 +1,13 @@
 class Admin::ContentPagesController < Admin::ApplicationController
-  load_and_authorize_resource
+  before_action :set_content_page, only: [:edit, :update, :destroy]
+  authorize_resource
 
   def index
+    @content_pages = ContentPage.all
   end
 
   def new
+    @content_page = ContentPage.new
   end
 
   def edit
@@ -35,5 +38,9 @@ class Admin::ContentPagesController < Admin::ApplicationController
   private
     def content_page_params
       params.require(:content_page).permit(:title, :content, :slug)
+    end
+
+    def set_content_page
+      @content_page = ContentPage.friendly.find(params[:id])
     end
 end

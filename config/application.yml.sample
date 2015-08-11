@@ -2,6 +2,8 @@ DATABASE_USERNAME: database_user
 DATABASE_PASSWORD: <database_password>
 INTERCEPTOR_EMAIL_TO: <interceptor_address>
 BCC_ADDRESSES: '<Name<user@domain.com>;<Another Name<another@domain.com>'
+EBS_ACCOUNT_ID: <ebs_account_id>
+EBS_SECRET_KEY: <ebs_secret_key>
 production:
   SECRET_KEY_BASE: <secret_key>
   DATABASE_USERNAME: database_user

@@ -9,11 +9,13 @@
 				.col-md-2 Quantity
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
-			- subtotal = 0
+			- subtotal, description = 0, []
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-3= image_tag item.product.images.first.name.thumbnail
-					.col-md-3= item.product.name
+					.col-md-3
+						= item.product.name
+						- description << item.product.name
 					.col-md-2= item.quantity
 					.col-md-2.text-right= number_to_currency item.product.online_price
 					.col-md-2.text-right
@@ -27,5 +29,35 @@
 			%hr
 			.row
 				.col-md-12.text-right
-					= form_for [:front, @order], url: front_order_path do |f|
-						= f.button 'Confirm Order', class: 'btn btn-primary'
+					- reference_no = "#{Time.now.to_i}"
+					- return_url = front_order_url
+					- mode = 'TEST'
+					- string = "#{ENV['EBS_SECRET_KEY']}|#{ENV['EBS_ACCOUNT_ID']}|#{subtotal}|#{reference_no}|#{return_url}|#{mode}"
+					- secure_hash = Digest::MD5.hexdigest(string)
+					= form_tag 'https://secure.ebs.in/pg/ma/sale/pay', authenticity_token: false do
+						= hidden_field_tag 'account_id', ENV['EBS_ACCOUNT_ID']
+						= hidden_field_tag 'amount', subtotal
+						= hidden_field_tag 'description', description.join(' + ')
+						/ Billing Details
+						= hidden_field_tag 'name', @current_customer.name
+						= hidden_field_tag 'address', @current_customer.address
+						= hidden_field_tag 'city', @current_customer.city
+						= hidden_field_tag 'state', @current_customer.state
+						= hidden_field_tag 'country', @current_customer.country
+						= hidden_field_tag 'postal_code', @current_customer.pincode
+						= hidden_field_tag 'phone', @current_customer.mobile
+						= hidden_field_tag 'email', @current_customer.email
+						/ Shipping Details
+						= hidden_field_tag 'ship_name', @current_customer.name
+						= hidden_field_tag 'ship_address', @current_customer.address
+						= hidden_field_tag 'ship_city', @current_customer.city
+						= hidden_field_tag 'ship_state', @current_customer.state
+						= hidden_field_tag 'ship_country', @current_customer.country
+						= hidden_field_tag 'ship_postal_code', @current_customer.pincode
+						= hidden_field_tag 'reference_no', reference_no
+						= hidden_field_tag 'mode', mode
+						= hidden_field_tag 'channel', 0
+						= hidden_field_tag 'payment_option', '1001'
+						= hidden_field_tag 'return_url', return_url
+						= hidden_field_tag 'secure_hash', secure_hash
+						= submit_tag 'Proceed To Payment', name: 'submitted', class: 'btn btn-primary'

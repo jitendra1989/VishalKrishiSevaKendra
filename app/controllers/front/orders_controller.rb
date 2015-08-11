@@ -25,9 +25,21 @@ class Front::OrdersController < Front::ApplicationController
 	end
 
 	def success
-			@order = current_customer.online_orders.last
+		@order = current_customer.online_orders.last
 	end
 
+	def payment
+		if session[:online_cart_id] && params[:DR]
+			@order = OnlineOrder.new(online_cart_id: session[:online_cart_id])
+			if @order.process_payment_and_place_order(params[:DR])
+				session[:online_cart_id] = nil
+				flash[:success] = 'Your Order was placed successfully.'
+			end
+			redirect_to success_front_order_url
+		else
+			redirect_to success_front_order_url
+		end
+	end
 
 	private
 		def require_login

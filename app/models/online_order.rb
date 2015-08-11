@@ -1,3 +1,4 @@
+require 'rc4'
 class OnlineOrder < ActiveRecord::Base
   belongs_to :customer
   has_many :items, class: OnlineOrderItem, dependent: :destroy
@@ -5,10 +6,19 @@ class OnlineOrder < ActiveRecord::Base
 
   attr_accessor :online_cart_id
 
+  store :payment_info, accessors: [ :ebs ], coder: JSON
+
   validates :customer_id, presence: true
 
   after_initialize :add_customer, if: :new_record?
   after_create :add_cart_items
+
+  def process_payment_and_place_order(digital_receipt)
+    rc4 = RC4.new(ENV['EBS_SECRET_KEY'])
+    query_string = Base64.decode64(digital_receipt.gsub(/\s/, '+'))
+    self.ebs = rc4.decrypt(query_string)
+    self.save if check_transaction_status
+  end
 
   private
     def add_customer
@@ -38,5 +48,14 @@ class OnlineOrder < ActiveRecord::Base
         save!
         online_cart.destroy!
       end
+    end
+
+    def check_transaction_status
+      items = {}
+      self.ebs.split('&').each do |info|
+        item = info.split('=')
+        items[item[0]] = item[1]
+      end
+      items['ResponseCode'] == '0'
     end
 end

@@ -46,6 +46,7 @@ gem 'friendly_id'
 gem 'figaro'
 gem 'unitwise'
 gem 'paranoia'
+gem 'ruby-rc4'
 
 group :development do
   gem 'pry-rails'

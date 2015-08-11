@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
     resource :order, only: [:create, :new] do
       collection do
+        get 'payment'
         get 'success'
       end
     end

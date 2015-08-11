@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Front::OrdersController, type: :controller do
   let(:customer) { FactoryGirl.create(:customer) }
+  let(:online_cart) { FactoryGirl.create(:online_cart, customer: customer) }
 
   describe "logged in customer" do
     before do
@@ -29,7 +30,6 @@ RSpec.describe Front::OrdersController, type: :controller do
     end
 
     describe "POST #create" do
-      let(:online_cart) { FactoryGirl.create(:online_cart, customer: customer) }
       context "without session being set" do
         it "redirects to the cart if no cart is in session" do
           post :create
@@ -63,6 +63,13 @@ RSpec.describe Front::OrdersController, type: :controller do
           post :create
           expect(response).to redirect_to(success_front_order_url)
         end
+      end
+    end
+
+    describe "GET #payment" do
+      it "redirects to the success page" do
+        get :payment
+        expect(response).to redirect_to(success_front_order_url)
       end
     end
 

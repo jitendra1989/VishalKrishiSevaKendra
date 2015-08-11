@@ -4,7 +4,7 @@
 			%h3 Existing Customer
 			%hr
 		.login-fields
-			= form_for @customer, url: login_front_customer_path do |f|
+			= form_for @customer, url: login_front_customer_path, method: :post do |f|
 				%fieldset
 					.form-group
 						= f.label :email

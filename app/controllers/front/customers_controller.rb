@@ -4,6 +4,7 @@ class Front::CustomersController < Front::ApplicationController
 		if request.post?
 			@customer = Customer.find_by(email: params[:customer][:email])
 			if @customer && @customer.authenticate(params[:customer][:password])
+				flash[:success] = "Welcome back, #{@customer.name}!"
 				log_in @customer
 			else
 				flash.now[:danger] = "Invalid username or password!"

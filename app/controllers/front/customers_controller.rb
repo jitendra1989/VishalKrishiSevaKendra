@@ -9,9 +9,8 @@ class Front::CustomersController < Front::ApplicationController
 			else
 				flash.now[:danger] = "Invalid username or password!"
 			end
-		else
-			@customer = Customer.new
 		end
+		@customer = Customer.new unless @customer
 		redirect_to front_root_url if logged_in?
 	end
 

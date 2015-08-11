@@ -43,10 +43,13 @@
 			%footer
 				.row
 					.col-md-6
+						- ContentPage.menu_items.pluck(:slug, :link_text).each do |menu_item|
+							= link_to menu_item[1], front_page_path(menu_item[0])
+					.col-md-3
 						= link_to 'https://www.facebook.com/pages/Damian-de-Goa/532272703493618', target: :_blank do
 							%span.sprites.facebook
 							Follow Us
-					.col-md-6.text-right
+					.col-md-3.text-right
 						%a{ href: 'tel:+918322417045' }
 							%span.sprites.phone
 							0832 - 2417045

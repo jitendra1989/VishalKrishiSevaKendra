@@ -73,6 +73,7 @@ RSpec.describe Admin::ContentPagesController, type: :controller do
       it "assigns the requested content_page as @content_page" do
         put :update, id: content_page.id, content_page: valid_attributes
         expect(assigns(:content_page)).to eq(content_page)
+        expect(assigns(:content_page)).to have_attributes(valid_attributes)
       end
 
       it "redirects to the content_page list" do

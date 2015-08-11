@@ -5,6 +5,12 @@
 	.form-group
 		= f.label :content
 		= f.text_area :content, required: true
+	.form-group
+		= f.label :menu, 'Show in Menu'
+		= f.check_box :menu
+	.form-group
+		= f.label :link_text
+		= f.text_field :link_text
 	.form-group.text-center
 		= f.submit 'Submit', class: 'btn btn-primary'
 		= link_to 'Cancel', :back, class: 'btn btn-default'

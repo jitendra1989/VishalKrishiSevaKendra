@@ -37,7 +37,7 @@ class Admin::ContentPagesController < Admin::ApplicationController
 
   private
     def content_page_params
-      params.require(:content_page).permit(:title, :content, :slug)
+      params.require(:content_page).permit(:title, :content, :slug, :menu, :link_text)
     end
 
     def set_content_page

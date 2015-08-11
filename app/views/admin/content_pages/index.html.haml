@@ -9,14 +9,16 @@
       %table
         %tr
           %th Title
-          %th Content
           %th Slug
+          %th Menu
+          %th Menu Link
           %th.text-center Actions
         - @content_pages.each do |content_page|
           %tr
             %td= content_page.title
-            %td= content_page.content[1..50]
             %td= content_page.slug
+            %td= content_page.menu? ? 'Shown' : 'Hidden'
+            %td= content_page.link_text
             %td.actions.text-center
               = link_to edit_admin_content_page_path(content_page) do
                 %span.glyphicon.glyphicon-pencil

@@ -5,37 +5,31 @@
 			.profile-box
 			= form_for [:front, @current_customer], url: front_customer_path do |f|
 				.form-group
-					= f.label :name
+					= f.label :name, class: 'required'
 					= f.text_field :name, required: true
 				.form-group
-					= f.label :password
-					= f.password_field :password
-				.form-group
-					= f.label :password_confirmation
-					= f.password_field :password_confirmation
-				.form-group
-					= f.label :phone
+					= f.label :phone, class: 'required'
 					= f.text_field :phone, required: true
 				.form-group
-					= f.label :mobile
+					= f.label :mobile, class: 'required'
 					= f.text_field :mobile, required: true, maxlength: 10
 				.form-group
-					= f.label :email
+					= f.label :email, class: 'required'
 					= f.email_field :email, required: true
 				.form-group
-					= f.label :address
+					= f.label :address, class: 'required'
 					= f.text_field :address, required: true
 				.form-group
-					= f.label :pincode
+					= f.label :pincode, class: 'required'
 					= f.text_field :pincode, required: true, maxlength: 10
 				.form-group
-					= f.label :city
+					= f.label :city, class: 'required'
 					= f.text_field :city, required: true
 				.form-group
-					= f.label :state
+					= f.label :state, class: 'required'
 					= f.text_field :state, required: true
 				.form-group
-					= f.label :country
+					= f.label :country, class: 'required'
 					= f.text_field :country, required: true
 				.form-group
 					= f.label :company_name

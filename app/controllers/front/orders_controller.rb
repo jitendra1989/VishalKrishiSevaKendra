@@ -1,5 +1,5 @@
 class Front::OrdersController < Front::ApplicationController
-	before_action :require_activation
+	before_action :require_validation
 	def index
 	end
 

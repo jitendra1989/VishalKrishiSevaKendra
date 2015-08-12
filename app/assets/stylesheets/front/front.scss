@@ -40,6 +40,10 @@ footer{
 	background: #fff;
 	padding: 30px 15px;
 }
+.required:after{
+	content:"*";
+	color: #c00;
+}
 .sprites {
 	background: asset_url('sprites.png') no-repeat;
 	display: inline-block;

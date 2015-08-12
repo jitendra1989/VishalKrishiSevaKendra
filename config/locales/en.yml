@@ -25,3 +25,4 @@ en:
     currency:
       format:
         unit: 'INR '
+        precision: 0

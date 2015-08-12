@@ -186,5 +186,13 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				expect(response).to redirect_to(admin_products_url)
 			end
 		end
+
+		describe "GET #search" do
+			it "returns productss matching name provided via search" do
+				get :search, q: product.name
+				expect(assigns(:products)).to include(product)
+				expect(response).to render_template(:index)
+			end
+		end
 	end
 end

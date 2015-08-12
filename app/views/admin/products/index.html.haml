@@ -4,10 +4,18 @@
   .col-md-12
     .product-container
       .row
-        .col-md-6= paginate @products
+        .col-md-4= paginate @products
+        .col-md-4
+          = form_tag search_admin_products_path, method: :get do
+            .input-group
+              = text_field_tag :q, params[:q], placeholder: 'Search Products by Name/Description', class: 'form-control'
+              %span.input-group-btn
+                %button.btn.btn-default{ type: 'submit' }
+                  %span.glyphicon.glyphicon-search
+          %br
         .col-md-4.text-right
           = link_to 'New Grouped Product', new_admin_product_group_path
-        .col-md-2.text-right
+          |
           = link_to 'New Product', new_admin_product_path
       .row
         - @products.each do |product|

@@ -40,6 +40,11 @@ class Admin::ProductsController < Admin::ApplicationController
 		redirect_to [:admin, @product.class], flash: { info: 'Product was successfully deleted.' }
 	end
 
+	def search
+		@products = Product.where('name like ? or description like ?', "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
+		render :index
+	end
+
 	private
 		def type
 			Product.types.include?(params[:type]) ? params[:type] : 'Product'

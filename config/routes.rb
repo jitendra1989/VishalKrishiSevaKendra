@@ -70,6 +70,9 @@ Rails.application.routes.draw do
     resources :taxes, except: [:show]
     resources :online_taxes, path: 'online-taxes', except: [:show]
     resources :products, shallow: true do
+      collection do
+        get 'search'
+      end
       resources :stocks, only: [:new, :create, :index]
     end
     resources :product_groups, path: 'product-groups', controller: :products, type: 'ProductGroup'

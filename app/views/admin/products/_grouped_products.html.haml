@@ -1,0 +1,7 @@
+#group-items
+  = f.fields_for :group_items do |group_item|
+    = render 'group_item_fields', f: group_item
+  .links.text-center
+    = link_to_add_association 'Add Products to Group', f, :group_items, class: 'add-item btn btn-primary'
+    %br
+    %br

@@ -7,8 +7,6 @@
           - @banners.each do |banner|
             = link_to banner.url do
               = image_tag banner.image
-    .row#products
-      - @products.each do |product|
-        = render 'product', product: product
+    .row#products= render partial: 'front/products/product', collection: @products, as: :product
     .row
       .col-md-12= paginate @products

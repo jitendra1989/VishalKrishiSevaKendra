@@ -11,8 +11,6 @@
       .col-md-12
         %h1= @category.name
         %br
-    .row#products
-      - @products.each do |product|
-        = render 'product', product: product
+    .row#products= render partial: 'front/products/product', collection: @products, as: :product
     .row
       .col-md-6= paginate @products

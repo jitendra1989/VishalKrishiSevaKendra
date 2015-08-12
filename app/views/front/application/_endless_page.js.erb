@@ -1,4 +1,4 @@
-$('#products').append('<%= j render(@products) %>');
+$('#products').append('<%= j render( partial: 'front/products/product', collection: @products, as: :product) %>');
 <% if @products.next_page %>
   $('.pagination').replaceWith('<%= j paginate(@products) %>');
 <% else %>

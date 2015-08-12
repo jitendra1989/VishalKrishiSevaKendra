@@ -20,4 +20,15 @@ RSpec.describe Front::ProductsController, type: :controller do
       expect(assigns(:banners)).to eq(Banner.all)
     end
   end
+
+  describe "GET #search" do
+    it "returns http success" do
+      get :search, search: product.name
+      expect(response).to have_http_status(:success)
+    end
+    it "redirects to home page if no matching query" do
+      get :search, search: 'complexSearchHavingNoResults'
+      expect(response).to redirect_to(front_root_url)
+    end
+  end
 end

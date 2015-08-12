@@ -9,7 +9,7 @@ class Front::ProductsController < Front::ApplicationController
 	end
 
 	def search
-		@products = Product.online.where("name LIKE ? OR description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+		@products = Product.online.where("name LIKE ? OR description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").page(params[:page]).per(24)
 		redirect_to front_root_url, flash: { info: 'No Products found matching your query. Please try searching for something else.'} unless @products.size > 0
 	end
 

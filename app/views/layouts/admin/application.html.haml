@@ -65,6 +65,7 @@
 												%li= link_to 'Categories', admin_categories_path
 											- if can? :manage, Product
 												%li= link_to 'Products', admin_products_path
+												%li= link_to 'Product Groups', admin_product_groups_path
 								%li.dropdown{ role: 'presentation' }
 									%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 										Store Settings

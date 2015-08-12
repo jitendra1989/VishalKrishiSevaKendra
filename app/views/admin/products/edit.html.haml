@@ -3,4 +3,6 @@
 		%h2 Edit Product
 	.col-md-6.col-md-offset-3
 		.profile-box
+			.text-right
+				=link_to "View #{@product.class.to_s.pluralize}", [:admin, @product.class]
 			= render 'form'

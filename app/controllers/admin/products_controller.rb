@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	authorize_resource
 
 	def index
-		@products = Product.all.page(params[:page]).per(20)
+		@products = type.constantize.all.page(params[:page]).per(20)
 	end
 
 	def edit
@@ -11,7 +11,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def new
-		@product = Product.new
+		@product = type.constantize.new
 		@product.images.build
 	end
 
@@ -19,9 +19,9 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def create
-		@product = Product.new(product_params)
+		@product = type.constantize.new(product_params)
 		if @product.save
-			redirect_to admin_products_url, flash: { success: 'Product was successfully created.' }
+			redirect_to [:admin, @product.class], flash: { success: 'Product was successfully created.' }
 		else
 			render :new
 		end
@@ -29,7 +29,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
 	def update
 		if @product.update(product_params)
-			redirect_to admin_products_url, flash: { success: 'Product was successfully updated.' }
+			redirect_to [:admin, @product.class], flash: { success: 'Product was successfully updated.' }
 		else
 			render :edit
 		end
@@ -37,7 +37,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
 	def destroy
 		@product.destroy
-		redirect_to admin_products_url, flash: { info: 'Product was successfully deleted.' }
+		redirect_to [:admin, @product.class], flash: { info: 'Product was successfully deleted.' }
 	end
 
 	private

@@ -29,6 +29,7 @@
   %br
   = render 'categories_modal', f: f
   = render 'cross_sell_modal', f: f
+  = render 'grouped_products_modal', f: f if @product.is_a? ProductGroup
   = render 'specifications_modal', f: f
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'

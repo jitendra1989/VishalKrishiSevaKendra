@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811114404) do
+ActiveRecord::Schema.define(version: 20150812114139) do
 
   create_table "banners", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 20150811114404) do
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
+
+  create_table "group_items", force: :cascade do |t|
+    t.integer  "product_id",         limit: 4
+    t.integer  "related_product_id", limit: 4
+    t.integer  "quantity",           limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "group_items", ["product_id"], name: "index_group_items_on_product_id", using: :btree
+  add_index "group_items", ["related_product_id"], name: "index_group_items_on_related_product_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.decimal  "amount",                precision: 10, scale: 2
@@ -284,6 +295,7 @@ ActiveRecord::Schema.define(version: 20150811114404) do
     t.integer  "product_type_id", limit: 4
     t.boolean  "saleable_online", limit: 1,                              default: false, null: false
     t.boolean  "active",          limit: 1,                              default: false, null: false
+    t.string   "type",            limit: 255
     t.datetime "created_at",                                                             null: false
     t.datetime "updated_at",                                                             null: false
     t.datetime "deleted_at"
@@ -432,6 +444,8 @@ ActiveRecord::Schema.define(version: 20150811114404) do
   add_foreign_key "carts", "customers"
   add_foreign_key "carts", "outlets"
   add_foreign_key "carts", "users"
+  add_foreign_key "group_items", "products"
+  add_foreign_key "group_items", "products", column: "related_product_id"
   add_foreign_key "invoices", "customers"
   add_foreign_key "online_cart_items", "online_carts"
   add_foreign_key "online_cart_items", "products"

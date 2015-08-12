@@ -23,6 +23,8 @@ class Product < ActiveRecord::Base
 	validates :sale_price, numericality: { less_than: :price }, if: :price
 
 	scope :online, -> { where(saleable_online: true) }
+	scope :grouped, -> { where(type: 'ProductGroup') }
+	scope :simple, -> { where(type: nil) }
 
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 	accepts_nested_attributes_for :product_specifications, reject_if: :all_blank, allow_destroy:true
@@ -81,6 +83,11 @@ class Product < ActiveRecord::Base
 	def online_price_with_taxes
 		self.sale_price > 0 ? self.sale_price_with_online_taxes : self.price_with_online_taxes
 	end
+
+	def self.types
+		%w(ProductGroup)
+	end
+
 	private
 		def taxes_on_product
 			ProductType.find(self.product_type_id).taxes.pluck(:percentage).sum/100

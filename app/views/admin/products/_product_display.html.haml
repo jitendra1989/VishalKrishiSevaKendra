@@ -1,16 +1,16 @@
 .product-box
-  = link_to admin_product_path(product) do
+  = link_to [:admin, product] do
     .product-image= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive"
-  = link_to admin_product_path(product) do
+  = link_to [:admin, product] do
     .product-name= product.name
   .product-code= product.code
   .product-description= product.description
   .product-price= number_to_currency product.price_with_taxes
   .pull-left
     = link_to 'Stock', admin_product_stocks_path(product), class: 'btn btn-default'
-    = link_to edit_admin_product_path(product), class: 'btn btn-default' do
+    = link_to [:edit, :admin, product], class: 'btn btn-default' do
       %span.glyphicon.glyphicon-pencil
-    = link_to admin_product_path(product), method: :delete, class: 'delete-link btn btn-default', 'data-confirm' => 'Are you sure?' do
+    = link_to [:admin, product], method: :delete, class: 'delete-link btn btn-default', 'data-confirm' => 'Are you sure?' do
       %span.glyphicon.glyphicon-remove
   - if product.outlet_stock_quantity(@current_user.outlet) > 0
     .pull-right

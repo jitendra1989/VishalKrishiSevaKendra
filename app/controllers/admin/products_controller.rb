@@ -41,8 +41,11 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	private
+		def type
+			Product.types.include?(params[:type]) ? params[:type] : 'Product'
+		end
 		def product_params
-			params.require(:product).permit(:name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], category_ids: [], cross_sale_product_ids: [])
+			params.require(type.underscore.to_sym).permit(:name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
 		end
 
 		def set_product

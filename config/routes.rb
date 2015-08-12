@@ -72,6 +72,8 @@ Rails.application.routes.draw do
     resources :products, shallow: true do
       resources :stocks, only: [:new, :create, :index]
     end
+    resources :product_groups, path: 'product-groups', controller: :products, type: 'ProductGroup'
+
     resources :permissions, only: [:index]
     resources :outlets, except: [:show]
     resources :categories, except: [:show], shallow: true do

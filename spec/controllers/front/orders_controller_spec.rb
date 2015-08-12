@@ -6,6 +6,7 @@ RSpec.describe Front::OrdersController, type: :controller do
 
   describe "logged in customer" do
     before do
+      customer.activate
       customer_log_in customer
     end
     describe "GET #new" do

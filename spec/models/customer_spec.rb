@@ -150,4 +150,24 @@ RSpec.describe Customer, type: :model do
 			end
 		end
 	end
+
+	describe "on creation of account" do
+		it "generates an activation_digest" do
+			customer.save!
+			expect(customer.activation_digest).not_to be_nil
+		end
+		it "sends an email" do
+			expect{ customer.save! }.to change { ActionMailer::Base.deliveries.count }.by(1)
+		end
+	end
+
+	describe "on activation" do
+		before do
+			customer.save!
+			customer.activate
+		end
+		it "activates the customer account" do
+			expect(customer.reload.activated).to eq(true)
+		end
+	end
 end

@@ -23,17 +23,23 @@ RSpec.describe Front::CustomersController, type: :controller do
       expect(response).to redirect_to(front_root_url)
     end
 
-    it "redirects to root if customer is already logged in" do
-      customer_log_in customer
-      get :login
-      expect(response).to redirect_to(front_root_url)
+    context 'activated customer' do
+      before do
+        customer.activate
+      end
+      it "redirects to root if customer is already logged in" do
+        customer_log_in customer
+        get :login
+        expect(response).to redirect_to(front_root_url)
+      end
+
+      it "redirects customer to login page on logout" do
+        customer_log_in customer
+        delete :logout
+        expect(response).to redirect_to(front_root_url)
+      end
     end
 
-    it "redirects customer to login page on logout" do
-      customer_log_in customer
-      delete :logout
-      expect(response).to redirect_to(front_root_url)
-    end
   end
 
 
@@ -50,13 +56,9 @@ RSpec.describe Front::CustomersController, type: :controller do
         expect(assigns(:customer)).to be_persisted
       end
       describe "redirect action" do
-        it "logs in the customer" do
-          post :create, customer: {email: valid_attributes[:email],  password: valid_attributes[:password],  password_confirmation: valid_attributes[:password] }
-          expect(session[:customer_id]).to eq(Customer.last.id)
-        end
         it "redirects to the customer edit page" do
           post :create, customer: {email: valid_attributes[:email],  password: valid_attributes[:password],  password_confirmation: valid_attributes[:password] }
-          expect(response).to redirect_to(edit_front_customer_url)
+          expect(response).to redirect_to(login_front_customer_url)
         end
       end
     end
@@ -72,8 +74,22 @@ RSpec.describe Front::CustomersController, type: :controller do
     end
   end
 
+  describe "Account activation process" do
+    describe "GET activate" do
+      it "activates customer if not logged in" do
+        get :activate, { token: customer.activation_digest }
+        expect(response).to redirect_to(edit_front_customer_url)
+      end
+      it "redirects to root url if invalid email" do
+        get :activate, { token: 'faketoken' }
+        expect(response).to redirect_to(login_front_customer_url)
+      end
+    end
+  end
+
   describe "logged in customer" do
     before do
+      customer.activate
       customer_log_in customer
     end
     describe "GET #edit" do

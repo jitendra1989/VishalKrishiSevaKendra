@@ -1,5 +1,5 @@
 class Front::OrdersController < Front::ApplicationController
-	before_action :require_login
+	before_action :require_activation
 	def index
 	end
 
@@ -40,9 +40,4 @@ class Front::OrdersController < Front::ApplicationController
 			redirect_to success_front_order_url
 		end
 	end
-
-	private
-		def require_login
-			redirect_to login_front_customer_url unless logged_in?
-		end
 end

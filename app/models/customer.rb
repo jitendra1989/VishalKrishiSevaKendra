@@ -16,6 +16,7 @@ class Customer < ActiveRecord::Base
 	validates :pincode, length: { is: 6 }, on: :update
 
 	before_save { self.email.downcase! }
+	before_create :send_activation_email
 
 	has_secure_password
 
@@ -44,4 +45,24 @@ class Customer < ActiveRecord::Base
 		end
 		self.online_cart.try(:id)
 	end
+
+
+	def activate
+		self.activated = true
+		self.activation_digest = nil
+		self.activated_at = Time.zone.now
+		save validate: false
+	end
+
+	private
+		def generate_token(column)
+			begin
+				self[column] = SecureRandom.urlsafe_base64
+			end while Customer.exists?(column => self[column])
+		end
+
+		def send_activation_email
+			generate_token(:activation_digest)
+			Front::CustomerMailer.welcome(self).deliver_now
+		end
 end

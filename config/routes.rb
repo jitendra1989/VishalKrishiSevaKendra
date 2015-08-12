@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       collection do
         match 'login' => 'customers#login', via: [:get, :post]
         delete 'logout'
+        get 'activate/:token' => 'customers#activate', as: :activate
       end
       resources :orders, only: [:index]
     end

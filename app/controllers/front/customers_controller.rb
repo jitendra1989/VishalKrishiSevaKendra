@@ -1,5 +1,5 @@
 class Front::CustomersController < Front::ApplicationController
-	before_action :require_login, except: [:login, :create]
+	before_action :require_activation, except: [:login, :create, :activate]
 	def login
 		if request.post?
 			@customer = Customer.find_by(email: params[:customer][:email])
@@ -25,8 +25,7 @@ class Front::CustomersController < Front::ApplicationController
 	def create
 		@customer = Customer.new(customer_params)
 		if @customer.save
-			log_in @customer
-			redirect_to edit_front_customer_url, flash: { success: 'Your account was successfully created.' }
+			redirect_to login_front_customer_url, flash: { warning: 'Thank you for registering, please check your email for an activation link.'}
 		else
 			render :login
 		end
@@ -40,12 +39,23 @@ class Front::CustomersController < Front::ApplicationController
 		end
 	end
 
-	private
-		def require_login
-			redirect_to login_front_customer_url unless logged_in?
+	def activate
+		customer = Customer.find_by(activation_digest: params[:token])
+		if customer
+			activate_and_login customer
+		else
+			redirect_to login_front_customer_url, flash: { danger: 'We are sorry, we encountered a problem activating your account. Please try again.' }
 		end
+	end
 
+	private
 		def customer_params
 			params.require(:customer).permit( :name, :password, :password_confirmation, :email, :mobile, :phone, :address, :pincode, :city, :state, :country, :company_name, :company_address, :company_phone )
+		end
+
+		def activate_and_login(customer)
+			customer.activate
+			log_in customer
+			redirect_to edit_front_customer_url, flash: { success:  'Your account has been activated. Welcome to Damian De Goa.' }
 		end
 end

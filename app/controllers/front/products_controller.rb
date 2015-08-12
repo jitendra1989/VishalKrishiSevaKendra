@@ -5,7 +5,7 @@ class Front::ProductsController < Front::ApplicationController
 
 	def index
 		@banners = Banner.all
-		@products = Product.online.first(24)
+		@products = Product.online.page(params[:page]).per(24)
 	end
 
 	def search

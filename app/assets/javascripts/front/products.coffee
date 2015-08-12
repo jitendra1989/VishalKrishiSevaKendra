@@ -2,6 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 productsReady = ->
+	if $('.pagination').length
+		$(window).scroll ->
+			url = $('.pagination .next a').attr('href')
+			if url && $(window).scrollTop() > $(document).height() - $(window).height() - 80
+				$('.pagination').text 'Loading more products...'
+				$.getScript(url)
+		$(window).scroll()
 	$('#slider').nivoSlider
 		pauseOnHover: false
 		prevText: '<'

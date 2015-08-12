@@ -6,6 +6,7 @@ RSpec.describe Front::CategoriesController, type: :controller do
     it "returns http success" do
       get :show, id: category
       expect(assigns(:category)).to eq(category)
+      expect(assigns(:products)).to eq(category.products.online.page(1).per(24))
     end
   end
 

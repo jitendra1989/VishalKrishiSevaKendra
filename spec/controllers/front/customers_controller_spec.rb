@@ -56,7 +56,7 @@ RSpec.describe Front::CustomersController, type: :controller do
         expect(assigns(:customer)).to be_persisted
       end
       describe "redirect action" do
-        it "redirects to the customer edit page" do
+        it "redirects to the customer login page" do
           post :create, customer: {email: valid_attributes[:email],  password: valid_attributes[:password],  password_confirmation: valid_attributes[:password] }
           expect(response).to redirect_to(login_front_customer_url)
         end

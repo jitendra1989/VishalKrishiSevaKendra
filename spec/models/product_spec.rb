@@ -9,6 +9,7 @@ RSpec.describe Product, type: :model do
 	it { expect(product).to respond_to(:product_type) }
 	it { expect(product).to respond_to(:stocks) }
 	it { expect(product).to respond_to(:cart_items) }
+	it { expect(product).to respond_to(:online_cart_items) }
 	it { expect(product).to respond_to(:sales_relationships) }
 	it { expect(product).to respond_to(:cross_sells) }
 	it { expect(product).to respond_to(:cross_sale_products) }

@@ -4,13 +4,12 @@
 productsReady = ->
 	if $('.zoom-image').length
 		$('.zoom-image').elevateZoom
+			scrollZoom: true
 			gallery: 'thumbnail-gallery'
 			cursor: 'pointer'
-			scrollZoom : true
 			zoomWindowOffetx: 20
 			zoomWindowOffety: -50
 			galleryActiveClass: 'active-image'
-			imageCrossfade: true
 		$('.zoom-image').bind 'click', (e) ->
 			$.fancybox $('.zoom-image').data('elevateZoom').getGalleryList()
 			return false

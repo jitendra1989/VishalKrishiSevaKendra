@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+    .row
+      .col-md-12.breadcrumbs
+        = link_to 'Home', front_root_path
+        &gt;
+      .col-md-12
+        %h1 Offers
+        %br
+    .row#products= render partial: 'front/products/product', collection: @products, as: :product
+    .row
+      .col-md-6= paginate @products

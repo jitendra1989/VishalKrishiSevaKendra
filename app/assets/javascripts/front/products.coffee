@@ -7,10 +7,10 @@ productsReady = ->
 			gallery: 'thumbnail-gallery'
 			cursor: 'pointer'
 			scrollZoom : true
+			zoomWindowOffetx: 20
 			zoomWindowOffety: -50
 			galleryActiveClass: 'active-image'
 			imageCrossfade: true
-			loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'
 		$('.zoom-image').bind 'click', (e) ->
 			$('.zoomed-image').attr('src', $('.active-image').data('zoom-image'))
 			$('.images-modal').modal('show')

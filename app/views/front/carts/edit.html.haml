@@ -14,7 +14,7 @@
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-2
-						= image_tag item.product.images.first.name.thumbnail
+						= image_tag item.product.try(:images).try(:first).try(:name).try(:thumbnail)
 					.col-md-2
 						= item.product.name
 					.col-md-3

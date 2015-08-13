@@ -1,1 +1,1 @@
-$('#category_<%= @category.id %>').html('<%= j (render 'form', form_path: admin_category_path(@category) ) %>');
+$('#category_<%= @category.id %>').html('<%= j (render 'form', form_path: admin_category_path(@category.id) ) %>');

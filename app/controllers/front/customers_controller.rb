@@ -25,7 +25,7 @@ class Front::CustomersController < Front::ApplicationController
 	def create
 		@customer = Customer.new(customer_params)
 		if @customer.save
-			redirect_to login_front_customer_url, flash: { success: 'Thank you for registering, please check your email for an activation link.'}
+			redirect_to login_front_customer_url, flash: { success: 'Thank you for registering, please check your email for an activation link.' }
 		else
 			render :login
 		end

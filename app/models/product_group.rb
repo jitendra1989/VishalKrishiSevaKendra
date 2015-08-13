@@ -9,7 +9,7 @@ class ProductGroup < Product
 		self.group_items.includes(:related_product).each do |group_item|
 			item_stock << group_item.related_product.outlet_stock_quantity(outlet)/ group_item.quantity
 		end
-		item_stock.min
+		item_stock.min || 0
 	end
 
 	def online_stock
@@ -17,6 +17,6 @@ class ProductGroup < Product
 		self.group_items.includes(:related_product).each do |group_item|
 			item_stock << group_item.related_product.online_stock/ group_item.quantity
 		end
-		item_stock.min
+		item_stock.min || 0
 	end
 end

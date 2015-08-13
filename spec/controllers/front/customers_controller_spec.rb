@@ -18,7 +18,12 @@ RSpec.describe Front::CustomersController, type: :controller do
       expect(flash.now[:danger]).to include('Invalid')
     end
 
-    it "redirects to root if customer is valid" do
+    it "redirects to login if customer is valid but inactive" do
+      post :login, customer: {email: customer.email,  password: customer.password }
+      expect(response).to redirect_to(login_front_customer_url)
+    end
+    it "redirects to root if customer is valid and inactive" do
+      customer.activate
       post :login, customer: {email: customer.email,  password: customer.password }
       expect(response).to redirect_to(front_root_url)
     end

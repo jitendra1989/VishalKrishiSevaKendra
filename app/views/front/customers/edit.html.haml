@@ -1,8 +1,9 @@
 .row
 	.col-md-12
 		%h1= "Welcome  #{@current_customer.try(:name)}"
-		.col-md-6.col-md-offset-3
-			.profile-box
+.row
+	.col-md-6.col-md-offset-3
+		.profile-box
 			= form_for [:front, @current_customer], url: front_customer_path do |f|
 				.form-group
 					= f.label :name, class: 'required'
@@ -40,6 +41,7 @@
 				.form-group
 					= f.label :company_phone
 					= f.text_field :company_phone
-				.form-group.text-center
-					= f.button 'Save', name: :next, value: :save, class: 'btn btn-default'
-
+				.form-group
+					%button.btn.btn-default.password-reset-button{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.password-reset-modal' } Reset Password
+					= f.button 'Save', name: :next, value: :save, class: 'btn btn-primary'
+		= render 'password_reset_modal'

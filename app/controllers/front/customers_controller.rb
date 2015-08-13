@@ -32,14 +32,17 @@ class Front::CustomersController < Front::ApplicationController
 	end
 
 	def update
-		if @current_customer.update(customer_params)
-			if @current_customer.online_cart.try(:items).try(:size)
-				redirect_to edit_front_cart_url, flash: { success: 'Your account was successfully updated.'}
+		respond_to do |format|
+			if @current_customer.update(customer_params)
+				format.html { customer_redirect flash: { success: 'Your account was successfully updated.'} }
+				format.js do
+					flash.now[:success] = 'Your password was updated.'
+					render :edit
+				end
 			else
-				redirect_to front_root_url, flash: { success: 'Your account was successfully updated.'}
+				format.html { render :edit }
+				format.js { render :edit }
 			end
-		else
-			render :edit
 		end
 	end
 
@@ -61,5 +64,12 @@ class Front::CustomersController < Front::ApplicationController
 			customer.activate
 			log_in customer
 			redirect_to edit_front_customer_url, flash: { success:  'Your account has been activated. Welcome to Damian De Goa.' }
+		end
+		def customer_redirect(flash)
+			if @current_customer.online_cart.try(:items).try(:size)
+				redirect_to edit_front_cart_url, flash: flash
+			else
+				redirect_to front_root_url, flash: flash
+			end
 		end
 end

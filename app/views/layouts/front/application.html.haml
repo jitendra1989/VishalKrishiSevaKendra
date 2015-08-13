@@ -31,14 +31,7 @@
 					.col-md-12
 						= render 'category_menu'
 			.main-content
-				- [@current_customer, @customer].each do |object|
-					-if object.try(:errors).try(:any?)
-						.alert.alert-danger
-							%ul
-								- object.errors.full_messages.each do |msg|
-									%li= msg
-				- flash.each do |message_type, message|
-					.alert{class: "alert-#{message_type}" }= message
+				= render 'error_messages'
 				= yield
 			%footer
 				.row

@@ -1,0 +1,4 @@
+$('#customer-errors').html('<%= j render 'error_messages' %>');
+<% if @current_customer.valid? %>
+	$('.remove-on-success').remove();
+<% end %>

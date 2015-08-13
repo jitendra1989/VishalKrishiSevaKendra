@@ -2,6 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 productsReady = ->
+	if $('.zoom-image').length
+		$('.zoom-image').elevateZoom
+			gallery: 'thumbnail-gallery'
+			cursor: 'pointer'
+			scrollZoom : true
+			zoomWindowOffety: -50
+			galleryActiveClass: 'active-image'
+			imageCrossfade: true
+			loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'
+		$('.zoom-image').bind 'click', (e) ->
+			$('.zoomed-image').attr('src', $('.active-image').data('zoom-image'))
+			$('.images-modal').modal('show')
+			return false
 	if $('.pagination').length
 		$(window).scroll ->
 			url = $('.pagination .next a').attr('href')
@@ -9,22 +22,11 @@ productsReady = ->
 				$('.pagination').text 'Loading more products...'
 				$.getScript(url)
 		$(window).scroll()
-	$('#slider').nivoSlider
-		pauseOnHover: false
-		prevText: '<'
-		nextText: '>'
-	$('.product-thumbnail').click (e) ->
-		$('.product-medium').attr('src', $(this).data('medium-url'))
-		.data('large-url', $(this).data('large-url')).data('medium-url', $(this).data('medium-url'))
-		return
-	$('.zoom-image').click (e) ->
-		zoomed = $(this).hasClass('zoom-out')
-		if zoomed
-			$(this).attr('src', $(this).data('medium-url'))
-		else
-			$(this).attr('src', $(this).data('large-url'))
-		$(this).toggleClass('zoom-out')
-		return
+	if $('#slider').length
+		$('#slider').nivoSlider
+			pauseOnHover: false
+			prevText: '<'
+			nextText: '>'
 	return
 
 

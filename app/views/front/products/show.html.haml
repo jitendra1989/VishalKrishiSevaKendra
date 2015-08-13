@@ -4,10 +4,11 @@
 			.col-md-12
 				%h1.text-center= @product.name
 			.col-md-4
-				= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'img-responsive product-medium', 'data-toggle' => 'modal', 'data-target' => '.images-modal'
-				.thumbnail-gallery.main-thumbnails
-					- @product.images.each do |image|
-						= image_tag image.name.try(:thumbnail).try(:url), data: { 'medium-url' => image.name.try(:medium).try(:url) }, class: 'product-thumbnail'
+				= image_tag @product.images.first.try(:name).try(:medium).try(:url), class: 'img-responsive product-medium zoom-image', 'data-zoom-image' => @product.images.first.try(:name).try(:url)
+				.thumbnail-gallery.main-thumbnails#thumbnail-gallery
+					- @product.images.each_with_index do |image, index|
+						%a{ href: '#', 'data-image' => image.name.try(:medium).try(:url), 'data-zoom-image' => image.try(:name).try(:url), class: ('active-image' if index == 0 )}
+							= image_tag image.name.try(:thumbnail).try(:url)
 			.col-md-4
 				.profile-box
 					.text-center
@@ -63,15 +64,7 @@
 												= hidden_field_tag :quantity, 1
 												= button_tag class: 'btn btn-default' do
 													%span.glyphicon.glyphicon-shopping-cart
-		.modal.fade.images-modal{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'myLargeModalLabel' }
-			.modal-dialog.modal-xl
-				.modal-content
-					.row.full-height
-						.col-md-10.text-center.full-height
-							.popup-image.full-height
-								.image-container.full-height
-									= image_tag @product.images.try(:first).try(:name).try(:medium).try(:url), class: 'product-medium zoom-image', data: { 'large-url' => @product.images.try(:first).try(:name).try(:url), 'medium-url' => @product.images.try(:first).try(:name).try(:medium).try(:url), zoomed: false }
-						.col-md-1
-							.thumbnail-gallery
-								- @product.images.each do |image|
-									= image_tag image.name.try(:thumbnail).try(:url), data: { 'medium-url' => image.name.try(:medium).try(:url), 'large-url' => image.name.try(:url) }, class: 'product-thumbnail'
+.modal.fade.images-modal{ tabindex: '-1', role: 'dialog' }
+	.modal-dialog.modal-lg
+		.modal-content.text-center
+			= image_tag 'product.jpg', class: 'img-responsive zoomed-image'

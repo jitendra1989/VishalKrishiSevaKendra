@@ -101,14 +101,24 @@ RSpec.describe Front::CustomersController, type: :controller do
     describe "PUT #update" do
       context "with valid params" do
         it "updates the requested customer" do
-          customer_log_in customer
           put :update, customer: valid_attributes
           expect(assigns(:current_customer)).to have_attributes(valid_attributes)
         end
         describe "redirect action" do
-          it "redirects to the customer list" do
+          it "redirects to the home page if cart is empty" do
             put :update, customer: valid_attributes
-            expect(response).to redirect_to(edit_front_customer_url)
+            expect(response).to redirect_to(front_root_url)
+          end
+          context 'with items in cart' do
+            let(:online_cart) { FactoryGirl.create(:online_cart, customer: customer) }
+            let!(:stock) { FactoryGirl.create(:stock, outlet: FactoryGirl.create(:online_outlet)) }
+            before do
+              online_cart.add_item(stock.product.id, stock.quantity)
+            end
+            it "redirects to the cart page if cart has items" do
+              put :update, customer: valid_attributes
+              expect(response).to redirect_to(edit_front_cart_url)
+            end
           end
         end
       end

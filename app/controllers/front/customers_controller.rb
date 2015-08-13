@@ -33,7 +33,11 @@ class Front::CustomersController < Front::ApplicationController
 
 	def update
 		if @current_customer.update(customer_params)
-			redirect_to edit_front_customer_url, flash: { success: 'Your account was successfully updated.'}
+			if @current_customer.online_cart.try(:items).try(:size)
+				redirect_to edit_front_cart_url, flash: { success: 'Your account was successfully updated.'}
+			else
+				redirect_to front_root_url, flash: { success: 'Your account was successfully updated.'}
+			end
 		else
 			render :edit
 		end

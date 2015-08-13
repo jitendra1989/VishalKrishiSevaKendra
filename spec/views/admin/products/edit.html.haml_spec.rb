@@ -5,6 +5,7 @@ RSpec.describe "admin/products/edit", type: :view do
 	let(:product) { FactoryGirl.create(:product) }
 
 	it "renders the edit products form" do
+    view.lookup_context.prefixes << 'admin/application' # https://github.com/rails/rails/issues/5213
 	  assign(:product, product)
 	  render
 	  assert_select "form[action=?][method=?]", admin_product_path(product), "post" do

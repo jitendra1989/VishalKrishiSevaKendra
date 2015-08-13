@@ -4,6 +4,7 @@ RSpec.describe "admin/products/new", type: :view do
   let(:product) { Product.new }
 
   it "renders new product form" do
+    view.lookup_context.prefixes << 'admin/application' # https://github.com/rails/rails/issues/5213
   	assign(:product, product)
   	render
   	assert_select "form[action=?][method=?]", admin_products_path, "post" do

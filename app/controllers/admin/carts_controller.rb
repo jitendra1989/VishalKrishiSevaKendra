@@ -7,7 +7,7 @@ class Admin::CartsController < Admin::ApplicationController
 	end
 
 	def add
-		@cart = Cart.find(session[:cart_id]) if session[:cart_id]
+		@cart = Cart.find_by(id: session[:cart_id]) if session[:cart_id]
 		unless @cart
 			@cart = Cart.find_or_create_by(user: current_user, outlet: current_user.outlet, customer: nil)
 			session[:cart_id] = @cart.id

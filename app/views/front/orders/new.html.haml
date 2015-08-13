@@ -36,7 +36,7 @@
 					- secure_hash = Digest::MD5.hexdigest(string)
 					= form_tag 'https://secure.ebs.in/pg/ma/sale/pay', authenticity_token: false do
 						= hidden_field_tag 'account_id', ENV['EBS_ACCOUNT_ID']
-						= hidden_field_tag 'amount', subtotal
+						= hidden_field_tag 'amount', subtotal.round(t('number.currency.format.precision'))
 						= hidden_field_tag 'description', description.join(' + ')
 						/ Billing Details
 						= hidden_field_tag 'name', @current_customer.name

@@ -16,7 +16,7 @@
 					.col-md-2
 						= image_tag item.product.try(:images).try(:first).try(:name).try(:thumbnail)
 					.col-md-2
-						= item.product.name
+						= item.product.try(:name)
 					.col-md-3
 						= form_tag front_cart_path, class: 'form-inline', method: :patch do
 							= hidden_field_tag :product_id, item.product.id

@@ -5,7 +5,7 @@
       .col-md-8
         .nivo-slider#slider
           - @banners.each do |banner|
-            = link_to banner.url do
+            = link_to front_offer_path(banner) do
               = image_tag banner.image
     .row#products= render partial: 'front/products/product', collection: @products, as: :product
     .row

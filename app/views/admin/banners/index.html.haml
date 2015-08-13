@@ -10,13 +10,11 @@
         %tr
           %th Name
           %th Image
-          %th Link
           %th.text-center Actions
         - @banners.each do |banner|
           %tr
             %td= banner.name
             %td= image_tag banner.image.small
-            %td= banner.url
             %td.actions.text-center
               = link_to edit_admin_banner_path(banner) do
                 %span.glyphicon.glyphicon-pencil

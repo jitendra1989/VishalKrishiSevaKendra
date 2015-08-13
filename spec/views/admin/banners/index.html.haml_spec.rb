@@ -9,7 +9,6 @@ RSpec.describe "admin/banners/index", type: :view do
     render
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/Image/)
-    expect(rendered).to match(/Link/)
   end
 end
 

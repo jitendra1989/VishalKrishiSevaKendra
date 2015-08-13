@@ -27,10 +27,6 @@ RSpec.describe Stock, type: :model do
     stock.new_quantity = nil
     expect(stock).to_not be_valid
   end
-  it "has a valid code" do
-    stock.code = nil
-    expect(stock).to_not be_valid
-  end
 
   describe 'on addition of new items' do
     let(:initial_stock) { FactoryGirl.create(:stock) }

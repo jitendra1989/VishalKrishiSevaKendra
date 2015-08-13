@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap/collapse
 //= require bootstrap/modal
+//= require fancybox
 //= require_tree .

@@ -47,6 +47,7 @@ gem 'figaro'
 gem 'unitwise'
 gem 'paranoia'
 gem 'ruby-rc4'
+gem 'fancybox2-rails'
 
 group :development do
   gem 'pry-rails'

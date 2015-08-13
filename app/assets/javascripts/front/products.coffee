@@ -12,8 +12,7 @@ productsReady = ->
 			galleryActiveClass: 'active-image'
 			imageCrossfade: true
 		$('.zoom-image').bind 'click', (e) ->
-			$('.zoomed-image').attr('src', $('.active-image').data('zoom-image'))
-			$('.images-modal').modal('show')
+			$.fancybox $('.zoom-image').data('elevateZoom').getGalleryList()
 			return false
 	if $('.pagination').length
 		$(window).scroll ->

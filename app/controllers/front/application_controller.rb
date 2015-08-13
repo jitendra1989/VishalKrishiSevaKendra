@@ -16,6 +16,10 @@ class Front::ApplicationController < ApplicationController
 		end
 
 		def require_validation
-			redirect_to edit_front_customer_url, flash: { warning: 'Please complete your profile.'}  unless current_customer.valid?
+			if logged_in?
+				redirect_to edit_front_customer_url, flash: { warning: 'Please complete your profile.'}  unless current_customer.valid?
+			else
+				redirect_to login_front_customer_url
+			end
 		end
 end

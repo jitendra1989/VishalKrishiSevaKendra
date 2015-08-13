@@ -1,6 +1,6 @@
 class Front::CartsController < Front::ApplicationController
   def add
-    cart = OnlineCart.find(session[:online_cart_id]) if session[:online_cart_id]
+    cart = OnlineCart.find_by(id: session[:online_cart_id]) if session[:online_cart_id]
     unless cart
       cart = OnlineCart.find_or_create_by(customer: current_customer)
       session[:online_cart_id] = cart.id
@@ -10,7 +10,7 @@ class Front::CartsController < Front::ApplicationController
   end
 
   def edit
-    @cart = session[:online_cart_id] ? OnlineCart.find(session[:online_cart_id]) : OnlineCart.new
+    @cart = OnlineCart.find_by(id: session[:online_cart_id]) || OnlineCart.new
   end
 
   def update

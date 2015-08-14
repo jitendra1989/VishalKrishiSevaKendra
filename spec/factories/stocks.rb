@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :stock do
-    new_quantity { Faker::Number.number(2).to_i }
+    new_quantity { (10..20).to_a.sample }
     code { Faker::Code.isbn }
     supplier_name { Faker::Name.name }
     invoice_date { Faker::Date.forward(1) }

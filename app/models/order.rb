@@ -41,10 +41,12 @@ class Order < ActiveRecord::Base
             taxes_on_products[tax.name] ||= 0
             taxes_on_products[tax.name] += (cart_item.product.price * cart_item.quantity) * tax.percentage/100
           end
-          stock = self.outlet.product_stock(cart_item.product)
-          stock.ordered += cart_item.quantity
-          stock.quantity -= cart_item.quantity
-          stock.save!
+          unless cart_item.product.is_a? ProductGroup
+            stock = self.outlet.product_stock(cart_item.product)
+            stock.ordered += cart_item.quantity
+            stock.quantity -= cart_item.quantity
+            stock.save!
+          end
         end
         taxes_on_products.each do |tax|
           self.taxes.create(name: tax[0], amount: tax[1])

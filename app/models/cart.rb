@@ -8,7 +8,15 @@ class Cart < ActiveRecord::Base
 
   def add_item(product_id, quantity)
     cart_item = self.items.find_or_initialize_by(product_id: product_id)
-    cart_item.quantity += self.outlet.product_stock(product_id).add_to_cart(quantity.to_i)
+    if cart_item.product.is_a? ProductGroup
+      added_quantity = []
+      cart_item.product.group_items.each do |group_item|
+        added_quantity << self.outlet.product_stock(group_item.related_product_id).add_to_cart(quantity.to_i * group_item.quantity)/group_item.quantity
+      end
+      cart_item.quantity += added_quantity.min
+    else
+      cart_item.quantity += self.outlet.product_stock(product_id).add_to_cart(quantity.to_i)
+    end
     cart_item.save!
   end
 

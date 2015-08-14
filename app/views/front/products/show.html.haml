@@ -32,6 +32,14 @@
 						= select_tag :quantity, options_for_select(1..[@product.online_stock, 10].min), class: 'product-quantity text-right'
 						= button_tag 'Buy Now', class: 'btn btn-primary btn-lg'
 				- else
+					.text-center
+						- if customer_logged_in?
+							= form_tag front_notifications_path do
+								= hidden_field_tag 'product_id', @product.id
+								= submit_tag 'Notify Me When Available', class: 'btn btn-primary'
+						- else
+							= link_to 'Notify Me When Available', login_front_customer_url, class: 'btn btn-primary'
+					%br
 					.out-of-stock.bg-warning.text-center Out of Stock
 			- if @product.cross_sale_products.online.size > 0
 				.col-md-12

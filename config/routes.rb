@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       resources :orders, only: [:index]
     end
+    resources :notifications, only: [:create]
     resources :categories, only: [:show]
     resources :offers, only: [:show]
     resources :products, only: [:show] do

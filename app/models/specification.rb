@@ -1,5 +1,5 @@
 class Specification < ActiveRecord::Base
-	UNITS = %w(meter gram)
+	UNITS = %w(inches gram)
 	has_many :product_specifications, dependent: :destroy
 
 	validates :name, presence: true

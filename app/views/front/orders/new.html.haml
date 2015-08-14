@@ -47,11 +47,12 @@
 		- reference_no = "#{Time.now.to_i}"
 		- return_url = "#{payment_front_order_url}?DR={DR}"
 		- mode = 'TEST'
-		- string = "#{ENV['EBS_SECRET_KEY']}|#{ENV['EBS_ACCOUNT_ID']}|#{subtotal}|#{reference_no}|#{return_url}|#{mode}"
+		- amount = subtotal.round(t('number.currency.format.precision'))
+		- string = "#{ENV['EBS_SECRET_KEY']}|#{ENV['EBS_ACCOUNT_ID']}|#{amount}|#{reference_no}|#{return_url}|#{mode}"
 		- secure_hash = Digest::MD5.hexdigest(string)
 		= form_tag 'https://secure.ebs.in/pg/ma/sale/pay', authenticity_token: false do
 			= hidden_field_tag 'account_id', ENV['EBS_ACCOUNT_ID']
-			= hidden_field_tag 'amount', subtotal.round(t('number.currency.format.precision'))
+			= hidden_field_tag 'amount', amount
 			= hidden_field_tag 'description', description.join(' + ')
 			/ Billing Details
 			= hidden_field_tag 'name', @current_customer.name

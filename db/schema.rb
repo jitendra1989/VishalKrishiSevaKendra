@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813192704) do
+ActiveRecord::Schema.define(version: 20150814112932) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -391,6 +391,17 @@ ActiveRecord::Schema.define(version: 20150813192704) do
     t.datetime "updated_at",                             null: false
   end
 
+  create_table "stock_notifications", force: :cascade do |t|
+    t.integer  "customer_id", limit: 4, null: false
+    t.integer  "product_id",  limit: 4, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "stock_notifications", ["customer_id", "product_id"], name: "index_stock_notifications_on_customer_id_and_product_id", unique: true, using: :btree
+  add_index "stock_notifications", ["customer_id"], name: "index_stock_notifications_on_customer_id", using: :btree
+  add_index "stock_notifications", ["product_id"], name: "index_stock_notifications_on_product_id", using: :btree
+
   create_table "stocks", force: :cascade do |t|
     t.integer  "quantity",   limit: 4
     t.integer  "product_id", limit: 4
@@ -494,6 +505,8 @@ ActiveRecord::Schema.define(version: 20150813192704) do
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "sales_relationships", "products"
   add_foreign_key "sales_relationships", "products", column: "related_product_id"
+  add_foreign_key "stock_notifications", "customers"
+  add_foreign_key "stock_notifications", "products"
   add_foreign_key "stocks", "outlets"
   add_foreign_key "stocks", "products"
   add_foreign_key "user_permissions", "permissions"

@@ -43,7 +43,10 @@
 
 %hr
 .row
-	.col-md-12.text-right
+	.col-md-10.text-right.order-conditions
+		= check_box_tag 'terms', nil, required: true
+		= label_tag 'terms', "I Accept the #{link_to 'Terms And Conditions', front_page_path('terms-and-conditions'), target: :_blank}".html_safe
+	.col-md-2.text-right
 		- reference_no = "#{Time.now.to_i}"
 		- return_url = "#{payment_front_order_url}?DR={DR}"
 		- mode = 'TEST'
@@ -76,4 +79,4 @@
 			= hidden_field_tag 'payment_option', '1001'
 			= hidden_field_tag 'return_url', return_url
 			= hidden_field_tag 'secure_hash', secure_hash
-			= submit_tag 'Proceed To Payment', name: 'submitted', class: 'btn btn-primary'
+			= submit_tag 'Proceed To Payment', name: 'submitted', class: 'btn btn-primary payment-gateway', disabled: true

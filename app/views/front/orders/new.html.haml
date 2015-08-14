@@ -44,7 +44,7 @@
 %hr
 .row
 	.col-md-10.text-right.order-conditions
-		= check_box_tag 'terms', nil, required: true
+		= check_box_tag 'terms', nil, false, required: true
 		= label_tag 'terms', "I Accept the #{link_to 'Terms And Conditions', front_page_path('terms-and-conditions'), target: :_blank}".html_safe
 	.col-md-2.text-right
 		- reference_no = "#{Time.now.to_i}"

@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 StockReady = ->
-	$('#stock_invoice_date').datetimepicker
+	$('#stock_invoice_date, #product_group_invoice_date').datetimepicker
 	  timepicker: false
 	  format: 'd/m/Y'
 

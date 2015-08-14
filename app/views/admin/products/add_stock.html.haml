@@ -1,0 +1,29 @@
+.row
+  .col-md-12
+    %h2 Add stock for #{@product_group.name}
+    = image_tag @product_group.images.first.try(:name).try(:thumbnail).try(:url), class: "img-responsive"
+  .col-md-6.col-md-offset-3
+    .profile-box
+      = form_for [:admin, @product_group] do |f|
+        .form-group
+          %label Current Quantity
+          = @product_group.outlet_stock_quantity(@current_user.outlet)
+        .form-group
+          = f.label :new_quantity
+          = f.number_field :new_quantity, required: true
+        .form-group
+          = f.label :stock_code
+          = f.text_field :stock_code
+        .form-group
+          = f.label :supplier_name
+          = f.text_field :supplier_name
+        .form-group
+          = f.label :invoice_date
+          = f.text_field :invoice_date, readonly: true
+        .form-group
+          = f.label :invoice_number
+          = f.text_field :invoice_number
+          = f.hidden_field :stock_outlet_id, value: @current_user.outlet.id
+        .form-group.text-center
+          = f.submit 'Submit', class: 'btn btn-primary'
+          = link_to 'Cancel', :back, class: 'btn btn-default'

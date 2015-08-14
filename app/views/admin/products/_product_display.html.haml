@@ -7,7 +7,10 @@
   .product-description= product.description
   .product-price= number_to_currency product.price_with_taxes
   .pull-left
-    = link_to 'Stock', admin_product_stocks_path(product), class: 'btn btn-default' unless product.is_a? ProductGroup
+    - if product.is_a? ProductGroup
+      = link_to 'Stock', add_stock_admin_product_group_path(product), class: 'btn btn-default'
+    - else
+      = link_to 'Stock', admin_product_stocks_path(product), class: 'btn btn-default'
     = link_to [:edit, :admin, product], class: 'btn btn-default' do
       %span.glyphicon.glyphicon-pencil
     = link_to [:admin, product], method: :delete, class: 'delete-link btn btn-default', 'data-confirm' => 'Are you sure?' do

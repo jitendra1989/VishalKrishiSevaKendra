@@ -1,4 +1,4 @@
-= form_for [:admin, @product, @stock] do |f|
+= form_for [:admin, @product, @stock], url: admin_product_stocks_path(@product) do |f|
   .form-group
     %label Current Quantity
     = @product.outlet_stock_quantity(@current_user.outlet)

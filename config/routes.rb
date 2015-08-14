@@ -77,7 +77,11 @@ Rails.application.routes.draw do
       end
       resources :stocks, only: [:new, :create, :index]
     end
-    resources :product_groups, path: 'product-groups', controller: :products, type: 'ProductGroup'
+    resources :product_groups, path: 'product-groups', controller: :products, type: 'ProductGroup' do
+      member do
+        get 'add-stock' => 'products#add_stock', as: :add_stock
+      end
+    end
 
     resources :permissions, only: [:index]
     resources :outlets, except: [:show]

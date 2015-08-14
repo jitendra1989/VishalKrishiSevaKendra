@@ -194,5 +194,13 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				expect(response).to render_template(:index)
 			end
 		end
+
+		describe "GET #group_stock" do
+			let(:product_group) { FactoryGirl.create(:product_group) }
+			it "returns http success" do
+				get :add_stock, id: product_group, type: 'ProductGroup'
+				expect(assigns(:product_group)).to eq(product_group)
+			end
+		end
 	end
 end

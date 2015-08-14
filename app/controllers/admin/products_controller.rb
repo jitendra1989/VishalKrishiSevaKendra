@@ -45,12 +45,17 @@ class Admin::ProductsController < Admin::ApplicationController
 		render :index
 	end
 
+	def add_stock
+		@product_group = ProductGroup.friendly.find(params[:id])
+	end
+
 	private
 		def type
 			Product.types.include?(params[:type]) ? params[:type] : 'Product'
 		end
+
 		def product_params
-			params.require(type.underscore.to_sym).permit(:name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
+			params.require(type.underscore.to_sym).permit(:name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
 		end
 
 		def set_product

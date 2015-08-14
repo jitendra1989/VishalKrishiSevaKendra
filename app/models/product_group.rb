@@ -24,6 +24,18 @@ class ProductGroup < Product
 		item_stock.min || 0
 	end
 
+	def add_to_online_cart(quantity, cart_id)
+		if online_stock > 0
+			added_items = []
+			self.group_items.includes(:related_product).each do |group_item|
+				added_items << group_item.related_product.add_to_online_cart(quantity * group_item.quantity, cart_id)/group_item.quantity
+			end
+			added_items.min
+		else
+			0
+		end
+	end
+
 	private
 		def add_stock
 			if self.new_quantity && self.new_quantity.to_i > 0

@@ -78,4 +78,34 @@ require 'rails_helper'
 			end
 		end
 	end
+	describe 'Add to online cart' do
+		let(:cart) { FactoryGirl.create(:online_cart) }
+		let(:outlet) { FactoryGirl.create(:online_outlet) }
+		let(:another_outlet) { FactoryGirl.create(:online_outlet) }
+		let(:stock_multiplier) { (1..5).to_a.sample }
+		let(:another_stock_multiplier) { (1..5).to_a.sample }
+
+		it 'returns 0 if no stock present' do
+			expect(product_group.add_to_online_cart(stock_multiplier, cart.id)).to eq(0)
+		end
+		context 'when stock is present' do
+			before do
+				product_group.new_quantity = stock_multiplier
+				product_group.stock_outlet_id = outlet.id
+				product_group.save!
+				product_group.new_quantity = another_stock_multiplier
+				product_group.stock_outlet_id = another_outlet.id
+				product_group.save!
+			end
+			it 'adds to cart from all applicable online stores' do
+				expect(product_group.add_to_online_cart(stock_multiplier, cart.id)).to eq(stock_multiplier)
+			end
+			it 'adds to cart from all applicable online stores' do
+				expect(product_group.add_to_online_cart(stock_multiplier + another_stock_multiplier, cart.id )).to eq(stock_multiplier + another_stock_multiplier)
+			end
+			it 'adds to cart only from available stock' do
+				expect(product_group.add_to_online_cart(stock_multiplier + another_stock_multiplier*10, cart.id )).to eq(another_stock_multiplier + stock_multiplier)
+			end
+		end
+	end
 end

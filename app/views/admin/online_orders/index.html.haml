@@ -1,0 +1,25 @@
+.row
+	.col-md-12
+		%h2 Online Orders
+	.col-md-10.col-md-offset-1
+		.profile-box
+			%br
+			%table
+				%tr
+					%th Order No
+					%th Order Date
+					%th Order Time
+					%th Customer
+					%th Contact No
+					%th.text-center Actions
+				- @online_orders.each do |order|
+					%tr
+						%td= order.id
+						%td= order.created_at.strftime '%d-%m-%Y'
+						%td= order.created_at.strftime '%H:%M'
+						%td= order.customer.name
+						%td= order.customer.mobile
+						%td.actions.text-center
+							= link_to 'View', admin_online_order_path(order)
+							= link_to admin_online_order_path(order, format: :pdf), target: :_blank do
+								%span.glyphicon.glyphicon-print

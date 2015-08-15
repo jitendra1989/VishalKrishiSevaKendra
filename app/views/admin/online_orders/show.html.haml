@@ -1,0 +1,60 @@
+.row
+  .col-md-12
+    %h2 Online Order
+  .col-md-10.col-md-offset-1
+    .order-form.main-content
+      .h3.text-center Order Details
+      %hr
+      .row
+        .col-md-8
+          .order-info
+            .customer-labels Name:
+            %strong= @online_order.customer.name
+          .order-info
+            .customer-labels Address:
+            %strong= @online_order.customer.full_address
+          .order-info
+            .customer-labels Contact No:
+            %strong= @online_order.customer.mobile
+        .col-md-4
+          .order-info
+            .customer-labels Order No:
+            %strong= @online_order.id
+          .order-info
+            .customer-labels Date:
+            %strong= @online_order.created_at.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          %table.table.table-striped.table-bordered
+            %thead
+              %tr
+                %th{ width: '50%' } Product
+                %th Qty
+                %th{ width: '20%' } Rate
+                %th{ width: '20%' } Amount
+            %tbody
+              - @online_order.items.each do |item|
+                %tr
+                  %td= item.name
+                  %td.text-right= item.quantity
+                  %td.text-right= number_to_currency item.price
+                  %td.text-right= number_to_currency item.quantity * item.price
+
+            %tfoot
+              %tr
+                %td{ colspan: 3 }
+                  %strong Total
+                %td
+                  %strong
+                    .text-right= number_to_currency @online_order.subtotal
+              - @online_order.taxes.each do |tax|
+                %tr
+                  %td{ colspan: 3 }
+                    %strong= tax.name
+                  %td.text-right= number_to_currency tax.amount
+              %tr
+                %td{ colspan: 3 }
+                  %strong Final Total
+                %td
+                  %strong
+                    .text-right= number_to_currency @online_order.total

@@ -20,6 +20,10 @@ class OnlineOrder < ActiveRecord::Base
     self.save if check_transaction_status
   end
 
+  def total
+    self.subtotal + self.tax_amount
+  end
+
   private
     def add_customer
       self.customer = OnlineCart.find(self.online_cart_id).customer if self.online_cart_id

@@ -51,7 +51,7 @@
 	.col-md-2.text-right
 		- reference_no = "#{Time.now.to_i}"
 		- return_url = "#{payment_front_order_url}?DR={DR}"
-		- mode = 'TEST'
+		- mode = ENV['EBS_GATEWAY_MODE']
 		- amount = subtotal.round(t('number.currency.format.precision'))
 		- string = "#{ENV['EBS_SECRET_KEY']}|#{ENV['EBS_ACCOUNT_ID']}|#{amount}|#{reference_no}|#{return_url}|#{mode}"
 		- secure_hash = Digest::MD5.hexdigest(string)

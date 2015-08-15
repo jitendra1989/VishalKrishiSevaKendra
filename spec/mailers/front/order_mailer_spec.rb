@@ -14,7 +14,13 @@ RSpec.describe Front::OrderMailer, type: :mailer do
     end
 
     it "renders the sender email" do
-      expect(mail.from).to eql(['no-reply@damiandegoa.com'])
+      expect(mail.from).to eq(['no-reply@damiandegoa.com'])
+    end
+
+    it "bccs to required email addresses" do
+      ENV['BCC_INVOICES_EMAIL'].split(';').each do |bcc_address|
+        expect(mail.bcc).to include(bcc_address)
+      end
     end
 
     it "assigns @customer" do

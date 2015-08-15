@@ -7,6 +7,6 @@ class Front::OrderMailer < ApplicationMailer
 		invoice = OnlineOrderPdf.new(@order, view_context)
 		attachments["invoice_#{@order.id}.pdf"] = { mime_type: 'application/pdf', content: invoice.render }
 		email_with_name = %("#{@recepient_name}" <#{@customer.email}>)
-		mail to: email_with_name, subject: 'Your Order with Damian De Goa.'
+		mail to: email_with_name, subject: 'Your Order with Damian De Goa.', bcc: default_params[:bcc] + ENV['BCC_INVOICES_EMAIL'].split(';')
 	end
 end

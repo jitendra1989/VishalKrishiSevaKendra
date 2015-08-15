@@ -45,17 +45,17 @@
 .row
 	.col-md-4
 		= link_to 'Back To Cart', edit_front_cart_path, class: 'btn btn-default'
-	.col-md-6.text-right.order-conditions
+	.col-md-4.text-right.order-conditions
 		= check_box_tag 'terms', nil, false, required: true
 		= label_tag 'terms', "I Accept the #{link_to 'Terms And Conditions', front_page_path('terms-and-conditions'), target: :_blank}".html_safe
-	.col-md-2.text-right
+	.col-md-4.text-right
 		- reference_no = "#{Time.now.to_i}"
 		- return_url = "#{payment_front_order_url}?DR={DR}"
 		- mode = ENV['EBS_GATEWAY_MODE']
 		- amount = subtotal.round(t('number.currency.format.precision'))
 		- string = "#{ENV['EBS_SECRET_KEY']}|#{ENV['EBS_ACCOUNT_ID']}|#{amount}|#{reference_no}|#{return_url}|#{mode}"
 		- secure_hash = Digest::MD5.hexdigest(string)
-		= form_tag 'https://secure.ebs.in/pg/ma/sale/pay', authenticity_token: false do
+		= form_tag 'https://secure.ebs.in/pg/ma/sale/pay', authenticity_token: false, class: 'form-inline' do
 			= hidden_field_tag 'account_id', ENV['EBS_ACCOUNT_ID']
 			= hidden_field_tag 'amount', amount
 			= hidden_field_tag 'description', description.join(' + ')
@@ -77,8 +77,10 @@
 			= hidden_field_tag 'ship_postal_code', @current_customer.pincode
 			= hidden_field_tag 'reference_no', reference_no
 			= hidden_field_tag 'mode', mode
-			= hidden_field_tag 'channel', 0
-			= hidden_field_tag 'payment_option', '1001'
+			.form-group
+				= label_tag 'payment_option', 'Pay Using'
+				= select_tag 'payment_option', options_for_select([['Credit Card', 'Credit'], ['Debit Card', 'Debit'], ['Net Banking', 'Net Banking'], ['EMI', 'EMI']], 'Net Banking')
 			= hidden_field_tag 'return_url', return_url
 			= hidden_field_tag 'secure_hash', secure_hash
-			= submit_tag 'Proceed To Payment', name: 'submitted', class: 'btn btn-primary payment-gateway', disabled: true
+			.form-group
+				= submit_tag 'Proceed To Payment', name: 'submitted', class: 'btn btn-primary payment-gateway', disabled: true

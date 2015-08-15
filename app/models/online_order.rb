@@ -32,13 +32,13 @@ class OnlineOrder < ActiveRecord::Base
         online_cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           self.subtotal += cart_item.product.online_price * cart_item.quantity
-
           Outlet.online_outlets.each do |online_outlet|
-            stock = online_outlet.product_stock(cart_item.product)
-            if stock && stock.online_carts.try(:include?, self.online_cart_id.to_s)
-              stock.ordered += stock.online_carts[self.online_cart_id.to_s]
-              stock.quantity -= stock.online_carts[self.online_cart_id.to_s]
-              stock.save!
+            if cart_item.product.is_a? ProductGroup
+              cart_item.product.group_items.each do |group_item|
+                stock_to_ordered(group_item.related_product, online_outlet)
+              end
+            else
+              stock_to_ordered(cart_item.product, online_outlet)
             end
           end
           OnlineTax.pluck(:name, :percentage).each do |tax|
@@ -60,4 +60,13 @@ class OnlineOrder < ActiveRecord::Base
       end
       items['ResponseCode'] == '0'
     end
+    private
+      def stock_to_ordered(product, online_outlet)
+        stock = online_outlet.product_stock(product)
+        if stock && stock.online_carts.try(:include?, self.online_cart_id.to_s)
+          stock.ordered += stock.online_carts[self.online_cart_id.to_s]
+          stock.quantity -= stock.online_carts[self.online_cart_id.to_s]
+          stock.save!
+        end
+      end
 end

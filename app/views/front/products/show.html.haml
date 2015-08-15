@@ -32,6 +32,10 @@
 						= hidden_field_tag :product_id, @product.id
 						= select_tag :quantity, options_for_select(1..[@product.online_stock, 10].min), class: 'product-quantity text-right'
 						= button_tag 'Buy Now', class: 'btn btn-primary btn-lg'
+					%hr
+					.h4
+						= image_tag 'free-delivery.jpg'
+						%strong In Goa
 				- else
 					.text-center
 						- if customer_logged_in?

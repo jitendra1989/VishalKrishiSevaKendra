@@ -15,6 +15,6 @@ module Front::Sessions
 		end
 
 		def log_out
-			@current_customer = session[:customer_id] = session[:online_cart_id] = nil
+			@current_customer, session[:customer_id], session[:online_cart_id] = nil, nil, nil
 		end
 end

@@ -38,6 +38,10 @@ module HumanNumbers
     generate_words(self.amount.to_i)
   end
 
+  def total_in_words
+    generate_words(self.total.to_i)
+  end
+
   private
     def generate_words(int)
       str = ""

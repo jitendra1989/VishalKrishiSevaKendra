@@ -3,66 +3,89 @@ class OnlineOrderInvoicePdf < Prawn::Document
 		@view = view
 		super(top_margin: 40)
 		pad(10){ text"Invoice", align: :center,size: 14 }
-		bounding_box([0, 690], width: 540, height: 100) do
-			move_down 20
-			font "Helvetica"
-			text_box "Buyer:" ,at:[10,90] , size: 10
-			move_down 5
-			text_box "#{order.customer.name}" ,at:[10,80] , size: 12, style: :bold
-			move_down 5
-			text_box "#{order.customer.address}" ,at:[10,60] , size: 10
-			text_box "#{order.customer.city}" ,at:[10,50] , size: 10
-			text_box "#{order.customer.state}" ,at:[10,40] , size: 10
-			text_box "Pincode :#{order.customer.pincode}" ,at:[10,30] , size: 10
-			move_down 20
-			text_box "Phone #{order.customer.mobile}" ,at:[10,20] , size: 10
-			text_box "Invoice For Order ID :#{order.id}", at: [300, 90], size: 10
-			text_box "Dated :#{order.customer.created_at.strftime('%d-%m-%Y')}", at: [300, 80], size: 10
-			text_box "Mode/Terms of Payment : Online", at: [300, 70], size: 10
-			move_down 10
-			transparent(1) { stroke_bounds }
-		end
-
+		width, height = 540, 120
+		x, y= 0, 690
+		stroke_rectangle [0, 690], width, height
+		text_box "Buyer", at: [x + 10, y - 5], width: width - 20, size: 8
+		text_box "#{order.customer.name}" ,at:[x+ 10, y - 15] , size: 12, style: :bold
+		text_box "#{order.customer.address}" ,at:[x + 10, y - 40] , size: 10
+		text_box "#{order.customer.city}, #{order.customer.state}" ,at:[x + 10, y - 50] , size: 10
+		text_box "#{order.customer.pincode}", at:[x + 10, y - 60] , size: 10
+		text_box "Mobile: #{order.customer.mobile}" ,at:[x + 10, y - 75] , size: 10
+		vertical_split_one = 250
+		vertical_split_two = 400
+		bottom_line = y - 60
+		stroke {
+		 vertical_line y, y - height, at: vertical_split_one
+		 vertical_line y, bottom_line, at: vertical_split_two
+		 horizontal_line 250, width, at: y - 30
+		 horizontal_line 250, width, at: bottom_line
+		}
+		text_box "Invoice No:", at: [vertical_split_one + 5, y - 5], size: 10
+		text_box "DDG/#{'%04i' % order.id}", at: [vertical_split_one + 5, y - 15], size: 10, style: :bold
+		text_box "Dated:", at: [vertical_split_two + 5, y - 5], size: 10
+		text_box "#{order.created_at.strftime('%d-%b-%Y')}", at: [vertical_split_two + 5, y - 15], size: 10, style: :bold
+		text_box "Order No:", at: [vertical_split_one + 5, y - 35], size: 10
+		text_box "DDG/#{'%04i' % order.id}", at: [vertical_split_one + 5, y - 45], size: 10, style: :bold
+		text_box "Mode of Payment:", at: [vertical_split_two + 5, y - 35], size: 10
+		text_box "Online", at: [vertical_split_two + 5, y - 45], size: 10, style: :bold
+		text_box "Terms of Delivery", at: [vertical_split_one + 5, y - 65], size: 10
+		move_down height - 10
 		line_items(order)
+		y = 176
+		height = 150
+		stroke_rectangle [0, y], width, height
+		text_box "Amount Chargeable (In Words)", at: [x + 10, y - 5], size: 10
+		text_box "E. & O.E.", at: [vertical_split_two + 10, y - 5], size: 10, align: :right, style: :italic
+		text_box "Rs. #{order.total_in_words} Only", at: [x + 10, y - 15], size: 10, style: :bold
 
-		shift_factor = 20 * order.items.size
-		text_box "Company's VAT TIN : 30660301642", at: [0 , 440 - shift_factor], size: 8
-		text_box "Company's CST No. : B/CST/2701 DTD 10-06-1963", at: [0, 420 - shift_factor], size: 8
-		text_box "Declaration", at: [0, 380 - shift_factor], size: 8
-		text_box "Warranty : Warranty coverage applies only to defects in products that are used exclusively for", at: [0, 370 - shift_factor], size: 8
-		text_box "personal,family or household purpose by original purchaser.Warranty covers the following from the", at: [0, 360 - shift_factor], size: 8
-		text_box "•One year Warranty against framework and any manufacturing defects in foam and polishing.", at: [0, 350 - shift_factor], size: 8
-		text_box "•Three years warranty against framework & workmanship on handcrafted furniture.", at: [0, 340 - shift_factor], size: 8
-		text_box "•Ten years warranty on mechanism for LAZBOY recliners.", at: [0, 330 - shift_factor], size: 8
-		text_box "•Fabric/Leather is not covered under any kind of warranty", at: [0, 320 - shift_factor], size: 8
-		text_box "Goods once sold will not be taken back.", at: [0, 310 - shift_factor], size: 8
-		text_box "THIS IS A COMPUTER GENERATED INVOICE. NO SIGNATURE REQUIRED", at: [0, 300 - shift_factor], size: 10
+		text_box "Company's VAT TIN : 30660301642", at: [x + 10 , y - 50], size: 10
+		text_box "Company's CST No. : B/CST/2701 DTD 10-06-1963", at: [x + 10, y - 60], size: 8
+		text_box "Declaration", at: [x + 10, y - 70], size: 8
+		text_box "Warranty : Warranty coverage applies only to defects in products that are used exclusively for", at: [x + 10, y - 80], size: 8
+		text_box "personal,family or household purpose by original purchaser.Warranty covers the following from the", at: [x + 10, y - 90], size: 8
+		text_box "•One year Warranty against framework and any manufacturing defects in foam and polishing.", at: [x + 10, y - 100], size: 8
+		text_box "•Three years warranty against framework & workmanship on handcrafted furniture.", at: [x + 10, y - 110], size: 8
+		text_box "•Ten years warranty on mechanism for LAZBOY recliners.", at: [x + 10, y - 120], size: 8
+		text_box "•Fabric/Leather is not covered under any kind of warranty", at: [x + 10, y - 130], size: 8
+		text_box "Goods once sold will not be taken back.", at: [x + 10, y - 140], size: 8
+		text_box "THIS IS A COMPUTER GENERATED INVOICE. NO SIGNATURE REQUIRED", at: [x + 10, y - 155], size: 10, align: :center
 	end
 	def line_items(order)
 		table line_item_rows(order), width: 540 do
 			row(0).font_style = :bold
 			row(0).font_size = 8
-			row(-1).font_style = :bold
 			columns(1..4).align = :right
+			columns(0..4).borders = [:left, :right]
+			row(0).borders = [:left, :bottom, :right]
+			row(0).borders = [:left, :bottom, :right]
+			row(-1).font_style = :bold
+			row(-1).borders = [:top, :left, :bottom, :right]
+			tax_row = order.items.size+2
+			row(tax_row).height = 250
+			row(tax_row).align = :right
+			row(-1).align = :right
+			columns(0).width = 240
 			self.header = true
 		end
 	end
 	def line_item_rows(order)
-		total, total_quantity = 0, 0
-		items = [['Description of Goods', 'Quantity', 'Rate', 'Amount']]
+		items = [['Description of Goods', 'Tax %', 'Quantity', 'Rate', 'Amount']]
 		order.items.each do |item|
 			amount = item.price * item.quantity
-			total += amount
-			total_quantity += item.quantity
-			items << [item.name, item.quantity, @view.number_to_currency(item.price), @view.number_to_currency(amount)]
+			items << [item.name, '', "#{item.quantity} #{product_type(item.product)}", @view.number_to_currency(item.price), @view.number_to_currency(amount)]
 		end
+		items << ['Subtotal','', '', '', @view.number_to_currency(order.subtotal)]
 		items += tax_rows(order)
-		items << ['Final Total',total_quantity,'',@view.number_to_currency(total)]
+		items << ['Final Total', '', '', '',@view.number_to_currency(order.total)]
+	end
+	def product_type(product)
+		product.is_a?(ProductGroup) ? 'Sets' : 'Nos'
 	end
 	def tax_rows(order)
 		taxes = []
 		order.taxes.each do |tax|
-			taxes << [tax.name, '', '', @view.number_to_currency(tax.amount)]
+			taxes << [tax.name, '', '', '', @view.number_to_currency(tax.amount)]
 		end
 		taxes
 	end

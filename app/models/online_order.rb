@@ -1,5 +1,6 @@
 require 'rc4'
 class OnlineOrder < ActiveRecord::Base
+  include HumanNumbers
   belongs_to :customer
   has_many :items, class: OnlineOrderItem, dependent: :destroy
   has_many :taxes, class: OnlineOrderTax, dependent: :destroy

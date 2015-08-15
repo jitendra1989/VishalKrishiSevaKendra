@@ -15,7 +15,7 @@ class OnlineOrderInvoicePdf < Prawn::Document
 		text_box "Mobile: #{order.customer.mobile}" ,at:[x + 10, y - 75] , size: 10
 		vertical_split_one = 250
 		vertical_split_two = 400
-		bottom_line = y - 30
+		bottom_line = y - 60
 		stroke {
 		 vertical_line y, y - height, at: vertical_split_one
 		 vertical_line y, bottom_line, at: vertical_split_two

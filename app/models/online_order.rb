@@ -53,6 +53,7 @@ class OnlineOrder < ActiveRecord::Base
         end
         save!
         online_cart.destroy!
+        Front::OrderMailer.success(self).deliver_now
       end
     end
 

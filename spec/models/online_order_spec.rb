@@ -32,6 +32,11 @@ RSpec.describe OnlineOrder, type: :model do
         online_order.save!
       }.to change(OnlineCart, :count).by(-1)
     end
+    it 'sends an email to the customer' do
+      expect{
+        online_order.save!
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
     describe 'subtotal and taxes' do
       let!(:subtotal) { online_cart.items.includes(:product).pluck('sale_price * quantity').sum }
       before do

@@ -1,0 +1,38 @@
+Thank you for your order as follows:
+%br>/
+%table{ width: '100%'}
+  %thead
+    %tr
+      %th{ width: '50%' } Product
+      %th{ style: 'text-align: right'} Qty
+      %th{ width: '20%', style: 'text-align: right' } Rate
+      %th{ width: '20%', style: 'text-align: right' } Amount
+  %tbody
+    - @order.items.each do |item|
+      %tr
+        %td= item.name
+        %td{style: 'text-align: right'}= item.quantity
+        %td{style: 'text-align: right'}= number_to_currency item.price
+        %td{style: 'text-align: right'}= number_to_currency item.quantity * item.price
+
+  %tfoot
+    %tr
+      %td{ colspan: 3 }
+        %strong Total
+      %td{style: 'text-align: right'}
+        %strong= number_to_currency @order.subtotal
+    - @order.taxes.each do |tax|
+      %tr
+        %td{ colspan: 3 }
+          %strong= tax.name
+        %td{style: 'text-align: right'}= number_to_currency tax.amount
+    %tr
+      %td{ colspan: 3 }
+        %strong Final Total
+      %td{style: 'text-align: right'}
+        %strong= number_to_currency @order.total
+%br>/
+%br>/
+Please find attached a copy of your invoice.
+%br>/
+%br>/

@@ -11,7 +11,6 @@ class OnlineOrder < ActiveRecord::Base
 
   validates :customer_id, presence: true
 
-  after_initialize :add_customer, if: :new_record?
   after_create :add_cart_items
 
   def process_payment_and_place_order(digital_receipt)
@@ -26,9 +25,6 @@ class OnlineOrder < ActiveRecord::Base
   end
 
   private
-    def add_customer
-      self.customer = OnlineCart.find(self.online_cart_id).customer if self.online_cart_id
-    end
 
     def add_cart_items
       if self.online_cart_id

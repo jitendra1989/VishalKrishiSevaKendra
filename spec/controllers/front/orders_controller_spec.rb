@@ -21,7 +21,7 @@ RSpec.describe Front::OrdersController, type: :controller do
         end
         it "assigns a new order as @order" do
           get :new
-          expect(assigns(:order)).to be_a_new(Order)
+          expect(assigns(:order)).to be_a_new(OnlineOrder)
         end
         it "assigns a the cart in session as @cart" do
           get :new

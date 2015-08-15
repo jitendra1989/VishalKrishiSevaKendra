@@ -39,7 +39,7 @@ module HumanNumbers
   end
 
   def total_in_words
-    generate_words(self.total.to_i)
+    generate_words(self.total.round)
   end
 
   private

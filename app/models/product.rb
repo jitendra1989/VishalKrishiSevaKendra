@@ -59,14 +59,18 @@ class Product < ActiveRecord::Base
 	end
 
 	def online_stock
-		self.stocks.select(:quantity).where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').map(&:quantity).inject(:+) || 0
+		stock = 0
+		Outlet.online_outlets.each do |online_outlet|
+			stock += online_outlet.product_stock(self).try(:quantity) || 0
+		end
+		stock
 	end
 
 	def add_to_online_cart(quantity, cart_id)
 		if online_stock > 0
 			total_added_quantity = 0
-			self.stocks.where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').each do |stock|
-				added_quantity = stock.add_to_cart(quantity, cart_id)
+			Outlet.online_outlets.each do |online_outlet|
+				added_quantity = online_outlet.product_stock(self).try(:add_to_cart, quantity, cart_id) || 0
 				total_added_quantity += added_quantity
 				quantity -= added_quantity
 				break if quantity <= 0

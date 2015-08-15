@@ -19,7 +19,7 @@ class ProductGroup < Product
 	def online_stock
 		item_stock = []
 		self.group_items.includes(:related_product).each do |group_item|
-			item_stock << group_item.related_product.online_stock/ group_item.quantity
+			item_stock << group_item.related_product.online_stock/group_item.quantity
 		end
 		item_stock.min || 0
 	end

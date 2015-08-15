@@ -45,11 +45,11 @@ class OnlineOrder < ActiveRecord::Base
               stock_to_ordered(cart_item.product, online_outlet)
             end
           end
-          OnlineTax.pluck(:name, :percentage).each do |tax|
-            amount = self.subtotal * tax[1]/100
-            self.taxes.create(name: tax[0], amount: amount)
-            self.tax_amount += amount
-          end
+        end
+        OnlineTax.pluck(:name, :percentage).each do |tax|
+          amount = self.subtotal * tax[1]/100
+          self.taxes.create(name: tax[0], amount: amount)
+          self.tax_amount += amount
         end
         save!
         online_cart.destroy!

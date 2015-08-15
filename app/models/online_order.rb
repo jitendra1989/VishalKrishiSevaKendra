@@ -32,8 +32,10 @@ class OnlineOrder < ActiveRecord::Base
         online_cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           self.subtotal += cart_item.product.online_price * cart_item.quantity
-          cart_item.product.stocks.where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').each do |stock|
-            if stock.online_carts.try(:include?, self.online_cart_id.to_s)
+
+          Outlet.online_outlets.each do |online_outlet|
+            stock = online_outlet.product_stock(cart_item.product)
+            if stock && stock.online_carts.try(:include?, self.online_cart_id.to_s)
               stock.ordered += stock.online_carts[self.online_cart_id.to_s]
               stock.quantity -= stock.online_carts[self.online_cart_id.to_s]
               stock.save!

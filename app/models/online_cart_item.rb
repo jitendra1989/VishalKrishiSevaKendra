@@ -7,8 +7,9 @@ class OnlineCartItem < ActiveRecord::Base
 
   private
     def return_stock
-      self.product.stocks.where(outlet: Outlet.online_outlets.ids).group('outlet_id desc').each do |stock|
-        stock.return_to_stock(stock.online_carts[self.cart.id.to_s]) if stock.online_carts.try(:has_key?, self.cart.id.to_s)
+      Outlet.online_outlets.each do |online_outlet|
+        stock = online_outlet.product_stock(self.product)
+        stock.return_to_stock(stock.online_carts[self.cart.id.to_s]) if stock && stock.try(:online_carts).try(:has_key?, self.cart.id.to_s)
       end
     end
 end

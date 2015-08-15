@@ -15,7 +15,7 @@ class Front::CustomersController < Front::ApplicationController
 			end
 		end
 		@customer = Customer.new unless @customer
-		redirect_to front_root_url if logged_in?
+		customer_redirect if logged_in?
 	end
 
 	def logout
@@ -38,7 +38,8 @@ class Front::CustomersController < Front::ApplicationController
 	def update
 		respond_to do |format|
 			if @current_customer.update(customer_params)
-				format.html { customer_redirect flash: { success: 'Your account was successfully updated.'} }
+				flash[:success] = 'Your account was successfully updated.'
+				format.html { customer_redirect }
 				format.js do
 					flash.now[:success] = 'Your password was updated.'
 					render :edit
@@ -69,11 +70,11 @@ class Front::CustomersController < Front::ApplicationController
 			log_in customer
 			redirect_to edit_front_customer_url, flash: { success:  'Your account has been activated. Welcome to Damian De Goa.' }
 		end
-		def customer_redirect(flash)
+		def customer_redirect
 			if @current_customer.online_cart.try(:items).try(:size)
-				redirect_to edit_front_cart_url, flash
+				redirect_to edit_front_cart_url
 			else
-				redirect_to front_root_url, flash
+				redirect_to front_root_url
 			end
 		end
 end

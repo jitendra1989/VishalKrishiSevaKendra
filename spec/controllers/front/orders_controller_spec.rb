@@ -68,9 +68,9 @@ RSpec.describe Front::OrdersController, type: :controller do
     end
 
     describe "GET #payment" do
-      it "redirects to the success page" do
+      it "renders the new template on failure" do
         get :payment
-        expect(response).to redirect_to(success_front_order_url)
+        expect(response).to render_template(:new)
       end
     end
 

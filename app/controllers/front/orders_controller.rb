@@ -37,7 +37,8 @@ class Front::OrdersController < Front::ApplicationController
 			end
 			redirect_to success_front_order_url
 		else
-			redirect_to success_front_order_url
+			flash[:danger] = 'There was a problem processing your order, please try again.'
+			render :new
 		end
 	end
 end

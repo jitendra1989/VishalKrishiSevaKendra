@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   namespace :front, path: '' do
+    match '404' => 'errors#not_found', via: :all
+    match '500' => 'errors#internal_server_error', via: :all
     resource :customer, only: [:create, :edit, :update] do
       collection do
         match 'login' => 'customers#login', via: [:get, :post]

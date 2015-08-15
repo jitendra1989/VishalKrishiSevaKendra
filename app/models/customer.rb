@@ -13,7 +13,7 @@ class Customer < ActiveRecord::Base
 
 	validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
 	validates :mobile, length: { is: 10 }, on: :update
-	validates :pincode, length: { is: 6 }, on: :update
+	validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }, on: :update
 
 	before_save { self.email.downcase! }
 	before_create :send_activation_email

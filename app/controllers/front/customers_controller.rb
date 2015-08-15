@@ -71,9 +71,9 @@ class Front::CustomersController < Front::ApplicationController
 		end
 		def customer_redirect(flash)
 			if @current_customer.online_cart.try(:items).try(:size)
-				redirect_to edit_front_cart_url, flash: flash
+				redirect_to edit_front_cart_url, flash
 			else
-				redirect_to front_root_url, flash: flash
+				redirect_to front_root_url, flash
 			end
 		end
 end

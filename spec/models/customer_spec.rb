@@ -73,8 +73,12 @@ RSpec.describe Customer, type: :model do
 		it "has 6 digits only" do
 			customer.pincode = "1" * 8
 			expect(customer).to_not be_valid
-			customer.pincode = "1" * 6
+			customer.pincode = '403' + ('1' * 3)
 			expect(customer).to be_valid
+		end
+		it "begins with 403" do
+			customer.pincode = 233003
+			expect(customer).to_not be_valid
 		end
 	end
 	it "has a valid city" do

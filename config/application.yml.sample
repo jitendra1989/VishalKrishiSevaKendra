@@ -5,6 +5,7 @@ BCC_ADDRESSES: '<Name<user@domain.com>;<Another Name<another@domain.com>'
 BCC_INVOICES_EMAIL: '<Name<user@domain.com>;<Another Name<another@domain.com>'
 EBS_ACCOUNT_ID: <ebs_account_id>
 EBS_SECRET_KEY: <ebs_secret_key>
+EXCEPTION_EMAIL_TO: user@domain.com
 production:
   SECRET_KEY_BASE: <secret_key>
   DATABASE_USERNAME: database_user

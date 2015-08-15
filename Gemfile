@@ -48,6 +48,7 @@ gem 'unitwise'
 gem 'paranoia'
 gem 'ruby-rc4'
 gem 'fancybox2-rails'
+gem 'exception_notification'
 
 group :development do
   gem 'pry-rails'

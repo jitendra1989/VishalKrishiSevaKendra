@@ -43,7 +43,9 @@
 
 %hr
 .row
-	.col-md-10.text-right.order-conditions
+	.col-md-4
+		= link_to 'Back To Cart', edit_front_cart_path, class: 'btn btn-default'
+	.col-md-6.text-right.order-conditions
 		= check_box_tag 'terms', nil, false, required: true
 		= label_tag 'terms', "I Accept the #{link_to 'Terms And Conditions', front_page_path('terms-and-conditions'), target: :_blank}".html_safe
 	.col-md-2.text-right

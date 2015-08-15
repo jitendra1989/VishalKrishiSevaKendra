@@ -5,7 +5,7 @@
         = link_to 'Home', front_root_path
         &gt;
       .col-md-12
-        %h1 Offers
+        %h1= @banner.name
         %br
     .row#products= render partial: 'front/products/product', collection: @products, as: :product
     .row

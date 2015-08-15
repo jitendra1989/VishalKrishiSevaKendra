@@ -85,9 +85,11 @@ class OnlineOrderInvoicePdf < Prawn::Document
 	def tax_rows(order)
 		taxes = []
 		order.taxes.each do |tax|
-			taxes << [tax.name, '', '', '', @view.number_to_currency(tax.amount)]
+			taxes << [tax.name,"#{tax_percent(order)}%", '', '', @view.number_to_currency(tax.amount)]
 		end
 		taxes
 	end
-
+	def tax_percent(order)
+		((order.total- order.subtotal) * 100 / order.subtotal).round(2)
+	end
 end

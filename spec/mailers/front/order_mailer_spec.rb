@@ -19,7 +19,8 @@ RSpec.describe Front::OrderMailer, type: :mailer do
 
     it "bccs to required email addresses" do
       ENV['BCC_INVOICES_EMAIL'].split(';').each do |bcc_address|
-        expect(mail.bcc).to include(bcc_address)
+        email = bcc_address.split('<').last.split('>').first
+        expect(mail.bcc).to include(email)
       end
     end
 

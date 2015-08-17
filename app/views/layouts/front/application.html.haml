@@ -36,8 +36,10 @@
 			%footer
 				.row
 					.col-md-6
-						- ContentPage.menu_items.pluck(:slug, :link_text).each do |menu_item|
-							= link_to menu_item[1], front_page_path(menu_item[0])
+						%ul.list-unstyled
+							- ContentPage.menu_items.pluck(:slug, :link_text).each do |menu_item|
+								%li= link_to menu_item[1], front_page_path(menu_item[0])
+							%li= link_to 'Contact Us', front_pages_contact_path
 					.col-md-3
 						= link_to 'https://www.facebook.com/pages/Damian-de-Goa/532272703493618', target: :_blank do
 							%span.sprites.facebook
@@ -51,5 +53,6 @@
 						\/
 						%a{ href: 'tel:+918322412126' } 2412126
 						%br
+						%a{ href: 'mailto:&#100;&#100;&#103;&#103;&#111;&#097;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;'.html_safe } &#100;&#100;&#103;&#103;&#111;&#097;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;
 						%br
 						© #{Time.now.year} Karbens InfoTech Pvt. Ltd. All Rights Reserved.

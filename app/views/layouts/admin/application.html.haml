@@ -56,15 +56,15 @@
 										%li= link_to 'Online Orders & Invoices', admin_online_orders_path
 										%li= link_to 'Receipts', admin_receipts_path
 										%li= link_to 'Invoices', admin_invoices_path
-								- if can? :manage, Category or can? :manage, Product
+								- if can? :read, Category or can? :read, Product
 									%li.dropdown{ role: 'presentation' }
 										%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }
 											Catalog
 											%span.caret
 										%ul.dropdown-menu
-											- if can? :manage, Category
+											- if can? :read, Category
 												%li= link_to 'Categories', admin_categories_path
-											- if can? :manage, Product
+											- if can? :read, Product
 												%li= link_to 'Products', admin_products_path
 												%li= link_to 'Product Groups', admin_product_groups_path
 								%li.dropdown{ role: 'presentation' }

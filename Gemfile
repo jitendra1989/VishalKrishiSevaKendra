@@ -49,6 +49,7 @@ gem 'paranoia'
 gem 'ruby-rc4'
 gem 'fancybox2-rails'
 gem 'exception_notification'
+gem 'roboto'
 
 group :development do
   gem 'pry-rails'

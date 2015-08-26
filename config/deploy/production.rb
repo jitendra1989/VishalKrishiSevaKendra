@@ -1,4 +1,6 @@
 set :stage, :production
+# Default branch is :master
+set :branch, 'master'
 
 # dont try and infer something as important as environment from stage name.
 set :rails_env, :production

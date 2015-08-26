@@ -37,6 +37,10 @@ test:
 # for a full rundown on how to provide these environment variables in a
 # production deployment.
 #
+staging:
+  <<: *default
+  database: damiandegoa_staging
+
 production:
   <<: *default
   database: damiandegoa

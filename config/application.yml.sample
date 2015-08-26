@@ -7,6 +7,12 @@ EBS_ACCOUNT_ID: <ebs_account_id>
 EBS_SECRET_KEY: <ebs_secret_key>
 EBS_GATEWAY_MODE: <TEST|LIVE>
 EXCEPTION_EMAIL_TO: user@domain.com
+staging:
+  SECRET_KEY_BASE: <secret_key>
+  DATABASE_USERNAME: database_user
+  DATABASE_PASSWORD: <database_password>
+  ACTION_MAILER_HOST: <action_mailer_host>
+  ACTION_MAILER_ASSET_HOST: <action_mailer_asset_host>
 production:
   SECRET_KEY_BASE: <secret_key>
   DATABASE_USERNAME: database_user

@@ -7,9 +7,6 @@ set :repo_url, 'git@bitbucket.org:archferns/damiandegoa.git'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/damian/ruby/DamianDeGoa'
-
 # Default value for :scm is :git
 # set :scm, :git
 
@@ -33,6 +30,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+server '128.199.165.70', user: 'damian', roles: %w{web app db}
 
 namespace :deploy do
 

@@ -1,6 +1,7 @@
 class ContentPage < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :title, use: :slugged
+	mount_uploader :image, BannerUploader
 
 	scope :menu_items, -> { where(menu: true) }
 

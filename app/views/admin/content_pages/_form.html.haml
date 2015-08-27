@@ -3,6 +3,12 @@
 		= f.label :title
 		= f.text_field :title, required: true
 	.form-group
+		= f.label :image
+		= f.file_field :image
+		%br
+		Ideal Dimensions for Image : 990 X 392
+	%br
+	.form-group
 		= f.label :content
 		= f.text_area :content, required: true
 	.form-group

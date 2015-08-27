@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814112932) do
+ActiveRecord::Schema.define(version: 20150827074144) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150814112932) do
 
   create_table "content_pages", force: :cascade do |t|
     t.string   "title",      limit: 255
+    t.string   "image",      limit: 255
     t.text     "content",    limit: 65535
     t.boolean  "menu",       limit: 1,     default: false, null: false
     t.string   "link_text",  limit: 255

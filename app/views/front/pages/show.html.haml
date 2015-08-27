@@ -1,4 +1,8 @@
 %h1= @page.title
 %hr
+- if @page.image.path
+	.row
+		.col-md-10.col-md-offset-1.text-center
+			= image_tag @page.image, class: 'img-responsive inline-block'
 .row
 	.col-md-10.col-md-offset-1= @page.content.html_safe

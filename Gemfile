@@ -50,6 +50,8 @@ gem 'ruby-rc4'
 gem 'fancybox2-rails'
 gem 'exception_notification'
 gem 'roboto'
+gem 'sidekiq'
+gem 'sinatra', require: nil
 
 group :development do
   gem 'pry-rails'
@@ -81,5 +83,6 @@ group :test do
 	gem 'libnotify'
 	gem 'faker'
 	gem 'simplecov', require: false
+  gem 'rspec-sidekiq'
 end
 

@@ -24,4 +24,6 @@ class Front::CartsController < Front::ApplicationController
     cart.destroy_item(params[:product_id])
     redirect_to edit_front_cart_url
   end
+
+  private
 end

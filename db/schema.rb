@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827074144) do
+ActiveRecord::Schema.define(version: 20150827190118) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150827074144) do
 
   create_table "online_carts", force: :cascade do |t|
     t.integer  "customer_id", limit: 4
+    t.datetime "blocked_at"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end

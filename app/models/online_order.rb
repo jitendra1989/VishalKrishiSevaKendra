@@ -49,6 +49,7 @@ class OnlineOrder < ActiveRecord::Base
           self.tax_amount += amount
         end
         save!
+        online_cart.items.each(&:delete)
         online_cart.destroy!
         Front::OrderMailer.success(self).deliver_now
       end
@@ -67,7 +68,8 @@ class OnlineOrder < ActiveRecord::Base
         stock = online_outlet.product_stock(product)
         if stock && stock.online_carts.try(:include?, self.online_cart_id.to_s)
           stock.ordered += stock.online_carts[self.online_cart_id.to_s]
-          stock.quantity -= stock.online_carts[self.online_cart_id.to_s]
+          stock.in_carts -= stock.online_carts[self.online_cart_id.to_s]
+          stock.online_carts.delete(self.online_cart_id.to_s)
           stock.save!
         end
       end

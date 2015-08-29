@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  require 'admin_constraint'
   mount_roboto
   namespace :front, path: '' do
     match '404' => 'errors#not_found', via: :all
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
     root 'users#dashboard'
     resources :roles, except: [:show]
     resources :content_pages, path: 'content-pages', except: [:show]

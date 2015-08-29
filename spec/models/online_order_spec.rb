@@ -52,11 +52,13 @@ RSpec.describe OnlineOrder, type: :model do
     end
     describe 'stock control' do
       it 'adds the requested quantity to ordered' do
+        online_cart.check_and_block_stock
         online_order.save!
         expect(stock.reload.ordered).to eq(online_order.items.find_by(product: stock.product).quantity)
       end
       it 'subtracts the requested quantity from quantity' do
         stock_quantity = stock.quantity
+        online_cart.check_and_block_stock
         online_order.save!
         expect(stock.reload.quantity).to eq(stock_quantity - online_order.items.find_by(product: stock.product).quantity)
       end

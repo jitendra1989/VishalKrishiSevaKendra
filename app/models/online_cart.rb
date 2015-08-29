@@ -28,7 +28,7 @@ class OnlineCart < ActiveRecord::Base
   end
 
   def place_order_by
-    self.blocked_at ? self.blocked_at + block_period : nil
+    self.blocked_at ? self.blocked_at + block_period : Time.zone.now
   end
 
   def return_blocked_stock

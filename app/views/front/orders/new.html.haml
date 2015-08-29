@@ -1,6 +1,9 @@
 .row
 	.col-md-12
-		.alert.alert-danger="Please complete the order within #{distance_of_time_in_words @cart.place_order_by, Time.now}"
+		.alert.alert-info.text-center
+			= "Thank you for your patronage. We have reserved the items in your cart while you proceed with the checkout. Please complete the order within the next #{distance_of_time_in_words @cart.place_order_by, Time.zone.now}. You will be redirected to the cart if the timer expires."
+			%br
+			.stock-block.text-center{'data-redirect-path' => edit_front_cart_path, 'data-seconds' => (@cart.place_order_by - Time.zone.now).to_i }= Time.at(@cart.place_order_by - Time.zone.now).utc.strftime("%H:%M:%S")
 		%h2 Order Summary
 	.col-md-7
 		.main-content

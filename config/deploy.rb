@@ -63,3 +63,21 @@ namespace :figaro do
 end
 after 'deploy:started', 'figaro:setup'
 after 'deploy:updating', 'figaro:symlink'
+
+
+namespace :sidekiq do
+  task :quiet do
+    on roles(:app) do
+      execute :sudo, :systemctl, :stop, "sidekiq-#{fetch(:stage)}.service"
+    end
+  end
+  task :restart do
+    on roles(:app) do
+      execute :sudo, :systemctl, :start, "sidekiq-#{fetch(:stage)}.service"
+    end
+  end
+end
+
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'

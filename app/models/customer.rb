@@ -1,4 +1,6 @@
 class Customer < ActiveRecord::Base
+	acts_as_paranoid
+
 	has_many :quotations
 	has_many :carts
 	has_many :orders

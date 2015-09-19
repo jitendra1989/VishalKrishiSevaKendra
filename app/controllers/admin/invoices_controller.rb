@@ -1,6 +1,6 @@
 class Admin::InvoicesController < Admin::ApplicationController
   def index
-    @invoices = Invoice.all
+    @invoices = Invoice.includes(:customer).all
   end
 
   def new

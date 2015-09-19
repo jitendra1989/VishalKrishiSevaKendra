@@ -14,7 +14,7 @@
 					%th.text-center Actions
 				- @invoices.each do |invoice|
 					%tr
-						%td= invoice.customer.name
+						%td= invoice.customer.try(:name)
 						%td= invoice.id
 						%td= invoice.created_at.strftime '%d-%m-%Y'
 						%td= invoice.amount

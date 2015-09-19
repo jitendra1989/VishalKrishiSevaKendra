@@ -14,7 +14,7 @@ class ReceiptPdf < Prawn::Document
 		text_box "Authorized Signatory", at: [420, 380]
 	end
 	def receipt_header(receipt)
-		table [["Order No :#{receipt.order.id}","Receipt No :#{receipt.id}","Date :#{receipt.order.customer.created_at.strftime('%d-%m-%Y')}"]],:column_widths => {0 => 180,1 => 180,2 => 180}
+		table [["Order No :#{receipt.order.id}","Receipt No :#{receipt.id}","Date :#{receipt.created_at.strftime('%d-%m-%Y')}"]],:column_widths => {0 => 180,1 => 180,2 => 180}
 	end
 	def receipt_body_items(receipt)
 		table receipt_body(receipt), width: 540, cell_style: { inline_format:  true } do

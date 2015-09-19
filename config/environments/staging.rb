@@ -87,6 +87,7 @@ Rails.application.configure do
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     email: {
-      exception_recipients: ENV['EXCEPTION_EMAIL_TO']
+      exception_recipients: ENV['EXCEPTION_EMAIL_TO'],
+      sender_address: ENV['FROM_ADDRESS'],
     }
 end

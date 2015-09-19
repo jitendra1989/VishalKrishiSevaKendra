@@ -7,6 +7,8 @@ EBS_ACCOUNT_ID: <ebs_account_id>
 EBS_SECRET_KEY: <ebs_secret_key>
 EBS_GATEWAY_MODE: <TEST|LIVE>
 EXCEPTION_EMAIL_TO: user@domain.com
+FROM_ADDRESS: 'Name<name@example.com>'
+REPLY_TO_ADDRESS: 'Name<name@example.com>'
 staging:
   SECRET_KEY_BASE: <secret_key>
   DATABASE_USERNAME: database_user

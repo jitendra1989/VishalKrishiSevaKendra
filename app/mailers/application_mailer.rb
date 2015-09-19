@@ -1,8 +1,8 @@
 class ApplicationMailer < ActionMailer::Base
 	before_filter :set_common_variables
 
-	default from: 'Damian De Goa<no-reply@damiandegoa.com>',
-					reply_to: 'Damian De Goa<info@damiandegoa.com>',
+	default from: ENV['FROM_ADDRESS'],
+					reply_to: ENV['REPLY_TO_ADDRESS'],
 					bcc: ENV['BCC_ADDRESSES'].split(';')
 
 	private

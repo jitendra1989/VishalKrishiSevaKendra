@@ -15,7 +15,7 @@
 					%th.text-center Actions
 				- @receipts.each do |receipt|
 					%tr
-						%td= receipt.order.id
+						%td= receipt.order.try(:id)
 						%td= receipt.id
 						%td= receipt.created_at.strftime '%d-%m-%Y'
 						%td= receipt.cheque_number

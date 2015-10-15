@@ -10,7 +10,19 @@ RSpec.describe Customer, type: :model do
 	it { expect(customer).to respond_to(:invoices) }
 	it { expect(customer).to respond_to(:online_cart) }
 	it { expect(customer).to respond_to(:online_orders) }
+	it { expect(customer).to respond_to(:current_step) }
 	it { expect(customer.full_address).to eq("#{customer.address}, #{customer.city}, #{customer.state} - #{customer.pincode}") }
+	describe "when only resetting password" do
+		before do
+			customer.name = nil
+			customer.current_step = 'password_reset'
+			customer.password = '123'
+			customer.save!
+		end
+		it "does not validate" do
+			expect(customer.authenticate('123')).to eq customer
+		end
+	end
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923123403) do
+ActiveRecord::Schema.define(version: 20151015065534) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -88,25 +88,27 @@ ActiveRecord::Schema.define(version: 20150923123403) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.string   "password_digest",   limit: 255
-    t.string   "email",             limit: 255
-    t.integer  "mobile",            limit: 8
-    t.integer  "phone",             limit: 8
-    t.string   "address",           limit: 255
-    t.integer  "pincode",           limit: 4
-    t.string   "city",              limit: 255
-    t.string   "state",             limit: 255
-    t.string   "country",           limit: 255
-    t.integer  "orders_count",      limit: 4,   default: 0,     null: false
-    t.string   "company_name",      limit: 255
-    t.string   "company_address",   limit: 255
-    t.integer  "company_phone",     limit: 8
-    t.string   "activation_digest", limit: 255
-    t.boolean  "activated",         limit: 1,   default: false, null: false
+    t.string   "name",                   limit: 255
+    t.string   "password_digest",        limit: 255
+    t.string   "password_reset_token",   limit: 255
+    t.datetime "password_reset_sent_at"
+    t.string   "email",                  limit: 255
+    t.integer  "mobile",                 limit: 8
+    t.integer  "phone",                  limit: 8
+    t.string   "address",                limit: 255
+    t.integer  "pincode",                limit: 4
+    t.string   "city",                   limit: 255
+    t.string   "state",                  limit: 255
+    t.string   "country",                limit: 255
+    t.integer  "orders_count",           limit: 4,   default: 0,     null: false
+    t.string   "company_name",           limit: 255
+    t.string   "company_address",        limit: 255
+    t.integer  "company_phone",          limit: 8
+    t.string   "activation_digest",      limit: 255
+    t.boolean  "activated",              limit: 1,   default: false, null: false
     t.datetime "activated_at"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.datetime "deleted_at"
   end
 

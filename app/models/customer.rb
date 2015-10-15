@@ -9,16 +9,21 @@ class Customer < ActiveRecord::Base
 	has_many :online_orders
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-	[:name, :mobile, :phone, :address, :pincode, :city, :state, :country].each do |n|
-		validates n, presence: true, on: :update
+	with_options unless: lambda { |c| c.current_step == 'password_reset'  } do
+		[:name, :mobile, :phone, :address, :pincode, :city, :state, :country].each do |n|
+			validates n, presence: true, on: :update
+		end
+
+		validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
+		validates :mobile, length: { is: 10 }, on: :update
+		validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }, on: :update
 	end
 
-	validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
-	validates :mobile, length: { is: 10 }, on: :update
-	validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }, on: :update
 
 	before_save { self.email.downcase! }
 	before_create :send_activation_email
+
+	attr_accessor :current_step
 
 	has_secure_password
 
@@ -54,6 +59,13 @@ class Customer < ActiveRecord::Base
 		self.activation_digest = nil
 		self.activated_at = Time.zone.now
 		save validate: false
+	end
+
+	def send_password_reset
+		generate_token(:password_reset_token)
+		self.password_reset_sent_at = Time.zone.now
+		save validate: false
+		Front::CustomerMailer.password_reset(self).deliver_now
 	end
 
 	private

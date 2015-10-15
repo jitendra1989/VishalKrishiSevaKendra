@@ -8,4 +8,11 @@ class Front::CustomerMailerPreview < ActionMailer::Preview
     Front::CustomerMailer.welcome(customer)
   end
 
+  def password_reset
+    customer = Customer.first
+    customer.password_reset_token = 'XXXXXXXXXXXXXXXXXXXX'
+    customer.save!
+    Front::CustomerMailer.password_reset(customer)
+  end
+
 end

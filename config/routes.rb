@@ -11,6 +11,8 @@ Rails.application.routes.draw do
         match 'login' => 'customers#login', via: [:get, :post]
         delete 'logout'
         get 'activate/:token' => 'customers#activate', as: :activate
+        match 'forgot-password' => 'customers#forgot_password', via: [:get, :post]
+        match 'recover-password/:token' => 'customers#recover_password', via: [:get, :post], as: :recover_password
       end
       resources :orders, only: [:index]
     end

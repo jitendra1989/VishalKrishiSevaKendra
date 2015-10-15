@@ -1,5 +1,6 @@
 class Front::CustomersController < Front::ApplicationController
-	before_action :require_activation, except: [:login, :create, :activate]
+	before_action :require_activation, except: [:login, :create, :activate,:forgot_password, :recover_password]
+
 	def login
 		if request.post?
 			@customer = Customer.find_by(email: params[:customer][:email])
@@ -58,6 +59,25 @@ class Front::CustomersController < Front::ApplicationController
 		else
 			redirect_to login_front_customer_url, flash: { danger: 'We are sorry, we encountered a problem activating your account. Please try again.' }
 		end
+	end
+
+	def forgot_password
+	  if request.post?
+	    customer = Customer.find_by(email: params[:customer][:email])
+	    customer.send_password_reset if customer
+	    redirect_to login_front_customer_url, flash: { info: 'We have sent an email with password reset instructions.' }
+	  end
+	end
+
+	def recover_password
+	  @customer = Customer.find_by!(password_reset_token: params[:token])
+	  if request.post?
+	    if @customer.password_reset_sent_at < 2.hours.ago
+	      redirect_to forgot_password_front_customer_url, flash: { danger: 'Sorry, the URL has expired. Please try again.' }
+	    elsif @customer.update_attributes(current_step: 'password_reset', password: params[:customer][:password], password_confirmation: params[:customer][:password_confirmation])
+	      redirect_to login_front_customer_url, flash: { success: 'Your password has been reset. Please login below.' }
+	    end
+	  end
 	end
 
 	private

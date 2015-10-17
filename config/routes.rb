@@ -87,7 +87,10 @@ Rails.application.routes.draw do
       resources :taxes, only: [:new, :create]
     end
     resources :online_taxes, path: 'online-taxes', except: [:show]
-    resources :products, shallow: true do
+    resources :products, except: [:edit], shallow: true do
+      member do
+        get 'edit(/:step)' => 'products#edit', as: :edit
+      end
       collection do
         get 'search'
       end

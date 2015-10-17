@@ -7,12 +7,11 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def edit
-		@product.images.build
+		@product.current_step = params[:step] if params[:step]
 	end
 
 	def new
 		@product = type.constantize.new
-		@product.images.build
 	end
 
 	def show
@@ -21,7 +20,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	def create
 		@product = type.constantize.new(product_params)
 		if @product.save
-			redirect_to [:admin, @product.class], flash: { success: 'Product was successfully created.' }
+			product_redirect('Product was successfully created.')
 		else
 			render :new
 		end
@@ -29,7 +28,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
 	def update
 		if @product.update(product_params)
-			redirect_to [:admin, @product.class], flash: { success: 'Product was successfully updated.' }
+			product_redirect('Product was successfully updated.')
 		else
 			render :edit
 		end
@@ -55,10 +54,19 @@ class Admin::ProductsController < Admin::ApplicationController
 		end
 
 		def product_params
-			params.require(type.underscore.to_sym).permit(:name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
+			params.require(type.underscore.to_sym).permit(:current_step, :name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
 		end
 
 		def set_product
 			@product = Product.friendly.find(params[:id])
+		end
+
+		def product_redirect(flash)
+			if params[:go_to] == 'back'
+				@product.previous_step
+			elsif params[:go_to] == 'next'
+				@product.next_step
+			end
+			redirect_to edit_admin_product_url(@product, @product.current_step), flash: { success: flash }
 		end
 end

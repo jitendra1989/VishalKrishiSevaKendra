@@ -34,6 +34,10 @@ RSpec.describe Admin::ProductsController, type: :controller do
 				get :edit, id: product.id
 				expect(assigns(:product)).to eq(product)
 			end
+			it "assigns the current step" do
+				get :edit, id: product.id, step: 'images'
+				expect(assigns(:product).current_step).to eq('images')
+			end
 		end
 
 		describe "GET #new" do
@@ -64,42 +68,9 @@ RSpec.describe Admin::ProductsController, type: :controller do
 					expect(assigns(:product)).to be_persisted
 				end
 
-				it "redirects to the product list" do
-					post :create, product: valid_attributes
-					expect(response).to redirect_to(admin_products_url)
-				end
-			end
-
-			describe "with categories" do
-				it "add the selected categories to the product" do
-					expect {
-						post :create, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
-						}.to change(ProductCategory, :count).by(2)
-				end
-			end
-
-			describe "with cross sell" do
-				it "add the selected cross sell products to the product" do
-					expect {
-						post :create, product: valid_attributes.merge(cross_sale_product_ids: [related_product.id])
-						}.to change(CrossSell, :count).by(1)
-				end
-			end
-			describe "with image" do
-				let(:cv_file) { fixture_file_upload('test.pdf', 'application/pdf') }
-				let(:png_file) { fixture_file_upload('test.png', 'image/png') }
-				it "creates a new Product image" do
-					expect {
-						post :create, product: valid_attributes.merge(images_attributes: [ name: png_file ])
-						}.to change(ProductImage, :count).by(1)
-				end
-				it "uploads the image" do
-					post :create, product: valid_attributes.merge(images_attributes: [ name: png_file ])
-					expect(response).to redirect_to(admin_products_url)
-				end
-				it "renders the show page when a non image is uploaded" do
-					post :create, product: valid_attributes.merge(images_attributes: [ name: cv_file ])
-					expect(response).to render_template(:new)
+				it "redirects to the next step" do
+					post :create, product: valid_attributes, go_to: 'next'
+					expect(response).to redirect_to(edit_admin_product_url(Product.last, Product.last.next_step))
 				end
 			end
 
@@ -128,9 +99,37 @@ RSpec.describe Admin::ProductsController, type: :controller do
 					expect(assigns(:product)).to eq(product)
 				end
 
-				it "redirects to the product list" do
-					put :update, id: product.id, product: valid_attributes
-					expect(response).to redirect_to(admin_products_url)
+				it "redirects to the next step" do
+					put :update, id: product.id, product: valid_attributes, go_to: 'next'
+					expect(response).to redirect_to(edit_admin_product_url(product, product.next_step))
+				end
+				describe "with categories" do
+					it "add the selected categories to the product" do
+						expect {
+							put :update, id: product.id, product: valid_attributes.merge(category_ids: [category.id, sub_category.id])
+							}.to change(ProductCategory, :count).by(2)
+					end
+				end
+
+				describe "with cross sell" do
+					it "add the selected cross sell products to the product" do
+						expect {
+							put :update, id: product.id, product: valid_attributes.merge(cross_sale_product_ids: [related_product.id])
+							}.to change(CrossSell, :count).by(1)
+					end
+				end
+				describe "with image" do
+					let(:cv_file) { fixture_file_upload('test.pdf', 'application/pdf') }
+					let(:png_file) { fixture_file_upload('test.png', 'image/png') }
+					it "creates a new Product image" do
+						expect {
+							put :update, id: product.id, product: valid_attributes.merge(images_attributes: [ name: png_file ])
+							}.to change(ProductImage, :count).by(1)
+					end
+					it "renders the show page when a non image is uploaded" do
+						put :update, id: product.id, product: valid_attributes.merge(images_attributes: [ name: cv_file ])
+						expect(response).to render_template(:edit)
+					end
 				end
 			end
 

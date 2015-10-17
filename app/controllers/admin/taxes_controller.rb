@@ -38,6 +38,6 @@ class Admin::TaxesController < Admin::ApplicationController
 
   private
     def tax_params
-      params.require(:tax).permit(:name, :percentage)
+      params.require(:tax).permit(:name, :percentage, :fully_taxable)
     end
 end

@@ -9,6 +9,22 @@ $dropdown-link-hover-bg: $black;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* Global Styles */
+.required:after{
+	content:"*";
+}
+
+.inline-block{
+	display: inline-block;
+	vertical-align: top;
+}
+.relative{
+	position: relative;
+}
+.absolute{
+	position: absolute;
+}
+
 header{
 	background: $black;
 	color: #fff;
@@ -52,7 +68,7 @@ header{
 		width: 100%;
 	}
 	select, textarea, input[type="text"], input[type="number"], input[type="email"]{
-		width: 179px;
+		// width: 179px;
 	}
 	textarea{
 		height: 200px;
@@ -76,23 +92,23 @@ header{
 	}
 }
 .styled-checkboxes{
-	height: 40px;
+	min-height: 40px;
 	display: inline-block;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	label {
 		cursor: pointer;
 		text-transform: capitalize;
 		width: 200px;
 		padding: 10px;
 		border-radius: 5px;
-		border: 1px solid #ccc;
+		border: 1px solid #aaa;
 	}
 	input{
 		visibility: hidden;
 		position: absolute;
 	}
 	input:checked + label{
-		background: #286090;
+		background: $brand-primary;
 		color: #fff;
 	}
 }
@@ -119,3 +135,4 @@ header{
 	font-size: 25px;
 	line-height: 1em;
 }
+

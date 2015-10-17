@@ -1,7 +1,12 @@
 .nested-fields.form-group
-	= f.label :name, 'Image'
-	= f.file_field :name
-	.form-group.text-center
-		- if f.object.name?
-			= image_tag(f.object.name.thumbnail.url)
-			= link_to_remove_association '', f, class: 'glyphicon glyphicon-remove delete-link'
+	- if f.object.name?
+		.image-preview.relative.inline-block
+			= image_tag f.object.name.small, class: 'img-responsive'
+			= f.file_field :name, class: 'absolute'
+		= f.label :name, 'Change Image', class: 'btn btn-default'
+		= link_to_remove_association f, class: 'delete-link btn btn-default' do
+			%span.glyphicon.glyphicon-remove
+	- else
+		= f.label :name, 'Product Image'
+		= f.file_field :name
+	%hr

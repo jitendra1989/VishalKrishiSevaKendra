@@ -1,8 +1,10 @@
 .nested-fields.form-inline
   .form-group
-    = f.select :related_product_id, Product.simple.pluck(:name, :id)
+    = f.select :related_product_id, Product.simple.pluck(:name, :id), {}, class: 'form-control'
   .form-group
-    = f.number_field :quantity, placeholder: 'Quantity'
+    = f.number_field :quantity, placeholder: 'Quantity', class: 'form-control'
   %span
-    = link_to_remove_association f, class: 'delete-link' do
+    = link_to_remove_association f, class: 'delete-link btn btn-default' do
       %span.glyphicon.glyphicon-remove
+  %br
+  %br

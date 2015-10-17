@@ -1,7 +1,7 @@
-%h2 Cross Sell
 = f.collection_check_boxes(:cross_sale_product_ids, Product.pluck(:id, :name), :first, :second) do |product|
-  .col-md-4
-    = product.check_box
-    = product.label
+  .col-md-3
+    .form-group.styled-checkboxes.text-center
+      = product.check_box
+      = product.label
 %br
 %br

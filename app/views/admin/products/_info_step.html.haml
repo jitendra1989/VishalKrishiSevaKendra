@@ -1,23 +1,22 @@
-%h2 Product Information
 .form-group
-  = f.label :name
-  = f.text_field :name, required: true
+  = f.label :name, class: 'required'
+  = f.text_field :name, required: true, class: 'form-control'
 .form-group
-  = f.label :code
-  = f.text_field :code, required: true
+  = f.label :code, class: 'required'
+  = f.text_field :code, required: true, class: 'form-control'
 .form-group
-  = f.label :description
-  = f.text_area :description, required: true
+  = f.label :description, class: 'required'
+  = f.text_area :description, required: true, class: 'form-control'
 = render 'grouped_products', f: f if @product.is_a? ProductGroup
 .form-group
-  = f.label :price
-  = f.number_field :price, required: true, step: :any
+  = f.label :price, class: 'required'
+  = f.number_field :price, required: true, step: :any, class: 'form-control'
 .form-group
   = f.label :sale_price
-  = f.number_field :sale_price, step: :any
+  = f.number_field :sale_price, step: :any, class: 'form-control'
 .form-group
   = f.label :product_type_id
-  = f.select :product_type_id, ProductType.pluck(:name, :id)
+  = f.select :product_type_id, ProductType.pluck(:name, :id), {}, class: 'form-control'
 .form-group
-  = f.label :saleable_online, 'Sell Online'
   = f.check_box :saleable_online
+  = f.label :saleable_online, 'Sell Online'

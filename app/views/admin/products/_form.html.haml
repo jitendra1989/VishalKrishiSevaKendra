@@ -1,7 +1,10 @@
 = form_for [:admin, @product] do |f|
-	= f.hidden_field :current_step
-	= render "#{@product.current_step}_step", f: f
-	.form-group
-		= f.button 'Previous', name: 'go_to', value: 'back', class: 'btn btn-default' unless @product.first_step?
-		= f.submit 'Save', class: 'btn btn-primary'
-		= f.button 'Next', name: 'go_to', value: 'next', class: 'btn btn-default' unless @product.last_step?
+	.row
+		.col-md-12
+			%br
+			= f.hidden_field :current_step
+			= render "#{@product.current_step}_step", f: f
+		.form-group.text-center
+			= f.button 'Previous', name: 'go_to', value: 'back', class: 'btn btn-default' unless @product.first_step?
+			= f.submit 'Save', class: 'btn btn-primary'
+			= f.button 'Next', name: 'go_to', value: 'next', class: 'btn btn-default' unless @product.last_step?

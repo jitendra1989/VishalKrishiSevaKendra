@@ -1,8 +1,10 @@
 .nested-fields.form-inline
   .form-group
-    = f.select :specification_id, Specification.pluck('CONCAT(name, " (", units, ")")', :id)
+    = f.select :specification_id, Specification.pluck('CONCAT(name, " (", units, ")")', :id), {}, class: 'form-control'
   .form-group
-    = f.text_field :value, placeholder: 'Value'
+    = f.text_field :value, placeholder: 'Value', class: 'form-control'
   %span
-    = link_to_remove_association f, class: 'delete-link' do
+    = link_to_remove_association f, class: 'delete-link btn btn-default' do
       %span.glyphicon.glyphicon-remove
+  %br
+  %br

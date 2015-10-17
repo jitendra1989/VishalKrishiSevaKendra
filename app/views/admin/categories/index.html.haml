@@ -6,6 +6,6 @@
       .text-right
         =link_to 'New Root Category', new_admin_category_path, remote: true
       %br
-      %ul.categories
+      %ul.categories.ancestry
         - @categories.each do |category|
           = render 'category', category: category

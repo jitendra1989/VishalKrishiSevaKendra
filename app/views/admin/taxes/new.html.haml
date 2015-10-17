@@ -1,8 +1,11 @@
 .row
 	.col-md-12
-		%h2 Create Taxes
+		- if @tax.parent
+			%h2= "Create Tax on #{@tax.parent.name}"
+		- else
+			%h2 Create Base Tax
 	.col-md-6.col-md-offset-3
 		.profile-box
 			.text-right
 				=link_to 'View Taxes', admin_taxes_path
-			= render 'form'
+			= render 'form', form_path: @tax.root?? admin_taxes_path : admin_tax_taxes_path(@tax.parent)

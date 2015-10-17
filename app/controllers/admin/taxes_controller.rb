@@ -1,7 +1,7 @@
 class Admin::TaxesController < Admin::ApplicationController
   load_and_authorize_resource
   def new
-    @tax = Tax.new
+    @tax = Tax.new(parent_id: params[:tax_id])
   end
 
   def edit
@@ -9,11 +9,11 @@ class Admin::TaxesController < Admin::ApplicationController
   end
 
   def index
-    @taxes = Tax.all
+    @taxes = Tax.roots
   end
 
   def create
-    @tax = Tax.new(tax_params)
+    @tax = Tax.new(tax_params.merge(parent_id: params[:tax_id]))
     if @tax.save
       redirect_to admin_taxes_url, flash: { success: 'Tax was successfully created.' }
     else

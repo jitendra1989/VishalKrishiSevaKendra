@@ -4,12 +4,15 @@
   .col-md-2
     = link_to edit_admin_product_type_path(product_type), remote: true do
       %span.glyphicon.glyphicon-pencil
-  - if product_type.taxes.empty?
+- if product_type.taxes.empty?
+  .row
     .col-md-12 No taxes added.
-  - else
-    - product_type.taxes.each do |tax|
-      .col-md-6= tax.name
-      .col-md-6= tax.percentage
+- else
+  - product_type.taxes.each do |tax|
+    = render 'product_type_tax', tax: tax
+    - if tax.has_children?
+      - tax.children.each do |sub_tax|
+        = render 'product_type_tax', tax: sub_tax
 .row
   .col-md-12
     = 'Workshop Required' if product_type.require_workshop?

@@ -1,0 +1,5 @@
+.row
+	.col-md-6
+		%span.child-arrow= ('&#8627;' * tax.ancestors.count).html_safe
+		= tax.name
+	.col-md-6.text-right= tax.percentage

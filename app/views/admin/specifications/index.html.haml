@@ -9,13 +9,13 @@
       %table
         %tr
           %th Name
-          %th Type
+          / %th Type
           %th Units
           %th.text-center Actions
         - @specifications.each do |specification|
           %tr
             %td= specification.name
-            %td= specification.required?? 'Required' : 'Optional'
+            / %td= specification.required?? 'Required' : 'Optional'
             %td= specification.units
             %td.actions.text-center
               = link_to edit_admin_specification_path(specification) do

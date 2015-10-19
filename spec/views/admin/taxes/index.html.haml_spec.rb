@@ -9,6 +9,5 @@ RSpec.describe "admin/taxes/index", type: :view do
     render
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/Percentage/)
-    expect(rendered).to match(/Taxes/)
   end
 end

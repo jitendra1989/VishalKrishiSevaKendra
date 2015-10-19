@@ -1,13 +1,10 @@
-= form_for [:admin, @tax], url: form_path do |f|
+= form_for [:admin, @tax] do |f|
   .form-group
     = f.label :name
     = f.text_field :name, required: true
   .form-group
     = f.label :percentage
     = f.number_field :percentage, required: true, step: :any
-  .form-group
-    = f.label :fully_taxable, 'Apply Tax To Whole Amount'
-    = f.check_box :fully_taxable
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

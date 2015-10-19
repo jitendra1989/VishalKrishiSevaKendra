@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151017050726) do
+ActiveRecord::Schema.define(version: 20151015065534) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -422,15 +422,11 @@ ActiveRecord::Schema.define(version: 20151017050726) do
   add_index "stocks", ["product_id"], name: "index_stocks_on_product_id", using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "ancestry",      limit: 255
-    t.float    "percentage",    limit: 24
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "fully_taxable", limit: 1,   default: true, null: false
+    t.string   "name",       limit: 255
+    t.float    "percentage", limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
-
-  add_index "taxes", ["ancestry"], name: "index_taxes_on_ancestry", using: :btree
 
   create_table "user_permissions", force: :cascade do |t|
     t.integer  "user_id",       limit: 4

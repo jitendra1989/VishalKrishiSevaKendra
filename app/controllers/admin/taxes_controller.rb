@@ -1,7 +1,7 @@
 class Admin::TaxesController < Admin::ApplicationController
   load_and_authorize_resource
   def new
-    @tax = Tax.new(parent_id: params[:tax_id])
+    @tax = Tax.new
   end
 
   def edit
@@ -9,11 +9,11 @@ class Admin::TaxesController < Admin::ApplicationController
   end
 
   def index
-    @taxes = Tax.roots
+    @taxes = Tax.all
   end
 
   def create
-    @tax = Tax.new(tax_params.merge(parent_id: params[:tax_id]))
+    @tax = Tax.new(tax_params)
     if @tax.save
       redirect_to admin_taxes_url, flash: { success: 'Tax was successfully created.' }
     else
@@ -38,6 +38,6 @@ class Admin::TaxesController < Admin::ApplicationController
 
   private
     def tax_params
-      params.require(:tax).permit(:name, :percentage, :fully_taxable)
+      params.require(:tax).permit(:name, :percentage)
     end
 end

@@ -14,13 +14,6 @@ RSpec.describe Admin::TaxesController, type: :controller do
       get :new
       expect(assigns(:tax)).to be_a_new(Tax)
     end
-    describe 'new child tax' do
-      it "returns http success" do
-        get :new, tax_id: tax.id
-        expect(assigns(:tax)).to be_a_new(Tax)
-        expect(assigns(:tax).parent).to eq(tax)
-      end
-   end
   end
 
   describe "GET #edit" do
@@ -31,9 +24,9 @@ RSpec.describe Admin::TaxesController, type: :controller do
   end
 
   describe "GET #index" do
-    it "assigns all root taxes as @taxes" do
+    it "assigns all taxes as @taxes" do
       get :index
-      expect(assigns(:taxes)).to eq(Tax.roots)
+      expect(assigns(:taxes)).to eq(Tax.all)
     end
   end
 
@@ -67,22 +60,6 @@ RSpec.describe Admin::TaxesController, type: :controller do
           post :create, tax: invalid_attributes
           expect(response).to render_template("new")
       end
-    end
-  end
-
-  describe 'POST #create child tax' do
-    before do
-      tax.reload
-    end
-    it "creates a new Tax" do
-      expect {
-        post :create, tax_id: tax.id, tax: valid_attributes
-      }.to change(Tax, :count).by(1)
-    end
-
-    it "assigns a newly created tax as @tax" do
-      post :create, tax_id: tax.id, tax: valid_attributes
-        expect(assigns(:tax).parent).to eq(tax)
     end
   end
 

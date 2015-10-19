@@ -83,9 +83,7 @@ Rails.application.routes.draw do
     end
     resources :invoices, only: [:index]
     resources :product_types, path: 'product-types', only: [:index, :edit, :update]
-    resources :taxes, except: [:show], shallow: true do
-      resources :taxes, only: [:new, :create]
-    end
+    resources :taxes, except: [:show]
     resources :online_taxes, path: 'online-taxes', except: [:show]
     resources :products, except: [:edit], shallow: true do
       member do

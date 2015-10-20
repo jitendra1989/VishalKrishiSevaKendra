@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     end
     resources :banners, except: [:show]
     resources :specifications, except: [:show]
+    resources :characteristics, except: [:show]
     resources :users do
       collection do
         match 'login' => 'users#login', via: [:get, :post]

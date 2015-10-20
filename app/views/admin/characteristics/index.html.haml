@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %h2 Image Specifications
+  .col-md-10.col-md-offset-1
+    .profile-box
+      .text-right
+        =link_to 'New Image Specification', new_admin_characteristic_path
+      %br
+      %table
+        %tr
+          %th Name
+          %th.text-center Actions
+        - @characteristics.each do |characteristic|
+          %tr
+            %td= characteristic.name
+            %td.actions.text-center
+              = link_to edit_admin_characteristic_path(characteristic) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_characteristic_path(characteristic), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

@@ -50,6 +50,20 @@ RSpec.describe Admin::CharacteristicsController, type: :controller do
       end
     end
 
+    describe "with image" do
+      let(:cv_file) { fixture_file_upload('test.pdf') }
+      let(:png_file) { fixture_file_upload('test.png') }
+      it "creates a new Specification image" do
+        expect {
+          post :create, characteristic: valid_attributes.merge(images_attributes: [ { name: png_file } ])
+          }.to change(CharacteristicImage, :count).by(1)
+      end
+      it "uploads the image" do
+        post :create, characteristic: valid_attributes.merge(images_attributes: [ { name: png_file } ])
+        expect(response).to redirect_to(admin_characteristics_url)
+      end
+    end
+
     context "with invalid params" do
       it "assigns a newly created but unsaved characteristic as @characteristic" do
         post :create, characteristic: invalid_attributes

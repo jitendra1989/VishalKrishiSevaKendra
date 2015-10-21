@@ -5,9 +5,11 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 	end
 
 	def new
+		@characteristic.images.build
 	end
 
 	def edit
+		@characteristic.images.build
 	end
 
 	def create
@@ -34,6 +36,6 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 
 	private
 		def characteristic_params
-			params.require(:characteristic).permit(:name, :required, :units)
+			params.require(:characteristic).permit(:name, images_attributes: [:name])
 		end
 end

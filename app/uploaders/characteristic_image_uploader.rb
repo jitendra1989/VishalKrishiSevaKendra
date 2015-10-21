@@ -13,26 +13,9 @@ class CharacteristicImageUploader < CarrierWave::Uploader::Base
     "#{Rails.root}/tmp/uploads/#{Rails.env}/#{model.class.to_s.underscore.pluralize}"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url
-    'characteristic.jpg'
-  end
-
-  # Process files as they are uploaded:
-  # process resize_to_fill: [1290, -1]
-
-  # Create different versions of your uploaded files:
-  # version :medium do
-  #   process resize_to_fill: [400, -1]
-  # end
-
   version :small do
     process resize_to_fill: [230, -1]
   end
-
-  # version :thumbnail, from_version: :small do
-  #   process resize_to_fill: [70, -1]
-  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list

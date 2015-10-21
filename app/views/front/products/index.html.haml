@@ -3,7 +3,7 @@
     .row
       .col-md-2
       .col-md-8
-        .nivo-slider#slider
+        .home-slider.nivo-slider#slider
           - @banners.each do |banner|
             = link_to front_offer_path(banner) do
               = image_tag banner.image

@@ -1,0 +1,5 @@
+= f.collection_check_boxes(:category_ids, category.children, :id, :name) do |cat|
+  .form-group.category-checkboxes
+    = cat.check_box
+    = cat.label
+    = render('categories_checkboxes', f: f, category: cat.object) if cat.object.has_children?

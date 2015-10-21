@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020085005) do
+ActiveRecord::Schema.define(version: 20151021192630) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -283,6 +283,19 @@ ActiveRecord::Schema.define(version: 20151020085005) do
   add_index "product_categories", ["category_id"], name: "index_product_categories_on_category_id", using: :btree
   add_index "product_categories", ["product_id"], name: "index_product_categories_on_product_id", using: :btree
 
+  create_table "product_characteristics", force: :cascade do |t|
+    t.integer  "product_id",              limit: 4
+    t.integer  "characteristic_id",       limit: 4
+    t.integer  "characteristic_image_id", limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "product_characteristics", ["characteristic_id"], name: "index_product_characteristics_on_characteristic_id", using: :btree
+  add_index "product_characteristics", ["characteristic_image_id"], name: "index_product_characteristics_on_characteristic_image_id", using: :btree
+  add_index "product_characteristics", ["product_id", "characteristic_id"], name: "product_characteristic", unique: true, using: :btree
+  add_index "product_characteristics", ["product_id"], name: "index_product_characteristics_on_product_id", using: :btree
+
   create_table "product_images", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "product_id", limit: 4
@@ -512,6 +525,9 @@ ActiveRecord::Schema.define(version: 20151020085005) do
   add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
+  add_foreign_key "product_characteristics", "characteristic_images"
+  add_foreign_key "product_characteristics", "characteristics"
+  add_foreign_key "product_characteristics", "products"
   add_foreign_key "product_images", "products"
   add_foreign_key "product_specifications", "products"
   add_foreign_key "product_specifications", "specifications"

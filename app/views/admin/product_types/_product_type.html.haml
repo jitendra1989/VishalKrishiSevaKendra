@@ -10,9 +10,6 @@
 - else
   - product_type.taxes.each do |tax|
     = render 'product_type_tax', tax: tax
-    - if tax.has_children?
-      - tax.children.each do |sub_tax|
-        = render 'product_type_tax', tax: sub_tax
 .row
   .col-md-12
     = 'Workshop Required' if product_type.require_workshop?

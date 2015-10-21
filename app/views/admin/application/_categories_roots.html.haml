@@ -1,0 +1,8 @@
+.row
+  = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
+    .col-md-12
+      .form-group.styled-checkboxes.text-center
+        = category.check_box
+        = category.label
+      = render 'categories_checkboxes', f: f, category: category.object if category.object.has_children?
+      %br

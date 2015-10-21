@@ -8,10 +8,6 @@
           %span{ 'aria-hidden' => true } &times;
         %h4.modal-title#product-category-label Categories
       .modal-body
-        = f.collection_check_boxes(:category_ids, Category.roots, :id, :name) do |category|
-          .form-group.category-checkboxes
-            = category.check_box
-            = category.label
-            = render('categories_checkboxes', f: f, category: category.object) if category.object.has_children?
+        = render 'categories_roots', f: f
       .modal-footer
         %button.btn.btn-default{ type: 'button', 'data-dismiss' => 'modal' } Close

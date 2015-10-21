@@ -3,12 +3,16 @@
 		%h2= "Edit #{@product.class}"
 	.col-md-12
 		.profile-box
-			.inline-block.product-steps
-				= link_to 'Info', edit_admin_product_path(@product, :info), class: "btn btn-lg btn-link#{@product.current_step=='info' ? ' active' : ''}"
-				= link_to 'Images', edit_admin_product_path(@product, :images), class: "btn btn-lg btn-link#{@product.current_step=='images' ? ' active' : ''}"
-				= link_to 'Categories', edit_admin_product_path(@product, :categories), class: "btn btn-lg btn-link#{@product.current_step=='categories' ? ' active' : ''}"
-				= link_to 'Cross Sell', edit_admin_product_path(@product, :crosssell), class: "btn btn-lg btn-link#{@product.current_step=='crosssell' ? ' active' : ''}"
-				= link_to 'Specifications', edit_admin_product_path(@product, :specifications), class: "btn btn-lg btn-link#{@product.current_step=='specifications' ? ' active' : ''}"
-			.pull-right
-				=link_to "View #{@product.class.to_s.pluralize}", [:admin, @product.class]
+			.row
+				.col-md-12.text-right
+					=link_to "View #{@product.class.to_s.pluralize} List", [:admin, @product.class], class: "btn btn-link"
+					= link_to [:admin, @product], class: "btn btn-link" do
+						= "View #{@product.name}"
+				.col-md-12
+					.inline-block.product-steps
+						= link_to 'Info', edit_admin_product_path(@product, :info), class: "btn btn-lg btn-link#{@product.current_step=='info' ? ' active' : ''}"
+						= link_to 'Images', edit_admin_product_path(@product, :images), class: "btn btn-lg btn-link#{@product.current_step=='images' ? ' active' : ''}"
+						= link_to 'Categories', edit_admin_product_path(@product, :categories), class: "btn btn-lg btn-link#{@product.current_step=='categories' ? ' active' : ''}"
+						= link_to 'Cross Sell', edit_admin_product_path(@product, :crosssell), class: "btn btn-lg btn-link#{@product.current_step=='crosssell' ? ' active' : ''}"
+						= link_to 'Specifications', edit_admin_product_path(@product, :specifications), class: "btn btn-lg btn-link#{@product.current_step=='specifications' ? ' active' : ''}"
 			= render 'form'

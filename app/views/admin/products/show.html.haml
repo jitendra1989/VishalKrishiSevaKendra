@@ -1,7 +1,7 @@
 .row
 	.col-md-12
 		%h2= "#{@product.class}"
-	.col-md-6.col-md-offset-3
+	.col-md-12
 		.profile-box
 			.text-right
 				=link_to "Edit  #{@product.class}", [:edit, :admin, @product]
@@ -23,3 +23,12 @@
 			%p
 				%strong.title Product Type:
 				= @product.product_type.name
+			%p
+				%strong.title Product Images:
+				= image_tag @product.images.first.try(:name).try(:medium).try(:url)
+			%strong.title Specifications:
+			%table.table
+				- @product.product_specifications.includes(:specification).pluck(:name, :value, :units).each do |specification|
+					%tr
+						%th= specification[0]
+						%td= "#{specification[1]} #{specification[2]}"

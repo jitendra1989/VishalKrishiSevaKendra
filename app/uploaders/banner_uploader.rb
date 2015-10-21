@@ -26,15 +26,10 @@ class BannerUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_to_fill: [990, -1]
+  process resize_and_pad: [990, 392]
 
-  # Create different versions of your uploaded files:
-  version :medium do
-    process resize_to_fill: [600, -1]
-  end
-
-  version :small, from_version: :medium do
-    process resize_to_fill: [230, -1]
+  version :small do
+    process resize_and_pad: [230, 91]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

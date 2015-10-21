@@ -22,12 +22,6 @@ describe BannerUploader, type: :uploader do
     end
   end
 
-  describe 'the medium version' do
-    it "generates a png image 600 pixels wide" do
-      expect(@uploader.medium).to have_width(600)
-    end
-  end
-
   describe 'processed image' do
     it "generates a png image 990 pixels wide" do
       expect(@uploader).to have_width(990)

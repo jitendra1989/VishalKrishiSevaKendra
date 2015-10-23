@@ -6,12 +6,12 @@
 				%fieldset
 					%legend Admin Control Panel
 					%p.text-left Use a valid username and password to gain access to the Administrator Back-end.
-					.form-group
-						= f.label :username
-						= f.text_field :username, required: true
-					.form-group
-						= f.label :password
-						= f.password_field :password, required: true
+					.form-group.text-left
+						= f.label :username, class: 'required'
+						= f.text_field :username, required: true, class: 'form-control'
+					.form-group.text-left
+						= f.label :password, class: 'required'
+						= f.password_field :password, required: true, class: 'form-control'
 					.form-group
 						= link_to 'Forgot Password?', forgot_password_admin_users_path, class: 'pull-left'
 						= f.submit "Log in", class: "btn btn-primary pull-right", id: "submit"

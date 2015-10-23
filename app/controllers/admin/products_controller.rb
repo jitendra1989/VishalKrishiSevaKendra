@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-	before_action :set_product, only: [:show, :edit, :update, :destroy]
+	before_action :set_product, only: [:show, :update, :destroy]
 	authorize_resource
 
 	def index
@@ -7,6 +7,11 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def edit
+		if params[:step] == 'image_specifications'
+			@product = Product.includes(product_characteristics: [:characteristic_image, :characteristic]).friendly.find(params[:id])
+		else
+			@product = Product.friendly.find(params[:id])
+		end
 		@product.current_step = params[:step] if params[:step]
 	end
 
@@ -54,7 +59,7 @@ class Admin::ProductsController < Admin::ApplicationController
 		end
 
 		def product_params
-			params.require(type.underscore.to_sym).permit(:current_step, :name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
+			params.require(type.underscore.to_sym).permit(:current_step, :name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], product_characteristics_attributes:[:id, :characteristic_id, :characteristic_image_id, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
 		end
 
 		def set_product

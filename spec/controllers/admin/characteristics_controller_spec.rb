@@ -30,6 +30,13 @@ RSpec.describe Admin::CharacteristicsController, type: :controller do
     end
   end
 
+  describe "GET #images" do
+    it "assigns the requested characteristic as @characteristic" do
+      get :images, id: characteristic.id
+      expect(assigns(:characteristic)).to eq(characteristic)
+    end
+  end
+
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Characteristic" do

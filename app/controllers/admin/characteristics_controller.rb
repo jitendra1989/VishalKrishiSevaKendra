@@ -12,6 +12,10 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 		@characteristic.images.build
 	end
 
+	def images
+		render layout: false
+	end
+
 	def create
 		@characteristic = Characteristic.new(characteristic_params)
 		if @characteristic.save
@@ -36,6 +40,6 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 
 	private
 		def characteristic_params
-			params.require(:characteristic).permit(:name, images_attributes: [:name])
+			params.require(:characteristic).permit(:name, images_attributes: [:id, :name, :_destroy])
 		end
 end

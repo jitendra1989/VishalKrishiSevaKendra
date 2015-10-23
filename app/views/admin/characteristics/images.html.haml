@@ -1,0 +1,5 @@
+- @characteristic.images.each do |image|
+	.image-checkbox.relative.inline-block
+		= radio_button_tag "product[product_characteristics_attributes][#{params[:uid]}][characteristic_image_id]", image.id, false, id: "characteristic_#{@characteristic.id}_#{image.id}"
+		= label_tag "characteristic_#{@characteristic.id}_#{image.id}" do
+			= image_tag image.name.small, class: 'img-responsive'

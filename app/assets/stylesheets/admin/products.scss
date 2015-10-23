@@ -42,3 +42,29 @@
 		height: 100%;
 	}
 }
+.characteristic-image{
+	.image-checkbox{
+		float: left;
+	}
+	label{
+		border: 5px solid #fff;
+		width: auto;
+	}
+	input{
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		opacity: 0;
+	}
+	input:checked + label{
+		border-color: #0c0;
+	}
+}
+.image-specifications{
+	span{
+		vertical-align: top;
+	}
+	.characteristic-name{
+		padding: 0 20px;
+	}
+}

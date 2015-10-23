@@ -1,0 +1,6 @@
+= f.fields_for :product_characteristics do |characteristic|
+  = render 'product_characteristic_fields', f: characteristic
+.links
+  = link_to_add_association 'Add Image Specification', f, :product_characteristics, class: 'btn btn-default'
+  %br
+  %br

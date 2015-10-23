@@ -17,8 +17,8 @@ describe CharacteristicImageUploader, type: :uploader do
   end
 
   describe 'the small version' do
-    it "generates a png image 230 pixels wide" do
-      expect(@uploader.small).to have_width(230)
+    it "generates a png image 100 pixels wide" do
+      expect(@uploader.small).to have_width(100)
     end
   end
 end

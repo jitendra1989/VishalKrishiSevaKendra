@@ -1,6 +1,6 @@
 .nested-fields.form-group
 	- if f.object.name?
-		.image-preview.relative.inline-block
+		.relative.inline-block
 			= image_tag f.object.name.small, class: 'img-responsive'
 			= f.file_field :name, class: 'absolute'
 		= f.label :name, 'Change Image', class: 'btn btn-default'

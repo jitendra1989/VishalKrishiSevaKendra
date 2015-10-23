@@ -16,6 +16,8 @@ class Product < ActiveRecord::Base
 	has_many :cross_sale_products, through: :cross_sells, source: :related_product
 	has_many :product_specifications
 	has_many :specifications, through: :product_specifications, dependent: :destroy
+	has_many :product_characteristics
+	has_many :characteristics, through: :product_characteristics, dependent: :destroy
 
 	delegate :taxes, to: :product_type
 
@@ -29,6 +31,7 @@ class Product < ActiveRecord::Base
 
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 	accepts_nested_attributes_for :product_specifications, reject_if: :all_blank, allow_destroy:true
+	accepts_nested_attributes_for :product_characteristics, reject_if: :all_blank, allow_destroy:true
 	attr_writer :current_step
 
 	def current_step
@@ -52,7 +55,7 @@ class Product < ActiveRecord::Base
 	end
 
 	def steps
-		%w[info images categories crosssell specifications]
+		%w[info images categories crosssell specifications image_specifications]
 	end
 
 	def outlet_stock_quantity(outlet)

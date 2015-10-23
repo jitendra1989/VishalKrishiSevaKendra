@@ -39,7 +39,6 @@ header{
 	}
 }
 .field_with_errors{
-	display: inline-block;
 	input{
 		box-shadow: 0 0 2px 0 #c00;
 	}
@@ -60,7 +59,7 @@ header{
 	padding: 25px 40px;
 }
 .profile-box{
-	.title, label{
+	.title{
 		width: 160px;
 		display: inline-block;
 	}

@@ -19,7 +19,7 @@ class Admin::CustomersController < Admin::ApplicationController
 	end
 
 	def create
-		@customer = Customer.new(customer_params)
+		@customer = Customer.new(customer_params.merge(admin_customer: true))
 		if @customer.save
 			customer_redirect success: 'Customer was successfully created.'
 		else
@@ -29,7 +29,7 @@ class Admin::CustomersController < Admin::ApplicationController
 
 	def update
 		@customer = Customer.find(params[:id])
-		if @customer.update(customer_params)
+		if @customer.update(customer_params.merge(admin_customer: true))
 			customer_redirect success: 'Customer was successfully updated.'
 		else
 			render :edit

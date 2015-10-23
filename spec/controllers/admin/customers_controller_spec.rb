@@ -4,7 +4,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 	let(:user) { FactoryGirl.create(:admin) }
 	let(:customer) { FactoryGirl.create(:customer) }
 	let(:valid_attributes) { FactoryGirl.attributes_for(:customer) }
-	let(:invalid_attributes) { FactoryGirl.attributes_for(:customer, email: nil ) }
+	let(:invalid_attributes) { FactoryGirl.attributes_for(:customer, name: nil ) }
 	before do
 		log_in user
 	end

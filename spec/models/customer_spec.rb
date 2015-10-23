@@ -11,7 +11,23 @@ RSpec.describe Customer, type: :model do
 	it { expect(customer).to respond_to(:online_cart) }
 	it { expect(customer).to respond_to(:online_orders) }
 	it { expect(customer).to respond_to(:current_step) }
+	it { expect(customer).to respond_to(:admin_customer) }
 	it { expect(customer.full_address).to eq("#{customer.address}, #{customer.city}, #{customer.state} - #{customer.pincode}") }
+	describe "when creating customer in admin" do
+		before do
+			unsaved_customer.admin_customer = true
+			unsaved_customer.password = nil
+			unsaved_customer.password_confirmation = nil
+			unsaved_customer.email = nil
+		end
+		it 'does not require password or email' do
+			expect(unsaved_customer).to be_valid
+		end
+		it 'requires name and phone' do
+			unsaved_customer.name = nil
+			expect(unsaved_customer).not_to be_valid
+		end
+	end
 	describe "when only resetting password" do
 		before do
 			customer.name = nil

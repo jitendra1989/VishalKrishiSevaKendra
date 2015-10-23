@@ -9,21 +9,22 @@ class Customer < ActiveRecord::Base
 	has_many :online_orders
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-	with_options unless: lambda { |c| c.current_step == 'password_reset'  } do
+	with_options if: lambda { |c| c.admin_customer || (c.current_step != 'password_reset' && c.persisted?) } do
 		[:name, :mobile, :phone, :address, :pincode, :city, :state, :country].each do |n|
-			validates n, presence: true, on: :update
+			validates n, presence: true
 		end
 
-		validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
-		validates :mobile, length: { is: 10 }, on: :update
-		validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }, on: :update
+		validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }, if: lambda { |c| !c.admin_customer || !c.email.blank?  }
+		validates :mobile, length: { is: 10 }
+		validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }
 	end
 
 
-	before_save { self.email.downcase! }
+	before_validation :set_random_password, if: :admin_customer
+	before_save { self.email.downcase! if self.email }
 	before_create :send_activation_email
 
-	attr_accessor :current_step
+	attr_accessor :current_step, :admin_customer
 
 	has_secure_password
 
@@ -78,5 +79,9 @@ class Customer < ActiveRecord::Base
 		def send_activation_email
 			generate_token(:activation_digest)
 			Front::CustomerMailer.welcome(self).deliver_now
+		end
+
+		def set_random_password
+			self.password = (0...8).map { (65 + rand(26)).chr }.join if new_record?
 		end
 end

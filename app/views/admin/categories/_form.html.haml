@@ -1,7 +1,7 @@
-= form_for [:admin, @category], url: form_path, remote: true do |f|
+= form_for [:admin, @category], url: form_path, remote: true, html: { class: 'form-inline' } do |f|
   .form-group
-    = f.label :name
-    = f.text_field :name, required: true
+    = f.label :name, class: 'required'
+    = f.text_field :name, required: true, class: 'form-control'
     = f.hidden_field :parent_id
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"

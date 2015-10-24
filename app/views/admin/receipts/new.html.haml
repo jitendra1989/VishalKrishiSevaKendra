@@ -1,11 +1,11 @@
 .row
   .col-md-12
     %h2 New Receipt
-  .col-md-10.col-md-offset-1
+  .col-md-12
     .quotation-form.main-content
       .h3.text-center Receipt Voucher
       %hr
-      = form_for [:admin, @order, @receipt] do |f|
+      = form_for [:admin, @order, @receipt], html: { class: 'form-inline' } do |f|
         %table.table.table-bordered
           %thead
             %tr
@@ -14,7 +14,7 @@
                 = number_to_currency @order.unpaid_amount
               %th{ width: '33%' }
                 = f.label :code, 'Receipt No'
-                = f.text_field :code
+                = f.text_field :code, class: 'form-control'
               %th{ width: '33%' }
                 %strong Date:
                 = Time.zone.now.strftime '%d-%m-%Y'
@@ -32,7 +32,7 @@
                 = @order.customer.full_address
               %td.text-center
                 %br
-                = f.number_field :amount
+                = f.number_field :amount, class: 'form-control'
             %tr
               %td{ colspan: 3 }
                 = f.label :payment_method

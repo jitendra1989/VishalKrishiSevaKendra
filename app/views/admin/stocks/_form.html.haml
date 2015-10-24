@@ -3,20 +3,20 @@
     %label Current Quantity
     = @product.outlet_stock_quantity(@current_user.outlet)
   .form-group
-    = f.label :new_quantity
-    = f.number_field :new_quantity, required: true
+    = f.label :new_quantity, class: 'required'
+    = f.number_field :new_quantity, required: true, class: 'form-control'
   .form-group
     = f.label :code
-    = f.text_field :code
+    = f.text_field :code, class: 'form-control'
   .form-group
     = f.label :supplier_name
-    = f.text_field :supplier_name
+    = f.text_field :supplier_name, class: 'form-control'
   .form-group
     = f.label :invoice_date
-    = f.text_field :invoice_date, readonly: true, value: @stock.try(:active_from).try(:strftime, "%d-%m-%Y")
+    = f.text_field :invoice_date, readonly: true, value: @stock.try(:active_from).try(:strftime, "%d-%m-%Y"), class: 'form-control'
   .form-group
     = f.label :invoice_number
-    = f.text_field :invoice_number
+    = f.text_field :invoice_number, class: 'form-control'
   .form-group.text-center
     = f.submit 'Submit', class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-default'

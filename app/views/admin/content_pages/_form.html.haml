@@ -1,7 +1,7 @@
 = form_for [:admin, @content_page] do |f|
 	.form-group
-		= f.label :title
-		= f.text_field :title, required: true
+		= f.label :title, class: 'required'
+		= f.text_field :title, required: true, class: 'form-control'
 	.form-group
 		= f.label :image
 		= f.file_field :image
@@ -9,14 +9,14 @@
 		Ideal Dimensions for Image : 990 X 392
 	%br
 	.form-group
-		= f.label :content
-		= f.text_area :content, required: true
+		= f.label :content, class: 'required'
+		= f.text_area :content, required: true, class: 'form-control'
 	.form-group
-		= f.label :menu, 'Show in Menu'
 		= f.check_box :menu
+		= f.label :menu, 'Show in Menu'
 	.form-group
 		= f.label :link_text
-		= f.text_field :link_text
+		= f.text_field :link_text, class: 'form-control'
 	.form-group.text-center
 		= f.submit 'Submit', class: 'btn btn-primary'
 		= link_to 'Cancel', :back, class: 'btn btn-default'

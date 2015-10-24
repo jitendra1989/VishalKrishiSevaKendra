@@ -1,7 +1,7 @@
 = form_for [:admin, @product_type], remote: true do |f|
   .form-group
     = f.label :name
-    = f.text_field :name, required: true
+    = f.text_field :name, required: true, class: 'form-control'
   .form-group
     = f.label :require_workshop
     = f.check_box :require_workshop

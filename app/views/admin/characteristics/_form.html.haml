@@ -1,7 +1,7 @@
 = form_for [:admin, @characteristic] do |f|
   .form-group
-    = f.label :name
-    = f.text_field :name, required: true
+    = f.label :name, class: 'required'
+    = f.text_field :name, required: true, class: 'form-control'
   = render 'images', f: f
   .form-group
     = f.submit 'Submit', class: 'btn btn-primary'

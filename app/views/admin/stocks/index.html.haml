@@ -2,7 +2,7 @@
   .col-md-12
     %h2 Stock details for #{@product.name}
     = image_tag @product.images.first.try(:name).try(:thumbnail).try(:url), class: "img-responsive"
-  .col-md-10.col-md-offset-1
+  .col-md-12
     .profile-box
       .text-right
         = link_to 'New Stock', new_admin_product_stock_path(@product)

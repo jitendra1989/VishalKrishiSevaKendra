@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021192630) do
+ActiveRecord::Schema.define(version: 20151024101021) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -319,8 +319,10 @@ ActiveRecord::Schema.define(version: 20151021192630) do
   create_table "product_type_taxes", force: :cascade do |t|
     t.integer  "product_type_id", limit: 4
     t.integer  "tax_id",          limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "ancestry",        limit: 255
+    t.boolean  "fully_taxable",   limit: 1,   default: true, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   add_index "product_type_taxes", ["product_type_id"], name: "index_product_type_taxes_on_product_type_id", using: :btree

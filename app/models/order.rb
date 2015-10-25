@@ -36,7 +36,7 @@ class Order < ActiveRecord::Base
         cart.items.includes(:product).each do |cart_item|
           self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           self.subtotal += cart_item.product.price * cart_item.quantity
-          self.tax_amount += cart_item.product.tax_amount * cart_item.quantity
+          self.tax_amount += cart_item.product.tax_amount(cart_item.product.price) * cart_item.quantity
           cart_item.product.taxes.each do |tax|
             taxes_on_products[tax.name] ||= 0
             taxes_on_products[tax.name] += (cart_item.product.price * cart_item.quantity) * tax.percentage/100

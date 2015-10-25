@@ -57,7 +57,7 @@ RSpec.describe Order, type: :model do
       it 'sets order taxes amount equal to product taxes times quantity' do
         tax_amount = 0
         order.items.includes(:product).each do |item|
-          tax_amount += (item.quantity * item.product.tax_amount)
+          tax_amount += (item.quantity * item.product.tax_amount(item.product.price))
         end
         expect(order.tax_amount).to eq(tax_amount)
       end

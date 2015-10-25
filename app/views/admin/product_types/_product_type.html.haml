@@ -2,14 +2,16 @@
   .col-md-10
     %strong= product_type.name
   .col-md-2
-    = link_to edit_admin_product_type_path(product_type), remote: true do
+    = link_to edit_admin_product_type_path(product_type) do
       %span.glyphicon.glyphicon-pencil
-- if product_type.taxes.empty?
+- if product_type.product_type_taxes.empty?
   .row
     .col-md-12 No taxes added.
 - else
-  - product_type.taxes.each do |tax|
-    = render 'product_type_tax', tax: tax
+  = arranged_tree_as_list(product_type.product_type_taxes.arrange, list_style: :bootstrap_list_group, ul_class_top: ['product-type-taxes-display']) do |tax|
+    = tax.tax.name
+    = "#{tax.tax.percentage}%"
+    %span.inline-block{ class: (tax.fully_taxable?? 'fully-taxable' : 'partly-taxable') }
 .row
   .col-md-12
     = 'Workshop Required' if product_type.require_workshop?

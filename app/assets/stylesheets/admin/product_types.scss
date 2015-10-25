@@ -5,3 +5,49 @@
 	border: 1px solid #ccc;
 	padding: 10px;
 }
+.product-type-tax .styled-checkboxes{
+	vertical-align: top;
+	position: relative;
+	width: 200px;
+	label{
+		padding: 6px 10px;
+		position: absolute;
+	}
+	input{
+		&+ label{
+			display: none;
+		}
+		&:checked + label{
+			display: block;
+			& + label{
+				display: none;
+			}
+		}
+	}
+}
+.product-type-taxes-list{
+	list-style-type: none;
+	ul{
+		list-style-type: none;
+	}
+}
+.partly-taxable, .fully-taxable{
+	height: 20px;
+	width: 20px;
+	margin-bottom: 10px;
+}
+.partly-taxable{
+	background: #c00;
+}
+.fully-taxable{
+	background: #00c;
+}
+.product_type{
+	.partly-taxable, .fully-taxable{
+		height: 100%;
+		right: 0;
+		position: absolute;
+		top: 0;
+		margin-bottom: 0;
+	}
+}

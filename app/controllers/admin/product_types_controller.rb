@@ -1,6 +1,6 @@
 class Admin::ProductTypesController < Admin::ApplicationController
 	def index
-		@product_types = ProductType.includes(:taxes).all
+		@product_types = ProductType.includes(product_type_taxes: [:tax]).all
 	end
 
 	def edit
@@ -18,6 +18,6 @@ class Admin::ProductTypesController < Admin::ApplicationController
 
 	private
 	  def product_type_params
-	    params.require(:product_type).permit(:name, :require_workshop, tax_ids: [])
+	    params.require(:product_type).permit(:name, :require_workshop, product_type_taxes_attributes: [:id, :parent_id, :tax_id, :fully_taxable, :_destroy])
 	  end
 end

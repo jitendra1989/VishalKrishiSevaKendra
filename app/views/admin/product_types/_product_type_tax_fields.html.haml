@@ -1,0 +1,17 @@
+%li.nested-fields.form-inline.product-type-tax
+  - if f.object.id
+    = ('&#8627;' * f.object.ancestor_ids.size).html_safe
+  .form-group
+    = f.select :tax_id, Tax.pluck(:name, :id), { prompt: 'Select Tax' }, class: 'form-control'
+    = f.hidden_field :parent_id, class: 'tax-parent-id'
+  .form-group.styled-checkboxes
+    = f.check_box :fully_taxable
+    = f.label :fully_taxable, 'Apply to whole amount'
+    = f.label :fully_taxable, 'Apply to parent only'
+  .form-group
+    - if f.object.id
+      %a.btn.btn-default.sub-tax-adder{ 'data-association-insertion-node' => "#sub_tax_#{f.object.id}" } Add Sub Tax
+    = link_to_remove_association f, class: 'delete-link btn btn-default' do
+      %span.glyphicon.glyphicon-remove
+  - if f.object.id
+    %ul.children{ id: "sub_tax_#{f.object.id}", 'data-parent' => "#{f.object.id}" }

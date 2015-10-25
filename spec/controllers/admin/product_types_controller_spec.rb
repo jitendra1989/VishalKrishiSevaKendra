@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::ProductTypesController, type: :controller do
   let(:user) { FactoryGirl.create(:super_admin) }
+  let(:tax) { FactoryGirl.create(:tax) }
   let(:product_type) { FactoryGirl.create(:product_type) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:product_type) }
 
@@ -31,6 +32,7 @@ RSpec.describe Admin::ProductTypesController, type: :controller do
     end
 
     describe "PUT #update" do
+    before { product_type } # initialize
       context "with valid params" do
         it "assigns the requested product_type as @product_type" do
           put :update, id: product_type.id, product_type: valid_attributes
@@ -48,9 +50,8 @@ RSpec.describe Admin::ProductTypesController, type: :controller do
         end
 
         it "creates a new ProductTypeTax" do
-          FactoryGirl.create(:tax)
           expect {
-            put :update, id: product_type.id, product_type: valid_attributes.merge(tax_ids: [Tax.last.id])
+            put :update, id: product_type.id, product_type: valid_attributes.merge(product_type_taxes_attributes: [FactoryGirl.attributes_for(:product_type_tax).merge(tax_id: tax.id)] )
             }.to change(ProductTypeTax, :count).by(1)
         end
       end

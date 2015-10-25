@@ -9,3 +9,13 @@
           .col-md-4
             = content_tag_for(:div, product_type) do
               = render 'product_type', product_type: product_type
+      .row
+        .col-md-12
+          %strong Legend
+          %br
+          .partly-taxable.inline-block
+          .inline-block Partly Taxable
+          %br
+          .fully-taxable.inline-block
+          .inline-block Fully Taxable
+

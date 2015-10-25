@@ -1,15 +1,17 @@
-= form_for [:admin, @product_type], remote: true do |f|
+= form_for [:admin, @product_type] do |f|
   .form-group
     = f.label :name
     = f.text_field :name, required: true, class: 'form-control'
   .form-group
     = f.label :require_workshop
     = f.check_box :require_workshop
-  = f.collection_check_boxes(:tax_ids, Tax.all, :id, :name) do |tax|
-    .form-group
-      = tax.check_box
-      = tax.label
-      = tax.object.percentage
+  %ul.product-type-taxes-list#taxes-list
+    = f.fields_for :product_type_taxes do |product_type_tax|
+      = render 'product_type_tax_fields', f: product_type_tax
+  .links
+    = link_to_add_association 'Add Tax', f, :product_type_taxes, class: 'btn btn-default', 'data-association-insertion-node' => '#taxes-list', 'data-association-insertion-method' => 'append'
+    = link_to_add_association 'Add Tax', f, :product_type_taxes, class: 'btn btn-default hidden tax-adder', 'data-association-insertion-method' => 'append'
+    %br
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

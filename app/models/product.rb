@@ -62,16 +62,16 @@ class Product < ActiveRecord::Base
 		self.stocks.where(outlet: outlet).last.try(:quantity) || 0
 	end
 
-	def tax_amount
-		self.price * taxes_on_product
+	def tax_amount(taxable_amount)
+		tax_calculator(self.product_type.product_type_taxes.includes(:tax).arrange, taxable_amount, 0)
 	end
 
 	def price_with_taxes
-		self.price + tax_amount
+		self.price + tax_amount(self.price)
 	end
 
 	def sale_price_with_taxes
-		self.sale_price + (self.sale_price * taxes_on_product)
+		self.sale_price + tax_amount(self.sale_price)
 	end
 
 	def online_tax_amount
@@ -122,11 +122,20 @@ class Product < ActiveRecord::Base
 	end
 
 	private
-		def taxes_on_product
-			ProductType.find(self.product_type_id).taxes.pluck(:percentage).sum/100
-		end
-
 		def online_taxes_on_product
 			OnlineTax.pluck(:percentage).sum/100
+		end
+
+		def tax_calculator(hash, parent_amount = 0, tax_amount = 0, amount = 0)
+			hash.each do |tax, children|
+				if tax.fully_taxable? || tax.root?
+					level_amount = (parent_amount + tax_amount) * tax.tax.percentage/100
+				else
+					level_amount = tax_amount * tax.tax.percentage/100
+				end
+				amount = tax_calculator(children, parent_amount, level_amount) unless children.empty?
+				amount += level_amount
+			end
+			amount
 		end
 end

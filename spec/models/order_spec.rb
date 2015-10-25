@@ -6,6 +6,7 @@ RSpec.describe Order, type: :model do
   let(:cart) { FactoryGirl.create(:cart, outlet: stock.outlet) }
 
   before do
+    stock.product.product_type.taxes << FactoryGirl.create(:tax)
     order.cart_id = cart.id
     cart.add_item(stock.product.id, stock.quantity)
   end
@@ -103,7 +104,7 @@ RSpec.describe Order, type: :model do
     it 'creates order tax entries' do
       expect{
         order.save!
-      }.to change(OrderTax, :count).by(2) # 2 Taxes are added while creating factory
+      }.to change(OrderTax, :count).by(1)
     end
   end
 end

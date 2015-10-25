@@ -1,8 +1,11 @@
 FactoryGirl.define do
-  factory :product_type_tax do
+  factory :product_type_tax, aliases: [:root_product_type_tax] do
     product_type
     tax
-    fully_taxable { [true, false].sample }
+    factory :child_product_type_tax do
+      fully_taxable { [true, false].sample }
+      association :parent, factory: :root_product_type_tax
+    end
   end
 
 end

@@ -84,7 +84,9 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index]
     resources :product_types, path: 'product-types', only: [:index, :edit, :update]
     resources :taxes, except: [:show]
-    resources :online_taxes, path: 'online-taxes', except: [:show]
+    resources :online_taxes, path: 'online-taxes', except: [:show], shallow: true do
+         resources :online_taxes, only: [:new, :create]
+       end
     resources :products, except: [:edit], shallow: true do
       member do
         get 'edit(/:step)' => 'products#edit', as: :edit

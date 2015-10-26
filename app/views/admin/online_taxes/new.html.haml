@@ -1,8 +1,11 @@
 .row
 	.col-md-12
-		%h2 Create Online Tax
-	.col-md-12
+		- if @online_tax.parent
+			%h2= "Create Online Tax on #{@online_tax.parent.name}"
+		- else
+			%h2 Create Base Online Tax
+	.col-md-6.col-md-offset-3
 		.profile-box
 			.text-right
 				=link_to 'View Online Taxes', admin_online_taxes_path
-			= render 'form'
+			= render 'form', form_path: @online_tax.root?? admin_online_taxes_path : admin_online_tax_online_taxes_path(@online_tax.parent)

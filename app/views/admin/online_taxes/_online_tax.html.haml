@@ -1,0 +1,15 @@
+%tr
+  %td
+    %span.child-arrow= ('&#8627;' * online_tax.ancestors.count).html_safe
+    = online_tax.name
+  %td= "#{online_tax.percentage}%"
+  %td.actions.text-center
+    = link_to new_admin_online_tax_online_tax_path(online_tax) do
+      %span.glyphicon.glyphicon-plus
+    = link_to edit_admin_online_tax_path(online_tax) do
+      %span.glyphicon.glyphicon-pencil
+    = link_to admin_online_tax_path(online_tax), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+      %span.glyphicon.glyphicon-remove
+- if online_tax.children.size
+  - online_tax.children.each do |sub_online_tax|
+    = render 'online_tax', online_tax: sub_online_tax

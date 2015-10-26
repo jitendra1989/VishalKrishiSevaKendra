@@ -1,4 +1,4 @@
-= form_for [:admin, @online_tax] do |f|
+= form_for [:admin, @online_tax], url: form_path do |f|
   .form-group
     = f.label :name, class: 'required'
     = f.text_field :name, required: true, class: 'form-control'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024101021) do
+ActiveRecord::Schema.define(version: 20151026080955) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -207,9 +207,12 @@ ActiveRecord::Schema.define(version: 20151024101021) do
   create_table "online_taxes", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.float    "percentage", limit: 24,  default: 0.0, null: false
+    t.string   "ancestry",   limit: 255
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
+
+  add_index "online_taxes", ["ancestry"], name: "index_online_taxes_on_ancestry", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id",   limit: 4

@@ -14,6 +14,13 @@ RSpec.describe Admin::OnlineTaxesController, type: :controller do
       get :new
       expect(assigns(:online_tax)).to be_a_new(OnlineTax)
     end
+    describe 'new child tax' do
+      it "returns http success" do
+        get :new, online_tax_id: online_tax.id
+        expect(assigns(:online_tax)).to be_a_new(OnlineTax)
+        expect(assigns(:online_tax).parent).to eq(online_tax)
+      end
+   end
   end
 
   describe "GET #edit" do
@@ -24,9 +31,9 @@ RSpec.describe Admin::OnlineTaxesController, type: :controller do
   end
 
   describe "GET #index" do
-    it "assigns all online_taxes as @online_taxes" do
+    it "assigns all root online_taxes as @online_taxes" do
       get :index
-      expect(assigns(:online_taxes)).to eq(OnlineTax.all)
+      expect(assigns(:online_taxes)).to eq(OnlineTax.roots)
     end
   end
 
@@ -62,6 +69,22 @@ RSpec.describe Admin::OnlineTaxesController, type: :controller do
       end
     end
   end
+
+  describe 'POST #create child online_tax' do
+      before do
+        online_tax.reload
+      end
+      it "creates a new OnlineTax" do
+        expect {
+          post :create, online_tax_id: online_tax.id, online_tax: valid_attributes
+        }.to change(OnlineTax, :count).by(1)
+      end
+
+      it "assigns a newly created online_tax as @online_tax" do
+        post :create, online_tax_id: online_tax.id, online_tax: valid_attributes
+          expect(assigns(:online_tax).parent).to eq(online_tax)
+      end
+    end
 
   describe "PUT #update" do
     context "with valid params" do

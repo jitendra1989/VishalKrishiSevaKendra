@@ -63,9 +63,10 @@ class OnlineOrderInvoicePdf < Prawn::Document
 			row(0).borders = [:left, :bottom, :right]
 			row(-1).font_style = :bold
 			row(-1).borders = [:top, :left, :bottom, :right]
-			tax_row = order.items.size+2
-			row(tax_row).height = 180
-			row(tax_row).align = :right
+			tax_row_from = order.items.size + 2
+			tax_row_to = tax_row_from + order.taxes.size - 1
+			row(tax_row_from..tax_row_to).align = :right
+			row(tax_row_to).height = 180
 			row(-1).align = :right
 			columns(0).width = 240
 			self.header = true
@@ -87,11 +88,8 @@ class OnlineOrderInvoicePdf < Prawn::Document
 	def tax_rows(order)
 		taxes = []
 		order.taxes.each do |tax|
-			taxes << [tax.name,"#{tax_percent(order)}%", '', '', @view.number_to_currency(tax.amount)]
+			taxes << [tax.name,"#{tax.percentage}%", '', '', @view.number_to_currency(tax.amount)]
 		end
 		taxes
-	end
-	def tax_percent(order)
-		((order.total- order.subtotal) * 100 / order.subtotal).round(2)
 	end
 end

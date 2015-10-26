@@ -43,11 +43,7 @@ class OnlineOrder < ActiveRecord::Base
             end
           end
         end
-        OnlineTax.pluck(:name, :percentage).each do |tax|
-          amount = self.subtotal * tax[1]/100
-          self.taxes.create(name: tax[0], amount: amount)
-          self.tax_amount += amount
-        end
+        online_tax_calculator(OnlineTax.all.arrange, self.subtotal, 0)
         save!
         online_cart.items.each(&:delete)
         online_cart.destroy!
@@ -71,6 +67,19 @@ class OnlineOrder < ActiveRecord::Base
           stock.in_carts -= stock.online_carts[self.online_cart_id.to_s]
           stock.online_carts.delete(self.online_cart_id.to_s)
           stock.save!
+        end
+      end
+
+      def online_tax_calculator(hash, parent_amount = 0, taxable_amount = 0)
+        hash.each do |tax, children|
+          if tax.fully_taxable? || tax.root?
+            level_amount = (parent_amount + taxable_amount) * tax.percentage/100
+          else
+            level_amount = taxable_amount * tax.percentage/100
+          end
+          self.taxes.create(name: tax.name, percentage: tax.percentage, amount: level_amount)
+          self.tax_amount += level_amount
+          online_tax_calculator(children, parent_amount, level_amount) unless children.empty?
         end
       end
 end

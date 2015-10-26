@@ -41,6 +41,20 @@ RSpec.describe Admin::InvoicesController, type: :controller do
       end
     end
 
+    describe "GET #gatepass" do
+      it "assigns the requested invoice as @invoice" do
+        get :gatepass, id: invoice.id, format: :pdf
+        expect(assigns(:invoice)).to eq(invoice)
+      end
+    end
+
+    describe "GET #dc" do
+      it "assigns the requested invoice as @invoice" do
+        get :dc, id: invoice.id, format: :pdf
+        expect(assigns(:invoice)).to eq(invoice)
+      end
+    end
+
     describe "POST #create" do
       let(:order) { FactoryGirl.create(:order, customer: customer) }
       context "with valid params" do

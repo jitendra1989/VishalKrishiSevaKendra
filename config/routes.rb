@@ -81,7 +81,12 @@ Rails.application.routes.draw do
       resources :quotations, only: [:new, :create, :show]
       resources :invoices, only: [:new, :create, :show]
     end
-    resources :invoices, only: [:index]
+    resources :invoices, only: [:index] do
+      member do
+        get 'gatepass'
+        get 'dc'
+      end
+    end
     resources :product_types, path: 'product-types', only: [:index, :edit, :update]
     resources :taxes, except: [:show]
     resources :online_taxes, path: 'online-taxes', except: [:show], shallow: true do

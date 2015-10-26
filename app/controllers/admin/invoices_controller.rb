@@ -19,6 +19,18 @@ class Admin::InvoicesController < Admin::ApplicationController
     end
   end
 
+  def gatepass
+    @invoice = Invoice.find(params[:id])
+    pdf = GatePassPdf.new(@invoice, view_context)
+    send_data pdf.render, filename: "gatepass_#{@invoice.id}.pdf", disposition: "inline"
+  end
+
+  def dc
+    @invoice = Invoice.find(params[:id])
+    pdf = DcPdf.new(@invoice, view_context)
+    send_data pdf.render, filename: "dc_#{@invoice.id}.pdf", disposition: "inline"
+  end
+
   def create
     @customer = Customer.find(params[:customer_id])
     @invoice = @customer.invoices.build(invoice_params)

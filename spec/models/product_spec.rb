@@ -97,17 +97,34 @@ RSpec.describe Product, type: :model do
 			expect(product.sale_price_with_taxes).to eq(product.sale_price + product.tax_amount(product.sale_price))
 		end
 		context 'online taxes' do
-			it 'returns the the applicable online taxes for the product' do
-				taxes = product.price * OnlineTax.pluck(:percentage).sum/100
-				expect(product.online_tax_amount).to eq(taxes)
+
+			before do
+				parent_tax = FactoryGirl.create(:online_tax)
+				FactoryGirl.create(:sub_online_tax, parent: parent_tax)
+				FactoryGirl.create(:partial_sub_online_tax, parent: parent_tax)
+				product.save!
 			end
+			it 'returns the the applicable online taxes for the product' do
+				amount = 0
+				OnlineTax.all.arrange.each do |tax, children|
+					tax_amount = product.price * tax.percentage/100
+					amount += tax_amount
+					children.each do |child_tax, sub_children|
+						if child_tax.fully_taxable?
+							amount += (product.price + tax_amount) * child_tax.percentage/100
+						else
+							amount += tax_amount * child_tax.percentage/100
+						end
+					end
+				end
+				expect(product.online_tax_amount(product.price)).to eq(amount)
+			end
+
 			it 'returns the price plus the applicable online taxes for the product' do
-				taxes = product.price * OnlineTax.pluck(:percentage).sum/100
-				expect(product.price_with_online_taxes).to eq(product.price + taxes)
+				expect(product.price_with_online_taxes).to eq(product.price + product.online_tax_amount(product.price))
 			end
 			it 'returns the sale price plus the applicable online taxes for the product' do
-				taxes = product.sale_price * OnlineTax.pluck(:percentage).sum/100
-				expect(product.sale_price_with_online_taxes).to eq(product.sale_price + taxes)
+				expect(product.sale_price_with_online_taxes).to eq(product.sale_price + product.online_tax_amount(product.sale_price))
 			end
 		end
 	end

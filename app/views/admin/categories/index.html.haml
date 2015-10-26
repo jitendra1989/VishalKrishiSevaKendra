@@ -6,6 +6,6 @@
       .text-right
         =link_to 'New Root Category', new_admin_category_path, remote: true
       %br
-      %ul.categories
-        - @categories.each do |category|
-          = render 'category', category: category
+      .parent-category
+        = arranged_tree_as_list(@categories, list_style: :bootstrap_list_group, ul_class_top: ['categories']) do |category|
+          = render category

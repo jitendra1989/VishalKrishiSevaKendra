@@ -12,7 +12,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
   describe "GET #index" do
     it "assigns all categories as @categories" do
       get :index
-      expect(assigns(:categories)).to eq(Category.roots)
+      expect(assigns(:categories)).to eq(Category.all.arrange)
     end
   end
 

@@ -1,6 +1,5 @@
-$('.new_category').remove();
 <% if @category.root? %>
-	$('.categories').append('<%= j (render 'category', category: @category ) %>');
+	$('.parent-category > ul .list-group-item:last-child').html('<%= j (render @category ) %>');
 <% else %>
-	$('#category_<%= @category.parent.id %> > ul').append('<%= j (render 'category', category: @category ) %>');
+	$('.new_category').html('<%= j (render 'category', category: @category ) %>').removeClass('new_category');
 <% end %>

@@ -1,6 +1,6 @@
 <% if @category.root? %>
-	$('.categories').append('<%= j (render 'form', form_path: admin_categories_path) %>');
+	$('.parent-category > ul').append('<li class="list-group-item"><%= j (render 'form', form_path: admin_categories_path) %></li>');
 <% else %>
-	$('#category_<%= @category.parent.id %> > ul').append('<li class="new_category"><%= j (render 'form', form_path: admin_category_categories_path(@category.parent.id) ) %></li>');
+	$('#category_<%= @category.parent.id %> + ul').append('<li class="new_category list-group-item"><%= j (render 'form', form_path: admin_category_categories_path(@category.parent.id) ) %></li>');
 <% end %>
 $('#category_name').focus();

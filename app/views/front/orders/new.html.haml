@@ -83,7 +83,7 @@
 			= hidden_field_tag 'mode', mode
 			.form-group
 				= label_tag 'payment_option', 'Pay Using'
-				= select_tag 'payment_option', options_for_select([['Credit Card', 'Credit'], ['Debit Card', 'Debit'], ['Net Banking', 'Net Banking'], ['EMI', 'EMI']], 'Net Banking')
+				= select_tag 'payment_option', options_for_select([['Credit Card', 'Credit'], ['Debit Card', 'Debit'], ['Net Banking', 'Net Banking'], ['EMI', 'EMI']], 'Net Banking'), class: 'form-control'
 				= hidden_field_tag 'payment_option', '1001' if mode == 'TEST'
 			= hidden_field_tag 'return_url', return_url
 			= hidden_field_tag 'secure_hash', secure_hash

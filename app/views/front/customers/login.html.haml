@@ -7,11 +7,11 @@
 			= form_for @customer, url: login_front_customer_path, method: :post do |f|
 				%fieldset
 					.form-group
-						= f.label :email
-						= f.email_field :email, required: true
+						= f.label :email, class: 'required'
+						= f.email_field :email, required: true, class: 'form-control'
 					.form-group
-						= f.label :password
-						= f.password_field :password, required: true
+						= f.label :password, class: 'required'
+						= f.password_field :password, required: true, class: 'form-control'
 					.form-group
 						= link_to 'Forgot Password?', forgot_password_front_customer_path, class: 'pull-left'
 						= f.submit 'Log in', class: 'btn btn-default pull-right'
@@ -24,13 +24,13 @@
 				= form_for @customer, url: front_customer_path do |f|
 					%fieldset
 						.form-group
-							= f.label :email
-							= f.email_field :email, required: true
+							= f.label :email, class: 'required'
+							= f.email_field :email, required: true, class: 'form-control'
 						.form-group
-							= f.label :password
-							= f.password_field :password, required: true
+							= f.label :password, class: 'required'
+							= f.password_field :password, required: true, class: 'form-control'
 						.form-group
-							= f.label :password_confirmation
-							= f.password_field :password_confirmation, required: true
+							= f.label :password_confirmation, class: 'required'
+							= f.password_field :password_confirmation, required: true, class: 'form-control'
 						.form-group
 							= f.submit 'Create Account', class: 'btn btn-default pull-right'

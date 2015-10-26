@@ -7,41 +7,41 @@
 			= form_for [:front, @current_customer], url: front_customer_path do |f|
 				.form-group
 					= f.label :name, class: 'required'
-					= f.text_field :name, required: true
+					= f.text_field :name, required: true, class: 'form-control'
 				.form-group
 					= f.label :phone, class: 'required'
-					= f.text_field :phone, required: true
+					= f.text_field :phone, required: true, class: 'form-control'
 				.form-group
 					= f.label :mobile, class: 'required'
-					= f.text_field :mobile, required: true, maxlength: 10
+					= f.text_field :mobile, required: true, maxlength: 10, class: 'form-control'
 				.form-group
 					= f.label :email, class: 'required'
-					= f.email_field :email, required: true
+					= f.email_field :email, required: true, class: 'form-control'
 				.form-group
 					= f.label :address, class: 'required'
-					= f.text_field :address, required: true
+					= f.text_field :address, required: true, class: 'form-control'
 				.form-group
 					= f.label :pincode, class: 'required'
-					= f.text_field :pincode, required: true, maxlength: 10
+					= f.text_field :pincode, required: true, maxlength: 10, class: 'form-control'
 				.form-group
 					= f.label :city, class: 'required'
-					= f.text_field :city, required: true
+					= f.text_field :city, required: true, class: 'form-control'
 				.form-group
 					= f.label :state, class: 'required'
-					= f.text_field :state, required: true
+					= f.text_field :state, required: true, class: 'form-control'
 				.form-group
 					= f.label :country, class: 'required'
-					= f.text_field :country, required: true
+					= f.text_field :country, required: true, class: 'form-control'
 				.form-group
 					= f.label :company_name
-					= f.text_field :company_name
+					= f.text_field :company_name, class: 'form-control'
 				.form-group
 					= f.label :company_address
-					= f.text_field :company_address
+					= f.text_field :company_address, class: 'form-control'
 				.form-group
 					= f.label :company_phone
-					= f.text_field :company_phone
+					= f.text_field :company_phone, class: 'form-control'
 				.form-group
 					%button.btn.btn-default.password-reset-button{ type: 'button', 'data-toggle' => 'modal', 'data-target' => '.password-reset-modal' } Reset Password
-					= f.button 'Save', name: :next, value: :save, class: 'btn btn-primary'
+					= f.button 'Save', name: :next, value: :save, class: 'btn btn-primary pull-right'
 		= render 'password_reset_modal'

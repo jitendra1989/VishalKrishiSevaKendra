@@ -3,6 +3,11 @@
     %span.child-arrow= ('&#8627;' * online_tax.ancestors.count).html_safe
     = online_tax.name
   %td= "#{online_tax.percentage}%"
+  %td
+    - if online_tax.root?
+      Base Price
+    - else
+      = online_tax.fully_taxable?? 'Full Amount' : 'Parent Tax Amount Only'
   %td.actions.text-center
     = link_to new_admin_online_tax_online_tax_path(online_tax) do
       %span.glyphicon.glyphicon-plus

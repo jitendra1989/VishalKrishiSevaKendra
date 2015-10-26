@@ -5,6 +5,9 @@
   .form-group
     = f.label :percentage, class: 'required'
     = f.number_field :percentage, required: true, step: :any, class: 'form-control'
+  .form-group
+    = f.label :fully_taxable, 'Apply Tax To Whole Amount'
+    = f.check_box :fully_taxable
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

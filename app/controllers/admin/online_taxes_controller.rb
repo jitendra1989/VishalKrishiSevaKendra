@@ -36,6 +36,6 @@ class Admin::OnlineTaxesController < Admin::ApplicationController
 
   private
     def online_tax_params
-      params.require(:online_tax).permit(:name, :percentage)
+      params.require(:online_tax).permit(:name, :percentage, :fully_taxable)
     end
 end

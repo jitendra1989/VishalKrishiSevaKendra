@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026190857) do
+ActiveRecord::Schema.define(version: 20151027195423) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -496,6 +496,7 @@ ActiveRecord::Schema.define(version: 20151026190857) do
     t.string   "country",                limit: 255
     t.integer  "outlet_id",              limit: 4
     t.boolean  "active",                 limit: 1,   default: false, null: false
+    t.integer  "flags",                  limit: 4,   default: 0,     null: false
     t.string   "password_reset_token",   limit: 255
     t.datetime "password_reset_sent_at"
     t.datetime "created_at",                                         null: false

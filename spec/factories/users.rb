@@ -16,13 +16,14 @@ FactoryGirl.define do
 			active true
 		end
 		factory :super_admin do
+			after(:create) do |user|
+				user.permissions << FactoryGirl.create(:permission, name: :all, action: :manage)
+			end
 		end
 		factory :admin do
 		end
-		factory :sales_executive do
-		end
-		after(:create) do |user|
-		  user.permissions << FactoryGirl.create(:permission, name: :all, action: :manage)
+		factory :user_developer do
+			developer true
 		end
 	end
 end

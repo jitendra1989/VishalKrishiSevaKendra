@@ -35,6 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'haml-rails'
 gem 'cancancan', '~> 1.10'
+gem 'flag_shih_tzu'
 gem 'ancestry'
 gem 'carrierwave'
 gem 'mini_magick'

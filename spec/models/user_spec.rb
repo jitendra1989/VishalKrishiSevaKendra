@@ -4,7 +4,6 @@ RSpec.describe User, type: :model do
 	let(:user) { FactoryGirl.build(:user) }
 	let(:super_admin) { FactoryGirl.create(:super_admin) }
 	let(:admin) { FactoryGirl.create(:admin) }
-	let(:sales_executive) { FactoryGirl.create(:sales_executive) }
 	let(:production_manager) { FactoryGirl.create(:production_manager) }
 	it { expect(user).to be_valid }
 	it { expect(user).to respond_to(:outlet) }
@@ -16,6 +15,7 @@ RSpec.describe User, type: :model do
 	it { expect(user).to respond_to(:carts) }
 	it { expect(user).to respond_to(:orders) }
 	it { expect(user).to respond_to(:receipts) }
+	it { expect(user).to respond_to(:store_boss, :main_boss, :developer) }
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

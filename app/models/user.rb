@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+	include FlagShihTzu
+
+	has_flags 1 => :store_boss,
+						2 => :main_boss,
+						3 => :developer
+
 	belongs_to :outlet
 	has_many :carts
 	has_many :quotations

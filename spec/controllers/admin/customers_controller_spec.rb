@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::CustomersController, type: :controller do
-	let(:user) { FactoryGirl.create(:admin) }
+	let(:user) { FactoryGirl.create(:super_admin) }
 	let(:customer) { FactoryGirl.create(:customer) }
 	let(:valid_attributes) { FactoryGirl.attributes_for(:customer) }
 	let(:invalid_attributes) { FactoryGirl.attributes_for(:customer, name: nil ) }

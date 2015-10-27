@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::QuotationsController, type: :controller do
-	let(:user) { FactoryGirl.create(:sales_executive) }
+	let(:user) { FactoryGirl.create(:super_admin) }
 	let(:quotation) { FactoryGirl.create(:quotation) }
 	let(:customer) { FactoryGirl.create(:customer) }
 	let(:valid_attributes) { FactoryGirl.attributes_for(:quotation) }

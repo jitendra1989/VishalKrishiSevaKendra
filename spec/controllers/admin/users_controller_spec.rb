@@ -202,17 +202,4 @@ RSpec.describe Admin::UsersController, type: :controller do
 			end
 		end
 	end
-
-	describe 'Logged in actions for admin' do
-		let(:admin) { FactoryGirl.create(:admin) }
-		before do
-			log_in admin
-		end
-		describe "GET #index" do
-			it "assigns all outlet users as @users" do
-				get :index
-				expect(assigns(:users)).to eq(admin.outlet.users )
-			end
-		end
-	end
 end

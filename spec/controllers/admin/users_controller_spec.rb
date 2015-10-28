@@ -185,7 +185,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 		describe "GET #index" do
 			it "assigns all admin users as @users" do
 				get :index
-				expect(assigns(:users)).to eq(User.all)
+				expect(assigns(:users)).to eq(User.all.page)
 			end
 		end
 

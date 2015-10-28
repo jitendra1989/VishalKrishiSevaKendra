@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "admin/users/index", type: :view do
 
-  let(:users) { User.all }
+  let(:users) { User.all.page }
 
   it "renders attributes in <p>" do
     assign(:users, users)

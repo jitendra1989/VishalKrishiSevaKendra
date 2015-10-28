@@ -26,7 +26,7 @@ RSpec.describe Admin::TaxesController, type: :controller do
   describe "GET #index" do
     it "assigns all taxes as @taxes" do
       get :index
-      expect(assigns(:taxes)).to eq(Tax.all)
+      expect(assigns(:taxes)).to eq(Tax.all.page)
     end
   end
 

@@ -9,7 +9,7 @@ class Admin::TaxesController < Admin::ApplicationController
   end
 
   def index
-    @taxes = Tax.all
+    @taxes = Tax.all.page(params[:page])
   end
 
   def create

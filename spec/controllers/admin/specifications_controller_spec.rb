@@ -12,7 +12,7 @@ RSpec.describe Admin::SpecificationsController, type: :controller do
   describe "GET #index" do
     it "assigns all specifications as @specifications" do
       get :index
-      expect(assigns(:specifications)).to eq(Specification.all)
+      expect(assigns(:specifications)).to eq(Specification.all.page)
     end
   end
 

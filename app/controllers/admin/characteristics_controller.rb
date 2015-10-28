@@ -2,6 +2,7 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
+		@characteristics = Characteristic.all.page(params[:page])
 	end
 
 	def new

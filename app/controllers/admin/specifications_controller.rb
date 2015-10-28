@@ -2,6 +2,7 @@ class Admin::SpecificationsController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
+		@specifications = Specification.all.page(params[:page])
 	end
 
 	def new

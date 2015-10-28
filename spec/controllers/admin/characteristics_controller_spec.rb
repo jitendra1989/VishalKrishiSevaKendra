@@ -12,7 +12,7 @@ RSpec.describe Admin::CharacteristicsController, type: :controller do
   describe "GET #index" do
     it "assigns all characteristics as @characteristics" do
       get :index
-      expect(assigns(:characteristics)).to eq(Characteristic.all)
+      expect(assigns(:characteristics)).to eq(Characteristic.all.page)
     end
   end
 

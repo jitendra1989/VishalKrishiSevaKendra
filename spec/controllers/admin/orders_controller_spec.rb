@@ -19,7 +19,7 @@ RSpec.describe Admin::OrdersController, type: :controller do
     describe "GET #index" do
       it "assigns all store orders as @orders" do
         get :index
-        expect(assigns(:orders)).to eq(Order.where(outlet: user.outlet))
+        expect(assigns(:orders)).to eq(Order.where(outlet: user.outlet).page)
       end
     end
 

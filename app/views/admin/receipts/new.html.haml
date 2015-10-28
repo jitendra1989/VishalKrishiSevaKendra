@@ -27,9 +27,9 @@
                 Received with thanks from :
                 %br
                 %br
-                %strong= @order.customer.name
+                %strong= @order.customer.try(:name)
                 %br
-                = @order.customer.full_address
+                = @order.customer.try(:full_address)
               %td.text-center
                 %br
                 = f.number_field :amount, class: 'form-control'

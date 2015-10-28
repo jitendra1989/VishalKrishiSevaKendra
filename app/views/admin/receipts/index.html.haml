@@ -3,25 +3,31 @@
 		%h2 Receipts
 	.col-md-12
 		.profile-box
-			%br
-			%table
-				%tr
-					%th Order No
-					%th Receipt No
-					%th Receipt Date
-					%th Cheque No
-					%th Amount
-					%th Payment Mode
-					%th.text-center Actions
-				- @receipts.each do |receipt|
-					%tr
-						%td= receipt.order.try(:id)
-						%td= receipt.id
-						%td= receipt.created_at.strftime '%d-%m-%Y'
-						%td= receipt.cheque_number
-						%td= receipt.amount
-						%td= Receipt::PAYMENT_METHODS[receipt.payment_method]
-						%td.actions.text-center
-							= link_to admin_receipt_path(receipt, format: :pdf), target: :_blank do
-								%span.glyphicon.glyphicon-print
+			.row
+				.col-md-12= paginate @receipts
+			.row
+				.col-md-12
+					%br
+					%table
+						%tr
+							%th Order No
+							%th Receipt No
+							%th Receipt Date
+							%th Cheque No
+							%th Amount
+							%th Payment Mode
+							%th.text-center Actions
+						- @receipts.each do |receipt|
+							%tr
+								%td= receipt.order.try(:id)
+								%td= receipt.id
+								%td= receipt.created_at.strftime '%d-%m-%Y'
+								%td= receipt.cheque_number
+								%td= receipt.amount
+								%td= Receipt::PAYMENT_METHODS[receipt.payment_method]
+								%td.actions.text-center
+									= link_to admin_receipt_path(receipt, format: :pdf), target: :_blank do
+										%span.glyphicon.glyphicon-print
+			.row
+				.col-md-12= paginate @receipts
 

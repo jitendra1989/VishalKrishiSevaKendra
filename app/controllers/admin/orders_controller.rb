@@ -2,7 +2,7 @@ class Admin::OrdersController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
-		@orders = Order.includes(:customer).where(outlet: current_user.outlet)
+		@orders = Order.includes(:customer).where(outlet: current_user.outlet).page(params[:page])
 	end
 
 	def create

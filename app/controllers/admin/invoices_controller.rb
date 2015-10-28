@@ -1,6 +1,6 @@
 class Admin::InvoicesController < Admin::ApplicationController
   def index
-    @invoices = Invoice.includes(:customer).all
+    @invoices = Invoice.includes(:customer).all.page(params[:page])
   end
 
   def new

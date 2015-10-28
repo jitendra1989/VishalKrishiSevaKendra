@@ -37,12 +37,12 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
     describe "GET #index" do
       it "assigns all order receipts as @receipts" do
         get :index
-        expect(assigns(:receipts)).to eq(Receipt.all)
+        expect(assigns(:receipts)).to eq(Receipt.all.page)
       end
       it "assigns all order receipts as @receipts" do
         get :index, order_id: order.id
         expect(assigns(:order)).to eq(order)
-        expect(assigns(:receipts)).to eq(order.receipts)
+        expect(assigns(:receipts)).to eq(order.receipts.page)
       end
     end
 

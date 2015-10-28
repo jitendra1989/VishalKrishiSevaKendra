@@ -3,26 +3,32 @@
 		%h2 Orders
 	.col-md-12
 		.profile-box
-			%br
-			%table
-				%tr
-					%th Order No
-					%th Order Date
-					%th Order Time
-					%th Customer
-					%th Contact No
-					%th Receipts
-					%th.text-center Actions
-				- @orders.each do |order|
-					%tr
-						%td= order.id
-						%td= order.created_at.strftime '%d-%m-%Y'
-						%td= order.created_at.strftime '%H:%M'
-						%td= order.customer.name
-						%td= order.customer.mobile
-						%td= link_to order.receipts.size, admin_order_receipts_path(order)
-						%td.actions.text-center
-							= link_to 'View', admin_order_path(order)
-							= link_to 'New Receipt', new_admin_order_receipt_path(order)
-							= link_to admin_order_path(order, format: :pdf), target: :_blank do
-								%span.glyphicon.glyphicon-print
+			.row
+				.col-md-12= paginate @orders
+			.row
+				.col-md-12
+					%br
+					%table
+						%tr
+							%th Order No
+							%th Order Date
+							%th Order Time
+							%th Customer
+							%th Contact No
+							%th Receipts
+							%th.text-center Actions
+						- @orders.each do |order|
+							%tr
+								%td= order.id
+								%td= order.created_at.strftime '%d-%m-%Y'
+								%td= order.created_at.strftime '%H:%M'
+								%td= order.customer.try(:name)
+								%td= order.customer.try(:mobile)
+								%td= link_to order.receipts.size, admin_order_receipts_path(order)
+								%td.actions.text-center
+									= link_to 'View', admin_order_path(order)
+									= link_to 'New Receipt', new_admin_order_receipt_path(order)
+									= link_to admin_order_path(order, format: :pdf), target: :_blank do
+										%span.glyphicon.glyphicon-print
+			.row
+				.col-md-12= paginate @orders

@@ -9,13 +9,13 @@
         .col-md-8
           .order-info
             .customer-labels Name:
-            %strong= @order.customer.name
+            %strong= @order.customer.try(:name)
           .order-info
             .customer-labels Address:
-            %strong= @order.customer.full_address
+            %strong= @order.customer.try(:full_address)
           .order-info
             .customer-labels Contact No:
-            %strong= @order.customer.mobile
+            %strong= @order.customer.try(:mobile)
         .col-md-4
           .order-info
             .customer-labels Order No:

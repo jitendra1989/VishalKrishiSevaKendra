@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "admin/orders/index", type: :view do
 
-	let(:orders) { Order.all }
+	let(:orders) { Order.all.page(1) }
 
 	it "renders attributes in <p>" do
 		assign(:orders, orders)

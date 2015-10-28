@@ -7,9 +7,9 @@ class Admin::ReceiptsController < Admin::ApplicationController
 	def index
 		if params[:order_id]
 			@order = Order.find(params[:order_id])
-			@receipts = @order.receipts
+			@receipts = @order.receipts.page(params[:page])
 		else
-			@receipts = Receipt.includes(:order).all
+			@receipts = Receipt.includes(:order).all.page(params[:page])
 		end
 	end
 

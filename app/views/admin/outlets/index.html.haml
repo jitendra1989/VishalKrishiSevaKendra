@@ -3,26 +3,31 @@
     %h2 Outlets
   .col-md-12
     .profile-box
-      .text-right
-        =link_to 'New Outlet', new_admin_outlet_path
-      %br
-      %table
-        %tr
-          %th Name
-          %th Country
-          %th State
-          %th City
-          %th Online Store
-          %th.text-center Actions
-        - @outlets.each do |outlet|
-          %tr
-            %td= outlet.name
-            %td= outlet.country
-            %td= outlet.state
-            %td= outlet.city
-            %td= outlet.online_store?? 'Online' : 'Outlet Only'
-            %td.actions.text-center
-              = link_to edit_admin_outlet_path(outlet) do
-                %span.glyphicon.glyphicon-pencil
-              = link_to admin_outlet_path(outlet), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-                %span.glyphicon.glyphicon-remove
+      .row
+        .col-md-6= paginate @outlets
+        .col-md-6
+          .text-right
+            =link_to 'New Outlet', new_admin_outlet_path
+        .col-md-12
+          %br
+          %table
+            %tr
+              %th Name
+              %th Country
+              %th State
+              %th City
+              %th Online Store
+              %th.text-center Actions
+            - @outlets.each do |outlet|
+              %tr
+                %td= outlet.name
+                %td= outlet.country
+                %td= outlet.state
+                %td= outlet.city
+                %td= outlet.online_store?? 'Online' : 'Outlet Only'
+                %td.actions.text-center
+                  = link_to edit_admin_outlet_path(outlet) do
+                    %span.glyphicon.glyphicon-pencil
+                  = link_to admin_outlet_path(outlet), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                    %span.glyphicon.glyphicon-remove
+        .col-md-12= paginate @outlets

@@ -2,7 +2,7 @@ class Admin::OutletsController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
-		@outlets = Outlet.all
+		@outlets = Outlet.all.page(params[:page])
 	end
 
 	def new

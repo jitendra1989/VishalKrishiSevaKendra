@@ -12,7 +12,7 @@ RSpec.describe Admin::OutletsController, type: :controller do
   describe "GET #index" do
     it "assigns all outlets as @outlets" do
       get :index
-      expect(assigns(:outlets)).to eq(Outlet.all)
+      expect(assigns(:outlets)).to eq(Outlet.all.page)
     end
   end
 

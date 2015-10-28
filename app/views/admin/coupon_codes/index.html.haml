@@ -3,23 +3,29 @@
     %h2 Coupon Codes
   .col-md-12
     .profile-box
-      .text-right
-        = link_to 'New Coupon Code', new_admin_coupon_code_path
-      %br
-      %table
-        %tr
-          %th Name
-          %th Percent
-          %th Active From
-          %th Active To
-          %th.text-center Actions
-        - @coupon_codes.each do |coupon_code|
-          %tr
-            %td= coupon_code.code
-            %td= coupon_code.percent
-            %td= coupon_code.active_from.strftime '%d-%b-%Y %H:%M'
-            %td= coupon_code.active_to.strftime '%d-%b-%Y %H:%M'
-            %td.actions.text-center
-              = link_to edit_admin_coupon_code_path(coupon_code) do
-                %span.glyphicon.glyphicon-pencil
-
+      .row
+        .col-md-6= paginate @coupon_codes
+        .col-md-6
+          .text-right
+            = link_to 'New Coupon Code', new_admin_coupon_code_path
+      .row
+        .col-md-12
+          %br
+          %table
+            %tr
+              %th Name
+              %th Percent
+              %th Active From
+              %th Active To
+              %th.text-center Actions
+            - @coupon_codes.each do |coupon_code|
+              %tr
+                %td= coupon_code.code
+                %td= coupon_code.percent
+                %td= coupon_code.active_from.strftime '%d-%b-%Y %H:%M'
+                %td= coupon_code.active_to.strftime '%d-%b-%Y %H:%M'
+                %td.actions.text-center
+                  = link_to edit_admin_coupon_code_path(coupon_code) do
+                    %span.glyphicon.glyphicon-pencil
+      .row
+        .col-md-12= paginate @coupon_codes

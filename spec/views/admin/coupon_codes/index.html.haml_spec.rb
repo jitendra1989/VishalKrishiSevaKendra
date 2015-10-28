@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "admin/coupon_codes/index", type: :view do
-  let(:coupon_codes) { CouponCode.all }
+  let(:coupon_codes) { CouponCode.all.page }
   it "renders attributes in <p>" do
     assign(:coupon_codes, coupon_codes)
     render

@@ -12,7 +12,7 @@ RSpec.describe Admin::CouponCodesController, type: :controller do
   describe "GET #index" do
     it "assigns all coupon_codes as @coupon_codes" do
       get :index
-      expect(assigns(:coupon_codes)).to eq(CouponCode.all)
+      expect(assigns(:coupon_codes)).to eq(CouponCode.all.page)
     expect(response).to have_http_status(:success)
     end
   end

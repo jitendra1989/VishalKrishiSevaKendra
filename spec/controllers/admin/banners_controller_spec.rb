@@ -12,7 +12,7 @@ RSpec.describe Admin::BannersController, type: :controller do
   describe "GET #index" do
     it "assigns all banners as @banners" do
       get :index
-      expect(assigns(:banners)).to eq(Banner.all)
+      expect(assigns(:banners)).to eq(Banner.all.page)
     end
   end
 

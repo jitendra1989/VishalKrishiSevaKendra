@@ -3,20 +3,25 @@
     %h2 Banners
   .col-md-12
     .profile-box
-      .text-right
-        =link_to 'New Banner', new_admin_banner_path
-      %br
-      %table
-        %tr
-          %th Name
-          %th Image
-          %th.text-center Actions
-        - @banners.each do |banner|
-          %tr
-            %td= banner.name
-            %td= image_tag banner.image.small
-            %td.actions.text-center
-              = link_to edit_admin_banner_path(banner) do
-                %span.glyphicon.glyphicon-pencil
-              = link_to admin_banner_path(banner), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-                %span.glyphicon.glyphicon-remove
+      .row
+        .col-md-6= paginate @banners
+        .col-md-6
+          .text-right
+            =link_to 'New Banner', new_admin_banner_path
+        .col-md-12
+          %br
+          %table
+            %tr
+              %th Name
+              %th Image
+              %th.text-center Actions
+            - @banners.each do |banner|
+              %tr
+                %td= banner.name
+                %td= image_tag banner.image.small
+                %td.actions.text-center
+                  = link_to edit_admin_banner_path(banner) do
+                    %span.glyphicon.glyphicon-pencil
+                  = link_to admin_banner_path(banner), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                    %span.glyphicon.glyphicon-remove
+        .col-md-12= paginate @banners

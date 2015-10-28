@@ -2,6 +2,7 @@ class Admin::BannersController < Admin::ApplicationController
 	load_and_authorize_resource
 
 	def index
+		@banners = Banner.all.page(params[:page])
 	end
 
 	def new

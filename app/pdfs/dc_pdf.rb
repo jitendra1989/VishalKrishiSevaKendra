@@ -4,7 +4,7 @@ class DcPdf < Prawn::Document
 		super(top_margin: 20)
 		width = 540
 		x, y=  0, 720
-		text_box "GATE PASS", at: [0, y - 15], align: :center
+		text_box "Delivery Challan", at: [0, y - 15], align: :center
 		stroke {
 		 horizontal_line x, width, at: y - 40
 		 horizontal_line x, width, at: y

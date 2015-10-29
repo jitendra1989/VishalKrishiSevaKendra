@@ -18,23 +18,24 @@
 							= text_field_tag :to_date, params[:to_date], required: true, class: 'form-control'
 				.form-group
 					= submit_tag "Submit", name: nil, class: "btn btn-primary"
-			%table.table
-				%tr
-					%th Date
-					%th Name
-					%th Type
-					%th Category
-					%th Stock Code
-					%th Stock
-					%th Ordered Stock
-					%th Available Stock
-				- @stocks.each do |stock|
+			- if @stocks
+				%table.table
 					%tr
-						%td= stock.created_at.strftime '%d-%b-%Y'
-						%td= stock.product.name
-						%td= stock.product.product_type.name
-						%td= @category.name
-						%td= stock.code
-						%td= stock.new_quantity
-						%td= stock.ordered
-						%td= stock.quantity
+						%th Date
+						%th Name
+						%th Type
+						%th Category
+						%th Stock Code
+						%th Stock
+						%th Ordered Stock
+						%th Available Stock
+					- @stocks.each do |stock|
+						%tr
+							%td= stock.created_at.strftime '%d-%b-%Y'
+							%td= stock.product.name
+							%td= stock.product.product_type.name
+							%td= @category.name
+							%td= stock.code
+							%td= stock.new_quantity
+							%td= stock.ordered
+							%td= stock.quantity

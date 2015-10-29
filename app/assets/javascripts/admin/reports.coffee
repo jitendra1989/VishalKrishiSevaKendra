@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 reportsReady = ->
-	console.log()
 	$('#from_date').datetimepicker
 		format: 'Y/m/d'
 		onShow: (ct) ->

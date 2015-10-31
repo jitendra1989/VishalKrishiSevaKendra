@@ -1,0 +1,41 @@
+.row
+	.col-md-12
+		%h2 Edit Category
+	.col-md-12
+		.profile-box
+			= form_tag stock_admin_reports_path, method: :get do |f|
+				.form-group
+					= label_tag :category_id, 'Category', class: 'required'
+					= select_tag :category_id, options_for_select(Category.pluck(:name, :id), params[:category_id]), class: 'form-control', prompt: 'Select Category'
+				.row
+					.col-md-6
+						.form-group
+							= label_tag :from_date, 'From Date', class: 'required'
+							= text_field_tag :from_date, params[:from_date], required: true, class: 'form-control'
+					.col-md-6
+						.form-group
+							= label_tag :to_date, 'To Date', class: 'required'
+							= text_field_tag :to_date, params[:to_date], required: true, class: 'form-control'
+				.form-group
+					= submit_tag "Submit", name: nil, class: "btn btn-primary"
+			- if @stocks
+				%table.table
+					%tr
+						%th Date
+						%th Name
+						%th Type
+						%th Category
+						%th Stock Code
+						%th Stock
+						%th Ordered Stock
+						%th Available Stock
+					- @stocks.each do |stock|
+						%tr
+							%td= stock.created_at.strftime '%d-%b-%Y'
+							%td= stock.product.name
+							%td= stock.product.product_type.name
+							%td= @category.name
+							%td= stock.code
+							%td= stock.new_quantity
+							%td= stock.ordered
+							%td= stock.quantity

@@ -48,6 +48,11 @@ Rails.application.routes.draw do
   namespace :admin do
     mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
     root 'users#dashboard'
+    resources :reports, only: [] do
+      collection do
+        get 'stock'
+      end
+    end
     resources :roles, except: [:show]
     resources :content_pages, path: 'content-pages', except: [:show]
     resources :coupon_codes, except: [:destroy, :show]
@@ -111,6 +116,9 @@ Rails.application.routes.draw do
     resources :outlets, except: [:show]
     resources :categories, except: [:show], shallow: true do
       resources :categories, only: [:new, :create]
+      # member do
+      #   get 'stock'
+      # end
     end
     resources :banners, except: [:show]
     resources :specifications, except: [:show]

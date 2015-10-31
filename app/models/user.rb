@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 	has_many :receipts, dependent: :destroy
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
+	scope :regular, -> { where(flags: 0) }
+
 	[:name, :username, :email, :phone, :address, :pincode, :city, :state, :country].each do |n|
 		validates n, presence: true
 	end
@@ -31,6 +33,10 @@ class User < ActiveRecord::Base
 		self.password_reset_sent_at = Time.zone.now
 		save!
 		Admin::UserMailer.password_reset(self).deliver_now
+	end
+
+	def regular?
+		flags == 0
 	end
 
 	private

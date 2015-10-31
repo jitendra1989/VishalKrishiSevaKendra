@@ -23,10 +23,10 @@ RSpec.describe Ability, type: :model do
 		it { should_not be_able_to(:manage, main_boss) }
 	end
 	context 'store_boss' do
+		let(:store_user) { FactoryGirl.create(:user, outlet: store_boss.outlet) }
 		subject(:ability){ Ability.new(store_boss) }
 		it { should be_able_to(:manage, store_boss.outlet) }
-		it { should_not be_able_to(:manage, developer) }
-		it { should_not be_able_to(:manage, main_boss) }
+		it { should be_able_to(:manage, store_user) }
 	end
 	context 'main_boss' do
 		subject(:ability){ Ability.new(main_boss) }

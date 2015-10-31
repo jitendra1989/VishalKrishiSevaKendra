@@ -5,6 +5,11 @@ class Ability
 		user ||= User.new
 		if user.developer?
 			can :manage, :all
+		elsif user.main_boss?
+			can :manage, :all
+			cannot :manage, User.developer
+		elsif user.store_boss?
+			can :manage, user.outlet
 		else
 			user.permissions.pluck(:name, :action).each do |permission|
 				can permission[1].to_sym, class_name(permission[0])
@@ -16,6 +21,8 @@ class Ability
 			can :logout, User
 			can :dashboard, User
 			cannot :manage, User.developer
+			cannot :manage, User.main_boss
+			cannot :manage, User.store_boss
 		end
 	end
 

@@ -25,5 +25,11 @@ FactoryGirl.define do
 		factory :user_developer do
 			developer true
 		end
+		factory :user_store_boss do
+			store_boss true
+		end
+		factory :user_main_boss do
+			main_boss true
+		end
 	end
 end

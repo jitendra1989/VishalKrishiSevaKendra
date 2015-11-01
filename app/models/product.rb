@@ -18,6 +18,8 @@ class Product < ActiveRecord::Base
 	has_many :specifications, through: :product_specifications, dependent: :destroy
 	has_many :product_characteristics
 	has_many :characteristics, through: :product_characteristics, dependent: :destroy
+	has_many :product_coupons, dependent: :destroy
+	has_many :coupons, through: :product_coupons
 
 	delegate :taxes, to: :product_type
 

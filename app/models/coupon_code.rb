@@ -1,7 +1,9 @@
 class CouponCode < ActiveRecord::Base
+	has_many :product_coupons, dependent: :destroy
+	has_many :products, through: :product_coupons
+
 	[:code, :active_from, :active_to].each { |n| validates n, presence: true }
 	validates :percent, numericality: true
-
 	validate :active_date_range, if: lambda { |c| c.active_to && c.active_from  }
 
 	private

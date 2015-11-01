@@ -19,7 +19,7 @@ RSpec.describe Admin::CustomersController, type: :controller do
 	describe "GET #index" do
 		it "assigns all customers as @customers" do
 			get :index
-			expect(assigns(:customers)).to eq(Customer.all.page(1))
+			expect(assigns(:customers)).to eq(Customer.all.order('created_at DESC').page(1))
 		end
 		it "renders the application layout" do
 			get :index

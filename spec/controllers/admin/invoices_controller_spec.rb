@@ -30,7 +30,7 @@ RSpec.describe Admin::InvoicesController, type: :controller do
     describe "GET #index" do
       it "assigns all order invoices as @invoices" do
         get :index
-        expect(assigns(:invoices)).to eq(Invoice.all.page)
+        expect(assigns(:invoices)).to eq(Invoice.all.order('created_at DESC').page)
       end
     end
 

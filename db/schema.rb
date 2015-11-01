@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027195423) do
+ActiveRecord::Schema.define(version: 20151101170124) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -243,12 +243,13 @@ ActiveRecord::Schema.define(version: 20151027195423) do
     t.integer  "customer_id",     limit: 4
     t.integer  "user_id",         limit: 4
     t.integer  "outlet_id",       limit: 4
-    t.decimal  "subtotal",                  precision: 10, scale: 2, default: 0.0, null: false
-    t.decimal  "tax_amount",                precision: 10, scale: 2, default: 0.0, null: false
-    t.decimal  "discount_amount",           precision: 10, scale: 2, default: 0.0, null: false
-    t.integer  "receipts_count",  limit: 4,                          default: 0,   null: false
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.decimal  "subtotal",                  precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "tax_amount",                precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "discount_amount",           precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "receipts_count",  limit: 4,                          default: 0,     null: false
+    t.boolean  "overridden",      limit: 1,                          default: false, null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.integer  "invoice_id",      limit: 4
   end
 

@@ -52,10 +52,10 @@
                       - if order.object.invoice_id
                         = link_to 'Invoice', admin_invoice_path(order.object.invoice_id), class: 'btn btn-default'
                       - else
-                        - if order.object.unpaid_amount > 0
-                          Unpaid Order
-                        - else
+                        - if order.object.unpaid_amount <= 0 || order.object.overridden?
                           = order.check_box
+                        - else
+                          Unpaid Order
               %tfoot
                 %tr
                   %td.text-center{ colspan: 7 }

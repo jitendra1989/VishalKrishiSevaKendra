@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap/dropdown
 //= require bootstrap/modal
+//= require bootstrap/tooltip
 //= require cocoon
 //= require_tree .

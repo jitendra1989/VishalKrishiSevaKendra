@@ -21,6 +21,7 @@ RSpec.describe Ability, type: :model do
 		it { should_not be_able_to(:manage, developer) }
 		it { should_not be_able_to(:manage, store_boss) }
 		it { should_not be_able_to(:manage, main_boss) }
+		it { should_not be_able_to(:flag, Order) }
 	end
 	context 'store_boss' do
 		let(:store_user) { FactoryGirl.create(:user, outlet: store_boss.outlet) }

@@ -11,6 +11,7 @@ class Ability
 			cannot :manage, User.developer
 			cannot :manage, User.main_boss
 			cannot :manage, User.store_boss
+			cannot :flag, Order
 		elsif user.store_boss?
 			can :manage, user.outlet
 			can :manage, User do |u|

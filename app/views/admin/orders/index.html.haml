@@ -26,8 +26,12 @@
 							%td= order.customer.try(:mobile)
 							%td.text-right= link_to order.receipts.size, admin_order_receipts_path(order)
 							%td.text-center
-								- if order.overridden?
-									%span.glyphicon.glyphicon-flag
+								.has-tooltip{ data: { toggle: 'tooltip', placement: 'top',  title: 'Flagged orders can be invoiced before payment.' } }
+									- if order.overridden?
+										%span.glyphicon.glyphicon-flag
+									- else
+										- if can? :flag, Order
+											= link_to 'Flag', flag_admin_order_path(order), method: :patch
 							%td.actions.text-center
 								= link_to 'New Receipt', new_admin_order_receipt_path(order)
 								= link_to 'View', admin_order_path(order)

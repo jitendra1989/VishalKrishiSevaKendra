@@ -31,6 +31,11 @@ class Admin::OrdersController < Admin::ApplicationController
 	def edit
 	end
 
+	def flag
+		@order.update(overridden: true)
+		redirect_to admin_orders_url, flash: { success: 'Order was successfully flagged.' }
+	end
+
 	private
 		def order_params
 			params.require(:order).permit(:discount_amount)

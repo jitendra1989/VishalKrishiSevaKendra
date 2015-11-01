@@ -69,6 +69,9 @@ Rails.application.routes.draw do
     end
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do
       resources :receipts, except: [:edit, :update, :destroy]
+      member do
+        patch 'flag'
+      end
     end
     resources :carts, except: [:new, :create, :show] do
       collection do

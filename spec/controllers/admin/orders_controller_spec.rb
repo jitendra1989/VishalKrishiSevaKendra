@@ -68,4 +68,22 @@ RSpec.describe Admin::OrdersController, type: :controller do
       end
     end
   end
+
+  describe "Boss Man" do
+    let(:user_main_boss) { FactoryGirl.create(:user_main_boss) }
+
+    before do
+      log_in user_main_boss
+    end
+
+    it "flags the order" do
+      patch :flag, id: order.id
+      expect(order.reload.overridden?).to eq(true)
+    end
+
+    it "redirects to the order list" do
+      patch :flag, id: order.id
+      expect(response).to redirect_to(admin_orders_url)
+    end
+  end
 end

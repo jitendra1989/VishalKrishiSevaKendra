@@ -34,12 +34,12 @@
 						%td.text-center= customer.orders.size
 						%td.icon-actions.actions.text-center
 							= link_to new_admin_customer_quotation_path(customer), title: 'Quote' do
-								.glyphicon.glyphicon-usd
+								%span.glyphicon.glyphicon-usd
 							= link_to assign_admin_carts_path(customer), method: :post, title: 'Assign to Cart' do
-								.glyphicon.glyphicon-shopping-cart
+								%span.glyphicon.glyphicon-shopping-cart
 						%td.icon-actions.actions.text-center
 							= link_to new_admin_customer_invoice_path(customer), title: 'New Invoice' do
-								.glyphicon.glyphicon-list-alt
+								%span.glyphicon.glyphicon-list-alt
 						%td.icon-actions.actions.text-center
 							= link_to edit_admin_customer_path(customer) do
 								%span.glyphicon.glyphicon-pencil

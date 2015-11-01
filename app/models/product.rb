@@ -19,7 +19,7 @@ class Product < ActiveRecord::Base
 	has_many :product_characteristics
 	has_many :characteristics, through: :product_characteristics, dependent: :destroy
 	has_many :product_coupons, dependent: :destroy
-	has_many :coupons, through: :product_coupons
+	has_many :coupon_codes, through: :product_coupons
 
 	delegate :taxes, to: :product_type
 
@@ -57,7 +57,7 @@ class Product < ActiveRecord::Base
 	end
 
 	def steps
-		%w[info images categories crosssell specifications image_specifications]
+		%w[info images categories crosssell specifications image_specifications coupons]
 	end
 
 	def outlet_stock_quantity(outlet)

@@ -59,7 +59,7 @@ class Admin::ProductsController < Admin::ApplicationController
 		end
 
 		def product_params
-			params.require(object_type.underscore.to_sym).permit(:current_step, :name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], product_characteristics_attributes:[:id, :characteristic_id, :characteristic_image_id, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [])
+			params.require(object_type.underscore.to_sym).permit(:current_step, :name, :code, :description, :product_type_id, :saleable_online, :price, :sale_price, :active, :new_quantity, :stock_code, :supplier_name, :invoice_date, :invoice_number, :stock_outlet_id, images_attributes:[:id, :name, :_destroy], product_specifications_attributes:[:id, :specification_id, :value, :_destroy], product_characteristics_attributes:[:id, :characteristic_id, :characteristic_image_id, :_destroy], group_items_attributes:[:id, :related_product_id, :quantity, :_destroy], category_ids: [], cross_sale_product_ids: [], coupon_code_ids: [])
 		end
 
 		def set_product

@@ -16,4 +16,5 @@
 						= link_to 'Cross Sell', edit_admin_product_path(@product, :crosssell), class: "btn btn-lg btn-link#{@product.current_step=='crosssell' ? ' active' : ''}"
 						= link_to 'Specifications', edit_admin_product_path(@product, :specifications), class: "btn btn-lg btn-link#{@product.current_step=='specifications' ? ' active' : ''}"
 						= link_to 'Image Specifications', edit_admin_product_path(@product, :image_specifications), class: "btn btn-lg btn-link#{@product.current_step=='image_specifications' ? ' active' : ''}"
+						= link_to 'Coupons', edit_admin_product_path(@product, :coupons), class: "btn btn-lg btn-link#{@product.current_step=='coupons' ? ' active' : ''}"
 			= render 'form'

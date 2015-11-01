@@ -14,7 +14,8 @@
 						%th Customer
 						%th Contact No
 						%th.text-right Receipts
-						%th.text-center Flag
+						%th.text-center
+							.has-tooltip{ data: { toggle: 'tooltip', placement: 'top',  title: 'Flagged orders can be invoiced before payment.' } } Flag
 						%th.text-center Actions
 				%tbody
 					- @orders.each do |order|
@@ -26,12 +27,15 @@
 							%td= order.customer.try(:mobile)
 							%td.text-right= link_to order.receipts.size, admin_order_receipts_path(order)
 							%td.text-center
-								.has-tooltip{ data: { toggle: 'tooltip', placement: 'top',  title: 'Flagged orders can be invoiced before payment.' } }
-									- if order.overridden?
-										%span.glyphicon.glyphicon-flag
-									- else
-										- if can? :flag, Order
-											= link_to 'Flag', flag_admin_order_path(order), method: :patch
+								- if order.overridden?
+									%span.glyphicon.glyphicon-flag
+								- else
+									- if can? :flag, Order
+										= form_tag flag_admin_order_path(order), method: :patch, class: 'form-inline' do
+											= text_area_tag :comment, '', class: 'hidden form-control', required: true, id: "comment-#{order.id}", placeholder: 'Please enter a comment for Invoicing Department'
+											= button_tag 'Flag', class: 'btn btn-link flag-adder', 'data-comment' => "comment-#{order.id}"
+								- if order.comment.present?
+									%span.glyphicon.glyphicon-comment.has-tooltip{ data: { toggle: 'tooltip', placement: 'top',  title: order.comment } }
 							%td.actions.text-center
 								= link_to 'New Receipt', new_admin_order_receipt_path(order)
 								= link_to 'View', admin_order_path(order)

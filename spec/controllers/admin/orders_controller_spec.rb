@@ -77,8 +77,10 @@ RSpec.describe Admin::OrdersController, type: :controller do
     end
 
     it "flags the order" do
-      patch :flag, id: order.id
+      patch :flag, id: order.id, comment: 'random'
       expect(order.reload.overridden?).to eq(true)
+      expect(order.flagged_by).to eq(user_main_boss.id)
+      expect(order.comment).to eq('random')
     end
 
     it "redirects to the order list" do

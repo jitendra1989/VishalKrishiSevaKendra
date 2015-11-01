@@ -18,6 +18,7 @@ RSpec.describe Order, type: :model do
   it { expect(order).to respond_to(:receipts) }
   it { expect(order).to respond_to(:invoice) }
   it { expect(order).to respond_to(:cart_id) }
+  it { expect(order).to respond_to(:flagged_by, :comment) }
 
   it "has a valid discount amount" do
     order.discount_amount = Faker::Lorem.word

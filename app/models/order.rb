@@ -12,6 +12,8 @@ class Order < ActiveRecord::Base
   [:customer_id, :user_id, :outlet_id].each { |n| validates n, presence: true }
   [:subtotal, :tax_amount, :discount_amount].each { |n| validates n, numericality: true }
 
+  store :details, accessors: [ :flagged_by, :comment ], coder: JSON
+
   after_initialize :add_customer, if: :new_record?
   after_create :add_cart_items
 

@@ -32,7 +32,7 @@ class Admin::OrdersController < Admin::ApplicationController
 	end
 
 	def flag
-		@order.update(overridden: true)
+		@order.update(overridden: true, flagged_by: current_user.id, comment: params[:comment])
 		redirect_to admin_orders_url, flash: { success: 'Order was successfully flagged.' }
 	end
 

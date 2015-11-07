@@ -20,6 +20,11 @@ FactoryGirl.define do
 				user.permissions << FactoryGirl.create(:permission, name: :all, action: :manage)
 			end
 		end
+		factory :user_with_roles do
+			after(:create) do |user|
+				user.roles << FactoryGirl.create_list(:role, 2)
+			end
+		end
 		factory :admin do
 		end
 		factory :user_developer do

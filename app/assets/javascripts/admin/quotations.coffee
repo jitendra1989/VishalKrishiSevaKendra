@@ -13,7 +13,7 @@ quotationsReady = ->
 			return
 		if percentage
 			percent = parseFloat $('.discount-percent').val()
-			discount = Math.round(subtotal * percent/100)
+			discount = Math.round((subtotal * percent/100)*100)/100
 			$('#quotation_discount_amount').val(discount)
 		else
 			discount = parseFloat $('#quotation_discount_amount').val()
@@ -39,7 +39,7 @@ quotationsReady = ->
 		$('.add-product').addClass 'hidden'
 		$(insertedItem).find('.quantity-field').focus()
 		return
-	$(document).on 'change', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
+	$(document).on 'change keyup', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
 		calculateTotals($(this).hasClass 'discount-percent')
 		return
 	return

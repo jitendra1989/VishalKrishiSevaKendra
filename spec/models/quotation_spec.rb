@@ -7,6 +7,15 @@ RSpec.describe Quotation, type: :model do
   it { expect(quotation).to respond_to(:user) }
   it { expect(quotation).to respond_to(:products) }
 
+  it 'has discount equal to or less than user allowed discount' do
+    #validate to add name and price
+    quotation.valid?
+    total = quotation.products.first.price * quotation.products.first.quantity
+    discount_allowed = quotation.user.allowed_discount
+    quotation.discount_amount = (total * discount_allowed/100) + 101
+    expect(quotation).not_to be_valid
+  end
+
   it 'has at least one product' do
     quotation.products = []
     expect(quotation).not_to be_valid

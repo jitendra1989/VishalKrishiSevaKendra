@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 	let(:user) { FactoryGirl.build(:user) }
+	let(:boss_man) { FactoryGirl.create(:user_main_boss) }
 	let(:super_admin) { FactoryGirl.create(:super_admin) }
 	let(:admin) { FactoryGirl.create(:admin) }
 	let(:production_manager) { FactoryGirl.create(:production_manager) }
@@ -17,6 +18,18 @@ RSpec.describe User, type: :model do
 	it { expect(user).to respond_to(:receipts) }
 	it { expect(user).to respond_to(:store_boss, :main_boss, :developer, :regular?) }
 	it { expect(User).to respond_to(:regular) }
+	describe "Allowed discount" do
+		before do
+			user.save!
+			user.roles << FactoryGirl.create_list(:role, 2)
+		end
+		it 'returns the allowed discount for the queried user' do
+			expect(user.allowed_discount).to eq(user.roles.maximum(:discount_percent))
+		end
+		it 'returns 100% for non regular user' do
+			expect(boss_man.allowed_discount).to eq(100)
+		end
+	end
 	describe "when email format is invalid" do
 		it "is invalid" do
 			addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]

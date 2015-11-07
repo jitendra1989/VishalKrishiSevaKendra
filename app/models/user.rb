@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
 		flags == 0
 	end
 
+	def allowed_discount
+		regular? ? self.roles.maximum(:discount_percent) : 100
+	end
+
 	private
 		def generate_token(column)
 			begin

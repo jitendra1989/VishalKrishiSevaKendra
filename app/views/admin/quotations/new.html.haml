@@ -53,7 +53,7 @@
                 %tr
                   %td{ colspan: 3 }
                     = f.label :discount_amount, 'Discount'
-                    = number_field_tag :discount_percent, 0, class: 'discount-percent text-right form-control', min: 0, step: '0.01', max: @current_user.allowed_discount
+                    = number_field_tag :discount_percent, 0, class: 'discount-percent text-right form-control', min: 0, step: '0.01', max: @quotation.user.allowed_discount
                     \%
                   %td= f.number_field :discount_amount, class: 'text-right form-control', step: '0.01'
                 %tr

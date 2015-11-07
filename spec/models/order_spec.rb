@@ -26,6 +26,15 @@ RSpec.describe Order, type: :model do
     order.discount_amount = nil
     expect(order).not_to be_valid
   end
+
+  it 'has discount equal to or less than user allowed discount' do
+    active_cart = Cart.find(order.cart_id)
+    total = active_cart.items.first.product.price_with_taxes * active_cart.items.first.quantity
+    discount_allowed = cart.user.allowed_discount
+    order.discount_amount = (total * discount_allowed/100) + 101
+    expect(order).not_to be_valid
+  end
+
   it "has a valid customer" do
     order.customer = nil
     expect(order).not_to be_valid

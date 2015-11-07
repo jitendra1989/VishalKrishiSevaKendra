@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 	end
 
 	def allowed_discount
-		regular? ? self.roles.maximum(:discount_percent) : 100
+		regular? ? self.roles.maximum(:discount_percent) || 0 : 100
 	end
 
 	private

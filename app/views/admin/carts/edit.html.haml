@@ -18,9 +18,9 @@
 					.col-md-2
 						= item.product.name
 					.col-md-3
-						= form_tag admin_cart_path, method: :patch, class: 'form-inline' do
+						= form_tag admin_cart_path(@cart), method: :patch, class: 'form-inline' do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet) + item.quantity, class: 'cart-quantity form-control', 'data-price' => item.product.price_with_taxes
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.outlet_stock_quantity(@current_user.outlet_id) + item.quantity, class: 'cart-quantity form-control', 'data-price' => item.product.price_with_taxes
 							= button_tag 'Update',  class: 'btn btn-primary'
 					.col-md-2.text-right= number_to_currency item.product.price_with_taxes
 					.col-md-2.text-right
@@ -41,7 +41,7 @@
 					.col-md-offset-5.col-md-4
 						= label_tag :discount_percent, 'Discount'
 						= f.hidden_field :discount_amount, class: 'cart-discount-amount'
-						= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right form-control', min: 0, step: 'any'
+						= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right form-control', min: 0, step: 'any', max: @cart.user.allowed_discount
 						\%
 					.col-md-2.text-right.cart-discount
 					.col-md-1

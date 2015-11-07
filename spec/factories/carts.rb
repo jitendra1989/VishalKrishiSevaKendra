@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :cart do
     customer
-    user
+    association :user, factory: :user_with_roles
     outlet
   end
 

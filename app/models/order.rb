@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
 
   [:customer_id, :user_id, :outlet_id].each { |n| validates n, presence: true }
   [:subtotal, :tax_amount, :discount_amount].each { |n| validates n, numericality: true }
+  validate :allowed_discount
 
   store :details, accessors: [ :flagged_by, :comment ], coder: JSON
 
@@ -26,6 +27,14 @@ class Order < ActiveRecord::Base
   end
 
   private
+    def allowed_discount
+      if self.cart_id && self.user && self.discount_amount
+        total = Cart.find(self.cart_id).items.map{ |x| x.product.price_with_taxes * x.quantity }.sum
+        allowed_amount = (total * self.user.allowed_discount/100) + 100
+        errors.add(:discount_amount, "cannot exceed #{self.user.allowed_discount}%") if self.discount_amount > allowed_amount
+      end
+    end
+
     def add_customer
       self.customer = Cart.find(self.cart_id).customer if self.cart_id
       self.subtotal, self.tax_amount = 0, 0

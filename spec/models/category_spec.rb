@@ -9,6 +9,7 @@ RSpec.describe Category, type: :model do
 	it { expect(category).to respond_to(:products) }
 	it { expect(category).to respond_to(:banners) }
 	it { expect(category).to respond_to(:banner_categories) }
+	it { expect(category).to respond_to(:category_coupons, :coupon_codes) }
 	it "has a valid name" do
 		category.name = nil
 		expect(category).to_not be_valid

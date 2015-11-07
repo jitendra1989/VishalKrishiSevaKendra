@@ -10,6 +10,7 @@ class Admin::CouponCodesController < Admin::ApplicationController
 
   def edit
     @coupon_code = CouponCode.find(params[:id])
+    @coupon_code.current_step = params[:step] if params[:step]
   end
 
   def create
@@ -24,7 +25,7 @@ class Admin::CouponCodesController < Admin::ApplicationController
   def update
     @coupon_code = CouponCode.find(params[:id])
     if @coupon_code.update(coupon_code_params)
-      redirect_to admin_coupon_codes_url, flash: { success: 'CouponCode was successfully updated.' }
+      coupon_code_redirect('CouponCode was successfully updated.')
     else
       render :edit
     end
@@ -33,6 +34,15 @@ class Admin::CouponCodesController < Admin::ApplicationController
 
   private
     def coupon_code_params
-      params.require(:coupon_code).permit(:code, :percent, :active_from, :active_to, :active)
+      params.require(:coupon_code).permit(:current_step, :code, :percent, :active_from, :active_to, :active, product_ids: [], category_ids: [])
+    end
+
+    def coupon_code_redirect(flash)
+      if params[:go_to] == 'back'
+        @coupon_code.previous_step
+      elsif params[:go_to] == 'next'
+        @coupon_code.next_step
+      end
+      redirect_to edit_admin_coupon_code_url(@coupon_code, @coupon_code.current_step), flash: { success: flash }
     end
 end

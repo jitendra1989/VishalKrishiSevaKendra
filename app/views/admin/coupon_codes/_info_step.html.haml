@@ -1,0 +1,15 @@
+.form-group
+  = f.label :code, class: 'required'
+  = f.text_field :code, required: true, class: 'form-control'
+.form-group
+  = f.label :percent, class: 'required'
+  = f.number_field :percent, required: true, class: 'form-control'
+.row
+  .col-md-6
+    .form-group
+      = f.label :active_from, class: 'required'
+      = f.text_field :active_from, required: true, value: @coupon_code.try(:active_from).try(:strftime, "%d-%m-%Y %H:%M"), class: 'form-control'
+  .col-md-6
+    .form-group
+      = f.label :active_to, class: 'required'
+      = f.text_field :active_to, required: true, value: @coupon_code.try(:active_to).try(:strftime, "%d-%m-%Y %H:%M"), class: 'form-control'

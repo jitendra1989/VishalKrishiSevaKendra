@@ -73,7 +73,7 @@ RSpec.describe Admin::CouponCodesController, type: :controller do
 
       it "redirects to the coupon_code list" do
         put :update, id: coupon_code.id, coupon_code: valid_attributes
-        expect(response).to redirect_to(admin_coupon_codes_url)
+        expect(response).to redirect_to(edit_admin_coupon_code_url(coupon_code, coupon_code.current_step))
       end
     end
 

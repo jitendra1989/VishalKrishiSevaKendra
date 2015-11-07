@@ -4,6 +4,7 @@ RSpec.describe CouponCode, type: :model do
   let(:coupon_code) { FactoryGirl.build(:coupon_code) }
   it { expect(coupon_code).to be_valid }
   it { expect(coupon_code).to respond_to(:products, :product_coupons) }
+  it { expect(coupon_code).to respond_to(:categories, :category_coupons) }
   it "has a valid code" do
     coupon_code.code = nil
     expect(coupon_code).to_not be_valid

@@ -55,7 +55,11 @@ Rails.application.routes.draw do
     end
     resources :roles, except: [:show]
     resources :content_pages, path: 'content-pages', except: [:show]
-    resources :coupon_codes, except: [:destroy, :show]
+    resources :coupon_codes, except: [:destroy, :show, :edit] do
+      member do
+        get 'edit(/:step)' => 'coupon_codes#edit', as: :edit
+      end
+    end
     resources :quotations, only: [:index] do
       collection do
         get 'products'

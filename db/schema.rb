@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101183832) do
+ActiveRecord::Schema.define(version: 20151107165950) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -421,9 +421,10 @@ ActiveRecord::Schema.define(version: 20151101183832) do
   add_index "role_permissions", ["role_id"], name: "index_role_permissions_on_role_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",             limit: 255
+    t.decimal  "discount_percent",             precision: 10, scale: 2, default: 0.0, null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
   end
 
   create_table "sales_relationships", force: :cascade do |t|

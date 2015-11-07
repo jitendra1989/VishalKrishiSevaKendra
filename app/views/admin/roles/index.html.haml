@@ -9,10 +9,12 @@
       %table
         %tr
           %th Name
+          %th.text-right Discount Percent
           %th.text-center Actions
         - @roles.each do |role|
           %tr
             %td= role.name
+            %td.text-right= "#{role.discount_percent}%"
             %td.actions.text-center
               = link_to edit_admin_role_path(role) do
                 %span.glyphicon.glyphicon-pencil

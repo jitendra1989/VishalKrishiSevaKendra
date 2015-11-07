@@ -38,6 +38,6 @@ class Admin::RolesController < Admin::ApplicationController
 
   private
     def role_params
-      params.require(:role).permit(:name, permission_ids: [])
+      params.require(:role).permit(:name, :discount_percent, permission_ids: [])
     end
 end

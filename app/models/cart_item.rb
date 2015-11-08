@@ -2,6 +2,8 @@ class CartItem < ActiveRecord::Base
   belongs_to :product
   belongs_to :cart
 
+  has_many :customisations, class_name: CartItemCustomisation, dependent: :destroy
+
   validates :quantity, presence: true, numericality: true
   before_destroy :return_stock
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107221057) do
+ActiveRecord::Schema.define(version: 20151108174421) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 20151107221057) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "cart_item_customisations", force: :cascade do |t|
+    t.integer  "cart_item_id",     limit: 4
+    t.integer  "specification_id", limit: 4
+    t.string   "value",            limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "cart_item_customisations", ["cart_item_id"], name: "index_cart_item_customisations_on_cart_item_id", using: :btree
+  add_index "cart_item_customisations", ["specification_id"], name: "index_cart_item_customisations_on_specification_id", using: :btree
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -531,6 +542,8 @@ ActiveRecord::Schema.define(version: 20151107221057) do
 
   add_foreign_key "banner_categories", "banners"
   add_foreign_key "banner_categories", "categories"
+  add_foreign_key "cart_item_customisations", "cart_items"
+  add_foreign_key "cart_item_customisations", "specifications"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "customers"

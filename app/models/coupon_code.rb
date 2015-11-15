@@ -31,7 +31,7 @@ class CouponCode < ActiveRecord::Base
 	end
 
 	def steps
-		%w[info categories products]
+		%w[info products]
 	end
 
 	private

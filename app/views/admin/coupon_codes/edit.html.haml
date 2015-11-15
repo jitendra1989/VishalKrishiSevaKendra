@@ -7,6 +7,6 @@
 				.col-md-12
 					.inline-block.coupon-code-steps
 						= link_to 'Main', edit_admin_coupon_code_path(@coupon_code, :info), class: "btn btn-lg btn-link#{@coupon_code.current_step=='info' ? ' active' : ''}"
-						= link_to 'Categories', edit_admin_coupon_code_path(@coupon_code, :categories), class: "btn btn-lg btn-link#{@coupon_code.current_step=='categories' ? ' active' : ''}"
+						/ = link_to 'Categories', edit_admin_coupon_code_path(@coupon_code, :categories), class: "btn btn-lg btn-link#{@coupon_code.current_step=='categories' ? ' active' : ''}"
 						= link_to 'Products', edit_admin_coupon_code_path(@coupon_code, :products), class: "btn btn-lg btn-link#{@coupon_code.current_step=='products' ? ' active' : ''}"
 			= render 'form'

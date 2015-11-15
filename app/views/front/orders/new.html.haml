@@ -13,7 +13,7 @@
 				.col-md-2 Quantity
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
-			- subtotal, description = 0, []
+			- subtotal, total_discount, description = 0, 0, []
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-3= image_tag item.product.images.first.name.thumbnail
@@ -24,12 +24,26 @@
 					.col-md-2.text-right= number_to_currency item.product.online_price
 					.col-md-2.text-right
 						- amount = item.product.online_price_with_taxes * item.quantity
+						- if @cart.coupon_code && @cart.coupon_code.products.ids.include?(item.product.id)
+							- discount = (amount * @cart.coupon_code.percent/100)
+							- total_discount += discount
+							- amount -= discount
+							%s= number_to_currency amount + discount
+							%br
 						- subtotal += amount
 						= number_to_currency amount
 			%hr
 			.row.text-right
 				.col-md-offset-8.col-md-2 Subtotal
-				.col-md-2.subtotal{ 'data-subtotal' => subtotal }= number_to_currency subtotal
+				.col-md-2.subtotal{ 'data-subtotal' => subtotal }
+					- if total_discount > 0
+						%s= number_to_currency subtotal + total_discount
+						%br
+					= number_to_currency subtotal
+			- if @cart.coupon_code
+				.row.text-right
+					.col-md-offset-8.col-md-2 Coupon Applied
+					.col-md-2= @cart.coupon_code.code
 	.col-md-4.col-md-offset-1
 		.main-content
 			%h3 Ship To

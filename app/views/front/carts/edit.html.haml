@@ -10,7 +10,7 @@
 				.col-md-2.text-right Price
 				.col-md-2.text-right Amount
 				.col-md-1
-			- subtotal = 0
+			- subtotal, total_discount = 0, 0
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-2
@@ -25,6 +25,12 @@
 					.col-md-2.text-right= number_to_currency item.product.online_price_with_taxes
 					.col-md-2.text-right
 						- amount = item.product.online_price_with_taxes * item.quantity
+						- if @cart.coupon_code && @cart.coupon_code.products.ids.include?(item.product.id)
+							- discount = (amount * @cart.coupon_code.percent/100)
+							- total_discount += discount
+							- amount -= discount
+							%s= number_to_currency amount + discount
+							%br
 						- subtotal += amount
 						= number_to_currency amount
 					.col-md-1.actions.text-center
@@ -34,8 +40,26 @@
 			%hr
 			.row.text-right
 				.col-md-offset-7.col-md-2 Subtotal
-				.col-md-2.subtotal{ 'data-subtotal' => subtotal }= number_to_currency subtotal
+				.col-md-2.subtotal{ 'data-subtotal' => subtotal }
+					- if total_discount > 0
+						%s= number_to_currency subtotal + total_discount
+						%br
+					= number_to_currency subtotal
 				.col-md-1
+			= form_tag coupon_code_front_cart_path, class: 'form-inline' do
+				.row.text-right
+					.col-md-12
+						%hr
+					.col-md-offset-7.col-md-4
+						= label_tag :coupon_code
+						- if @cart.coupon_code
+							= @cart.coupon_code.code
+							= hidden_field_tag :coupon_code, '_destroy', class: 'form-control'
+							= button_tag 'Remove', class: 'btn btn-default'
+						- else
+							= text_field_tag :coupon_code, @cart.coupon_code.try(:code), class: 'form-control'
+							= button_tag 'Apply', class: 'btn btn-default'
+					.col-md-1
 			%hr
 			.row
 				.col-md-6

@@ -13,6 +13,15 @@ class Front::CartsController < Front::ApplicationController
     @cart = OnlineCart.find_by(id: session[:online_cart_id]) || OnlineCart.new
   end
 
+  def coupon_code
+    @cart = OnlineCart.find_by(id: session[:online_cart_id])
+    if @cart.update(coupon_code_string: params[:coupon_code])
+      redirect_to edit_front_cart_url, flash: { success: 'Your cart was successfully updated.' }
+    else
+      render :edit
+    end
+  end
+
   def update
     cart = OnlineCart.find(session[:online_cart_id])
     cart.update_item(params[:product_id], params[:quantity])
@@ -25,5 +34,4 @@ class Front::CartsController < Front::ApplicationController
     redirect_to edit_front_cart_url
   end
 
-  private
 end

@@ -8,6 +8,7 @@ RSpec.describe OnlineCart, type: :model do
   it { expect(online_cart).to be_valid }
   it { expect(online_cart).to respond_to(:customer) }
   it { expect(online_cart).to respond_to(:items) }
+  it { expect(online_cart).to respond_to(:coupon_code, :coupon_code_string) }
 
   describe "Add to cart" do
     let!(:more_stock) { FactoryGirl.create(:stock, product: product, outlet: FactoryGirl.create(:online_outlet)) }

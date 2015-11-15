@@ -1,4 +1,4 @@
-- [@current_customer, @customer].each do |object|
+- [@current_customer, @customer, @cart].each do |object|
 	-if object.try(:errors).try(:any?)
 		.alert.alert-danger
 			%ul.list-unstyled

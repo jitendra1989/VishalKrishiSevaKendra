@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resource :cart, only: [:edit, :update] do
       collection do
         post 'add'
+        post 'coupon-code' => 'carts#coupon_code'
         delete 'remove/:product_id' => 'carts#remove', as: :remove
       end
     end

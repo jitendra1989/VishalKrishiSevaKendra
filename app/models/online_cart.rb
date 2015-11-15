@@ -1,6 +1,11 @@
 class OnlineCart < ActiveRecord::Base
   belongs_to :customer
+  belongs_to :coupon_code
   has_many :items, class_name: OnlineCartItem, dependent: :destroy
+
+  validate :coupon_code_validity
+
+  attr_accessor :coupon_code_string
 
   def add_item(product_id, quantity)
     cart_item = self.items.find_or_initialize_by(product_id: product_id)
@@ -46,5 +51,24 @@ class OnlineCart < ActiveRecord::Base
 
     def block_period
       15.minutes
+    end
+
+    def coupon_code_validity
+      if self.coupon_code_string
+        if coupon_code_string != '_destroy'
+          coupon = CouponCode.active.find_by(code: coupon_code_string)
+          if coupon
+            if (self.items.pluck(:product_id) & coupon.products.ids).empty?
+              errors.add(:base, 'The coupon code entered is not applicable to any of your selected products')
+            else
+              self.coupon_code_id = coupon.id
+            end
+          else
+            errors.add(:base, 'The coupon code entered is not a valid anymore!')
+          end
+        else
+          self.coupon_code_id = nil
+        end
+      end
     end
 end

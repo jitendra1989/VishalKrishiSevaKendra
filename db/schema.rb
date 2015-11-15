@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115175733) do
+ActiveRecord::Schema.define(version: 20151115201553) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -197,12 +197,14 @@ ActiveRecord::Schema.define(version: 20151115175733) do
   add_index "online_cart_items", ["product_id"], name: "index_online_cart_items_on_product_id", using: :btree
 
   create_table "online_carts", force: :cascade do |t|
-    t.integer  "customer_id", limit: 4
+    t.integer  "customer_id",    limit: 4
+    t.integer  "coupon_code_id", limit: 4
     t.datetime "blocked_at"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
+  add_index "online_carts", ["coupon_code_id"], name: "index_online_carts_on_coupon_code_id", using: :btree
   add_index "online_carts", ["customer_id"], name: "index_online_carts_on_customer_id", using: :btree
 
   create_table "online_order_items", force: :cascade do |t|
@@ -623,6 +625,7 @@ ActiveRecord::Schema.define(version: 20151115175733) do
   add_foreign_key "invoices", "customers"
   add_foreign_key "online_cart_items", "online_carts"
   add_foreign_key "online_cart_items", "products"
+  add_foreign_key "online_carts", "coupon_codes"
   add_foreign_key "online_carts", "customers"
   add_foreign_key "online_order_items", "online_orders"
   add_foreign_key "online_order_items", "products"

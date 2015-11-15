@@ -29,6 +29,13 @@ RSpec.describe Front::CartsController, type: :controller do
     end
   end
 
+  describe "POST #coupon-code" do
+    it "redirects to the cart page" do
+      post :coupon_code, coupon_code: 'CODE'
+      expect(response).to redirect_to(edit_front_cart_url)
+    end
+  end
+
   describe "GET #edit" do
     it "assigns the active cart as @cart" do
       session[:online_cart_id] = online_cart.id

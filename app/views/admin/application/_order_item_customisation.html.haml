@@ -1,0 +1,8 @@
+%tr
+	%td= customisation.id
+	%td= customisation.created_at.strftime '%d-%m-%Y %H:%M'
+	%td= customisation.order_item.product.name
+	%td= customisation.specification.name
+	%td= customisation.value
+	%td= customisation.status.humanize
+	%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)

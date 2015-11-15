@@ -4,7 +4,8 @@
 	.col-md-12
 		.profile-box
 			%br
-			%h3 Specifications
+			%h3.inline-block Specifications
+			= link_to 'View All', admin_order_item_customisations_path, class: 'btn btn-link customisation-link'
 			%table.table.table-striped.table-responsive
 				%thead
 					%tr
@@ -17,16 +18,10 @@
 						%th.text-center Actions
 				%tbody
 					- @order_item_customisations.each do |customisation|
-						%tr
-							%td= customisation.id
-							%td= customisation.created_at.strftime '%d-%m-%Y %H:%M'
-							%td= customisation.order_item.product.name
-							%td= customisation.specification.name
-							%td= customisation.value
-							%td= customisation.status.humanize
-							%td.actions.text-center= link_to 'Update', '#'
+						= render 'order_item_customisation', customisation: customisation
 			%hr
-			%h3 Image Specifications
+			%h3.inline-block Image Specifications
+			= link_to 'View All', admin_order_item_image_customisations_path, class: 'btn btn-link customisation-link'
 			%table.table.table-striped.table-responsive
 				%thead
 					%tr
@@ -39,11 +34,4 @@
 						%th.text-center Actions
 				%tbody
 					- @order_item_image_customisations.each do |customisation|
-						%tr
-							%td= customisation.id
-							%td= customisation.created_at.strftime '%d-%m-%Y %H:%M'
-							%td= customisation.order_item.product.name
-							%td= customisation.characteristic.name
-							%td= image_tag customisation.characteristic_image.name.small
-							%td= customisation.status.humanize
-							%td.actions.text-center= link_to 'Update', '#'
+						= render 'order_item_image_customisation', customisation: customisation

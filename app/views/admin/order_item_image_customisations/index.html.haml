@@ -1,0 +1,19 @@
+.row
+	.col-md-12
+		%h2 Custom Image Specifications
+	.col-md-12
+		.profile-box
+			%br
+			%table.table.table-striped.table-responsive
+				%thead
+					%tr
+						%th ID
+						%th Date
+						%th Item Name
+						%th Specification
+						%th Requirement
+						%th Status
+						%th.text-center Actions
+				%tbody
+					- @order_item_image_customisations.each do |customisation|
+						= render 'order_item_image_customisation', customisation: customisation

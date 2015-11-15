@@ -1,0 +1,23 @@
+.row
+	.col-md-12
+		%h2= "Update Status - #{@order_item_customisation.order_item.product.name}"
+	.col-md-12
+		.profile-box
+			= form_for [:admin, @order_item_customisation] do |f|
+				.row
+					.col-md-6
+						%p
+							%strong Specification:
+						= @order_item_customisation.specification.name
+					.col-md-6
+						%p
+							%strong Requirement:
+						= @order_item_customisation.value
+				%br
+				%br
+				.form-group
+					= f.label :status
+					= f.select :status, OrderItemCustomisation.statuses.map{ |k, v| [k.humanize, k]  }, {}, class: 'form-control'
+				.form-group.text-center
+					= f.submit "Submit", class: "btn btn-primary"
+					= link_to "Cancel", :back, class: "btn btn-default"

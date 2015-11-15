@@ -72,6 +72,8 @@ Rails.application.routes.draw do
       end
     end
     get 'workshop/index'
+    resources :order_item_customisations, only: [:index, :edit, :update]
+    resources :order_item_image_customisations, only: [:index, :edit, :update]
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do
       resources :receipts, except: [:edit, :update, :destroy]
       member do

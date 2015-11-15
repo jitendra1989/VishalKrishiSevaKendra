@@ -7,7 +7,7 @@ class Admin::ReportsController < Admin::ApplicationController
 	end
 
 	def workshop
-		@workshop_log = WorkshopLog.all.order('created_at DESC')
-		@workshop_image_log = WorkshopImageLog.all.order('created_at DESC')
+		@workshop_log = WorkshopLog.includes(:order_item_customisation, :user).all.order('created_at DESC')
+		@workshop_image_log = WorkshopImageLog.includes(:order_item_image_customisation, :user).all.order('created_at DESC')
 	end
 end

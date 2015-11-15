@@ -16,8 +16,13 @@
 				%br
 				%br
 				.form-group
+					= label_tag 'Current Status:'
+					%br
+					= @order_item_image_customisation.status.humanize
+				.form-group
 					= f.label :status
-					= f.select :status, OrderItemImageCustomisation.statuses.map{ |k, v| [k.humanize, k]  }, {}, class: 'form-control'
+					- statuses = OrderItemImageCustomisation.statuses
+					= f.select :status, statuses.map{ |k, v| [k.humanize, k]  }.drop([statuses[@order_item_image_customisation.status] + 1, 2].min), {}, class: 'form-control'
 				.form-group.text-center
 					= f.submit "Submit", class: "btn btn-primary"
 					= link_to "Cancel", :back, class: "btn btn-default"

@@ -8,6 +8,6 @@ RSpec.describe "admin/reports/workshop", type: :view do
     assign(:workshop_log, workshop_log)
     assign(:workshop_image_log, workshop_image_log)
     render
-    expect(rendered).to match(/User/)
+    expect(rendered).to match(/Workshop Report/)
   end
 end

@@ -8,7 +8,7 @@ class Admin::OrderItemImageCustomisationsController < Admin::ApplicationControll
   end
 
   def update
-    if @order_item_image_customisation.update(order_item_image_customisation_params)
+    if @order_item_image_customisation.update(order_item_image_customisation_params.merge(user_id: current_user.id))
       redirect_to admin_order_item_image_customisations_url, flash: { success: 'Status was successfully updated.' }
     else
       render :edit

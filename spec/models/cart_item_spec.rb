@@ -5,7 +5,7 @@ RSpec.describe CartItem, type: :model do
   it { expect(cart_item).to be_valid }
   it { expect(cart_item).to respond_to(:product) }
   it { expect(cart_item).to respond_to(:cart) }
-  it { expect(cart_item).to respond_to(:customisations) }
+  it { expect(cart_item).to respond_to(:customisations, :image_customisations) }
   it "has a valid quantity" do
     cart_item.quantity = Faker::Lorem.word
     expect(cart_item).to_not be_valid

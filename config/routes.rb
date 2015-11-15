@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         patch 'flag'
       end
     end
-    resources :carts, except: [:new, :create, :show] do
+    resources :carts, except: [:new, :create, :show], shallow: true do
       collection do
         post 'add'
         post 'assign/:customer_id' => 'carts#assign', as: :assign
@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       member do
         delete 'remove/:product_id' => 'carts#remove', as: :remove
       end
+      resources :cart_items, only: [:edit, :update]
     end
     resources :customers, shallow: true do
       collection do

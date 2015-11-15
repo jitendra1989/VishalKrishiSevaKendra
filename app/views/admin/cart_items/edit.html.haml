@@ -1,0 +1,19 @@
+.row
+	.col-md-12
+		%h2= "Customise #{@cart_item.product.name}"
+	.col-md-12
+		.main-content
+			= form_for [:admin, @cart_item] do |f|
+				.row
+					.col-md-12
+						%br
+						= f.fields_for :customisations do |customisations|
+							= render 'customisation_fields', f: customisations
+						.links
+							= link_to_add_association 'Add Specification', f, :customisations, class: 'add-product btn btn-default'
+							%br
+							%br
+					.form-group.text-center
+						= f.submit 'Save', class: 'btn btn-primary'
+						= link_to 'Back to Cart', edit_admin_cart_path(@cart), class: 'btn btn-default'
+

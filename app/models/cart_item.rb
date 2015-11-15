@@ -5,6 +5,9 @@ class CartItem < ActiveRecord::Base
   has_many :customisations, class_name: CartItemCustomisation, dependent: :destroy
 
   validates :quantity, presence: true, numericality: true
+
+  accepts_nested_attributes_for :customisations, reject_if: :all_blank, allow_destroy:true
+
   before_destroy :return_stock
 
   private

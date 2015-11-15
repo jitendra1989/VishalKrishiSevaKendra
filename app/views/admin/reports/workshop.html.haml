@@ -1,0 +1,39 @@
+.row
+	.col-md-12
+		%h2 Workshop Report
+	.col-md-12
+		.profile-box
+			- if @workshop_log.size > 0
+				%table.table
+					%tr
+						%th Date
+						%th Order Item
+						%th Customisation
+						%th Requirement
+						%th User
+						%th Info
+					- @workshop_log.each do |workshop_log|
+						%tr
+							%td= workshop_log.created_at.strftime '%d-%b-%Y %H:%M'
+							%td= workshop_log.order_item_customisation.order_item.product.name
+							%td= workshop_log.order_item_customisation.specification.name
+							%td= workshop_log.order_item_customisation.value
+							%td= workshop_log.user.name
+							%td= workshop_log.info
+			- if @workshop_image_log.size > 0
+				%table.table
+					%tr
+						%th Date
+						%th Order Item
+						%th Customisation
+						%th Requirement
+						%th User
+						%th Info
+					- @workshop_image_log.each do |workshop_image_log|
+						%tr
+							%td= workshop_image_log.created_at.strftime '%d-%b-%Y %H:%M'
+							%td= workshop_image_log.order_item_image_customisation.characteristic.name
+							%td= image_tag workshop_image_log.order_item_image_customisation.characteristic_image.name.small
+							%td= workshop_image_log.order_item_image_customisation.order_item.product.name
+							%td= workshop_image_log.user.name
+							%td= workshop_image_log.info

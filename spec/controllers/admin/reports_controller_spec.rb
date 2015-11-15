@@ -13,4 +13,11 @@ RSpec.describe Admin::ReportsController, type: :controller do
     end
   end
 
+  describe "GET #workshop" do
+    it "returns http success" do
+      get :workshop
+      expect(response.status).to eq(200)
+    end
+  end
+
 end

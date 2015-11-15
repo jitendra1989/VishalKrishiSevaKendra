@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :reports, only: [] do
       collection do
         get 'stock'
+        get 'workshop'
       end
     end
     resources :roles, except: [:show]

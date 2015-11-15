@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115060551) do
+ActiveRecord::Schema.define(version: 20151115112954) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -255,8 +255,9 @@ ActiveRecord::Schema.define(version: 20151115060551) do
     t.integer  "order_item_id",    limit: 4
     t.integer  "specification_id", limit: 4
     t.string   "value",            limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "status",           limit: 4,   default: 0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "order_item_customisations", ["order_item_id"], name: "index_order_item_customisations_on_order_item_id", using: :btree
@@ -266,8 +267,9 @@ ActiveRecord::Schema.define(version: 20151115060551) do
     t.integer  "order_item_id",           limit: 4
     t.integer  "characteristic_id",       limit: 4
     t.integer  "characteristic_image_id", limit: 4
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "status",                  limit: 4, default: 0, null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   add_index "order_item_image_customisations", ["characteristic_id"], name: "index_order_item_image_customisations_on_characteristic_id", using: :btree

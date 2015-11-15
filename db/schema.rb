@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115112954) do
+ActiveRecord::Schema.define(version: 20151115175733) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -581,6 +581,28 @@ ActiveRecord::Schema.define(version: 20151115112954) do
   add_index "users", ["outlet_id"], name: "index_users_on_outlet_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "workshop_image_logs", force: :cascade do |t|
+    t.integer  "user_id",                           limit: 4
+    t.string   "info",                              limit: 255
+    t.integer  "order_item_image_customisation_id", limit: 4
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "workshop_image_logs", ["order_item_image_customisation_id"], name: "index_workshop_image_logs_on_order_item_image_customisation_id", using: :btree
+  add_index "workshop_image_logs", ["user_id"], name: "index_workshop_image_logs_on_user_id", using: :btree
+
+  create_table "workshop_logs", force: :cascade do |t|
+    t.integer  "user_id",                     limit: 4
+    t.string   "info",                        limit: 255
+    t.integer  "order_item_customisation_id", limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "workshop_logs", ["order_item_customisation_id"], name: "index_workshop_logs_on_order_item_customisation_id", using: :btree
+  add_index "workshop_logs", ["user_id"], name: "index_workshop_logs_on_user_id", using: :btree
+
   add_foreign_key "banner_categories", "banners"
   add_foreign_key "banner_categories", "categories"
   add_foreign_key "cart_item_customisations", "cart_items"
@@ -650,4 +672,8 @@ ActiveRecord::Schema.define(version: 20151115112954) do
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "users", "outlets"
+  add_foreign_key "workshop_image_logs", "order_item_image_customisations"
+  add_foreign_key "workshop_image_logs", "users"
+  add_foreign_key "workshop_logs", "order_item_customisations"
+  add_foreign_key "workshop_logs", "users"
 end

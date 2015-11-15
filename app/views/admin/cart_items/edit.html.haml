@@ -7,13 +7,25 @@
 				.row
 					.col-md-12
 						%br
-						= f.fields_for :customisations do |customisations|
-							= render 'customisation_fields', f: customisations
+						= f.fields_for :customisations do |customisation|
+							= render 'customisation_fields', f: customisation
 						.links
-							= link_to_add_association 'Add Specification', f, :customisations, class: 'add-product btn btn-default'
+							= link_to_add_association 'Add Specification', f, :customisations, class: 'btn btn-default'
 							%br
 							%br
-					.form-group.text-center
-						= f.submit 'Save', class: 'btn btn-primary'
+					.col-md-12
+						%hr
+					.col-md-12
+						%br
+						= f.fields_for :image_customisations do |image_customisation|
+							= render 'image_customisation_fields', f: image_customisation
+						.links
+							= link_to_add_association 'Add Image Specification', f, :image_customisations, class: 'btn btn-default'
+							%br
+							%br
+				.row
+					.col-md-6
 						= link_to 'Back to Cart', edit_admin_cart_path(@cart), class: 'btn btn-default'
+					.col-md-6.text-right
+						= f.submit 'Save', class: 'btn btn-primary'
 

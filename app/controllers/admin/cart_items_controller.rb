@@ -15,12 +15,12 @@ class Admin::CartItemsController < Admin::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
-      @cart_item = CartItem.find(params[:id])
+      @cart_item = CartItem.includes(image_customisations: [:characteristic, :characteristic_image]).find(params[:id])
       @cart = @cart_item.cart
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_item_params
-      params.require(:cart_item).permit(customisations_attributes: [:id, :specification_id, :value, :_destroy])
+      params.require(:cart_item).permit(customisations_attributes: [:id, :specification_id, :value, :_destroy], image_customisations_attributes: [:id, :characteristic_id, :characteristic_image_id, :_destroy])
     end
 end

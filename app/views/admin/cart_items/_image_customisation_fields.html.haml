@@ -8,7 +8,7 @@
       .image-checkbox.relative.inline-block
         = image_tag f.object.characteristic_image.name.small, class: 'img-responsive'
     - else
-      = f.select :characteristic_id, Characteristic.pluck(:name, :id), { prompt: 'Select Specification' }, class: 'form-control characteristic-changer', 'data-url' => images_admin_characteristic_path(0), 'data-uid' => '[new_product_characteristics]', 'data-invoker' => 'product'
+      = f.select :characteristic_id, Characteristic.pluck(:name, :id), { prompt: 'Select Specification' }, class: 'form-control characteristic-changer', 'data-url' => images_admin_characteristic_path(0), 'data-uid' => '[new_image_customisations]', 'data-invoker' => 'cart_item'
   .form-group.characteristic-image
   %br
   %br

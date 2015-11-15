@@ -35,7 +35,18 @@
             %tbody
               - @order.items.each do |item|
                 %tr
-                  %td= item.name
+                  %td
+                    = item.name
+                    - if item.customisations.size > 0
+                      %ul.list-unstyled
+                        - item.customisations.includes(:specification).each do |customisation|
+                          %li.small= "#{customisation.specification.name} #{customisation.value}"
+                    - if item.image_customisations.size > 0
+                      %ul.list-unstyled
+                        - item.image_customisations.includes(:characteristic).each do |customisation|
+                          %li.small
+                            = customisation.characteristic.name
+                            = image_tag customisation.characteristic_image.name, width: 20
                   %td.text-right= item.quantity
                   %td.text-right= number_to_currency item.price
                   %td.text-right= number_to_currency item.quantity * item.price

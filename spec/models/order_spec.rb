@@ -55,6 +55,24 @@ RSpec.describe Order, type: :model do
         order.save!
       }.to change(OrderItem, :count).by(cart_items_count)
     end
+    it 'adds all cart item customisations' do
+      cart_items_count = cart.items.size
+      expect{
+        order.save!
+      }.to change(OrderItem, :count).by(cart_items_count)
+    end
+    it 'adds all cart item customisations' do
+      FactoryGirl.create(:cart_item_customisation, cart_item: cart.items.first)
+      expect{
+        order.save!
+      }.to change(OrderItemCustomisation, :count).by(1)
+    end
+    it 'adds all cart item image customisations' do
+      FactoryGirl.create(:cart_item_image_customisation, cart_item: cart.items.first)
+      expect{
+        order.save!
+      }.to change(OrderItemImageCustomisation, :count).by(1)
+    end
     describe 'subtotal and taxes' do
       let!(:subtotal) { cart.items.includes(:product).pluck('price * quantity').sum }
       before do

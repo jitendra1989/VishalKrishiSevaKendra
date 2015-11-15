@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115201553) do
+ActiveRecord::Schema.define(version: 20151115205408) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -213,8 +213,9 @@ ActiveRecord::Schema.define(version: 20151115201553) do
     t.string   "name",            limit: 255
     t.integer  "quantity",        limit: 4
     t.decimal  "price",                       precision: 10, scale: 2
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.decimal  "discount_amount",             precision: 10, scale: 2, default: 0.0, null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
   end
 
   add_index "online_order_items", ["online_order_id"], name: "index_online_order_items_on_online_order_id", using: :btree
@@ -232,14 +233,16 @@ ActiveRecord::Schema.define(version: 20151115201553) do
   add_index "online_order_taxes", ["online_order_id"], name: "index_online_order_taxes_on_online_order_id", using: :btree
 
   create_table "online_orders", force: :cascade do |t|
-    t.integer  "customer_id",  limit: 4
-    t.decimal  "subtotal",                   precision: 10, scale: 2, default: 0.0, null: false
-    t.decimal  "tax_amount",                 precision: 10, scale: 2, default: 0.0, null: false
-    t.text     "payment_info", limit: 65535
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.integer  "customer_id",    limit: 4
+    t.decimal  "subtotal",                     precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "tax_amount",                   precision: 10, scale: 2, default: 0.0, null: false
+    t.integer  "coupon_code_id", limit: 4
+    t.text     "payment_info",   limit: 65535
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
   end
 
+  add_index "online_orders", ["coupon_code_id"], name: "index_online_orders_on_coupon_code_id", using: :btree
   add_index "online_orders", ["customer_id"], name: "index_online_orders_on_customer_id", using: :btree
 
   create_table "online_taxes", force: :cascade do |t|
@@ -630,6 +633,7 @@ ActiveRecord::Schema.define(version: 20151115201553) do
   add_foreign_key "online_order_items", "online_orders"
   add_foreign_key "online_order_items", "products"
   add_foreign_key "online_order_taxes", "online_orders"
+  add_foreign_key "online_orders", "coupon_codes"
   add_foreign_key "online_orders", "customers"
   add_foreign_key "order_item_customisations", "order_items"
   add_foreign_key "order_item_customisations", "specifications"

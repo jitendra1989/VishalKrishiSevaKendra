@@ -16,7 +16,11 @@
 					.col-md-2= item.quantity
 					.col-md-2.text-right= number_to_currency item.price
 					.col-md-2.text-right
-						= number_to_currency item.price * item.quantity
+						- amount = item.price * item.quantity
+						- if item.discount_amount > 0
+							%s= number_to_currency amount - item.discount_amount
+							%br
+						= number_to_currency amount
 			%hr
 			.row.text-right
 				.col-md-offset-8.col-md-2 Subtotal

@@ -2,6 +2,7 @@ require 'rc4'
 class OnlineOrder < ActiveRecord::Base
   include HumanNumbers
   belongs_to :customer
+  belongs_to :coupon_code
   has_many :items, class: OnlineOrderItem, dependent: :destroy
   has_many :taxes, class: OnlineOrderTax, dependent: :destroy
 
@@ -30,9 +31,10 @@ class OnlineOrder < ActiveRecord::Base
       if self.online_cart_id
         self.subtotal, self.tax_amount = 0, 0
         online_cart = OnlineCart.includes(:items).find(self.online_cart_id)
+        self.coupon_code_id = online_cart.coupon_code_id
         online_cart.items.includes(:product).each do |cart_item|
-          self.items.create(product: cart_item.product, quantity: cart_item.quantity)
-          self.subtotal += cart_item.product.online_price * cart_item.quantity
+          item = self.items.create(product: cart_item.product, quantity: cart_item.quantity, coupon_code: self.coupon_code)
+          self.subtotal += (item.price * item.quantity)
           Outlet.online_outlets.each do |online_outlet|
             if cart_item.product.is_a? ProductGroup
               cart_item.product.group_items.each do |group_item|

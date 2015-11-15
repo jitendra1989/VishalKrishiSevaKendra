@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115035243) do
+ActiveRecord::Schema.define(version: 20151115052710) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -248,6 +248,29 @@ ActiveRecord::Schema.define(version: 20151115035243) do
   end
 
   add_index "online_taxes", ["ancestry"], name: "index_online_taxes_on_ancestry", using: :btree
+
+  create_table "order_item_customisations", force: :cascade do |t|
+    t.integer  "order_item_id",    limit: 4
+    t.integer  "specification_id", limit: 4
+    t.string   "value",            limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "order_item_customisations", ["order_item_id"], name: "index_order_item_customisations_on_order_item_id", using: :btree
+  add_index "order_item_customisations", ["specification_id"], name: "index_order_item_customisations_on_specification_id", using: :btree
+
+  create_table "order_item_image_customisations", force: :cascade do |t|
+    t.integer  "order_item_id",           limit: 4
+    t.integer  "characteristic_id",       limit: 4
+    t.integer  "characteristic_image_id", limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "order_item_image_customisations", ["characteristic_id"], name: "index_order_item_image_customisations_on_characteristic_id", using: :btree
+  add_index "order_item_image_customisations", ["characteristic_image_id"], name: "index_order_item_image_customisations_on_characteristic_image_id", using: :btree
+  add_index "order_item_image_customisations", ["order_item_id"], name: "index_order_item_image_customisations_on_order_item_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id",   limit: 4
@@ -577,6 +600,11 @@ ActiveRecord::Schema.define(version: 20151115035243) do
   add_foreign_key "online_order_items", "products"
   add_foreign_key "online_order_taxes", "online_orders"
   add_foreign_key "online_orders", "customers"
+  add_foreign_key "order_item_customisations", "order_items"
+  add_foreign_key "order_item_customisations", "specifications"
+  add_foreign_key "order_item_image_customisations", "characteristic_images"
+  add_foreign_key "order_item_image_customisations", "characteristics"
+  add_foreign_key "order_item_image_customisations", "order_items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "order_taxes", "orders"

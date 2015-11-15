@@ -1,6 +1,9 @@
 class OrderItem < ActiveRecord::Base
-  belongs_to :order
   belongs_to :product
+  belongs_to :order
+
+  has_many :customisations, class_name: OrderItemCustomisation, dependent: :destroy
+  has_many :image_customisations, class_name: OrderItemImageCustomisation, dependent: :destroy
 
   before_validation :add_name_price
 

@@ -71,6 +71,7 @@ Rails.application.routes.draw do
         get 'invoice'
       end
     end
+    get 'workshop/index'
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do
       resources :receipts, except: [:edit, :update, :destroy]
       member do

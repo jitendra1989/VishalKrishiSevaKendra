@@ -56,6 +56,7 @@
 										%li= link_to 'Online Orders & Invoices', admin_online_orders_path
 										%li= link_to 'Receipts', admin_receipts_path
 										%li= link_to 'Invoices', admin_invoices_path
+										%li= link_to 'Workshop', admin_workshop_index_path
 								- if can? :read, Category or can? :read, Product
 									%li.dropdown{ role: 'presentation' }
 										%a.dropdown-toggle{ 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false }

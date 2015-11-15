@@ -1,0 +1,49 @@
+.row
+	.col-md-12
+		%h2 Custom Specifications
+	.col-md-12
+		.profile-box
+			%br
+			%h3 Specifications
+			%table.table.table-striped.table-responsive
+				%thead
+					%tr
+						%th ID
+						%th Date
+						%th Item Name
+						%th Specification
+						%th Requirement
+						%th Status
+						%th.text-center Actions
+				%tbody
+					- @order_item_customisations.each do |customisation|
+						%tr
+							%td= customisation.id
+							%td= customisation.created_at.strftime '%d-%m-%Y %H:%M'
+							%td= customisation.order_item.product.name
+							%td= customisation.specification.name
+							%td= customisation.value
+							%td= customisation.status.humanize
+							%td.actions.text-center= link_to 'Update', '#'
+			%hr
+			%h3 Image Specifications
+			%table.table.table-striped.table-responsive
+				%thead
+					%tr
+						%th ID
+						%th Date
+						%th Item Name
+						%th Specification
+						%th Requirement
+						%th Status
+						%th.text-center Actions
+				%tbody
+					- @order_item_image_customisations.each do |customisation|
+						%tr
+							%td= customisation.id
+							%td= customisation.created_at.strftime '%d-%m-%Y %H:%M'
+							%td= customisation.order_item.product.name
+							%td= customisation.characteristic.name
+							%td= image_tag customisation.characteristic_image.name.small
+							%td= customisation.status.humanize
+							%td.actions.text-center= link_to 'Update', '#'

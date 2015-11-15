@@ -1,5 +1,7 @@
 class Admin::CartItemsController < Admin::ApplicationController
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
+  authorize_resource :cart
+  authorize_resource :cart_item, through: :cart, shallow: true
 
   def edit
   end

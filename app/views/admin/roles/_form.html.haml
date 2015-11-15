@@ -7,7 +7,7 @@
     = f.number_field :discount_percent, required: true, class: 'form-control', step: 'any'
   .form-group.permissions
     - permission = nil
-    = f.collection_check_boxes(:permission_ids, Permission.all, :id, :description) do |b|
+    = f.collection_check_boxes(:permission_ids, Permission.all.order(:name), :id, :description) do |b|
       - if permission != b.object.name
         .h4.text-capitalize= b.object.name
         - permission = b.object.name

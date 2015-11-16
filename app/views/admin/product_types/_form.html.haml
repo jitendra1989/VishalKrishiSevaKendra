@@ -2,7 +2,7 @@
   .form-group
     = f.label :name
     = f.text_field :name, required: true, class: 'form-control'
-  .form-group
+  .form-group.hidden
     = f.label :require_workshop
     = f.check_box :require_workshop
   %ul.product-type-taxes-list#taxes-list

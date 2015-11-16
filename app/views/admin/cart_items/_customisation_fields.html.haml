@@ -1,6 +1,6 @@
 .nested-fields.form-inline
   .form-group
-    = f.select :specification_id, Specification.pluck('CONCAT(name, " (", units, ")")', :id), {}, class: 'form-control'
+    = f.select :specification_id, f.object.cart_item.product.specifications.pluck('CONCAT(name, " (", units, ")")', :id), {}, class: 'form-control'
   .form-group
     = f.text_field :value, placeholder: 'Value', class: 'form-control'
   %span

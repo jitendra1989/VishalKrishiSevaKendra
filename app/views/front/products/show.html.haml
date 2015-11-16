@@ -16,13 +16,26 @@
 						%hr
 					.full-description= @product.description
 					%hr
-					.specifications
-						.h4 Specifications
-						%table.table.table-striped
-							- @product.product_specifications.includes(:specification).pluck(:name, :value, :units).each do |specification|
-								%tr
-									%th= specification[0]
-									%td= "#{specification[1]} #{specification[2]}"
+					.product-details
+						%ul.nav.nav-tabs{ role: 'tablist' }
+							%li.active{ role: 'presentation' }
+								= link_to 'Specifications', '#specifications', role: 'tab', 'aria-controls' => 'specifications', 'data-toggle' => 'tab'
+							%li{ role: 'presentation' }
+								= link_to 'Attributes', '#attributes', role: 'tab', 'aria-controls' => 'attributes', 'data-toggle' => 'tab'
+						.tab-content
+							.tab-pane.fade.in.active#specifications
+								%br
+								%table.table.table-striped
+									- @product.product_specifications.includes(:specification).pluck(:name, :value, :units).each do |specification|
+										%tr
+											%th= specification[0]
+											%td= "#{specification[1]} #{specification[2]}"
+							.tab-pane.fade.active#attributes
+								%table.table
+									- @product.product_characteristics.includes(:characteristic, :characteristic_image).each do |characteristic|
+										%tr
+											%th= characteristic.characteristic.name
+											%td= image_tag characteristic.characteristic_image.name.small
 			.col-md-4
 				= large_decorated_frontend_price(@product)
 				%br

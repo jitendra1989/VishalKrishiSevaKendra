@@ -10,10 +10,10 @@
   /   = f.password_field :password_confirmation, class: 'form-control'
   .form-group
     = f.label :phone, class: 'required'
-    = f.text_field :phone, class: 'form-control'
+    = f.number_field :phone, class: 'form-control'
   .form-group
     = f.label :mobile, class: 'required'
-    = f.text_field :mobile, maxlength: 10, class: 'form-control'
+    = f.number_field :mobile, maxlength: 10, class: 'form-control'
   .form-group
     = f.label :email
     = f.email_field :email, class: 'form-control'
@@ -22,7 +22,7 @@
     = f.text_field :address, class: 'form-control'
   .form-group
     = f.label :pincode, class: 'required'
-    = f.text_field :pincode, maxlength: 10, class: 'form-control'
+    = f.number_field :pincode, maxlength: 10, class: 'form-control'
   .form-group
     = f.label :city, class: 'required'
     = f.text_field :city, class: 'form-control'

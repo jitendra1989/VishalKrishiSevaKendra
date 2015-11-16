@@ -28,7 +28,7 @@
       = f.password_field :password_confirmation, required: true, class: 'form-control'
   .form-group
     = f.label :phone, 'Contact No', class: 'required'
-    = f.text_field :phone, maxlength: 10, required: true, class: 'form-control'
+    = f.number_field :phone, maxlength: 10, required: true, class: 'form-control'
   .form-group
     = f.label :email, class: 'required'
     = f.text_field :email, required: true, class: 'form-control'
@@ -37,7 +37,7 @@
     = f.text_field :address, required: true, class: 'form-control'
   .form-group
     = f.label :pincode, class: 'required'
-    = f.text_field :pincode, maxlength: 6, required: true, class: 'form-control'
+    = f.number_field :pincode, maxlength: 6, required: true, class: 'form-control'
   .form-group
     = f.label :city, class: 'required'
     = f.text_field :city, required: true, class: 'form-control'

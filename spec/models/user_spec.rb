@@ -78,6 +78,8 @@ RSpec.describe User, type: :model do
 			expect(user).to_not be_valid
 			user.pincode = "1" * 6
 			expect(user).to be_valid
+			user.pincode = "a" * 6
+			expect(user).not_to be_valid
 		end
 	end
 	it "has a valid city" do

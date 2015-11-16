@@ -23,10 +23,5 @@
 								%td= invoice.amount
 								%td= invoice.orders.sum(:receipts_count)
 								%td.actions.text-center
-									= link_to gatepass_admin_invoice_path(invoice, format: :pdf), target: :_blank, title: 'Gate Pass' do
-										%span.glyphicon.glyphicon-road
-									= link_to dc_admin_invoice_path(invoice, format: :pdf), target: :_blank, title: 'Delivery Challan' do
-										%span.glyphicon.glyphicon-plane
-									= link_to admin_invoice_path(invoice, format: :pdf), target: :_blank do
-										%span.glyphicon.glyphicon-print
+									= render 'invoice_actions', invoice: invoice
 				.col-md-12= paginate @invoices

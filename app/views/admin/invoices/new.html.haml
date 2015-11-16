@@ -40,6 +40,7 @@
                   %th.text-right Total
                   %th Action
               %tbody.quotation-products
+                - invoiceable = false
                 = f.collection_check_boxes(:order_ids, @customer.orders, :id, :id) do |order|
                   %tr
                     %td.text-right= order.object.id
@@ -50,14 +51,18 @@
                     %td.text-right= order.object.subtotal + order.object.tax_amount - order.object.discount_amount
                     %td.text-center
                       - if order.object.invoice_id
-                        = link_to 'Invoice', admin_invoice_path(order.object.invoice_id), class: 'btn btn-default'
+                        = render 'invoice_actions', invoice: order.object.invoice_id
                       - else
                         - if order.object.unpaid_amount <= 0 || order.object.overridden?
+                          - invoiceable = true
                           = order.check_box
                         - else
                           Unpaid Order
               %tfoot
                 %tr
                   %td.text-center{ colspan: 7 }
-                    = f.submit 'Generate Invoice', class: 'btn btn-primary'
+                    - if invoiceable
+                      = f.submit 'Generate Invoice', class: 'btn btn-primary'
+                    - else
+                      = f.submit 'Generate Invoice', class: 'btn btn-primary disabled'
                     = link_to "Cancel", :back, class: 'btn btn-default'

@@ -63,6 +63,6 @@ class OrderPdf < Prawn::Document
 		end
 	end
 	def total_item_rows(order)
-		[["Subtotal","#{@view.number_to_currency(order.subtotal)}"], ["Tax","#{@view.number_to_currency(order.tax_amount)}"],["Discount","#{@view.number_to_currency(-order.discount_amount)}"], ["Grand Total","#{@view.number_to_currency(order.total)}"], ["Amount Paid",0], ["Amount Balance",0]]
+		[["Subtotal","#{@view.number_to_currency(order.subtotal)}"], ["Tax","#{@view.number_to_currency(order.tax_amount)}"],["Discount","#{@view.number_to_currency(-order.discount_amount)}"], ["Grand Total","#{@view.number_to_currency(order.total)}"], ["Amount Paid", @view.number_to_currency(order.receipts.pluck(:amount).sum)], ["Amount Balance", @view.number_to_currency(order.unpaid_amount)]]
 	end
 end

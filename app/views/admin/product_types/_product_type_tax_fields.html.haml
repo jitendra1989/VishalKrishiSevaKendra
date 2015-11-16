@@ -7,7 +7,7 @@
   .form-group.styled-checkboxes
     = f.check_box :fully_taxable
     = f.label :fully_taxable, 'Apply to whole amount'
-    = f.label :fully_taxable, 'Apply to parent only'
+    = f.label :fully_taxable, 'Apply to parent tax only'
   .form-group
     - if f.object.id
       %a.btn.btn-default.sub-tax-adder{ 'data-association-insertion-node' => "#sub_tax_#{f.object.id}" } Add Sub Tax

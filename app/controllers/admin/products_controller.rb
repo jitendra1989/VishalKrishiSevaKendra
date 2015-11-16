@@ -41,7 +41,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
 	def destroy
 		@product.destroy
-		redirect_to [:admin, @product.class], flash: { info: 'Product was successfully deleted.' }
+		redirect_to (request.referrer || [:admin, @product.class]), flash: { info: 'Product was successfully deleted.' }
 	end
 
 	def search

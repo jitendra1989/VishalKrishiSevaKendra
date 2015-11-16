@@ -1,15 +1,15 @@
 .row
 	.col-md-12
-		%h2 Custom Specifications
+		%h2 Workshop
 	.col-md-12
 		.profile-box
 			%br
 			%h3.inline-block Specifications
-			= link_to 'View All', admin_order_item_customisations_path, class: 'btn btn-link customisation-link'
-			%table.table.table-striped.table-responsive
+			/ = link_to 'View All', admin_order_item_customisations_path, class: 'btn btn-link customisation-link'
+			%table.table.table-responsive
 				%thead
 					%tr
-						%th ID
+						%th Order ID
 						%th Date
 						%th Item Name
 						%th Specification
@@ -17,21 +17,23 @@
 						%th Status
 						%th.text-center Actions
 				%tbody
-					- @order_item_customisations.each do |customisation|
-						= render 'order_item_customisation', customisation: customisation
+					- @order_items.each do |order_item|
+						- rowspan = order_item.customisations_count + order_item.image_customisations_count + 1
+						%tr
+							%td{ rowspan: rowspan }= order_item.order_id
+							%td{ rowspan: rowspan }= order_item.created_at.strftime '%d-%m-%Y %H:%M'
+							%td{ rowspan: rowspan }= order_item.product.name
+							- order_item.customisations.each do |customisation|
+								%tr
+									%td= customisation.specification.name
+									%td= customisation.value
+									%td= customisation.status.humanize
+									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)
+							- order_item.image_customisations.each do |customisation|
+								%tr
+									%td= customisation.characteristic.name
+									%td= image_tag customisation.characteristic_image.name.small
+									%td= customisation.status.humanize
+									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_image_customisation_path(customisation)
 			%hr
-			%h3.inline-block Image Specifications
-			= link_to 'View All', admin_order_item_image_customisations_path, class: 'btn btn-link customisation-link'
-			%table.table.table-striped.table-responsive
-				%thead
-					%tr
-						%th ID
-						%th Date
-						%th Item Name
-						%th Specification
-						%th Requirement
-						%th Status
-						%th.text-center Actions
-				%tbody
-					- @order_item_image_customisations.each do |customisation|
-						= render 'order_item_image_customisation', customisation: customisation
+			/ = link_to 'View All', admin_order_item_image_customisations_path, class: 'btn btn-link customisation-link'

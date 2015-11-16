@@ -17,8 +17,7 @@ RSpec.describe Admin::WorkshopController, type: :controller do
 		describe "GET #index" do
 			it "assigns all order_item_customisations as @order_item_customisations" do
 				get :index
-				expect(assigns(:order_item_customisations)).to eq(OrderItemCustomisation.all.limit(5))
-				expect(assigns(:order_item_image_customisations)).to eq(OrderItemImageCustomisation.all.limit(5))
+				expect(assigns(:order_items)).to eq(OrderItem.includes(:customisations, :image_customisations).where('customisations_count != 0 OR image_customisations_count != 0').order('order_id DESC'))
 			end
 		end
 	end

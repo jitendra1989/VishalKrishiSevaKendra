@@ -23,7 +23,7 @@
 										%li.small= "#{customisation.specification.name} #{customisation.value}"
 							- if item.image_customisations.size > 0
 								%ul.list-unstyled
-									- item.image_customisations.includes(:characteristic).each do |customisation|
+									- item.image_customisations.includes(:characteristic, :characteristic_image).each do |customisation|
 										%li.small
 											= customisation.characteristic.name
 											= image_tag customisation.characteristic_image.name, width: 20

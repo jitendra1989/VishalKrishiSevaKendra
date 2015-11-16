@@ -8,7 +8,7 @@ class CouponCode < ActiveRecord::Base
 	validates :percent, numericality: true
 	validate :active_date_range, if: lambda { |c| c.active_to && c.active_from  }
 
-	scope :active, lambda{ |date = Date.today| where("? BETWEEN active_from AND active_to", date) }
+	scope :active, lambda{ |date = Time.zone.now| where("? BETWEEN active_from AND active_to", date) }
 
 	attr_writer :current_step
 

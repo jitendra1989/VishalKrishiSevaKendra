@@ -32,8 +32,8 @@
 					- @stocks.each do |stock|
 						%tr
 							%td= stock.created_at.strftime '%d-%b-%Y'
-							%td= stock.product.name
-							%td= stock.product.product_type.name
+							%td= stock.product.try(:name)
+							%td= stock.product.try(:product_type).try(:name)
 							%td= @category.name
 							%td= stock.code
 							%td= stock.new_quantity

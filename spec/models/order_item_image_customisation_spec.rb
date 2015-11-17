@@ -7,7 +7,8 @@ RSpec.describe OrderItemImageCustomisation, type: :model do
 	it { expect(order_item_image_customisation).to respond_to(:order_item) }
 	it { expect(order_item_image_customisation).to respond_to(:characteristic) }
 	it { expect(order_item_image_customisation).to respond_to(:characteristic_image) }
-	it { expect(order_item_image_customisation).to respond_to(:user_id) }
+	it { expect(order_item_image_customisation).to respond_to(:modifier_id) }
+	it { expect(order_item_image_customisation).to respond_to(:user) }
 	it "has a valid order_item" do
 		order_item_image_customisation.order_item = nil
 		expect(order_item_image_customisation).not_to be_valid
@@ -26,7 +27,7 @@ RSpec.describe OrderItemImageCustomisation, type: :model do
 			order_item_image_customisation.save
 		end
 		it 'adds a log entry' do
-			order_item_image_customisation.user_id = user.id
+			order_item_image_customisation.modifier_id = user.id
 			expect{
 				order_item_image_customisation.save
 			}.to change(WorkshopImageLog, :count).by(1)

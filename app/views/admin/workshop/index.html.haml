@@ -15,6 +15,7 @@
 						%th Specification
 						%th Requirement
 						%th Status
+						%th Last Update
 						%th.text-center Actions
 				%tbody
 					- @order_items.each do |order_item|
@@ -28,12 +29,14 @@
 									%td= customisation.specification.name
 									%td= customisation.value
 									%td= customisation.status.humanize
+									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
 									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)
 							- order_item.image_customisations.each do |customisation|
 								%tr
 									%td= customisation.characteristic.name
 									%td= image_tag customisation.characteristic_image.name.small
 									%td= customisation.status.humanize
+									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
 									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_image_customisation_path(customisation)
 			%hr
 			/ = link_to 'View All', admin_order_item_image_customisations_path, class: 'btn btn-link customisation-link'

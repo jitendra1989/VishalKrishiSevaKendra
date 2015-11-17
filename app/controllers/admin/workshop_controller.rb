@@ -4,6 +4,7 @@ class Admin::WorkshopController < Admin::ApplicationController
   end
 
   def assign
+    authorize! :workshop, :assign
     if params[:customisation] == 'customisation'
       @order_item_customisation = OrderItemCustomisation.find(params[:id])
       @order_item_customisation.assign(params[:user_id], current_user.id)

@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       end
     end
     get 'workshop/index'
+    post 'workshop/assign'
     resources :order_item_customisations, only: [:index, :edit, :update]
     resources :order_item_image_customisations, only: [:index, :edit, :update]
     resources :orders, only: [:index, :create, :show, :edit], shallow: true do

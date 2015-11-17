@@ -30,7 +30,16 @@
 									%td= customisation.specification.name
 									%td= customisation.value
 									%td= customisation.status.humanize
-									%td= customisation.user.try(:name)
+									%td
+										- if customisation.user.present?
+											= customisation.user.try(:name)
+										- else
+											= form_tag admin_workshop_assign_path	do
+												= select_tag :user_id, options_for_select(User.workshop_user.pluck(:name, :id))
+												= hidden_field_tag :customisation, 'customisation'
+												= hidden_field_tag :id, customisation.id, id: "customisation-#{customisation.id}"
+												= button_tag do
+													%span.glyphicon.glyphicon-ok
 									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
 									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)
 							- order_item.image_customisations.includes(:user).each do |customisation|
@@ -38,7 +47,16 @@
 									%td= customisation.characteristic.name
 									%td= image_tag customisation.characteristic_image.name.small
 									%td= customisation.status.humanize
-									%td= customisation.user.try(:name)
+									%td
+										- if customisation.user.present?
+											= customisation.user.try(:name)
+										- else
+											= form_tag admin_workshop_assign_path	do
+												= select_tag :user_id, options_for_select(User.workshop_user.pluck(:name, :id))
+												= hidden_field_tag :customisation, 'image-customisation'
+												= hidden_field_tag :id, customisation.id, id: "image-customisation-#{customisation.id}"
+												= button_tag do
+													%span.glyphicon.glyphicon-ok
 									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
 									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_image_customisation_path(customisation)
 			%hr

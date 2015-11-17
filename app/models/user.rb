@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
 
 	has_flags 1 => :store_boss,
 						2 => :main_boss,
-						3 => :developer
+						3 => :developer,
+						4 => :workshop_user
 
 	belongs_to :outlet
 	has_many :carts

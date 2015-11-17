@@ -29,6 +29,15 @@ class Ability
 		can :login, User
 		can :logout, User
 		can :dashboard, User
+
+		if user.workshop_user?
+			can :manage, OrderItemImageCustomisation do |c|
+				c.user == user
+			end
+			can :manage, OrderItemCustomisation do |c|
+				c.user == user
+			end
+		end
 	end
 
 	private

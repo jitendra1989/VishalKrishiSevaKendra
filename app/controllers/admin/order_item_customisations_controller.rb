@@ -9,7 +9,7 @@ class Admin::OrderItemCustomisationsController < Admin::ApplicationController
 
   def update
     if @order_item_customisation.update(order_item_customisation_params.merge(modifier_id: current_user.id))
-      redirect_to admin_order_item_customisations_url, flash: { success: 'Status was successfully updated.' }
+      redirect_to admin_workshop_index_url, flash: { success: 'Status was successfully updated.' }
     else
       render :edit
     end

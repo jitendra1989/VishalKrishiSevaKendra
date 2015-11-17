@@ -41,7 +41,9 @@
 												= button_tag do
 													%span.glyphicon.glyphicon-ok
 									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
-									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)
+									%td.actions.text-center
+										- if can? :manage, customisation
+											= link_to 'Edit Status', edit_admin_order_item_customisation_path(customisation)
 							- order_item.image_customisations.includes(:user).each do |customisation|
 								%tr
 									%td= customisation.characteristic.name
@@ -58,6 +60,8 @@
 												= button_tag do
 													%span.glyphicon.glyphicon-ok
 									%td= customisation.updated_at.strftime '%d-%m-%Y %H:%M'
-									%td.actions.text-center= link_to 'Edit Status', edit_admin_order_item_image_customisation_path(customisation)
+									%td.actions.text-center
+										- if can? :manage, customisation
+											= link_to 'Edit Status', edit_admin_order_item_image_customisation_path(customisation)
 			%hr
 			/ = link_to 'View All', admin_order_item_image_customisations_path, class: 'btn btn-link customisation-link'

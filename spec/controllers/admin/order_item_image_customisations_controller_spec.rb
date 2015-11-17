@@ -44,7 +44,7 @@ RSpec.describe Admin::OrderItemImageCustomisationsController, type: :controller 
 
         it "redirects to the order_item_image_customisation list" do
           put :update, id: order_item_image_customisation.id, order_item_image_customisation: { status: status }
-          expect(response).to redirect_to(admin_order_item_image_customisations_url)
+          expect(response).to redirect_to(admin_workshop_index_url)
         end
       end
     end

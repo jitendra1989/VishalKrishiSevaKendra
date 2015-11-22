@@ -55,7 +55,7 @@
 						.col-md-offset-5.col-md-4
 							= label_tag :discount_percent, 'Discount'
 							= f.hidden_field :discount_amount, class: 'cart-discount-amount'
-							= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right form-control', min: 0, step: 'any', max: @cart.user.allowed_discount
+							= number_field_tag :discount_percent, 0, class: 'cart-discount-percent text-right form-control', min: 0, step: 'any', max: @current_user.allowed_discount
 							\%
 						.col-md-2.text-right.cart-discount
 						.col-md-1

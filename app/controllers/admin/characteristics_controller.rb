@@ -41,6 +41,6 @@ class Admin::CharacteristicsController < Admin::ApplicationController
 
 	private
 		def characteristic_params
-			params.require(:characteristic).permit(:name, images_attributes: [:id, :name, :_destroy])
+			params.require(:characteristic).permit(:name, images_attributes: [:id, :name, :code, :_destroy])
 		end
 end

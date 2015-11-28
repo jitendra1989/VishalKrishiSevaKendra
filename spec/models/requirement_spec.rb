@@ -7,5 +7,6 @@ RSpec.describe Requirement, type: :model do
   it { expect(requirement).to respond_to(:customer) }
   it { expect(requirement).to respond_to(:user) }
   it { expect(requirement).to respond_to(:outlet) }
+  it { expect(requirement).to respond_to(:items) }
 
 end

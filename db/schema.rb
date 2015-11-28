@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128183423) do
+ActiveRecord::Schema.define(version: 20151128184447) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -482,6 +482,20 @@ ActiveRecord::Schema.define(version: 20151128183423) do
   add_index "receipts", ["order_id"], name: "index_receipts_on_order_id", using: :btree
   add_index "receipts", ["user_id"], name: "index_receipts_on_user_id", using: :btree
 
+  create_table "requirement_items", force: :cascade do |t|
+    t.integer  "requirement_id", limit: 4
+    t.integer  "product_id",     limit: 4
+    t.string   "name",           limit: 255
+    t.integer  "quantity",       limit: 4
+    t.decimal  "price",                        precision: 10, scale: 2
+    t.text     "description",    limit: 65535
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+  end
+
+  add_index "requirement_items", ["product_id"], name: "index_requirement_items_on_product_id", using: :btree
+  add_index "requirement_items", ["requirement_id"], name: "index_requirement_items_on_requirement_id", using: :btree
+
   create_table "requirements", force: :cascade do |t|
     t.integer  "customer_id", limit: 4
     t.integer  "user_id",     limit: 4
@@ -685,6 +699,8 @@ ActiveRecord::Schema.define(version: 20151128183423) do
   add_foreign_key "quotations", "users"
   add_foreign_key "receipts", "orders"
   add_foreign_key "receipts", "users"
+  add_foreign_key "requirement_items", "products"
+  add_foreign_key "requirement_items", "requirements"
   add_foreign_key "requirements", "customers"
   add_foreign_key "requirements", "outlets"
   add_foreign_key "requirements", "users"

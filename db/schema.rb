@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128185727) do
+ActiveRecord::Schema.define(version: 20151129151336) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -493,6 +493,18 @@ ActiveRecord::Schema.define(version: 20151128185727) do
   add_index "requirement_item_customisations", ["requirement_item_id"], name: "index_requirement_item_customisations_on_requirement_item_id", using: :btree
   add_index "requirement_item_customisations", ["specification_id"], name: "index_requirement_item_customisations_on_specification_id", using: :btree
 
+  create_table "requirement_item_image_customisations", force: :cascade do |t|
+    t.integer  "requirement_item_id",     limit: 4
+    t.integer  "characteristic_id",       limit: 4
+    t.integer  "characteristic_image_id", limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "requirement_item_image_customisations", ["characteristic_id"], name: "index_characterisic_riic", using: :btree
+  add_index "requirement_item_image_customisations", ["characteristic_image_id"], name: "index_char_img_riic", using: :btree
+  add_index "requirement_item_image_customisations", ["requirement_item_id"], name: "index_req_item_riic", using: :btree
+
   create_table "requirement_items", force: :cascade do |t|
     t.integer  "requirement_id", limit: 4
     t.integer  "product_id",     limit: 4
@@ -712,6 +724,9 @@ ActiveRecord::Schema.define(version: 20151128185727) do
   add_foreign_key "receipts", "users"
   add_foreign_key "requirement_item_customisations", "requirement_items"
   add_foreign_key "requirement_item_customisations", "specifications"
+  add_foreign_key "requirement_item_image_customisations", "characteristic_images"
+  add_foreign_key "requirement_item_image_customisations", "characteristics"
+  add_foreign_key "requirement_item_image_customisations", "requirement_items"
   add_foreign_key "requirement_items", "products"
   add_foreign_key "requirement_items", "requirements"
   add_foreign_key "requirements", "customers"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129151336) do
+ActiveRecord::Schema.define(version: 20151129181116) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -482,6 +482,17 @@ ActiveRecord::Schema.define(version: 20151129151336) do
   add_index "receipts", ["order_id"], name: "index_receipts_on_order_id", using: :btree
   add_index "receipts", ["user_id"], name: "index_receipts_on_user_id", using: :btree
 
+  create_table "requirement_item_customer_customisations", force: :cascade do |t|
+    t.integer  "requirement_item_id", limit: 4
+    t.string   "name",                limit: 255
+    t.string   "image",               limit: 255
+    t.string   "code",                limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "requirement_item_customer_customisations", ["requirement_item_id"], name: "index_req_item_ricc", using: :btree
+
   create_table "requirement_item_customisations", force: :cascade do |t|
     t.integer  "requirement_item_id", limit: 4
     t.integer  "specification_id",    limit: 4
@@ -722,6 +733,7 @@ ActiveRecord::Schema.define(version: 20151129151336) do
   add_foreign_key "quotations", "users"
   add_foreign_key "receipts", "orders"
   add_foreign_key "receipts", "users"
+  add_foreign_key "requirement_item_customer_customisations", "requirement_items"
   add_foreign_key "requirement_item_customisations", "requirement_items"
   add_foreign_key "requirement_item_customisations", "specifications"
   add_foreign_key "requirement_item_image_customisations", "characteristic_images"

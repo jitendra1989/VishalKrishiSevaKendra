@@ -23,6 +23,16 @@
 							= link_to_add_association 'Add Image Specification', f, :image_customisations, class: 'btn btn-default'
 							%br
 							%br
+					.col-md-12
+						%hr
+					.col-md-12
+						%br
+						= f.fields_for :customer_customisations do |customer_customisation|
+							= render 'customer_customisation_fields', f: customer_customisation
+						.links
+							= link_to_add_association 'Add Custom Specification', f, :customer_customisations, class: 'btn btn-default'
+							%br
+							%br
 				.row
 					.col-md-6
 						= link_to 'Back to Requirement', edit_admin_requirement_path(@requirement), class: 'btn btn-default'

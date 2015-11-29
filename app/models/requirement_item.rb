@@ -4,12 +4,11 @@ class RequirementItem < ActiveRecord::Base
 
   has_many :customisations, class_name: RequirementItemCustomisation, dependent: :destroy
   has_many :image_customisations, class_name: RequirementItemImageCustomisation, dependent: :destroy
-
+  has_many :customer_customisations, class_name: RequirementItemCustomerCustomisation, dependent: :destroy
 
   accepts_nested_attributes_for :customisations, reject_if: :all_blank, allow_destroy:true
   accepts_nested_attributes_for :image_customisations, reject_if: :all_blank, allow_destroy:true
-
-
+  accepts_nested_attributes_for :customer_customisations, reject_if: :all_blank, allow_destroy:true
 
   before_validation :add_name
 

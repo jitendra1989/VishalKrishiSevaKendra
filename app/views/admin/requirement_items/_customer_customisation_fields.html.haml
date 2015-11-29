@@ -1,0 +1,15 @@
+.nested-fields.form-inline.custom-specifications
+  %span
+    = link_to_remove_association f, class: 'delete-link btn btn-default' do
+      %span.glyphicon.glyphicon-remove
+  .form-group
+    = f.text_field :name, placeholder: 'Specification', class: 'form-control'
+  .form-group
+    = f.text_field :code, placeholder: 'Code', class: 'form-control'
+  .form-group
+    = f.file_field :image, accept: 'image/*', capture: 'camera'
+    - if f.object.image.path
+      .relative.inline-block
+        = image_tag f.object.image.small, class: 'img-responsive'
+  %br
+  %br

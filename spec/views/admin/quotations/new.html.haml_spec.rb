@@ -5,7 +5,7 @@ RSpec.describe "admin/quotations/new", type: :view do
   let(:user) { FactoryGirl.create(:user) }
 
   it "renders new quotation form" do
-    assign(:quotation, customer.quotations.new(user: FactoryGirl.create(:user)))
+    assign(:quotation, customer.quotations.new(user: user))
     assign(:customer, customer)
     assign(:current_user, user)
     render

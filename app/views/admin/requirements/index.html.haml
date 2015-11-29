@@ -1,0 +1,25 @@
+.row
+  .col-md-12
+    %h2 All Requirements for your outlet
+  .col-md-12
+    .profile-box
+      .row
+        .col-md-12
+          .text-right
+            = link_to 'New Requirement', new_admin_requirement_path
+      %br
+      %table
+        %tr
+          %th Customer
+          %th Mobile
+          %th Facilitator
+          %th Email
+          %th.text-center Actions
+        - @requirements.each do |requirement|
+          %tr
+            %td= requirement.customer.try(:name)
+            %td= requirement.customer.try(:mobile)
+            %td= requirement.user.name
+            %td= requirement.user.phone
+            %td.actions.text-center
+              = link_to 'Edit Requirement', edit_admin_requirement_path(requirement)

@@ -83,6 +83,11 @@ Rails.application.routes.draw do
         patch 'flag'
       end
     end
+    resources :requirements do
+      collection do
+        get 'products'
+      end
+    end
     resources :carts, except: [:new, :create, :show], shallow: true do
       collection do
         post 'add'

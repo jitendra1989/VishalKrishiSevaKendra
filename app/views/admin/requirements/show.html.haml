@@ -1,0 +1,40 @@
+.row
+  .col-md-12
+    %h2 Requirement
+  .col-md-12
+    .quotation-form.main-content
+      .h3.text-center Requirement Form
+      %hr
+      .row
+        .col-md-8
+          / .quotation-info
+          /   .customer-labels Name:
+          /   %strong= @requirement.customer.name
+          / .quotation-info
+          /   .customer-labels Address:
+          /   %strong= @requirement.customer.full_address
+          / .quotation-info
+          /   .customer-labels Contact No:
+          /   %strong= @requirement.customer.mobile
+          / .quotation-info
+          /   .customer-labels Email:
+          /   %strong= @requirement.customer.email
+        .col-md-4
+          .quotation-info
+            .customer-labels Requirement No:
+            %strong= @requirement.id
+          .quotation-info
+            .customer-labels Date:
+            %strong= @requirement.created_at.strftime '%d-%m-%Y'
+      .row
+        .col-md-12
+          %table.table.table-striped.table-bordered
+            %thead
+              %tr
+                %th{ width: '50%' } Product
+                %th Qty
+            %tbody
+              - @requirement.products.each do |product|
+                %tr
+                  %td= product.name
+                  %td.text-right= product.quantity

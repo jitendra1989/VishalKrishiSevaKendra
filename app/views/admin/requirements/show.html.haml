@@ -48,12 +48,12 @@
                         - product.image_customisations.includes(:characteristic, :characteristic_image).each do |customisation|
                           %li.small
                             = customisation.characteristic.name
-                            = image_tag customisation.characteristic_image.name, width: 20
+                            = image_tag customisation.characteristic_image.name.small, width: 20
                     - if product.customer_customisations.size > 0
                       %ul.list-unstyled
                         - product.customer_customisations.each do |customisation|
                           %li.small
                             = customisation.name
-                            = image_tag customisation.image, width: 20
+                            = image_tag customisation.image.small, width: 20
                   %td= product.description
                   %td.text-right= product.quantity

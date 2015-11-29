@@ -12,13 +12,13 @@
 						- f.object.image_customisations.includes(:characteristic, :characteristic_image).each do |customisation|
 							%li.small
 								= customisation.characteristic.name
-								= image_tag customisation.characteristic_image.name, width: 20
+								= image_tag customisation.characteristic_image.name.small, width: 20
 				- if f.object.customer_customisations.size > 0
 					%ul.list-unstyled
 						- f.object.customer_customisations.each do |customisation|
 							%li.small
 								= customisation.name
-								= image_tag customisation.image, width: 20
+								= image_tag customisation.image.small, width: 20
 				.inline-block
 					= link_to edit_admin_requirement_item_path(f.object.id), class: 'btn btn-link', title: 'Customise Item' do
 						%span.glyphicon.glyphicon-wrench

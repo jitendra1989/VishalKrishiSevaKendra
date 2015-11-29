@@ -52,6 +52,7 @@
 										%span.caret
 									%ul.dropdown-menu
 										%li= link_to 'Carts', admin_carts_path
+										%li= link_to 'Requirements', admin_requirements_path
 										%li= link_to 'Quotations', admin_quotations_path
 										%li= link_to 'Orders', admin_orders_path
 										%li= link_to 'Online Orders & Invoices', admin_online_orders_path
@@ -92,7 +93,7 @@
 											- if can? :read, @current_user
 												= link_to 'Profile', admin_user_path(@current_user)
 											= link_to 'Logout', logout_admin_users_path, method: :delete
-			- [@user, @outlet, @category, @product, @customer, @quotation, @stock, @cart, @cart_item, @order, @coupon_code, @receipt, @invoice, @content_page, @characteristic].each do |object|
+			- [@user, @outlet, @category, @product, @customer, @quotation, @stock, @cart, @cart_item, @order, @coupon_code, @receipt, @invoice, @content_page, @characteristic, @requirement, @requirement_item].each do |object|
 				-if object.try(:errors).try(:any?)
 					.alert.alert-danger
 						%ul

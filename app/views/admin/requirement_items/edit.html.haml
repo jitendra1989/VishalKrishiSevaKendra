@@ -1,0 +1,31 @@
+.row
+	.col-md-12
+		%h2= "Customise #{@requirement_item.product.name}"
+	.col-md-12
+		.main-content
+			= form_for [:admin, @requirement_item] do |f|
+				.row
+					.col-md-12
+						%br
+						= f.fields_for :customisations do |customisation|
+							= render 'customisation_fields', f: customisation
+						.links
+							= link_to_add_association 'Add Specification', f, :customisations, class: 'btn btn-default'
+							%br
+							%br
+					.col-md-12
+						%hr
+					.col-md-12
+						%br
+						= f.fields_for :image_customisations do |image_customisation|
+							= render 'image_customisation_fields', f: image_customisation
+						.links
+							= link_to_add_association 'Add Image Specification', f, :image_customisations, class: 'btn btn-default'
+							%br
+							%br
+				.row
+					.col-md-6
+						= link_to 'Back to Requirement', edit_admin_requirement_path(@requirement), class: 'btn btn-default'
+					.col-md-6.text-right
+						= f.submit 'Save', class: 'btn btn-primary'
+

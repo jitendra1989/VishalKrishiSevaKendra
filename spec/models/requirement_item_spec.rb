@@ -5,6 +5,7 @@ RSpec.describe RequirementItem, type: :model do
 	it { expect(requirement_item).to be_valid }
 	it { expect(requirement_item).to respond_to(:requirement) }
 	it { expect(requirement_item).to respond_to(:product) }
+	it { expect(requirement_item).to respond_to(:customisations, :image_customisations) }
 	it "has a valid product" do
 		requirement_item.product = nil
 		expect(requirement_item).to_not be_valid

@@ -32,9 +32,11 @@
             %thead
               %tr
                 %th{ width: '50%' } Product
-                %th Qty
+                %th{ width: '40%' } Description
+                %th.text-right Qty
             %tbody
               - @requirement.products.each do |product|
                 %tr
                   %td= product.name
+                  %td= product.description
                   %td.text-right= product.quantity

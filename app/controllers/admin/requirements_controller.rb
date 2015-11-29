@@ -45,6 +45,6 @@ class Admin::RequirementsController < Admin::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def requirement_params
-      params.require(:requirement).permit(products_attributes: [:id, :product_id, :quantity, :_destroy])
+      params.require(:requirement).permit(products_attributes: [:id, :product_id, :description, :quantity, :_destroy])
     end
 end

@@ -22,4 +22,7 @@
             %td= requirement.user.name
             %td= requirement.user.phone
             %td.actions.text-center
-              = link_to 'Edit Requirement', edit_admin_requirement_path(requirement)
+              = link_to admin_requirement_path(requirement) do
+                %span.glyphicon.glyphicon-search
+              = link_to edit_admin_requirement_path(requirement) do
+                %span.glyphicon.glyphicon-pencil

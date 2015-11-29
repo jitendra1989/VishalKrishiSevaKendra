@@ -1,4 +1,4 @@
-- if params[:invoker] == 'cart_item'
+- if ['cart_item', 'requirement_item'].include? params[:invoker]
 	- attributes = 'image_customisations_attributes'
 - else
 	- attributes = 'product_characteristics_attributes'

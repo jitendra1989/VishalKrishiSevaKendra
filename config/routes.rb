@@ -83,6 +83,7 @@ Rails.application.routes.draw do
         patch 'flag'
       end
     end
+    resources :requirement_items, only: [:edit, :update]
     resources :requirements do
       collection do
         get 'products'

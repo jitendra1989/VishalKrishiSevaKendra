@@ -6,4 +6,4 @@
 			%span.glyphicon.glyphicon-remove.delete-link.pull-right
 	%td= f.number_field :quantity, class: 'quantity-field text-right form-control', min: 1
 	%td.product-rate.text-right= f.object.try(:price)
-	%td.product-amount.text-right= f.object.try(:price) * f.object.quantity if f.object.quantity
+	%td.product-amount.text-right= f.object..price * f.object.quantity if f.object.price

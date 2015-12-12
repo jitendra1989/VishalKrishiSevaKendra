@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129181116) do
+ActiveRecord::Schema.define(version: 20151212184035) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -448,10 +448,10 @@ ActiveRecord::Schema.define(version: 20151129181116) do
     t.integer  "quotation_id", limit: 4
     t.integer  "product_id",   limit: 4
     t.string   "name",         limit: 255
-    t.integer  "quantity",     limit: 4
-    t.decimal  "price",                    precision: 10, scale: 2
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.integer  "quantity",     limit: 4,                            default: 1,   null: false
+    t.decimal  "price",                    precision: 10, scale: 2, default: 0.0, null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
   end
 
   add_index "quotation_products", ["product_id"], name: "index_quotation_products_on_product_id", using: :btree
@@ -520,11 +520,11 @@ ActiveRecord::Schema.define(version: 20151129181116) do
     t.integer  "requirement_id", limit: 4
     t.integer  "product_id",     limit: 4
     t.string   "name",           limit: 255
-    t.integer  "quantity",       limit: 4
-    t.decimal  "price",                        precision: 10, scale: 2
+    t.integer  "quantity",       limit: 4,                              default: 1,   null: false
+    t.decimal  "price",                        precision: 10, scale: 2, default: 0.0, null: false
     t.text     "description",    limit: 65535
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
   end
 
   add_index "requirement_items", ["product_id"], name: "index_requirement_items_on_product_id", using: :btree

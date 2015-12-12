@@ -30,14 +30,14 @@
           / = link_to 'Edit Customer Informarion', edit_admin_customer_path(@customer), class: 'btn btn-info'
       .row
         .col-md-12
-          = form_for [:admin, @requirement], html: { class: 'form-inline'} do |f|
+          = form_for [:admin, @requirement], html: { class: 'form-inline requirement-form'} do |f|
             %table.table.table-striped.table-bordered
               %thead
                 %tr
                   %th{ width: '50%' } Product
                   %th{ width: '40%' } Description
                   %th Qty
-              %tbody.quotation-products
+              %tbody.quotation-products.requirement-products
                 = f.fields_for :products do |product|
                   = render 'product_fields', f: product
                 %tr.add-more

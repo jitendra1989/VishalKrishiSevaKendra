@@ -38,6 +38,7 @@ quotationsReady = ->
 		$('#product').val ''
 		$('.add-product').addClass 'hidden'
 		$(insertedItem).find('.quantity-field').focus()
+		$('.requirement-form').submit() if $(this).hasClass('requirement-products')
 		return
 	$(document).on 'change keyup', '.quantity-field, .discount-percent, #quotation_discount_amount', ->
 		calculateTotals($(this).hasClass 'discount-percent')

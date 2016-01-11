@@ -53,6 +53,7 @@ gem 'exception_notification'
 gem 'roboto'
 gem 'sidekiq'
 gem 'sinatra', require: nil
+gem 'wysiwyg-rails'
 
 group :development do
   gem 'pry-rails'

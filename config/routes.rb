@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       end
     end
     resources :roles, except: [:show]
+    resources :pages, except: [:show]
     resources :content_pages, path: 'content-pages', except: [:show]
     resources :coupon_codes, except: [:destroy, :show, :edit] do
       member do

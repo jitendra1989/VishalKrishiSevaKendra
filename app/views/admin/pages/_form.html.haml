@@ -1,0 +1,23 @@
+= form_for [:admin, @page], url: @page.persisted?? admin_page_path(@page) : admin_pages_path do |f|
+  .form-group
+    = f.label :title, class: 'required'
+    = f.text_field :title, required: true, class: 'form-control'
+  .form-group
+    = f.label :slug
+    = f.text_field :slug, class: 'form-control'
+  .form-group
+    = f.label :image
+    = f.file_field :image
+    = image_tag @page.image if @page.image.path
+  .form-group
+    = f.label :content
+    = f.text_area :content, class: 'form-control'
+  .form-group
+    = f.label :menu, 'Show in Menu'
+    = f.check_box :menu
+  .form-group
+    = f.label :link_text
+    = f.text_field :link_text, class: 'form-control'
+  .form-group.text-center
+    = f.submit "Submit", class: "btn btn-primary"
+    = link_to "Cancel", :back, class: "btn btn-default"

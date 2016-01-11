@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %h2 Pages
+  .col-md-12
+    .profile-box
+      .text-right
+        =link_to 'New Page', new_admin_page_path
+      %br
+      %table
+        %tr
+          %th Title
+          %th.text-center Actions
+        - @pages.each do |page|
+          %tr
+            %td= page.title
+            %td.actions.text-center
+              = link_to edit_admin_page_path(page) do
+                %span.glyphicon.glyphicon-pencil
+              = link_to admin_page_path(page), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+                %span.glyphicon.glyphicon-remove

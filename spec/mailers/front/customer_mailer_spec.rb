@@ -2,11 +2,8 @@ require "rails_helper"
 
 RSpec.describe Front::CustomerMailer, type: :mailer do
   describe "password_reset" do
-    let(:customer) { FactoryGirl.build(:customer) }
-    before do
-      customer.save!
-    end
-    let(:mail) { Front::CustomerMailer.welcome(customer) }
+    let(:customer) { FactoryGirl.create(:customer) }
+    let(:mail) { Front::CustomerMailer.welcome(customer.id) }
 
     it "renders the subject" do
       expect(mail.subject).to eq('Welcome to Damian De Goa! Please activate your account.')

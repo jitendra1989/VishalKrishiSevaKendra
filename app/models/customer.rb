@@ -22,7 +22,7 @@ class Customer < ActiveRecord::Base
 
 	before_validation :set_random_password, if: :admin_customer
 	before_save { self.email.downcase! if self.email }
-	before_create :send_activation_email
+	after_create :send_activation_email
 
 	attr_accessor :current_step, :admin_customer
 
@@ -66,7 +66,7 @@ class Customer < ActiveRecord::Base
 		generate_token(:password_reset_token)
 		self.password_reset_sent_at = Time.zone.now
 		save validate: false
-		Front::CustomerMailer.password_reset(self).deliver_now
+		Front::CustomerMailer.password_reset(self.id).deliver_later queue: :default
 	end
 
 	private
@@ -78,7 +78,8 @@ class Customer < ActiveRecord::Base
 
 		def send_activation_email
 			generate_token(:activation_digest)
-			Front::CustomerMailer.welcome(self).deliver_now
+			save validate: false
+			Front::CustomerMailer.welcome(self.id).deliver_later queue: :default
 		end
 
 		def set_random_password

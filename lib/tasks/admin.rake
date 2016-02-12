@@ -31,7 +31,7 @@ namespace :admin do
 
 		def eval_cancan_action(action)
 			case action.to_s
-			when "index", "show", "search"
+			when "index", "show"
 				cancan_action = "read"
 				action_desc = "Read-only"
 			when "create", "new"

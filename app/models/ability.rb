@@ -4,6 +4,8 @@ class Ability
 	def initialize(user)
 		user ||= User.new
 
+		alias_action :read, to: :search
+
 		if user.regular?
 			user.permissions.pluck(:name, :action).each do |permission|
 				can permission[1].to_sym, class_name(permission[0])

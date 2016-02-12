@@ -79,7 +79,7 @@ class Customer < ActiveRecord::Base
 		def send_activation_email
 			generate_token(:activation_digest)
 			save validate: false
-			Front::CustomerMailer.welcome(self.id).deliver_later queue: :default
+			Front::CustomerMailer.welcome(self.id).deliver_later(queue: :default) if self.email
 		end
 
 		def set_random_password

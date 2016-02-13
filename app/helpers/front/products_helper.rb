@@ -10,7 +10,9 @@ module Front::ProductsHelper
 	end
 	def decorated_frontend_price(product)
 		if product.price_with_online_taxes > product.final_online_price_with_taxes
-			"<span><s>#{number_to_currency product.price_with_online_taxes}</s>#{number_to_currency product.sale_price_with_online_taxes}</span>".html_safe
+			discount_amount = product.price_with_online_taxes - product.sale_price_with_online_taxes
+			discount_percent = (discount_amount*100/product.price_with_online_taxes).round
+			"<span><s>#{number_to_currency product.price_with_online_taxes}</s>#{number_to_currency product.sale_price_with_online_taxes}</span><span class='discount-percent'>-#{discount_percent}%</span>".html_safe
 		else
 			"<span>#{number_to_currency product.price_with_online_taxes}</span>".html_safe
 		end

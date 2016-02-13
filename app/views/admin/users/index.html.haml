@@ -29,6 +29,8 @@
 									- if can? :edit, user
 										= link_to edit_admin_user_path(user) do
 											%span.glyphicon.glyphicon-pencil
+									- if can? :reset_password, user
+										= link_to 'Reset PWD', reset_password_admin_user_path(user)
 									- if can? :delete, user
 										= link_to admin_user_path(user), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
 											%span.glyphicon.glyphicon-remove

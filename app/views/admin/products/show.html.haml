@@ -16,7 +16,7 @@
 				= @product.description
 			%p
 				%strong.title Price:
-				= number_to_currency @product.price_with_taxes
+				= large_decorated_price(@product)
 			%p
 				%strong.title Active:
 				= @product.active

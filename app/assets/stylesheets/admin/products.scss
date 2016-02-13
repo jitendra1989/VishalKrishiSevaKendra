@@ -3,6 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .product-box{
 	height: 360px;
+	position: relative;
+	.discount-percent{
+		background: #f00;
+		border-radius: 0 0 0 420px;
+		color: #fff;
+		font-size: 20px;
+		font-weight: bold;
+		height: 60px;
+		padding: 10px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 60px;
+	}
 }
 .product-container{
 	border: 1px solid #ccc;

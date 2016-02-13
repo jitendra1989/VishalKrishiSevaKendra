@@ -96,6 +96,15 @@ RSpec.describe Product, type: :model do
 		it 'returns the sale price plus the applicable taxes for the product' do
 			expect(product.sale_price_with_taxes).to eq(product.sale_price + product.tax_amount(product.sale_price))
 		end
+		context 'with taxes' do
+			it 'returns sale_price_with_taxes if greater than 0' do
+				expect(product.final_price_with_taxes).to eq(product.sale_price_with_taxes)
+			end
+			it 'returns price_with_taxes if no sale price listed' do
+				product.sale_price = 0
+				expect(product.final_price_with_taxes).to eq(product.price_with_taxes)
+			end
+		end
 		context 'online taxes' do
 
 			before do

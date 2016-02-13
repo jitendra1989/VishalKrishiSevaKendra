@@ -21,6 +21,6 @@
         - @products.each do |product|
           .col-md-3
             = content_tag_for(:div, product) do
-              = render 'product_display', product: product
+              = render product
       .row
         .col-md-6= paginate @products

@@ -117,6 +117,10 @@ class Product < ActiveRecord::Base
 		self.sale_price > 0 ? self.sale_price : self.price
 	end
 
+	def final_price_with_taxes
+		self.sale_price > 0 ? self.sale_price_with_taxes : self.price_with_taxes
+	end
+
 	def final_online_price_with_taxes
 		self.sale_price > 0 ? self.sale_price_with_online_taxes : self.price_with_online_taxes
 	end

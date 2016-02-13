@@ -5,7 +5,7 @@
     .product-name= product.name
   .product-code= product.code
   .product-description= product.description
-  .product-price= number_to_currency product.price_with_taxes
+  .product-price= decorated_price(product)
   .pull-left
     - if product.is_a? ProductGroup
       = link_to 'Stock', add_stock_admin_product_group_path(product), class: 'btn btn-default'

@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
 	has_many :characteristics, through: :product_characteristics, dependent: :destroy
 	has_many :product_coupons, dependent: :destroy
 	has_many :coupon_codes, through: :product_coupons
+	has_many :inverse_group_items, class_name: GroupItem, foreign_key: :related_product_id, dependent: :destroy
+	has_many :groupings, through: :inverse_group_items, source: :product #product group
 
 	delegate :taxes, to: :product_type
 
@@ -115,7 +117,7 @@ class Product < ActiveRecord::Base
 		self.sale_price > 0 ? self.sale_price : self.price
 	end
 
-	def online_price_with_taxes
+	def final_online_price_with_taxes
 		self.sale_price > 0 ? self.sale_price_with_online_taxes : self.price_with_online_taxes
 	end
 

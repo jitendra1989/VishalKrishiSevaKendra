@@ -1,5 +1,5 @@
 class ProductGroup < Product
-	has_many :group_items, foreign_key: :product_id
+	has_many :group_items, foreign_key: :product_id, dependent: :destroy
 	has_many :grouped_products, through: :group_items, source: :related_product
 
 	accepts_nested_attributes_for :group_items, reject_if: :all_blank, allow_destroy:true

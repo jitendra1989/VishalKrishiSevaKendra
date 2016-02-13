@@ -23,7 +23,7 @@
 					.col-md-2= item.quantity
 					.col-md-2.text-right= number_to_currency item.product.online_price
 					.col-md-2.text-right
-						- amount = item.product.online_price_with_taxes * item.quantity
+						- amount = item.product.final_online_price_with_taxes * item.quantity
 						- if @cart.coupon_code && @cart.coupon_code.products.ids.include?(item.product.id)
 							- discount = (amount * @cart.coupon_code.percent/100)
 							- total_discount += discount

@@ -32,7 +32,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 			expect(response).to redirect_to(login_admin_users_url)
 		end
 
-		describe "reset-password" do
+		describe "forgot-password" do
 			it "renders forgot_password" do
 				get :forgot_password
 				expect(response).to render_template(:forgot_password)
@@ -101,6 +101,13 @@ RSpec.describe Admin::UsersController, type: :controller do
 		describe "GET #show" do
 			it "assigns the requested user as @user" do
 				get :show, id: user.id
+				expect(assigns(:user)).to eq(user)
+			end
+		end
+
+		describe "GET #reset_password" do
+			it "assigns the requested user as @user" do
+				get :reset_password, id: user.id
 				expect(assigns(:user)).to eq(user)
 			end
 		end

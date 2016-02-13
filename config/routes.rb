@@ -149,6 +149,9 @@ Rails.application.routes.draw do
       end
     end
     resources :users do
+      member do
+        get 'reset-password' => 'users#reset_password', as: :reset_password
+      end
       collection do
         match 'login' => 'users#login', via: [:get, :post]
         delete 'logout'

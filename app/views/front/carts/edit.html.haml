@@ -20,11 +20,11 @@
 					.col-md-3
 						= form_tag front_cart_path, class: 'form-inline', method: :patch do
 							= hidden_field_tag :product_id, item.product.id
-							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity form-control', 'data-price' => item.product.online_price_with_taxes
+							= number_field_tag :quantity, item.quantity, min: 0, max: item.product.online_stock, class: 'cart-quantity form-control', 'data-price' => item.product.final_online_price_with_taxes
 							= button_tag 'Update',  class: 'btn btn-default'
-					.col-md-2.text-right= number_to_currency item.product.online_price_with_taxes
+					.col-md-2.text-right= number_to_currency item.product.final_online_price_with_taxes
 					.col-md-2.text-right
-						- amount = item.product.online_price_with_taxes * item.quantity
+						- amount = item.product.final_online_price_with_taxes * item.quantity
 						- if @cart.coupon_code && @cart.coupon_code.products.ids.include?(item.product.id)
 							- discount = (amount * @cart.coupon_code.percent/100)
 							- total_discount += discount

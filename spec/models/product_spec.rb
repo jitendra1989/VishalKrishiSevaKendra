@@ -17,6 +17,7 @@ RSpec.describe Product, type: :model do
 	it { expect(product).to respond_to(:product_characteristics, :characteristics) }
 	it { expect(product).to respond_to(:product_coupons, :coupon_codes) }
 	it { expect(product).to respond_to(:taxes) }
+	it { expect(product).to respond_to(:inverse_group_items, :groupings) }
 	it "has a valid name" do
 		product.name = nil
 		expect(product).to_not be_valid
@@ -139,11 +140,11 @@ RSpec.describe Product, type: :model do
 		end
 		context 'with taxes' do
 			it 'returns sale_price_with_online_taxes if greater than 0' do
-				expect(product.online_price_with_taxes).to eq(product.sale_price_with_online_taxes)
+				expect(product.final_online_price_with_taxes).to eq(product.sale_price_with_online_taxes)
 			end
 			it 'returns price_with_online_taxes if no sale price listed' do
 				product.sale_price = 0
-				expect(product.online_price_with_taxes).to eq(product.price_with_online_taxes)
+				expect(product.final_online_price_with_taxes).to eq(product.price_with_online_taxes)
 			end
 		end
 	end

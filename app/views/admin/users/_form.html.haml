@@ -5,22 +5,23 @@
   .form-group
     = f.label :username, class: 'required'
     = f.text_field :username, required: true, class: 'form-control'
-  .form-group
-    %strong User Type
-    %br
-    %br
-    - if can? :manage, User.main_boss
-      .styled-checkboxes.text-center
-        = f.check_box :main_boss
-        = f.label :main_boss
-    - if can? :manage, User.store_boss
-      .styled-checkboxes.text-center
-        = f.check_box :store_boss
-        = f.label :store_boss
-    - if can? :manage, User.workshop_user
-      .styled-checkboxes.text-center
-        = f.check_box :workshop_user
-        = f.label :workshop_user
+  - if(can? :manage, User.main_boss) || (can? :manage, User.store_boss) || (can? :manage, User.workshop_user)
+    .form-group
+      %strong User Type
+      %br
+      %br
+      - if can? :manage, User.main_boss
+        .styled-checkboxes.text-center
+          = f.check_box :main_boss
+          = f.label :main_boss
+      - if can? :manage, User.store_boss
+        .styled-checkboxes.text-center
+          = f.check_box :store_boss
+          = f.label :store_boss
+      - if can? :manage, User.workshop_user
+        .styled-checkboxes.text-center
+          = f.check_box :workshop_user
+          = f.label :workshop_user
   - if @user.new_record?
     = f.label :outlet_id, class: 'required'
     = f.select :outlet_id, Outlet.pluck(:name, :id), {}, class: 'form-control'

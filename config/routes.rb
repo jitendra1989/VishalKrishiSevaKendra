@@ -90,7 +90,7 @@ Rails.application.routes.draw do
         get 'products'
       end
     end
-    resources :carts, except: [:new, :create, :show], shallow: true do
+    resources :carts, except: [:new, :show], shallow: true do
       collection do
         post 'add'
         post 'assign/:customer_id' => 'carts#assign', as: :assign

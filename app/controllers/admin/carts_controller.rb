@@ -8,12 +8,14 @@ class Admin::CartsController < Admin::ApplicationController
 
 	def add
 		@cart = Cart.find_by(id: session[:cart_id]) if session[:cart_id]
-		unless @cart
-			@cart = Cart.find_or_create_by(user: current_user, outlet: current_user.outlet, customer: nil)
-			session[:cart_id] = @cart.id
-		end
+		find_or_create_cart unless @cart
 		@cart.add_item(params[:product_id], params[:quantity])
 		redirect_to edit_admin_cart_url(@cart), flash: { success: 'Item successfully added to cart.' }
+	end
+
+	def create
+		find_or_create_cart
+		redirect_to edit_admin_cart_url(@cart), flash: { success: 'Cart was successfully created.' }
 	end
 
 	def update
@@ -43,5 +45,10 @@ class Admin::CartsController < Admin::ApplicationController
 	private
 		def set_cart
 			@cart = Cart.find(params[:id])
+		end
+
+		def find_or_create_cart
+			@cart = Cart.find_or_create_by(user: current_user, outlet: current_user.outlet, customer: nil)
+			session[:cart_id] = @cart.id
 		end
 end

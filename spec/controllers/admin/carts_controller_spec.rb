@@ -24,6 +24,18 @@ RSpec.describe Admin::CartsController, type: :controller do
 			end
 		end
 
+		describe "POST #create" do
+			it 'adds the product to the cart' do
+				expect{
+					post :create
+					}.to change(Cart, :count).by(1)
+			end
+			it "redirects to the cart page" do
+				post :create
+				expect(response).to redirect_to(edit_admin_cart_url(session[:cart_id]))
+			end
+		end
+
 		describe "POST #add" do
 
 			it 'adds the product to the cart' do
@@ -31,6 +43,7 @@ RSpec.describe Admin::CartsController, type: :controller do
 					post :add, product_id: product.id, quantity: 1
 					}.to change(CartItem, :count).by(1)
 			end
+
 			it "creates a new cart if not exists" do
 				expect{
 					post :add, product_id: product.id, quantity: 1

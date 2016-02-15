@@ -3,6 +3,9 @@
 		%h2 All Carts for your outlet
 	.col-md-12
 		.profile-box
+			.row
+				.col-md-12
+					.text-right= link_to 'New Cart', admin_carts_path, method: :post
 			%br
 			%table
 				%tr
@@ -20,4 +23,6 @@
 						%td.actions.text-center
 							= link_to 'View Cart', edit_admin_cart_path(cart)
 							/ = link_to admin_customer_path(customer), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
-							/ %span.glyphicon.glyphicon-remove
+							- if can? :destroy, Cart
+								= link_to admin_cart_path(cart), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do
+									%span.glyphicon.glyphicon-remove

@@ -3,6 +3,19 @@
 		%h2 Active Cart
 	.col-md-12
 		.main-content
+			- if @cart.customer.present?
+				.row
+					.col-md-8
+						.order-info
+							.customer-labels Name:
+							%strong= @cart.customer.try(:name)
+						.order-info
+							.customer-labels Address:
+							%strong= @cart.customer.try(:full_address)
+						.order-info
+							.customer-labels Contact No:
+							%strong= @cart.customer.try(:mobile)
+				%hr
 			%br
 			.row
 				.col-md-4 Product

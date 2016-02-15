@@ -1,31 +1,33 @@
 %nav.navbar.navbar-default
-	.navbar-header
-		%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#main-nav', 'aria-expanded' => false }
-			%span.sr-only Toggle navigation
-			%span.icon-bar
-			%span.icon-bar
-			%span.icon-bar
-	.collapse.navbar-collapse.main-nav#main-nav
-		%ul.nav.navbar-nav
-			- Category.roots.each do |root_category|
-				%li{ role: 'presentation' }
-					= link_to root_category.name, front_category_path(root_category), class: 'text-center'
-					- if root_category.has_children?
-						.sub-categories
-							.row
-								- root_category.children.each do |sub_category|
-									.col-md-2
-										.sub-category
-											= link_to sub_category.name, front_category_path(sub_category), class: 'sub-category-link'
-											- if sub_category.has_children?
-												%ul.list-unstyled
-													- sub_category.children.each do |category|
-														%li= link_to category.name, front_category_path(category)
-		%ul.top-search.pull-right
-			%li
-				= form_tag search_front_products_path, method: :get do
-					.input-group
-						= text_field_tag :search, params[:search], placeholder: 'Search for Products', class: 'form-control'
-						%span.input-group-btn
-							%button.btn.btn-default{ type: 'submit' }
-								%span.glyphicon.glyphicon-search
+	.container-fluid.main-container
+		.navbar-header
+			%button.navbar-toggle.collapsed{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '#main-nav', 'aria-expanded' => false }
+				%span.sr-only Toggle navigation
+				%span.icon-bar
+				%span.icon-bar
+				%span.icon-bar
+		.collapse.navbar-collapse.main-nav#main-nav
+
+			%ul.nav.navbar-nav
+				- Category.roots.each do |root_category|
+					%li{ role: 'presentation' }
+						= link_to root_category.name, front_category_path(root_category), class: 'text-center'
+						- if root_category.has_children?
+							.sub-categories
+								.row
+									- root_category.children.each do |sub_category|
+										.col-md-2
+											.sub-category
+												= link_to sub_category.name, front_category_path(sub_category), class: 'sub-category-link'
+												- if sub_category.has_children?
+													%ul.list-unstyled
+														- sub_category.children.each do |category|
+															%li= link_to category.name, front_category_path(category)
+			%ul.top-search.pull-right
+				%li
+					= form_tag search_front_products_path, method: :get do
+						.input-group
+							= text_field_tag :search, params[:search], placeholder: 'Search for Products', class: 'form-control'
+							%span.input-group-btn
+								%button.btn.btn-default{ type: 'submit' }
+									%span.glyphicon.glyphicon-search

@@ -145,6 +145,12 @@ input{
 .top-search{
 	margin: 7px 0;
 }
+.navbar-fixed-top{
+	background: #402b1e;
+	.navbar-nav > li > a{
+		color: #fff;
+	}
+}
 @media (min-width: $screen-lg-min) {
 	.navbar-nav > li > a {
 		width: 184px;

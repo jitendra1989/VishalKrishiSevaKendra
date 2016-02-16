@@ -83,4 +83,5 @@
 						= link_to 'Continue Shopping', admin_products_path, class: 'btn btn-primary'
 					.col-md-6.text-right
 						= link_to 'Add Customer Info', admin_customers_path, class: 'btn btn-primary' if @cart.customer.nil?
-						= f.submit 'Place Order', class: 'btn btn-primary' if @cart.customer
+						- if @cart.items.size > 0
+							= f.submit 'Place Order', class: 'btn btn-primary' if @cart.customer

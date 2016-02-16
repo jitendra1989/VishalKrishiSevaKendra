@@ -6,17 +6,21 @@ class Admin::OrdersController < Admin::ApplicationController
 	end
 
 	def create
-		if session[:cart_id]
-			@order = Order.new(order_params.merge(user: current_user, outlet: current_user.outlet, cart_id: session[:cart_id]))
-			if @order.save
-				session[:cart_id] = nil
-				redirect_to admin_orders_url, flash: { success: 'Order was successfully created.' }
+		@cart = Cart.find(session[:cart_id])
+		if @cart.items.present?
+			if session[:cart_id]
+				@order = Order.new(order_params.merge(user: current_user, outlet: current_user.outlet, cart_id: session[:cart_id]))
+				if @order.save
+					session[:cart_id] = nil
+					redirect_to admin_orders_url, flash: { success: 'Order was successfully created.' }
+				else
+					render template: 'admin/carts/edit'
+				end
 			else
-				@cart = Cart.find(session[:cart_id])
-				render template: 'admin/carts/edit'
+				redirect_to admin_carts_url
 			end
 		else
-			redirect_to admin_carts_url
+			redirect_to edit_admin_cart_url(@cart), flash: { warning: 'Please add some items to the cart first.' }
 		end
 	end
 

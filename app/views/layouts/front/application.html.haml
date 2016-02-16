@@ -28,6 +28,12 @@
 								%span.glyphicon.glyphicon-shopping-cart
 								%span.badge= online_cart_count
 		= render 'category_menu'
+		- if current_page? front_root_path
+			.slider-container
+				.home-slider.nivo-slider#slider
+					- @banners.each do |banner|
+						= link_to front_offer_path(banner) do
+							= image_tag banner.image
 		.container-fluid.main-container
 			.main-content
 				= render 'error_messages'

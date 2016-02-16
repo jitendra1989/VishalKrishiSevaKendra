@@ -27,6 +27,5 @@ productsReady = ->
 			nextText: '>'
 	return
 
-
 $(document).ready(productsReady)
 $(document).on('page:load', productsReady)

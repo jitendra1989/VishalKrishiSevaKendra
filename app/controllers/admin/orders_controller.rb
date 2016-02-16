@@ -6,8 +6,8 @@ class Admin::OrdersController < Admin::ApplicationController
 	end
 
 	def create
-		@cart = Cart.find(session[:cart_id])
-		if @cart.items.present?
+		@cart = Cart.find_by(id: session[:cart_id])
+		if @cart.try(:items).try(:present?)
 			if session[:cart_id]
 				@order = Order.new(order_params.merge(user: current_user, outlet: current_user.outlet, cart_id: session[:cart_id]))
 				if @order.save
@@ -20,7 +20,7 @@ class Admin::OrdersController < Admin::ApplicationController
 				redirect_to admin_carts_url
 			end
 		else
-			redirect_to edit_admin_cart_url(@cart), flash: { warning: 'Please add some items to the cart first.' }
+			redirect_to admin_carts_url, flash: { warning: 'Please add some items to the cart first.' }
 		end
 	end
 

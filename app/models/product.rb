@@ -70,6 +70,10 @@ class Product < ActiveRecord::Base
 		tax_calculator(ProductType.find(self.product_type_id).product_type_taxes.includes(:tax).arrange, taxable_amount, 0)
 	end
 
+	def tax_amount_breakup(taxable_amount)
+		tax_calculator_breakup(ProductType.find(self.product_type_id).product_type_taxes.includes(:tax).arrange, taxable_amount, 0)
+	end
+
 	def price_with_taxes
 		self.price + tax_amount(self.price)
 	end
@@ -133,11 +137,7 @@ class Product < ActiveRecord::Base
 
 		def online_tax_calculator(hash, parent_amount = 0, taxable_amount = 0, amount = 0)
 			hash.each do |tax, children|
-				if tax.fully_taxable? || tax.root?
-					level_amount = (parent_amount + taxable_amount) * tax.percentage/100
-				else
-					level_amount = taxable_amount * tax.percentage/100
-				end
+				level_amount = tax_conditional(tax, parent_amount, taxable_amount, tax.percentage)
 				amount = online_tax_calculator(children, parent_amount, level_amount) unless children.empty?
 				amount += level_amount
 			end
@@ -146,14 +146,27 @@ class Product < ActiveRecord::Base
 
 		def tax_calculator(hash, parent_amount = 0, taxable_amount = 0, amount = 0)
 			hash.each do |tax, children|
-				if tax.fully_taxable? || tax.root?
-					level_amount = (parent_amount + taxable_amount) * tax.tax.percentage/100
-				else
-					level_amount = taxable_amount * tax.tax.percentage/100
-				end
+				level_amount = tax_conditional(tax, parent_amount, taxable_amount, tax.tax.percentage)
 				amount = tax_calculator(children, parent_amount, level_amount) unless children.empty?
 				amount += level_amount
 			end
 			amount
+		end
+
+		def tax_calculator_breakup(hash, parent_amount = 0, taxable_amount = 0, groups = {})
+			hash.each do |tax, children|
+				level_amount = tax_conditional(tax, parent_amount, taxable_amount, tax.tax.percentage)
+				groups[tax.tax.name] = level_amount
+				groups.merge(tax_calculator_breakup(children, parent_amount, level_amount, groups)) unless children.empty?
+			end
+			groups
+		end
+
+		def tax_conditional(tax, parent_amount, taxable_amount, percentage)
+			if tax.fully_taxable? || tax.root?
+				level_amount = (parent_amount + taxable_amount) * percentage/100
+			else
+				level_amount = taxable_amount * percentage/100
+			end
 		end
 end

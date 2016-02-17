@@ -65,6 +65,12 @@
                   %td.text-right= number_to_currency tax.amount
               %tr
                 %td{ colspan: 3 }
+                  %strong Gross Amount
+                %td
+                  %strong
+                    .text-right= number_to_currency @order.subtotal + @order.tax_amount
+              %tr
+                %td{ colspan: 3 }
                   %strong= "Discount #{(@order.discount_amount*100/(@order.subtotal + @order.tax_amount)).round(2)}%"
                 %td.text-right= number_to_currency -@order.discount_amount
               %tr

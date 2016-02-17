@@ -23,8 +23,8 @@ class OrderPdf < Prawn::Document
 		total_items(order)
 		move_down order.items.size * 20
 		move_down 10
-		text_box "for Damian de Goa", style: :bold, at: [420, 420 - (20 * order.items.size)]
-		text_box "Authorized Signatory", at: [420, 360 - (20 * order.items.size)]
+		text_box "for Damian de Goa", style: :bold, at: [420, 400 - (20 * order.items.size)]
+		text_box "Authorized Signatory", at: [420, 340 - (20 * order.items.size)]
 		text_box "TERMS & CONDITIONS FOR BUSINESS", style: :bold, at: [0, 400 - (20 * order.items.size)]
 		text_box "PAYMENT TERMS", at: [0, 340 - (20 * order.items.size)], size: 10
 		text_box "50% Advance Against Order.", at: [0, 325 - (20 * order.items.size)], size: 10
@@ -62,6 +62,6 @@ class OrderPdf < Prawn::Document
 		end
 	end
 	def total_item_rows(order)
-		[["Subtotal","#{@view.number_to_currency(order.subtotal)}"], ["Tax","#{@view.number_to_currency(order.tax_amount)}"],["Discount","#{@view.number_to_currency(-order.discount_amount)}"], ["Grand Total","#{@view.number_to_currency(order.total)}"], ["Amount Paid", @view.number_to_currency(order.receipts.pluck(:amount).sum)], ["Amount Balance", @view.number_to_currency(order.unpaid_amount)]]
+		[["Subtotal","#{@view.number_to_currency(order.subtotal)}"], ["Tax","#{@view.number_to_currency(order.tax_amount)}"],['Gross Amount', "#{@view.number_to_currency(order.subtotal + order.tax_amount)}"],["Discount","#{@view.number_to_currency(-order.discount_amount)}"], ["Grand Total","#{@view.number_to_currency(order.total)}"], ["Amount Paid", @view.number_to_currency(order.receipts.pluck(:amount).sum)], ["Amount Balance", @view.number_to_currency(order.unpaid_amount)]]
 	end
 end

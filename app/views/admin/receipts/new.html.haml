@@ -32,7 +32,7 @@
                 = @order.customer.try(:full_address)
               %td.text-center
                 %br
-                = f.number_field :amount, class: 'form-control'
+                = f.number_field :amount, step: :any, class: 'form-control'
             %tr
               %td{ colspan: 3 }
                 = f.label :payment_method

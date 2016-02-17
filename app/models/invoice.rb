@@ -1,4 +1,7 @@
 class Invoice < ActiveRecord::Base
+  include HumanNumbers
+  alias_attribute :total, :amount
+
   belongs_to :customer
   has_many :orders
   validates :customer_id, :orders, presence: true

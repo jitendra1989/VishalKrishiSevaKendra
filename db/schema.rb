@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212185802) do
+ActiveRecord::Schema.define(version: 20160217205331) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(version: 20151212185802) do
   create_table "order_taxes", force: :cascade do |t|
     t.integer  "order_id",   limit: 4
     t.string   "name",       limit: 255
+    t.float    "percentage", limit: 24,                           default: 0.0, null: false
     t.decimal  "amount",                 precision: 10, scale: 2, default: 0.0, null: false
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false

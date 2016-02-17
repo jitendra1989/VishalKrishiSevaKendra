@@ -156,7 +156,7 @@ class Product < ActiveRecord::Base
 		def tax_calculator_breakup(hash, parent_amount = 0, taxable_amount = 0, groups = {})
 			hash.each do |tax, children|
 				level_amount = tax_conditional(tax, parent_amount, taxable_amount, tax.tax.percentage)
-				groups[tax.tax.name] = level_amount
+				groups[tax.tax.name] = { amount: level_amount, percentage: tax.tax.percentage }
 				groups.merge(tax_calculator_breakup(children, parent_amount, level_amount, groups)) unless children.empty?
 			end
 			groups

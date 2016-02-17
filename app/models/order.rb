@@ -50,9 +50,10 @@ class Order < ActiveRecord::Base
           cart_item.image_customisations.each { |c| order_item.image_customisations.create(characteristic_id: c.characteristic_id, characteristic_image_id: c.characteristic_image_id) }
           self.subtotal += cart_item.product.price * cart_item.quantity
           self.tax_amount += cart_item.product.tax_amount(cart_item.product.price) * cart_item.quantity
-          cart_item.product.tax_amount_breakup(cart_item.product.price * cart_item.quantity).each do |tax_name, tax_amount|
-            taxes_on_products[tax_name] ||= 0
-            taxes_on_products[tax_name] += tax_amount
+          cart_item.product.tax_amount_breakup(cart_item.product.price * cart_item.quantity).each do |tax_name, tax_info|
+            taxes_on_products[tax_name] ||= { amount: 0, percentage: 0 }
+            taxes_on_products[tax_name][:amount] += tax_info[:amount]
+            taxes_on_products[tax_name][:percentage] = tax_info[:percentage]
           end
           unless cart_item.product.is_a? ProductGroup
             stock = self.outlet.product_stock(cart_item.product)
@@ -62,7 +63,7 @@ class Order < ActiveRecord::Base
           end
         end
         taxes_on_products.each do |tax|
-          self.taxes.create(name: tax[0], amount: tax[1])
+          self.taxes.create(name: tax[0], amount: tax[1][:amount], percentage: tax[1][:percentage])
         end
         save!
         cart.destroy!

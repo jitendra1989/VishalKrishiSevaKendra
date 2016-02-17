@@ -35,7 +35,7 @@ class Admin::ReceiptsController < Admin::ApplicationController
 
 	private
 		def receipt_params
-			params.require(:receipt).permit(:code, :amount, :payment_method, :cheque_number, :cheque_date, :cheque_bank, :card_number)
+			params.require(:receipt).permit(:code, :amount, :payment_method, :cheque_number, :cheque_date, :cheque_bank, :card_number, :utr)
 		end
 
 		def set_order

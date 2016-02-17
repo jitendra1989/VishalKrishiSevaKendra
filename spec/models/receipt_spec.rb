@@ -56,7 +56,7 @@ RSpec.describe Receipt, type: :model do
 	end
 	describe 'card payment' do
 		before do
-			receipt.payment_method = Receipt::PAYMENT_METHODS.keys.third
+			receipt.payment_method = [Receipt::PAYMENT_METHODS.keys.third, Receipt::PAYMENT_METHODS.keys.fourth].sample
 		end
 		it 'has a valid card number' do
 			receipt.card_number = nil
@@ -67,5 +67,8 @@ RSpec.describe Receipt, type: :model do
 		it 'returns a string' do
 			expect(receipt.amount_in_words).to be_a(String)
 		end
+	end
+	describe 'RTGS' do
+		it { expect(receipt).to respond_to(:utr) }
 	end
 end

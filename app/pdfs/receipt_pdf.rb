@@ -29,8 +29,10 @@ class ReceiptPdf < Prawn::Document
 		output = "Received with thanks from :\n\n<b>#{receipt.order.customer.name}</b>\n#{receipt.order.customer.full_address}\n\nPayment Through : #{Receipt::PAYMENT_METHODS[receipt.payment_method]}"
 		if receipt.payment_method == Receipt::PAYMENT_METHODS.keys.second
 			output += "\nCheque No. #{receipt.cheque_number} Date #{receipt.cheque_date} Drawn On #{receipt.cheque_bank}"
-		elsif receipt.payment_method == Receipt::PAYMENT_METHODS.keys.third
+		elsif [Receipt::PAYMENT_METHODS.keys.third, Receipt::PAYMENT_METHODS.keys.fourth].include? receipt.payment_method
 			output += "\nCard No. #{receipt.card_number}"
+		elsif receipt.payment_method == Receipt::PAYMENT_METHODS.keys.fifth
+			output += "\nUTR. #{receipt.utr}" if receipt.utr.present?
 		end
 		output
 	end

@@ -35,8 +35,13 @@
 						%td.icon-actions.actions.text-center
 							= link_to new_admin_customer_quotation_path(customer), title: 'Quote' do
 								%span.glyphicon.glyphicon-usd
-							= link_to assign_admin_carts_path(customer), method: :post, title: 'Assign to Cart' do
-								%span.glyphicon.glyphicon-shopping-cart
+							- if session[:cart_id]
+								%a.pointer{ title: 'Assign to Cart', 'data-toggle' => 'modal', 'data-target' => "#carts-modal-#{customer.id}" }
+									%span.glyphicon.glyphicon-shopping-cart
+								= render 'carts_modal', customer: customer
+							- else
+								= link_to assign_admin_carts_path(customer), method: :post, title: 'Assign to Cart' do
+									%span.glyphicon.glyphicon-shopping-cart
 						%td.icon-actions.actions.text-center
 							= link_to new_admin_customer_invoice_path(customer), title: 'New Invoice' do
 								%span.glyphicon.glyphicon-list-alt

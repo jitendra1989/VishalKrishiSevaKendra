@@ -96,6 +96,7 @@ Rails.application.routes.draw do
         post 'assign/:customer_id' => 'carts#assign', as: :assign
       end
       member do
+        post 'change-customer/:customer_id' => 'carts#change_customer', as: :change_customer
         delete 'remove/:product_id' => 'carts#remove', as: :remove
       end
       resources :cart_items, only: [:edit, :update]

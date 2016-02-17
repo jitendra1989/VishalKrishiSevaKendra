@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Admin::CartsController, type: :controller do
 	let(:user) { FactoryGirl.create(:super_admin) }
+	let(:customer) { FactoryGirl.create(:customer) }
+	let(:another_customer) { FactoryGirl.create(:customer) }
 	let(:cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet) }
 
 	describe "Without login" do
@@ -17,6 +19,23 @@ RSpec.describe Admin::CartsController, type: :controller do
 		before do
 			log_in user
 		end
+
+
+		describe "POST #change_customer" do
+			before do
+				session[:cart_id] = cart.id
+				cart.update(customer: customer)
+			end
+			it "changes the customer for the current cart @cart" do
+				post :change_customer, id: cart.id, customer_id: another_customer.id
+				expect(assigns(:cart).customer).to eq(another_customer)
+			end
+			it "redirects to the cart page" do
+				post :change_customer, id: cart.id, customer_id: another_customer.id
+				expect(response).to redirect_to(edit_admin_cart_url(cart.id))
+			end
+		end
+
 		describe "GET #index" do
 			it "assigns all store carts as @carts" do
 				get :index
@@ -133,7 +152,6 @@ RSpec.describe Admin::CartsController, type: :controller do
 		end
 
 		describe "POST #assign" do
-			let(:customer) { FactoryGirl.create(:customer) }
 			let(:new_cart) { FactoryGirl.create(:cart, user: user, outlet: user.outlet, customer: nil) }
 
 			before do

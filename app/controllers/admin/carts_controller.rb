@@ -28,6 +28,12 @@ class Admin::CartsController < Admin::ApplicationController
 		@order = current_user.orders.build(outlet: current_user.outlet)
 	end
 
+	def change_customer
+		@customer = Customer.find(params[:customer_id])
+		@cart.update(customer: @customer) if @customer
+		redirect_to edit_admin_cart_url(@cart)
+	end
+
 	def assign
 		redirect_to edit_admin_cart_url(Customer.find(params[:customer_id]).activate_cart(current_user))
 	end

@@ -3,7 +3,7 @@ require 'carrierwave/test/matchers'
 describe BannerUploader, type: :uploader do
   include CarrierWave::Test::Matchers
 
-  let(:banner) { FactoryGirl.create(:banner) }
+  let(:banner) { FactoryGirl.create(:banner, location: 'top') }
 
   before do
     BannerUploader.enable_processing = true

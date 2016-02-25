@@ -26,10 +26,12 @@ class BannerUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_and_pad: [990, 392]
+  process resize_and_pad: [990, 392], if: :top_banner?
+  process resize_and_pad: [431, 400], if: :not_top_banner?
 
   version :small do
-    process resize_and_pad: [230, 91]
+    process resize_and_pad: [230, 91], if: :top_banner?
+    process resize_and_pad: [98, 91], if: :not_top_banner?
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -49,4 +51,11 @@ class BannerUploader < CarrierWave::Uploader::Base
       model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
     end
 
+    def top_banner? image
+      model.location == 'top'
+    end
+
+    def not_top_banner? image
+      model.location != 'top'
+    end
 end

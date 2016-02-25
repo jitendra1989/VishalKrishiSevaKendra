@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217205331) do
+ActiveRecord::Schema.define(version: 20160225045418) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160217205331) do
     t.string   "name",       limit: 255
     t.string   "image",      limit: 255
     t.string   "url",        limit: 255
+    t.integer  "location",   limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

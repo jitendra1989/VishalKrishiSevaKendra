@@ -13,11 +13,13 @@
           %table
             %tr
               %th Name
+              %th Location
               %th Image
               %th.text-center Actions
             - @banners.each do |banner|
               %tr
                 %td= banner.name
+                %td.text-capitalize= banner.location.humanize
                 %td= image_tag banner.image.small
                 %td.actions.text-center
                   = link_to edit_admin_banner_path(banner) do

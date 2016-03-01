@@ -25,7 +25,7 @@ RSpec.describe Admin::ProductsController, type: :controller do
 		describe "GET #index" do
 			it "assigns all products as @products" do
 				get :index
-				expect(assigns(:products)).to eq(Product.all.page(1).per(20))
+				expect(assigns(:products)).to eq(Product.mass_produced.all.page(1).per(20))
 			end
 		end
 

@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	authorize_resource
 
 	def index
-		@products = object_type.constantize.all.page(params[:page]).per(20)
+		@products = object_type.constantize.mass_produced.all.page(params[:page]).per(20)
 	end
 
 	def edit
@@ -45,7 +45,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def search
-		@products = Product.where('name like ? or description like ?', "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
+		@products = Product.mass_produced.where('name like ? or description like ?', "%#{params[:q]}%", "%#{params[:q]}%").page(params[:page])
 		render :index
 	end
 

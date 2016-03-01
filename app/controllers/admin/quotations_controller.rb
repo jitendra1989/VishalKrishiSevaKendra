@@ -32,7 +32,7 @@ class Admin::QuotationsController < Admin::ApplicationController
 	end
 
 	def products
-		@products = Product.where('name like ?', "%#{params[:q]}%")
+		@products = Product.mass_produced.where('name like ?', "%#{params[:q]}%")
 		render formats: :json
 	end
 

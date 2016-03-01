@@ -29,6 +29,8 @@ class Product < ActiveRecord::Base
 	[:price, :sale_price].each { |n| validates n, numericality: true }
 	validates :sale_price, numericality: { less_than: :price }, if: :price
 
+	scope :customised, -> { where(customised: true) }
+	scope :mass_produced, -> { where(customised: false) }
 	scope :online, -> { where(saleable_online: true) }
 	scope :grouped, -> { where(type: 'ProductGroup') }
 	scope :simple, -> { where(type: nil) }

@@ -89,6 +89,10 @@ Rails.application.routes.draw do
       collection do
         get 'products'
       end
+      member do
+        get 'new-product' => 'requirements#new_product'
+        get 'add-product/:product_id' => 'requirements#add_product', as: :add_product
+      end
     end
     resources :carts, except: [:new, :show], shallow: true do
       collection do

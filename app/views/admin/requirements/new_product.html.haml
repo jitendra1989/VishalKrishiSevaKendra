@@ -1,0 +1,8 @@
+.row
+	.col-md-12
+		%h2= "Create Custom Product"
+	.col-md-12
+		.profile-box
+			.text-right
+				=link_to "View #{@product.class.to_s.pluralize}", [:admin, @product.class]
+			= render 'admin/products/form'

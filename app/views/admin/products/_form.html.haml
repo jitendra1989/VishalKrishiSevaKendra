@@ -3,7 +3,7 @@
 		.col-md-12
 			%br
 			= f.hidden_field :current_step
-			= render "#{@product.current_step}_step", f: f
+			= render "admin/products/#{@product.current_step}_step", f: f
 		.form-group.text-center
 			= f.button 'Previous', name: 'go_to', value: 'back', class: 'btn btn-default' unless @product.first_step?
 			= f.submit 'Save', class: 'btn btn-primary'

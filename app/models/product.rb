@@ -38,7 +38,9 @@ class Product < ActiveRecord::Base
 	accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy:true
 	accepts_nested_attributes_for :product_specifications, reject_if: :all_blank, allow_destroy:true
 	accepts_nested_attributes_for :product_characteristics, reject_if: :all_blank, allow_destroy:true
+
 	attr_writer :current_step
+	attr_accessor :requirement_id
 
 	def current_step
 		@current_step || steps.first

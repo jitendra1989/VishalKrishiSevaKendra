@@ -41,7 +41,9 @@
                   = render 'product_fields', f: product
                 %tr.add-more
                   %td{ colspan: 4 }
-                    = text_field_tag :product, '', 'data-url' => products_admin_quotations_path, class: 'autocomplete form-control', autocomplete: 'off', placeholder: 'Search for product here'
+                    = link_to 'Create New Product', new_product_admin_requirement_path(@requirement), class: 'btn-primary btn'
+                    OR
+                    = text_field_tag :product, '', 'data-url' => products_admin_requirements_path, class: 'autocomplete form-control', autocomplete: 'off', placeholder: 'Search for existing product'
                     = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more', class: 'hidden add-product btn btn-primary'
             .form-group.text-center
               = f.submit 'Save', class: 'btn btn-primary'

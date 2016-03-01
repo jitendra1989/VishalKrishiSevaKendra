@@ -18,6 +18,7 @@ RSpec.describe Product, type: :model do
 	it { expect(product).to respond_to(:product_coupons, :coupon_codes) }
 	it { expect(product).to respond_to(:taxes) }
 	it { expect(product).to respond_to(:inverse_group_items, :groupings) }
+	it { expect(product).to respond_to(:requirement_id) }
 	it { expect(Product).to respond_to(:customised, :mass_produced) }
 	it "has a valid name" do
 		product.name = nil

@@ -12,11 +12,19 @@ RSpec.describe Admin::RequirementsController, type: :controller do
   end
 
   describe "Logged in user" do
+    before do
+      log_in user
+    end
+    describe "GET #new_product" do
+      it "assigns a new custom product as  @product" do
+        get :new_product, id: requirement.id
+        expect(assigns(:requirement)).to eq(requirement)
+        expect(assigns(:product)).to be_a_new(Product)
+        expect(assigns(:product).customised).to eq(true)
+      end
+    end
     # let(:product) { FactoryGirl.create(:product) }
     # let!(:product_stock) { FactoryGirl.create(:stock, product: product, outlet: user.outlet) }
-    # before do
-    #   log_in user
-    # end
     # describe "GET #index" do
     #   it "assigns all store carts as @carts" do
     #     get :index

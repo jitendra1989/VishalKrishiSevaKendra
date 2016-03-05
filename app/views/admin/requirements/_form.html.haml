@@ -36,8 +36,9 @@
                 %tr
                   %th{ width: '80%' } Product
                   %th Qty
+                  %th.text-right Price
               %tbody.quotation-products.requirement-products
-                = f.fields_for :products do |product|
+                = f.fields_for :products, @requirement.products.includes(:customer_customisations) do |product|
                   = render 'product_fields', f: product
                 %tr.add-more
                   %td{ colspan: 4 }

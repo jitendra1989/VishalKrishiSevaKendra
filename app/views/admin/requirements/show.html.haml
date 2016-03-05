@@ -7,18 +7,19 @@
       %hr
       .row
         .col-md-8
-          / .quotation-info
-          /   .customer-labels Name:
-          /   %strong= @requirement.customer.name
-          / .quotation-info
-          /   .customer-labels Address:
-          /   %strong= @requirement.customer.full_address
-          / .quotation-info
-          /   .customer-labels Contact No:
-          /   %strong= @requirement.customer.mobile
-          / .quotation-info
-          /   .customer-labels Email:
-          /   %strong= @requirement.customer.email
+          - if @requirement.customer.present?
+            .quotation-info
+              .customer-labels Name:
+              %strong= @requirement.customer.name
+            .quotation-info
+              .customer-labels Address:
+              %strong= @requirement.customer.full_address
+            .quotation-info
+              .customer-labels Contact No:
+              %strong= @requirement.customer.mobile
+            .quotation-info
+              .customer-labels Email:
+              %strong= @requirement.customer.email
         .col-md-4
           .quotation-info
             .customer-labels Requirement No:
@@ -34,6 +35,7 @@
                 %th{ width: '50%' } Product
                 %th{ width: '40%' } Description
                 %th.text-right Qty
+                %th.text-right Price
             %tbody
               - @requirement.products.each do |product|
                 %tr
@@ -57,3 +59,4 @@
                             = image_tag customisation.image.small, width: 20
                   %td= product.description
                   %td.text-right= product.quantity
+                  %td.text-right= product.price

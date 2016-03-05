@@ -2,7 +2,7 @@ class Admin::RequirementsController < Admin::ApplicationController
   before_action :set_requirement, only: [:show, :edit, :update, :destroy, :new_product, :add_product]
 
   def index
-    @requirements = Requirement.all
+    @requirements = Requirement.all.includes(:customer, :user)
   end
 
   def show
@@ -60,6 +60,6 @@ class Admin::RequirementsController < Admin::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def requirement_params
-      params.require(:requirement).permit(products_attributes: [:id, :product_id, :description, :quantity, :_destroy])
+      params.require(:requirement).permit(products_attributes: [:id, :product_id, :description, :quantity, :price, :_destroy])
     end
 end

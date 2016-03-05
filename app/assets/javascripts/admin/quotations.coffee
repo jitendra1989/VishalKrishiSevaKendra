@@ -33,6 +33,7 @@ quotationsReady = ->
 			return
 	$('.quotation-products').on 'cocoon:after-insert', (e, insertedItem) ->
 		$(insertedItem).find('.product-id').val($('#product').data('id'))
+		$(insertedItem).find('.product-price').val($('#product').data('price'))
 		$(insertedItem).find('.product-name').html($('#product').val())
 		$(insertedItem).find('.product-rate').html($('#product').data('price'))
 		$('#product').val ''

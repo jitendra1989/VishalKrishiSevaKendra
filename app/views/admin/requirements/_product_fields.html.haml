@@ -26,3 +26,4 @@
 		= link_to_remove_association f do
 			%span.glyphicon.glyphicon-remove.delete-link.pull-right
 	%td= f.number_field :quantity, class: 'quantity-field text-right form-control', min: 1
+	%td= f.number_field :price, class: 'text-right form-control product-price', step: 'any'

@@ -6,7 +6,8 @@
 		- if f.object.name?
 			.relative.inline-block.changable-image
 				= image_tag f.object.name.small, class: 'img-responsive'
-				= f.file_field :name, class: 'absolute'
+				= f.file_field :name, class: 'absolute file-upload'
+				%span.filename
 			= f.label :name, 'Change Image', class: 'btn btn-default'
 			= link_to_remove_association f, class: 'delete-link btn btn-default' do
 				%span.glyphicon.glyphicon-remove

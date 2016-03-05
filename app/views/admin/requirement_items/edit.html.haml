@@ -2,7 +2,7 @@
 	.col-md-12
 		%h2= "Customise #{@requirement_item.product.name}"
 	.col-md-12
-		.main-content
+		.main-content.requirement-item-customiser
 			= form_for [:admin, @requirement_item] do |f|
 				.row
 					.col-md-12
@@ -25,14 +25,20 @@
 							%br
 					.col-md-12
 						%hr
-					.col-md-12
+					.col-md-12.camera-inactive
 						%br
 						= f.fields_for :customer_customisations do |customer_customisation|
 							= render 'customer_customisation_fields', f: customer_customisation
 						.links
 							= link_to_add_association 'Add Custom Specification', f, :customer_customisations, class: 'btn btn-default'
+							= button_tag 'Activate Camera (Required to upload custom images using webcam)', type: 'button', class: 'btn btn-default open-camera hidden-xs hidden-sm'
 							%br
 							%br
+					.col-md-12
+						.camera-box.relative.hidden.text-center
+							.alert.alert-danger.alert-camera.hidden Please save the form to update newly clicked photos to the database.
+							%video#video{ autoplay: true, width: 640, height: 480 }
+							%canvas#canvas.hidden{ width: 640, height: 480 }
 					.col-md-12
 						= f.label :description
 						= f.text_area :description, class: 'form-control'

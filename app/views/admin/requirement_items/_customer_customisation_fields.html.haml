@@ -1,5 +1,6 @@
 .nested-fields.form-inline.custom-specifications
   %span
+    - object_id = f.object.new_record?? '_new_customer_customisations_' : f.object.id
     = link_to_remove_association f, class: 'delete-link btn btn-default' do
       %span.glyphicon.glyphicon-remove
   .form-group
@@ -7,9 +8,18 @@
   .form-group
     = f.text_field :code, placeholder: 'Code', class: 'form-control'
   .form-group
-    = f.file_field :image, accept: 'image/*', capture: 'camera'
     - if f.object.image.path
-      .relative.inline-block
-        = image_tag f.object.image.small, class: 'img-responsive'
+      .relative.inline-block.changable-image
+        = image_tag f.object.image.small, class: 'img-responsive custom-specification-image', id: "clicked_image_#{object_id}"
+        = f.file_field :image, class: "absolute file-upload file_uploader_#{object_id}", accept: 'image/*', capture: 'camera'
+        %span.filename
+      = f.label :image, 'Change Image', class: 'btn btn-default'
+    - else
+      = f.file_field :image, accept: 'image/*', capture: 'camera'
+    = f.hidden_field :data_uri_image, id: "image_data_uri_#{object_id}"
+  .form-group.require-camera
+    OR
+  .form-group.require-camera
+    = button_tag 'Take Snapshot', type: 'button', class: 'btn btn-default click-camera', data: { id: object_id }
   %br
   %br

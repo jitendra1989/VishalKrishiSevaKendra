@@ -1,6 +1,7 @@
 DATABASE_USERNAME: database_user
 DATABASE_PASSWORD: <database_password>
 INTERCEPTOR_EMAIL_TO: <interceptor_address>
+GOOGLE_ANALYTICS_ACCOUNT: UA-XXXXXX-X
 BCC_ADDRESSES: '<Name<user@domain.com>;<Another Name<another@domain.com>'
 BCC_INVOICES_EMAIL: '<Name<user@domain.com>;<Another Name<another@domain.com>'
 EBS_ACCOUNT_ID: <ebs_account_id>

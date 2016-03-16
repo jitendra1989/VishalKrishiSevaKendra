@@ -1,9 +1,10 @@
 // Variables
 $black: #000;
+$white: #fff;
 $nav-link-hover-bg: $black;
-$nav-tabs-active-link-hover-bg: $black;
+$nav-tabs-active-link-hover-bg: $white;
 $dropdown-bg: $black;
-$dropdown-link-hover-bg: $black;
+$dropdown-link-hover-bg: $white;
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";

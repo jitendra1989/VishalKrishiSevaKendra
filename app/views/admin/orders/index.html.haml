@@ -38,8 +38,9 @@
 									%span.glyphicon.glyphicon-comment.has-tooltip{ data: { toggle: 'tooltip', placement: 'top',  title: order.comment } }
 							%td.actions.text-center
 								= link_to 'New Receipt', new_admin_order_receipt_path(order)
-								= link_to new_admin_customer_invoice_path(order.customer), title: 'New Invoice' do
-									%span.glyphicon.glyphicon-list-alt
+								- if order.customer.present?
+									= link_to new_admin_customer_invoice_path(order.customer), title: 'New Invoice' do
+										%span.glyphicon.glyphicon-list-alt
 								= link_to admin_order_path(order), title: 'View Order' do
 									%span.glyphicon.glyphicon-eye-open
 								= link_to admin_order_path(order, format: :pdf), target: :_blank, title: 'Print' do

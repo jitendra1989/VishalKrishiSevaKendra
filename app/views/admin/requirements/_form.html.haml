@@ -42,8 +42,12 @@
                   = render 'product_fields', f: product
                 %tr.add-more
                   %td{ colspan: 4 }
-                    = link_to 'Create New Product', new_product_admin_requirement_path(@requirement), class: 'btn-primary btn'
-                    OR
+                    - if @requirement.persisted?
+                      = link_to 'Create New Product', new_product_admin_requirement_path(@requirement), class: 'btn-primary btn'
+                      OR
+                    - else
+                      Please save the form to be able to create Custom Products
+                      %br
                     = text_field_tag :product, '', 'data-url' => products_admin_requirements_path, class: 'autocomplete form-control', autocomplete: 'off', placeholder: 'Search for existing product'
                     = link_to_add_association 'Add Product', f, :products, 'data-association-insertion-node' => '.add-more', class: 'hidden add-product btn btn-primary'
             .form-group.text-center

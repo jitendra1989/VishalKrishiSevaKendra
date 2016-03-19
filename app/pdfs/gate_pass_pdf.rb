@@ -39,15 +39,15 @@ class GatePassPdf < Prawn::Document
 				text_box "#{item.quantity} Nos", at: [x + 400, y - 193 - spacer]
 			end
 		end
-		text_box 'TOTAL Quantity', at: [x + 10, y - spacer - 229], style: :bold
-		text_box "#{total_quantity} Nos", at: [x + 400, y - spacer - 229]
-		stroke {
-		 horizontal_line x, width, at: y - spacer - 220
-		 horizontal_line x, width, at: y - spacer - 245
-		}
-		text_box 'Amount', at: [x + 10, y - spacer - 254], style: :bold
-		text_box @view.number_to_currency(total), at: [x + 400, y - spacer - 254]
-		spacer += 50
+		# text_box 'TOTAL Quantity', at: [x + 10, y - spacer - 229], style: :bold
+		# text_box "#{total_quantity} Nos", at: [x + 400, y - spacer - 229]
+		# stroke {
+		#  horizontal_line x, width, at: y - spacer - 220
+		#  horizontal_line x, width, at: y - spacer - 245
+		# }
+		# text_box 'Amount', at: [x + 10, y - spacer - 254], style: :bold
+		# text_box @view.number_to_currency(total), at: [x + 400, y - spacer - 254]
+		# spacer += 50
 		text_box 'Prepared', at: [x + 10, y - spacer - 229]
 		text_box 'Passed', at: [x, y - spacer - 229], align: :center
 		text_box 'Authorized', at: [x + 400, y - spacer - 229]

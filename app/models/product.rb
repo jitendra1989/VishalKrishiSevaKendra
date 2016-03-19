@@ -86,6 +86,10 @@ class Product < ActiveRecord::Base
 		self.sale_price + tax_amount(self.sale_price)
 	end
 
+	def actual_price_without_taxes
+		self.sale_price > 0 ? self.sale_price : self.price
+	end
+
 	def online_tax_amount(taxable_amount)
 		online_tax_calculator(OnlineTax.all.arrange, taxable_amount, 0)
 	end

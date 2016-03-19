@@ -48,9 +48,9 @@ class Order < ActiveRecord::Base
           order_item = self.items.create(product: cart_item.product, quantity: cart_item.quantity)
           cart_item.customisations.each { |c| order_item.customisations.create(specification_id: c.specification_id, value: c.value) }
           cart_item.image_customisations.each { |c| order_item.image_customisations.create(characteristic_id: c.characteristic_id, characteristic_image_id: c.characteristic_image_id) }
-          self.subtotal += cart_item.product.price * cart_item.quantity
-          self.tax_amount += cart_item.product.tax_amount(cart_item.product.price) * cart_item.quantity
-          cart_item.product.tax_amount_breakup(cart_item.product.price * cart_item.quantity).each do |tax_name, tax_info|
+          self.subtotal += cart_item.product.actual_price_without_taxes * cart_item.quantity
+          self.tax_amount += cart_item.product.tax_amount(cart_item.product.actual_price_without_taxes) * cart_item.quantity
+          cart_item.product.tax_amount_breakup(cart_item.product.actual_price_without_taxes * cart_item.quantity).each do |tax_name, tax_info|
             taxes_on_products[tax_name] ||= { amount: 0, percentage: 0 }
             taxes_on_products[tax_name][:amount] += tax_info[:amount]
             taxes_on_products[tax_name][:percentage] = tax_info[:percentage]

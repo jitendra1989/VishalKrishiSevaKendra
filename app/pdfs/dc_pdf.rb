@@ -28,26 +28,27 @@ class DcPdf < Prawn::Document
 		text_box "Description", at: [x + 10, y - 183]
 		text_box "Quantity", at: [x + 400, y - 183]
 
-		total, total_quantity, spacer = 0, 0, 0
+		spacer = 0
+		# total, total_quantity = 0, 0
 		invoice.orders.each do |order|
 			order.items.each do |item|
 				spacer += 20
-				amount = item.price * item.quantity
-				total += amount
-				total_quantity += item.quantity
+				# amount = item.price * item.quantity
+				# total += amount
+				# total_quantity += item.quantity
 				text_box item.name, at: [x + 10, y - 193 - spacer]
 				text_box "#{item.quantity} Nos", at: [x + 400, y - 193 - spacer]
 			end
 		end
-		text_box 'TOTAL Quantity', at: [x + 10, y - spacer - 229], style: :bold
-		text_box "#{total_quantity} Nos", at: [x + 400, y - spacer - 229]
-		stroke {
-		 horizontal_line x, width, at: y - spacer - 220
-		 horizontal_line x, width, at: y - spacer - 245
-		}
-		text_box 'Amount', at: [x + 10, y - spacer - 254], style: :bold
-		text_box @view.number_to_currency(total), at: [x + 400, y - spacer - 254]
-		spacer += 50
+		# text_box 'TOTAL Quantity', at: [x + 10, y - spacer - 229], style: :bold
+		# text_box "#{total_quantity} Nos", at: [x + 400, y - spacer - 229]
+		# stroke {
+		#  horizontal_line x, width, at: y - spacer - 220
+		#  horizontal_line x, width, at: y - spacer - 245
+		# }
+		# text_box 'Amount', at: [x + 10, y - spacer - 254], style: :bold
+		# text_box @view.number_to_currency(total), at: [x + 400, y - spacer - 254]
+		# spacer += 50
 		text_box 'Received the material in good condition', at: [x + 10, y - spacer - 250]
 		text_box 'Authorized Signatory', at: [x + 400, y - spacer - 250]
 		text_box 'Cutomer Signatory', at: [x + 10, y - spacer - 320]

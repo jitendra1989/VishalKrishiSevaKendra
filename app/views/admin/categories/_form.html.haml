@@ -3,6 +3,9 @@
     = f.label :name, class: 'required'
     = f.text_field :name, required: true, class: 'form-control'
     = f.hidden_field :parent_id
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control', placeholder: 'Enter describing text for this category'
   .form-group.text-center
     = f.submit "Submit", class: "btn btn-primary"
     = link_to "Cancel", :back, class: "btn btn-default"

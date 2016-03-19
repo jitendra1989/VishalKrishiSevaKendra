@@ -3,6 +3,8 @@
 	%head
 		%title Damian de Goa
 		%meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+		%meta{ name: 'keywords', content: @meta_keywords }
+		%meta{ name: 'description', content: strip_tags(@meta_description) }
 		= favicon_link_tag 'favicon.ico'
 		= stylesheet_link_tag 'front/application', media: 'all', 'data-turbolinks-track' => true
 		= javascript_include_tag 'front/application', 'data-turbolinks-track' => true

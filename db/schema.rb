@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301180439) do
+ActiveRecord::Schema.define(version: 20160319133927) do
 
   create_table "banner_categories", force: :cascade do |t|
     t.integer  "banner_id",   limit: 4
@@ -82,11 +82,12 @@ ActiveRecord::Schema.define(version: 20160301180439) do
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "ancestry",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "slug",       limit: 255
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
+    t.string   "ancestry",    limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "slug",        limit: 255
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree

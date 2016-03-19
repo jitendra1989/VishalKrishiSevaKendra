@@ -9,7 +9,7 @@
 		.collapse.navbar-collapse.main-nav#main-nav
 
 			%ul.nav.navbar-nav
-				- Category.roots.each do |root_category|
+				- Category.roots.select(:id, :name, :slug, :ancestry).each do |root_category|
 					%li{ role: 'presentation' }
 						= link_to root_category.name, front_category_path(root_category), class: 'text-center'
 						- if root_category.has_children?

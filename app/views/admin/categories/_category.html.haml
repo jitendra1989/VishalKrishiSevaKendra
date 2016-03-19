@@ -1,5 +1,7 @@
 = content_tag_for :div, category do
-	%span.category-name= category.name
+	%span.category-name
+		= category.name
+		%small= truncate category.description, length: 50
 	%span.actions.pull-right
 		= link_to new_admin_category_category_path(category.id), remote: true do
 			%span.glyphicon.glyphicon-plus

@@ -159,6 +159,31 @@ input{
 	.nivo-prevNav, .nivo-nextNav{
 		color: #a3a3a3;
 	}
+
+	.nivo-controlNav {
+	
+		z-index: 100;
+		position:relative;
+		top: -72px;
+
+	}
+
+	.nivo-controlNav a {
+		display:inline-flex;
+		border-radius: 50%;
+		width: 15px;
+		height: 15px;
+		margin-right: 10px;
+		color: transparent;
+		background:#8585ad;
+		cursor:pointer;
+
+
+	}
+	.nivo-controlNav a.active {
+
+		background:#000;
+	}
 }
 
 @media (min-width: $screen-lg-min) {
@@ -169,3 +194,4 @@ input{
 		min-height: 392px;
 	}
 }
+

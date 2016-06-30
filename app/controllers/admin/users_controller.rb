@@ -68,12 +68,11 @@ class Admin::UsersController < Admin::ApplicationController
 
   def recover_password
     @user = User.find_by!(password_reset_token: params[:token])
-    if request.post?
-      if @user.password_reset_sent_at < 2.hours.ago
-        redirect_to forgot_password_admin_users_url, flash: { danger: 'Sorry, the URL has expired. Please try again.' }
-      elsif @user.update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-        redirect_to login_admin_users_url, flash: { success: 'Your password has been reset. Please login below.' }
-      end
+
+    if @user.password_reset_sent_at < 2.hours.ago
+      redirect_to forgot_password_admin_users_url, flash: { danger: 'Sorry, the URL has expired. Please try again.' }
+    elsif request.post? && @user.update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+      redirect_to login_admin_users_url, flash: { success: 'Your password has been reset. Please login below.' }
     end
   end
 

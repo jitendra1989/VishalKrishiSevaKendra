@@ -35,6 +35,6 @@ class Admin::BannersController < Admin::ApplicationController
 
 	private
 		def banner_params
-			params.require(:banner).permit(:name, :image, :url, :location, category_ids: [])
+			params.require(:banner).permit(:name, :location, :image, :url, category_ids: [])
 		end
 end

@@ -29,7 +29,7 @@
 			- @cart.items.includes(:product).each do |item|
 				.row
 					.col-md-4
-						.inline-block= image_tag item.product.images.first.name.thumbnail
+						.inline-block= image_tag item.product.images.try(:first).try(:name).try(:thumbnail)
 						.inline-block
 							= item.product.name
 							- if item.customisations.size > 0

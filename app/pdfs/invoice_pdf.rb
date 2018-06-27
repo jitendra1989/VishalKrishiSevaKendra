@@ -14,6 +14,17 @@ class InvoicePdf < Prawn::Document
 		# stroke_axis
 		# bottom_line = cursor
 		# stroke {
+		# items = [['Sr. No.', 'Description',	 'Quantity', 'Rate in Rupees', 'Value in Rupees', 'Total Amount']]
+
+		# count, total = 0, 0
+
+		# quotation.products.each_with_index do |product, index|
+		# 	# binding.pry
+		# 	count += 1
+		# 	amount = product.price * product.quantity
+		# 	items << [count, product.name, product.quantity, product.price, amount, amount]
+		# 	total += amount
+		# end
 		#  horizontal_line 0, width, at: bottom_line
 		# }
 		stroke_color "cccccc"

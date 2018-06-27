@@ -1,63 +1,167 @@
 class QuotationPdf < Prawn::Document
 	def initialize(quotation)
-		super(top_margin: 40)
-		stroke_horizontal_rule
-		pad(10){ text"Quotation Form", align: :center,size: 18 }
-		stroke_horizontal_rule
-		move_down 20
-		font "Helvetica"
-		text "#{quotation.customer.name}" , size: 12, style: :bold
-		move_down 5
-		text "#{quotation.customer.full_address}" , size: 10
-		move_down 5
-		text "Phone #{quotation.customer.mobile}" , size: 10
-		text_box "Number #{quotation.id}", at: [450, 650], size: 10
-		text_box "Date #{quotation.customer.created_at.strftime('%d-%m-%Y')}", at: [450, 630], size: 10
+		super(top_margin: 60)
+		width = 541
+		x, y =  0, 720
+		image "#{Rails.root}/app/assets/images/new-logo-text.jpg", scale: 0.75, position: :center
+		# stroke_axis
 		move_down 10
+		text "QUOTATION FORM", align: :center, size: 10, style: :bold,font: "Helvetica"
+
+		name_width = width - 140
+		formatted_text_box [
+			{ text: quotation.customer.name },
+		], at: [x + 10, y - 100], size: 8
+		formatted_text_box [
+			{ text: quotation.customer.full_address },
+		], at: [x + 10, y - 120], size: 8
+		stroke {
+			horizontal_line x + 0, name_width, at: y - 110
+			horizontal_line x + 432, width, at: y - 110
+			horizontal_line x+ 0, width, at: y - 130
+			horizontal_line x + 0, name_width, at: y - 145
+			horizontal_line x + 445, width, at: y - 145
+			horizontal_line x + 0, width, at: y - 159
+		}
+
+		formatted_text_box [
+			{ text: "Date: " },
+			{ text: quotation.customer.created_at.strftime('%d-%m-%Y') },
+		], at: [x + 410, y - 100], size: 8
+		formatted_text_box [
+			{ text: "Dely. Date: " },
+		], at: [x + 405, y - 135], size: 8
+		formatted_text_box [
+			{ text: "Phone/Fax: " },
+		], at: [x + 350, y - 150], size: 8
+
+		move_down 71
+		line_items(quotation)
 		stroke_horizontal_rule
-		text_box  "Description" , at: [0, 585], style: :bold
-		text_box "Quantity" , at: [280, 585], style: :bold
-		text_box "Rate" , at: [380, 585], style: :bold
-		text_box "Amount" , at: [460, 585], style: :bold
-		move_down 30
-		stroke_horizontal_rule
-		move_down 10
-		total = 0
-		quotation.products.each_with_index do |product, index|
-			text_box "#{product.name}", at: [0, 560 - (20 * index)]
-			text_box "#{product.quantity}", at: [280, 560 - (20 * index)]
-			text_box "#{product.price}", at: [380, 560 - (20 * index)]
-			amount = product.price * product.quantity
-			total += amount
-			text_box "#{amount}", at: [460, 560 - (20 * index)]
+		# text "the cursor is here: #{cursor}"
+		# total = 0
+		# move_down quotation.products.size * 20
+		# text_box "ADVANCES REQUIRED", size: 8, style: :bold, at: [10, 300 - (20 * quotation.products.size)]
+		# text_box "1.___50%______", size: 8, at: [10, 290 - (20 * quotation.products.size)]
+		# text "the cursor is here: #{cursor}"
+		y = cursor
+		
+		if y - 150 > 0
+			text_box "For Damian Goa", size: 8, style: :bold, at: [420, cursor - 10]
+			text_box "Manager", size: 8, at: [440, cursor - 115]
+			stroke {
+				 vertical_line y , y - 155 ,at: 0
+				 vertical_line y , y - 155,at: 540
+				  horizontal_line 0, 540, at: y - 155
+			}
+			text_box "<u><color rgb='cc0000'>PAYMENT TERMS</color></u>", :inline_format => true,size: 8, at: [120, cursor - 10],style: :bold
+			text_box "50% advance against the order, balanace 50% payment before the delivery.", size: 8, at: [5, cursor - 25]
+			text_box "In case of cheque payment, delivery will be after realization of the cheque.", size: 8, at: [5, cursor - 40]
+			text_box "Goods once sold will not be taken back or exchanged.", size: 8, at: [5, cursor - 55]
+			text_box "In case of cancellation of order, advance received is non refundable.", size: 8, at: [5, cursor - 70]
+			text_box "Fabric, Polish shade, design and dimension will not be changed once the order is confirmed.", size: 8, at: [5, cursor - 85]
+			text_box "Excise Duty, VAT, service tax will be charged extra if and as is applicable at the time of delivery.", size: 8, at: [5, cursor - 100]
+			text_box "All the disputes are subjected to Panjim jurisdiction.", size: 8, at: [5,cursor - 115]
+			text_box "Above terms and conditions are approved by me.", size: 8, at: [5, cursor - 145]
+			move_down cursor
+		else
+			start_new_page
+			text_box "For Damian Goa", size: 8, style: :bold, at: [420, cursor - 10]
+			text_box "Manager", size: 8, at: [440, cursor - 115]
+			stroke {
+				 vertical_line cursor , cursor - 155 ,at: 0
+				 vertical_line cursor , cursor - 155 ,at: 540
+				  horizontal_line 0, 540, at: cursor - 155
+			}
+		
+			text_box "<u><color rgb='cc0000'>PAYMENT TERMS</color></u>", :inline_format => true,size: 8, at: [120, cursor - 10],style: :bold
+			text_box "50% advance against the order, balanace 50% payment before the delivery.", size: 8, at: [5, cursor - 25]
+			text_box "In case of cheque payment, delivery will be after realization of the cheque.", size: 8, at: [5, cursor - 40]
+			text_box "Goods once sold will not be taken back or exchanged.", size: 8, at: [5, cursor - 55]
+			text_box "In case of cancellation of order, advance received is non refundable.", size: 8, at: [5, cursor - 70]
+			text_box "Fabric, Polish shade, design and dimension will not be changed once the order is confirmed.", size: 8, at: [5, cursor - 85]
+			text_box "Excise Duty, VAT, service tax will be charged extra if and as is applicable at the time of delivery.", size: 8, at: [5, cursor - 100]
+			text_box "All the disputes are subjected to Panjim jurisdiction.", size: 8, at: [5,cursor - 115]
+			text_box "Above terms and conditions are approved by me.", size: 8, at: [5, cursor - 145]
+			
 		end
-		move_down quotation.products.size * 20
-		stroke_horizontal_rule
-		move_down 10
-		text_box "Total", style: :bold, at: [0, 540 - (20 * quotation.products.size)]
-		text_box "Discount", style: :bold, at: [0, 520 - (20 * quotation.products.size)]
-		text_box "Final Total", style: :bold, at: [0, 500 - (20 * quotation.products.size)]
-		move_down 10
-		text_box "#{total}", style: :bold, at: [460, 540 - (20 * quotation.products.size)]
-		text_box "#{quotation.discount_amount}", style: :bold, at: [460, 520 - (20 * quotation.products.size)]
-		text_box "#{total - quotation.discount_amount}", style: :bold, at: [460, 500 - (20 * quotation.products.size)]
-		move_down 60
-		stroke_horizontal_rule
-		text_box "for Damian de Goa", style: :bold, at: [420, 460 - (20 * quotation.products.size)]
-		text_box "Authorized Signatory", at: [420, 400 - (20 * quotation.products.size)]
-		text_box "TERMS & CONDITIONS FOR BUSINESS", style: :bold, at: [0, 380 - (20 * quotation.products.size)]
-		text_box "Quotation Validity: One Month from the quotation date.", at: [0, 360 - (20 * quotation.products.size)]
-		text_box "PAYMENT TERMS", at: [0, 340 - (20 * quotation.products.size)]
-		text_box "50% Advance Against Order.", at: [0, 320 - (20 * quotation.products.size)]
-		text_box "50% Balance Payments Before Delivery.", at: [0, 300 - (20 * quotation.products.size)]
-		text_box "In case of cheque payment, delivery will be", at: [0, 280 - (20 * quotation.products.size)]
-		text_box "after realization of the cheque.", at: [0, 260 - (20 * quotation.products.size)]
-		text_box "In case of cancellation of order, advance", at: [0, 240 - (20 * quotation.products.size)]
-		text_box "received is non refundable.", at: [0, 220 - (20 * quotation.products.size)]
-		text_box "Excise Duty, VAT, service tax will be charged extra", at: [0, 200 - (20 * quotation.products.size)]
-		text_box "if and as is applicable at the time of delivery.", at: [0, 180 - (20 * quotation.products.size)]
-		text_box "All the disputes are subjected to Panjim jurisdiction.", at: [0, 160 - (20 * quotation.products.size)]
-		text_box "Above terms and conditions are approved by me.", at: [0, 140 - (20 * quotation.products.size)]
-		text_box "Client Signature", style: :bold, at: [0, 80 - (20 * quotation.products.size)]
 	end
+
+	def line_item_rows(quotation)
+		items = [['Sr. No.', 'Description',	 'Quantity', 'Rate in Rupees', 'Value in Rupees', 'Total Amount']]
+
+		count, total = 0, 0
+
+		quotation.products.each_with_index do |product, index|
+			# binding.pry
+			count += 1
+			amount = product.price * product.quantity
+			items << [count, product.name, product.quantity, product.price, amount, amount]
+			total += amount
+		end
+		# text "the cursor is here: #{cursor}"
+		# text "the cursor is here: #{cursor}"
+			# text_box "for Damian de Goa", style: :bold, at: [420, 400 - (20 * quotation.products.size)]
+		# stroke_horizontal_rule
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		# items << ['count',' product.name', 'product.quantity', 'product.price', 'amount', 'amount']
+		
+		items << ['ADVANCES REQUIRED', 'Total','','','','']
+		quotation_tax_rows = tax_rows(quotation.products)
+		items += quotation_tax_rows
+		items << ['ADVANCES REQUIRED', 'SUBTOTAL','','','','']
+		 # [{:content => "2x2", :colspan => 2, :rowspan => 2}, "F"],["G", "H"]
+		 	# stroke_horizontal_rule
+		 			# text_box "ADVANCES REQUIRED", size: 8, style: :bold, at: [10, 300 - (20 * quotation.products.size)]
+		# text_box "1.___50%______", size: 8, at: [10, 290 - (20 * quotation.products.size)]
+		items << [{:content => "ADVANCES REQUIRED 1.___50%______", :colspan => 3, :rowspan => 3},'Total','','']
+		items << ['GST','','']
+		items << ['G. Total','','']
+		items
+	end
+
+	def tax_rows(products)
+		taxes, tax_array = {}, []
+		products.each do |product|
+			product.product.tax_amount_breakup(product.product.price).each do |name, tax|
+				taxes[name] ||= { amount: 0, percentage: tax[:percentage] }
+				taxes[name][:amount] += tax[:amount]
+			end
+		end
+		taxes.each do |tax|
+			tax_array << ['', '', '', tax.first,"#{tax.second[:percentage]}%", tax.second[:amount]]
+		end
+		tax_array
+	end
+
+	def line_items(quotation)
+		items_size = quotation.products.size
+		table line_item_rows(quotation), width: 540 do
+			row(0).font_style = :bold
+			# table(data, :cell_style => {:padding => [0, 0, 0, 30]})
+			row(0).font_size = 6
+			columns(0..5).align = :right
+			columns(1).align = :left
+			columns(0..5).borders = [:left, :right]
+			row(0).borders = [:left, :bottom, :right, :top]
+			# row(-1).font_style = :bold
+			# row(-1).borders = [:top, :left, :bottom, :right]
+			row(-1).borders = [:left, :bottom, :right]
+			# tax_row_from = items_size + 2
+			# tax_row_to = tax_row_from + 0 - 1
+			# row(tax_row_from..tax_row_to).align = :right
+			row(-1).height = 40
+			# row(-1).align = :right
+			columns(0).width = 80
+			# columns(1).width = 300
+			# columns(2).width = 100
+			# columns(3..5).width = 400
+			self.header = true
+		end
+	end
+
 end

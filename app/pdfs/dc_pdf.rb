@@ -51,7 +51,7 @@ class DcPdf < Prawn::Document
 		# spacer += 50
 		text_box 'Received the material in good condition', at: [x + 10, y - spacer - 250]
 		text_box 'Authorized Signatory', at: [x + 400, y - spacer - 250]
-		text_box 'Customer Signatory', at: [x + 10, y - spacer - 320]
+		text_box 'Cutomer Signatory', at: [x + 10, y - spacer - 320]
 		text_box "for Damian De Goa", at: [x + 400, y - spacer - 320], style: :italic
 		stroke {
 		 horizontal_line x, width, at: y - spacer - 220
@@ -59,6 +59,6 @@ class DcPdf < Prawn::Document
 		}
 		text_box "Furniture for fine living", at: [x + 10, y - spacer - 390], align: :center, size: 15
 		text_box '903/1. Damian House, Porvorim, Bardez - Goa 403501', at: [x + 10, y - spacer - 430], align: :center
-		text_box 'Phone 2417045,2412126,2413737 Fax : 0832 2422127 Email: goadamian@gmail.com', at: [x + 10, y - spacer - 445], align: :center
+		text_box 'Phone 241746,2412126,2413737 Fax : 0832 2422127 Email: contact@damiandegoa.com', at: [x + 10, y - spacer - 445], align: :center
 	end
 end

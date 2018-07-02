@@ -65,18 +65,31 @@ class ReceiptPdf < Prawn::Document
 			horizontal_line x , width, at: cursor - 66
 			horizontal_line x + 63, width, at: cursor - 88
 			horizontal_line x + 40, width, at: cursor - 115
-			horizontal_line x + 123, width - 144, at: cursor - 143
-			horizontal_line x + 235, width , at: cursor - 143
-			horizontal_line x + 50, width , at: cursor - 168
+			# horizontal_line x + 123, width - 144, at: cursor - 143
+			# horizontal_line x + 235, width , at: cursor - 143
+			# horizontal_line x + 50, width , at: cursor - 168
 		}
 		output = "<font size='10'>Received with thanks from</font>\n\n<font size='10'>Mr/Mrs/M/s. #{receipt.order.customer.name}</font>\n\n\n<font size='10'>a sum of Rs. #{receipt.amount}</font>\n\n<font size='10'>Rupees</font>"
 
 		if receipt.payment_method == Receipt::PAYMENT_METHODS.keys.second
 			output += "\n\n<font size='10'>By Cash/Cheque/Draft No.#{receipt.cheque_number}\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t dated #{receipt.cheque_date}</font>\n\n<font size='10'>Drawn On #{receipt.cheque_bank}</font>"
+			stroke {
+				horizontal_line x + 123, width - 144, at: cursor - 143
+				horizontal_line x + 235, width , at: cursor - 143
+				horizontal_line x + 50, width , at: cursor - 168
+			}
 		elsif [Receipt::PAYMENT_METHODS.keys.third, Receipt::PAYMENT_METHODS.keys.fourth].include? receipt.payment_method
-			output += "\n<font size='10'>Card No. #{receipt.card_number} dated #{receipt.cheque_date}</font>"
+			output += "\n\n<font size='10'>Card No. #{receipt.card_number}\t\t\ dated #{receipt.cheque_date}</font>"
+			stroke {
+				horizontal_line x + 200, width , at: cursor - 143
+			}
 		elsif receipt.payment_method == Receipt::PAYMENT_METHODS.keys.fifth
-			output += "\n<font size='10'>UTR. #{receipt.utr} dated #{receipt.cheque_date}</font>" if receipt.utr.present?	row(-2).height = 50
+			output += "\n\n<font size='10'>UTR. #{receipt.utr} dated #{receipt.cheque_date}</font>" if receipt.utr.present?	row(-2).height = 50
+		elsif receipt.payment_method == Receipt::PAYMENT_METHODS.keys.first
+			output += "\n\n<font size='10'>By Cash\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t dated #{receipt.cheque_date}</font>"
+			stroke {
+				horizontal_line x + 123, width , at: cursor - 143
+			}
 		end
 		output
 	end

@@ -109,7 +109,7 @@ class InvoicePdf < Prawn::Document
 		end
 
 		table line_item_rows(invoice), width: 540, cell_style: { size: 10 } do
-			columns(0..7).align = :center
+			columns(0..7).align = :right
 			columns(0..7).borders = [:left, :right]
 			columns(0..7).border_color= 'cccccc'
 			row(0).borders = [:left, :bottom, :right]
@@ -120,7 +120,7 @@ class InvoicePdf < Prawn::Document
 			tax_row_to = tax_row_from + taxes_size - 1
 			row(tax_row_from..tax_row_to).align = :right
 			row(tax_row_to).height = 40
-			row(-3).align = :right
+			row(-4).align = :right
 			row(-2).height = 50
 			columns(0).width = 25
 			columns(1).width = 160
@@ -195,9 +195,12 @@ class InvoicePdf < Prawn::Document
 				taxes[tax.name][:percentage] = tax.percentage
 			end
 		end
+		roundoff  = 0 
 		taxes.each do |tax|
-			tax_array << ['', "#{tax.first} #{tax.second[:percentage]}%(OUTPUT)",'','','',"#{tax.second[:percentage]}",'%',tax.second[:amount]]
+			tax_array << ['', "#{tax.first} #{tax.second[:percentage]}%(OUTPUT)",'','','',"#{tax.second[:percentage]}",'%',tax.second[:amount].floor]
+			roundoff = roundoff + tax.second[:amount].modulo(1).round(2)
 		end
+		tax_array << ['','Round Off','','','','','',roundoff]
 		tax_array
 	end
 

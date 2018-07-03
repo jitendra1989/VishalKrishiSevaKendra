@@ -131,10 +131,12 @@ class InvoicePdf < Prawn::Document
 	end
 	def line_item_rows(invoice)
 		items = [['SI No','Description of Goods','HSN/SAC','GST Rate', 'Quantity', 'Rate', 'per','Amount']]
+		count = 1
 		invoice.orders.each_with_index do |order, i|
 			order.items.each_with_index do |item, i|
 				amount = item.price * item.quantity
-				items << ['1',item.name, '9401', '',"#{item.quantity} #{product_type(item.product)}", item.price,"#{product_type(item.product)}",amount]
+				items << [count,item.name, '9401', '',"#{item.quantity} #{product_type(item.product)}", item.price,"#{product_type(item.product)}",amount]
+				count = count + 1
 			end
 		end
 		# items << ['1','item.name', '9401', '',"{item.quantity} {product_type(item.product)}", 'item.price',"{product_type(item.product)}",'amount']
@@ -142,6 +144,7 @@ class InvoicePdf < Prawn::Document
 		# items << ['1','item.name', '9401', '',"{item.quantity} {product_type(item.product)}", 'item.price',"{product_type(item.product)}",'amount']
 		# items << ['','SubTotal','', '', '', '','',invoice.orders.sum(:subtotal)]
 		items += tax_rows(invoice.orders)
+		items << ['','Round Off', '', '', '','','',invoice.orders.sum(:subtotal) - invoice.orders.sum(:subtotal).round]
 		items << ['','Total', '', '', '','','',invoice.total]
 	end
 
@@ -197,10 +200,10 @@ class InvoicePdf < Prawn::Document
 		end
 		roundoff  = 0 
 		taxes.each do |tax|
-			tax_array << ['', "#{tax.first} #{tax.second[:percentage]}%(OUTPUT)",'','','',"#{tax.second[:percentage]}",'%',tax.second[:amount].floor]
-			roundoff = roundoff + tax.second[:amount].modulo(1).round(2)
+			tax_array << ['', "#{tax.first} #{tax.second[:percentage]}%(OUTPUT)",'','','',"#{tax.second[:percentage]}",'%',tax.second[:amount].round(2)]
+			# roundoff = roundoff + tax.second[:amount].modulo(1).round(2)
 		end
-		tax_array << ['','Round Off','','','','','',roundoff]
+		# tax_array << ['','Round Off','','','','','',subtotal - subtotal.round]
 		tax_array
 	end
 

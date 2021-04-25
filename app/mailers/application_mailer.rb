@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
 
 	default from: ENV['FROM_ADDRESS'],
 					reply_to: ENV['REPLY_TO_ADDRESS'],
-					bcc: ENV['BCC_ADDRESSES'].split(';')
+					bcc: ENV['BCC_ADDRESSES']#.split(';')
 
 	private
 		def set_common_variables

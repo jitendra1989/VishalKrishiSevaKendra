@@ -52,10 +52,12 @@ class BannerUploader < CarrierWave::Uploader::Base
     end
 
     def top_banner? image
-      model.location == 'top'
+      # model.location == 'top'
+      true
     end
 
     def not_top_banner? image
-      model.location != 'top'
+      # model.location != 'top'
+      true
     end
 end

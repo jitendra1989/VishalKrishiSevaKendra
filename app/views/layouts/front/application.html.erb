@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Damian de Goa</title>
+		<meta content="width=device-width, initial-scale=1" name="viewport"/>
+		<meta content="<%= @meta_keywords %>" name="keywords"/>
+		<meta content="<%= strip_tags(@meta_description) %>" name="description"/>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<%= stylesheet_link_tag 'front/application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'front/application', 'data-turbolinks-track' => true %>
+		<%= render 'google_analytics' unless ENV['GOOGLE_ANALYTICS_ACCOUNT'].nil? %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+
+
+		<div class="container-fluid main-container">
+			<header>
+				<div class="row">
+					<div class="col-md-6">
+						<%= link_to front_root_path do %>
+							<%= image_tag 'logo.png', class: 'img-responsive' %>
+						<% end %>
+					</div>
+					<div class="col-md-6 text-right">
+						<div class="customer-menu">
+							<% if customer_logged_in? %>
+							<span>
+								<%= "Welcome  #{@current_customer.name} | " %>
+							</span>
+								<%= link_to 'Edit Account', edit_front_customer_path %>
+								|
+								<%= link_to 'Log out', logout_front_customer_path, method: :delete %>
+							<% else %>
+								<%= link_to 'Sign In/Register', login_front_customer_path %>
+							<% end %>
+						</div>
+						<div class="cart-menu">
+							<%= link_to edit_front_cart_path do %>
+								<span class="glyphicon glyphicon-shopping-cart"></span>
+								<span class="badge">
+								<%= online_cart_count %>
+							</span>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</header>
+		</div>
+		<%= render 'category_menu' %>
+		<div class="container-fluid main-container">
+			<% if current_page? front_root_path %>
+				<div class="slider-container">
+					<div class="home-slider nivo-slider" id="slider">
+						<% @banners.top.each do |banner| %>
+							<%= link_to front_offer_path(banner) do %>
+								<%= image_tag banner.image %>
+							<% end %>
+						<% end %>
+					</div>
+					<div class="row">
+						<% [:column_1, :column_2, :column_3, :column_4].each do |location| %>
+							<div class="col-md-3">
+								<% @banners.send(location).each do |banner| %>
+									<%= link_to front_offer_path(banner) do %>
+										<%= image_tag banner.image %>
+									<% end %>
+									<div class="h3 text-center">
+										<%= banner.name %>
+									</div>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+			<div class="main-content">
+				<%= render 'error_messages' %>
+				<%= yield %>
+			</div>
+
+			<footer>
+				<div class="row">
+					<div class="col-md-6">
+						<ul class="list-unstyled">
+							<% ContentPage.menu_items.pluck(:slug, :link_text).each do |menu_item| %>
+								<li>
+									<%#= link_to menu_item[1], front_page_path(menu_item[0]) %>
+								</li>
+							<% end %>
+							<li>
+								<%= link_to 'Contact Us', front_pages_contact_path %>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<%= link_to 'https://www.facebook.com/pages/Damian-de-Goa/532272703493618', target: :_blank do %>
+							<span class="sprites facebook"></span>
+							Follow Us
+						<% end %>
+					</div>
+
+					<div class="col-md-3  text-right">
+						<a href="tel:+918322417045">
+							<span class="sprites phone"></span>
+							0832 - 2417045
+						</a>
+
+						<a href="tel:+918322413737">2413737</a>
+						<a href="tel:+918322413737">2413737</a>
+						<a href="mailto:jrathor12@gmaiil.com">Hello</a>
+						<br/>
+						<%= link_to 'Karbens InfoTech Pvt. Ltd.', 'http://karbens.com/', target: :_blank %>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

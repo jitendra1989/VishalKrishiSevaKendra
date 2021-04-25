@@ -32,6 +32,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def update
+		@product = Product.last
 		if @product.update(product_params)
 			product_redirect('Product was successfully updated.')
 		else

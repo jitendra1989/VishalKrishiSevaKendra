@@ -1,0 +1,29 @@
+<%= form_for [:admin, @role] do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: 'required' %>
+    <%= f.text_field :name, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :discount_percent, class: 'required' %>
+    <%= f.number_field :discount_percent, required: true, class: 'form-control', step: 'any' %>
+  </div>
+  <div class="form-group permissions">
+    <% permission = nil %>
+    <%= f.collection_check_boxes(:permission_ids, Permission.all.order(:name), :id, :description) do |b| %>
+      <% if permission != b.object.name %>
+        <div class="h4 text-capitalize">
+          <%= b.object.name %>
+        </div>
+        <% permission = b.object.name %>
+      <% end %>
+      <div class="styled-checkboxes">
+        <%= b.check_box class: 'role-selector' %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group text-center">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= link_to "Cancel", :back, class: "btn btn-default" %>
+  </div>
+<% end %>

@@ -22,7 +22,7 @@ class Customer < ActiveRecord::Base
 
 	before_validation :set_random_password, if: :admin_customer
 	before_save { self.email.downcase! if self.email }
-	after_create :send_activation_email
+	# after_create :send_activation_email
 
 	attr_accessor :current_step, :admin_customer
 

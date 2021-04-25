@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>Damian de Goa</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<%= favicon_link_tag "favicon.ico" %>
+	<%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+</head>
+
+<body>
+	<div class="container">
+		<% if logged_in? %>
+			<header>
+			<div class="row">
+				<div class="col-md-5">
+					<%= link_to admin_root_path do %>
+						<%= image_tag 'logo.png' %>
+					<% end %>
+				</div>
+				<div class="col-md-7">
+              <span class="pull-right">
+                <%= "Welcome #{@current_user.name}" %>
+              </span>
+					<div class="row">
+						<div class="col-md-10">
+							<div class="cart-menu">
+								<%= link_to active_cart_url do %>
+									<span class="glyphicon glyphicon-shopping-cart pull-right"></span>
+									<span class="badge">
+                        <%= cart_count %>
+                      </span>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="dropdown" role="presentation">
+							<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								Reports
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to 'Stock Report', stock_admin_reports_path %>
+								</li>
+								<li>
+									<%= link_to 'Workshop Report', workshop_admin_reports_path %>
+								</li>
+								<li>
+									<%= link_to 'Daily Report', "#" %>
+								</li>
+								<li>
+									<%= link_to 'Receipt Report', "#" %>
+								</li>
+								<li>
+									<%= link_to 'Sales Report', "#" %>
+								</li>
+								<li>
+									<%= link_to 'Oustanding Bills Report', "#" %>
+								</li>
+								<li>
+									<%= link_to 'Oustanding Partywise Report', "#" %>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown" role="presentation">
+							<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								Users
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<% if can? :manage, User %>
+									<li>
+										<%= link_to 'Users', admin_users_path %>
+									</li>
+								<% end %>
+								<li>
+									<%= link_to 'Customers', admin_customers_path %>
+								</li>
+								<li>
+									<%= link_to 'Roles', admin_roles_path %>
+								</li>
+								<li>
+									<%= link_to 'Available Permissions', admin_permissions_path %>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown" role="presentation">
+							<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								Orders
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to 'Carts', admin_carts_path %>
+								</li>
+								<li>
+									<%= link_to 'Requirements', admin_requirements_path %>
+								</li>
+								<li>
+									<%= link_to 'Quotations', admin_quotations_path %>
+								</li>
+								<li>
+									<%= link_to 'Orders', admin_orders_path %>
+								</li>
+								<li>
+									<%= link_to 'Online Orders & Invoices', admin_online_orders_path %>
+								</li>
+								<li>
+									<%= link_to 'Receipts', admin_receipts_path %>
+								</li>
+								<li>
+									<%= link_to 'Invoices', admin_invoices_path %>
+								</li>
+								<li>
+									<%= link_to 'Workshop', admin_workshop_index_path %>
+								</li>
+							</ul>
+						</li>
+						<% if can? :read, Category or can? :read, Product %>
+							<li class="dropdown" role="presentation">
+								<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+									Catalog
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<% if can? :read, Category %>
+										<li>
+											<%= link_to 'Categories', admin_categories_path %>
+										</li>
+									<% end %>
+									<% if can? :read, Product %>
+										<li>
+											<%= link_to 'Products', admin_products_path %>
+										</li>
+										<li>
+											<%= link_to 'Product Groups', admin_product_groups_path %>
+										</li>
+									<% end %>
+								</ul>
+							</li>
+						<% end %>
+						<li class="dropdown" role="presentation">
+							<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								Store Settings
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<%= link_to 'Coupon Codes', admin_coupon_codes_path %>
+								</li>
+								<li>
+									<%= link_to 'Specifications', admin_specifications_path %>
+								</li>
+								<li>
+									<%= link_to 'Image Specifications', admin_characteristics_path %>
+								</li>
+								<li>
+									<%= link_to 'Online Taxes', admin_online_taxes_path %>
+								</li>
+								<li>
+									<%= link_to 'Taxes', admin_taxes_path %>
+								</li>
+								<li>
+									<%= link_to 'Taxes by Product Type', admin_product_types_path %>
+								</li>
+								<% if can? :manage, Outlet %>
+									<li>
+										<%= link_to 'Outlets', admin_outlets_path %>
+									</li>
+								<% end %>
+								<li>
+									<%= link_to 'Banners', admin_banners_path %>
+								</li>
+								<% if can? :manage, ContentPage %>
+									<li>
+										<%= link_to 'Pages', admin_pages_path %>
+									</li>
+								<% end %>
+							</ul>
+						</li>
+						<li class="dropdown" role="presentation">
+							<a aria-expanded="<%= false %>" aria-haspopup="<%= true %>" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								Profile
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<% if can? :read, @current_user %>
+										<%= link_to 'Profile', admin_user_path(@current_user) %>
+									<% end %>
+									<%= link_to 'Logout', logout_admin_users_path, method: :delete %>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<% end %>
+	<% [@user, @outlet, @category, @product, @customer, @quotation, @stock, @cart, @cart_item, @order, @coupon_code, @receipt, @invoice, @content_page, @characteristic, @requirement, @requirement_item, @page].each do |object| %>
+		<% if object.try(:errors).try(:any?) %>
+			<div class="alert alert-danger">
+				<ul>
+					<% object.errors.full_messages.each do |msg| %>
+						<li>
+							<%= msg %>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+	<% flash.each do |message_type, message| %>
+		<div class="alert-<%= message_type %> alert">
+			<%= message %>
+		</div>
+	<% end %>
+	<%= yield %>
+</div>
+</body>
+</html>

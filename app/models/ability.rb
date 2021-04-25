@@ -22,6 +22,8 @@ class Ability
 			cannot :manage, User.developer
 		elsif user.developer?
 			can :manage, :all
+			# cannot :manage, Customer
+			# cannot :read, Customer
 		end
 
 		can :forgot_password, User

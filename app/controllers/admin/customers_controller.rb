@@ -6,7 +6,7 @@ class Admin::CustomersController < Admin::ApplicationController
 
 	def index
 		@customers = Customer.all.order('created_at DESC').page(params[:page])
-
+		authorize! :read, @customers
 	end
 
 	def new

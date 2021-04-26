@@ -1,0 +1,13 @@
+<% if ['cart_item', 'requirement_item'].include? params[:invoker] %>
+	<% attributes = 'image_customisations_attributes' %>
+<% else %>
+	<% attributes = 'product_characteristics_attributes' %>
+<% end %>
+<% @characteristic.images.each do |image| %>
+	<div class="image-checkbox relative inline-block">
+		<%= radio_button_tag "#{params[:invoker]}[#{attributes}][#{params[:uid]}][characteristic_image_id]", image.id, false, id: "characteristic_#{@characteristic.id}_#{image.id}" %>
+		<%= label_tag "characteristic_#{@characteristic.id}_#{image.id}" do %>
+			<%= image_tag image.name.small, class: 'img-responsive' %>
+		<% end %>
+	</div>
+<% end %>

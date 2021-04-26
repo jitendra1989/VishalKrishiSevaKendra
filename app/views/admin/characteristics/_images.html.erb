@@ -1,0 +1,10 @@
+<p></p>
+<div id="images">
+  <%= f.fields_for :images do |image| %>
+    <%= render 'image_fields', f: image %>
+  <% end %>
+  <div class="links">
+    <%#= link_to_add_association 'Add More Images', f, :images, class: 'add-product btn btn-default' %>
+  </div>
+</div>
+<br/>

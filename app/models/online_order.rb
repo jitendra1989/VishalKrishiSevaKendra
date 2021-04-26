@@ -1,10 +1,10 @@
 require 'rc4'
-class OnlineOrder < ActiveRecord::Base
+class OnlineOrder < ApplicationRecord
   include HumanNumbers
   belongs_to :customer
   belongs_to :coupon_code
-  has_many :items, class_name: OnlineOrderItem, dependent: :destroy
-  has_many :taxes, class_name: OnlineOrderTax, dependent: :destroy
+  has_many :items, class_name: "OnlineOrderItem", dependent: :destroy
+  has_many :taxes, class_name: "OnlineOrderTax", dependent: :destroy
 
   attr_accessor :online_cart_id
 

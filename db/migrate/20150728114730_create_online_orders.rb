@@ -1,4 +1,4 @@
-class CreateOnlineOrders < ActiveRecord::Migration
+class CreateOnlineOrders < ActiveRecord::Migration[5.2]
   def change
     create_table :online_orders do |t|
       t.references :customer, index: true

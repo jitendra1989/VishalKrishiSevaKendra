@@ -1,4 +1,4 @@
-class Customer < ActiveRecord::Base
+class Customer < ApplicationRecord
 	acts_as_paranoid
 
 	has_many :quotations

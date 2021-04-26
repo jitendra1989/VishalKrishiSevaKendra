@@ -1,4 +1,4 @@
-class CreateOnlineCartItems < ActiveRecord::Migration
+class CreateOnlineCartItems < ActiveRecord::Migration[5.2]
   def change
     create_table :online_cart_items do |t|
       t.references :product, index: true

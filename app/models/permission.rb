@@ -1,4 +1,4 @@
-class Permission < ActiveRecord::Base
+class Permission < ApplicationRecord
 	has_many :user_permissions
 	has_many :users, through: :user_permissions
 	has_many :role_permissions

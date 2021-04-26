@@ -1,4 +1,4 @@
-class ProductCharacteristic < ActiveRecord::Base
+class ProductCharacteristic < ApplicationRecord
   belongs_to :product
   belongs_to :characteristic
   belongs_to :characteristic_image

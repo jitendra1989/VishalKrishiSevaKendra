@@ -1,4 +1,4 @@
-class AddPasswordResetToCustomers < ActiveRecord::Migration
+class AddPasswordResetToCustomers < ActiveRecord::Migration[5.2]
   def change
     add_column :customers, :password_reset_token, :string, after: :password_digest
     add_column :customers, :password_reset_sent_at, :datetime, after: :password_reset_token

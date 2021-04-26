@@ -1,4 +1,4 @@
-class RequirementItemImageCustomisation < ActiveRecord::Base
+class RequirementItemImageCustomisation < ApplicationRecord
   belongs_to :requirement_item, counter_cache: :image_customisations_count
   belongs_to :characteristic
   belongs_to :characteristic_image

@@ -1,4 +1,4 @@
-class CreateOrderItemCustomisations < ActiveRecord::Migration
+class CreateOrderItemCustomisations < ActiveRecord::Migration[5.2]
   def change
     create_table :order_item_customisations do |t|
       t.references :order_item, index: true

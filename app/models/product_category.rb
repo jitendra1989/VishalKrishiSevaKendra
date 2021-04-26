@@ -1,4 +1,4 @@
-class ProductCategory < ActiveRecord::Base
+class ProductCategory < ApplicationRecord
   belongs_to :product
   belongs_to :category
 

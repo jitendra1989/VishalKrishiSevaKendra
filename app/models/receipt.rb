@@ -1,4 +1,4 @@
-class Receipt < ActiveRecord::Base
+class Receipt < ApplicationRecord
   include HumanNumbers
   belongs_to :order, counter_cache: true
   belongs_to :user

@@ -1,8 +1,8 @@
-class Cart < ActiveRecord::Base
+class Cart < ApplicationRecord
   belongs_to :customer
   belongs_to :user
   belongs_to :outlet
-  has_many :items, class_name: CartItem, dependent: :destroy
+  has_many :items, class_name: "CartItem", dependent: :destroy
   validates :customer_id, uniqueness: { scope: :outlet_id }
   validates :outlet_id, presence: true
 

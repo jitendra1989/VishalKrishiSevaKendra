@@ -1,7 +1,7 @@
-class OnlineCart < ActiveRecord::Base
+class OnlineCart < ApplicationRecord
   belongs_to :customer
   belongs_to :coupon_code
-  has_many :items, class_name: OnlineCartItem, dependent: :destroy
+  has_many :items, class_name: "OnlineCartItem", dependent: :destroy
 
   validate :coupon_code_validity
 

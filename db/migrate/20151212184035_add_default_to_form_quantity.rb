@@ -1,4 +1,4 @@
-class AddDefaultToFormQuantity < ActiveRecord::Migration
+class AddDefaultToFormQuantity < ActiveRecord::Migration[5.2]
   def up
     change_column :requirement_items, :quantity, :integer, null: false, default: 1
     change_column :requirement_items, :price, :decimal, precision: 10, scale: 2, null: false, default: 0.0

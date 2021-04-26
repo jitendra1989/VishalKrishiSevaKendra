@@ -1,4 +1,4 @@
-class AddUserToOrderItemCustomisations < ActiveRecord::Migration
+class AddUserToOrderItemCustomisations < ActiveRecord::Migration[5.2]
   def change
     add_reference :order_item_customisations, :user, index: true, after: :value
     add_foreign_key :order_item_customisations, :users

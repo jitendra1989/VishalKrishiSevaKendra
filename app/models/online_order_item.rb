@@ -1,6 +1,6 @@
-class OnlineOrderItem < ActiveRecord::Base
+class OnlineOrderItem < ApplicationRecord
   belongs_to :product
-  belongs_to :order, class_name: OnlineOrder, foreign_key: :online_order_id
+  belongs_to :order, class_name: "OnlineOrder", foreign_key: :online_order_id
 
   attr_accessor :coupon_code
 

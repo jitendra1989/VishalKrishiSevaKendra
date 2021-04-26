@@ -1,4 +1,4 @@
-class CreateSalesRelationships < ActiveRecord::Migration
+class CreateSalesRelationships < ActiveRecord::Migration[5.2]
   def change
     create_table :sales_relationships do |t|
       t.references :product, index: true

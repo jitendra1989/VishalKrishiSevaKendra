@@ -1,4 +1,4 @@
-class CreateQuotations < ActiveRecord::Migration
+class CreateQuotations < ActiveRecord::Migration[5.2]
   def change
     create_table :quotations do |t|
       t.references :customer, index: true

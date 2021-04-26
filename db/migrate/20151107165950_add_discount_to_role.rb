@@ -1,4 +1,4 @@
-class AddDiscountToRole < ActiveRecord::Migration
+class AddDiscountToRole < ActiveRecord::Migration[5.2]
   def change
 		add_column :roles, :discount_percent, :decimal, precision: 10, scale: 2, null: false, default: 0.0, after: :name
   end

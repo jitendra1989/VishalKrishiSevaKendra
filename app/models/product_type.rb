@@ -1,4 +1,4 @@
-class ProductType < ActiveRecord::Base
+class ProductType <  ApplicationRecord
 	has_many :product_type_taxes, -> { order 'ancestry' }
 	has_many :products
 	has_many :taxes, through: :product_type_taxes

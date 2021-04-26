@@ -1,4 +1,4 @@
-class OrderItemCustomisation < ActiveRecord::Base
+class OrderItemCustomisation < ApplicationRecord
   belongs_to :order_item, counter_cache: :customisations_count
   belongs_to :specification
   belongs_to :user

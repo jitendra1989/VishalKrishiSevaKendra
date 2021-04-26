@@ -1,4 +1,4 @@
-class StockNotification < ActiveRecord::Base
+class StockNotification < ApplicationRecord
   belongs_to :customer
   belongs_to :product
 

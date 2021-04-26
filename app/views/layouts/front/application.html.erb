@@ -52,7 +52,7 @@
 			<% if current_page? front_root_path %>
 				<div class="slider-container">
 					<div class="home-slider nivo-slider" id="slider">
-						<% @banners.top.each do |banner| %>
+						<% false && @banners.top.each do |banner| %>
 							<%= link_to front_offer_path(banner) do %>
 								<%= image_tag banner.image %>
 							<% end %>

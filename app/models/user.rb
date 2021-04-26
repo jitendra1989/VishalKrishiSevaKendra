@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 	include FlagShihTzu
 
 	has_flags 1 => :store_boss,

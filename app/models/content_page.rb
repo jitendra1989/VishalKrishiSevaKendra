@@ -1,4 +1,4 @@
-class ContentPage < ActiveRecord::Base
+class ContentPage < ApplicationRecord
 	extend FriendlyId
 	friendly_id :title, use: :slugged
 	mount_uploader :image, BannerUploader

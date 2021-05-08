@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '4.2.5'
-gem 'rails', '5.2.3'
+# gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 # Use mysql as the database for Active Record
 gem 'pg', '0.20.0'
 # Use SCSS for stylesheets
@@ -27,7 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem "webpacker"
 # Use Unicorn as the app server
 # gem 'unicorn'
 

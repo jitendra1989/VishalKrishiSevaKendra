@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+#
+
+["Mawasa", "Ukarpura", "Jadla", "Bisarti"].each do |vlg|
+  Vilage.find_or_initialize_by(name: vlg).update!(vlg)
+end

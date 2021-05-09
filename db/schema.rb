@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_031704) do
+ActiveRecord::Schema.define(version: 2021_05_09_114253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -640,6 +640,12 @@ ActiveRecord::Schema.define(version: 2021_05_09_031704) do
     t.integer "flags", default: 0, null: false
     t.index ["outlet_id"], name: "index_users_on_outlet_id"
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "vilages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "workshop_image_logs", id: :serial, force: :cascade do |t|

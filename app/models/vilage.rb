@@ -1,2 +1,0 @@
-class Vilage < ApplicationRecord
-end

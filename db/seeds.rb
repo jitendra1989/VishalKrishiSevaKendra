@@ -9,5 +9,5 @@
 #
 
 ["Mawasa", "Ukarpura", "Jadla", "Bisarti"].each do |vlg|
-  Vilage.find_or_initialize_by(name: vlg).update!(vlg)
+  Village.find_or_initialize_by(name: vlg).update!(name: vlg)
 end

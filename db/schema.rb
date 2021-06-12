@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_114253) do
+ActiveRecord::Schema.define(version: 2021_05_09_152005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,11 @@ ActiveRecord::Schema.define(version: 2021_05_09_114253) do
     t.datetime "deleted_at"
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.integer "cast_id"
+    t.integer "village_id"
+    t.string "product_name"
+    t.text "description"
+    t.date "purchase_date"
     t.index ["deleted_at"], name: "index_customers_on_deleted_at"
   end
 
@@ -642,7 +647,7 @@ ActiveRecord::Schema.define(version: 2021_05_09_114253) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "vilages", force: :cascade do |t|
+  create_table "villages", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -11,3 +11,8 @@
 ["Mawasa", "Ukarpura", "Jadla", "Bisarti"].each do |vlg|
   Village.find_or_initialize_by(name: vlg).update!(name: vlg)
 end
+
+
+["Rathore", "Dangin", "Sharma", "Rajput"].each do |cst|
+  Cast.find_or_initialize_by(name: cst).update!(name: cst)
+end

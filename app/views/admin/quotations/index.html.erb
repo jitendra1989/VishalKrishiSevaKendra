@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Quotation</h2>
+  </div>
+  <div class="col-md-12">
+    <div class="profile-box">
+      <div class="text-right">
+        <%= link_to 'New Quotation', admin_customers_path %>
+      </div>
+      <br/>
+      <table>
+        <tr>
+          <th>Quotation No</th>
+          <th>Quotation Date</th>
+          <th>Customer Name</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        <% @quotations.each do |quotation| %>
+          <tr>
+            <td>
+              <%= quotation.id %>
+            </td>
+            <td>
+              <%= quotation.created_at.strftime '%d-%m-%Y' %>
+            </td>
+            <td>
+              <%= quotation.customer.name %>
+            </td>
+            <td>
+              <%= quotation.customer.mobile %>
+            </td>
+            <td>
+              <%= quotation.customer.email %>
+            </td>
+            <td class="actions text-center">
+              <%= link_to admin_quotation_path(quotation) do %>
+                <span class="glyphicon glyphicon-search"></span>
+              <% end %>
+              <%= link_to admin_quotation_path(quotation, format: :pdf), target: :_blank do %>
+                <span class="glyphicon glyphicon-print"></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

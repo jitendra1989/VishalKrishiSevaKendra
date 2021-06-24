@@ -1,0 +1,10 @@
+<%= f.collection_check_boxes(:coupon_code_ids, CouponCode.pluck(:id, :code), :first, :second) do |product| %>
+  <div class="col-md-3">
+    <div class="form-group styled-checkboxes text-center">
+      <%= product.check_box %>
+      <%= product.label %>
+    </div>
+  </div>
+<% end %>
+<br/>
+<br/>

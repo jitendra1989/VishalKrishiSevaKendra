@@ -1,8 +1,0 @@
-.row
-	.col-md-12
-		%h2= "Create #{@product.class}"
-	.col-md-12
-		.profile-box
-			.text-right
-				=link_to "View #{@product.class.to_s.pluralize}", [:admin, @product.class]
-			= render 'form'

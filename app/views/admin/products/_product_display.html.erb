@@ -1,9 +1,9 @@
 <div class="product-box">
   <%= link_to [:admin, product] do %>
     <div class="product-image">
-      <%= image_tag "/uploads/development/product_images/c5aae5d4-6cbe-43c5-9dce-9e1d41f8548b.jpeg" %>
-      <%#= image_tag(product.images.first) %>
-      <%#= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive" %>
+      <%#= image_tag "/uploads/development/product_images/c5aae5d4-6cbe-43c5-9dce-9e1d41f8548b.jpeg" %>
+      <%#= image_tag(product.images.first.name_url) %>
+      <%= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive" %>
     </div>
   <% end %>
   <%= link_to [:admin, product] do %>

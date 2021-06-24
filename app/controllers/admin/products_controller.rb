@@ -7,10 +7,13 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def edit
+		puts"========="
+		puts params
+		puts"========="
 		if params[:step] == 'image_specifications'
-			@product = Product.includes(product_characteristics: [:characteristic_image, :characteristic]).friendly.find(params[:id])
+			@product = Product.includes(product_characteristics: [:characteristic_image, :characteristic]).find(params[:id])
 		else
-			@product = Product.friendly.find(params[:id])
+			@product = Product.find(params[:id])
 		end
 		@product.current_step = params[:step] if params[:step]
 	end
@@ -41,6 +44,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def destroy
+		binding.pry
 		@product.destroy
 		redirect_to (request.referrer || [:admin, @product.class]), flash: { info: 'Product was successfully deleted.' }
 	end
@@ -51,7 +55,7 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def add_stock
-		@product_group = ProductGroup.friendly.find(params[:id])
+		@product_group = ProductGroup.find(params[:id])
 	end
 
 	private
@@ -64,7 +68,10 @@ class Admin::ProductsController < Admin::ApplicationController
 		end
 
 		def set_product
-			@product = Product.friendly.find(params[:id])
+      puts"============"
+      puts params
+      puts"============"
+			@product = Product.find(params[:id])
 		end
 
 		def product_redirect(flash)

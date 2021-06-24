@@ -1,0 +1,10 @@
+<div id="group-items">
+  <%= f.fields_for :group_items do |group_item| %>
+    <%= render 'group_item_fields', f: group_item %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association 'Add Products to Group', f, :group_items, class: 'add-item btn btn-default' %>
+    <br/>
+    <br/>
+  </div>
+</div>

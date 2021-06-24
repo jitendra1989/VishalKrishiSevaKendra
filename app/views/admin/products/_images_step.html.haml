@@ -1,7 +1,0 @@
-%p.help-block Ideal Dimensions for Product Images : 1290 X 1290
-#images
-  = f.fields_for :images do |image|
-    = render 'image_fields', f: image
-  .links
-    = link_to_add_association 'Add More Images', f, :images, class: 'add-product btn btn-default'
-%br

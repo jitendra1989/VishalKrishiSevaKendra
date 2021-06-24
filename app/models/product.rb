@@ -1,12 +1,12 @@
 class Product < ApplicationRecord
-	extend FriendlyId
-	friendly_id :name, use: :slugged
+	# extend FriendlyId
+	# friendly_id :name, use: :slugged
 
 	acts_as_paranoid
 
-	has_many :product_categories, dependent: :destroy
+	has_many :product_categories#, dependent: :destroy
 	has_many :stocks
-	has_many :cart_items, dependent: :destroy
+	has_many :cart_items#, dependent: :destroy
 	has_many :online_cart_items, dependent: :destroy
 	belongs_to :product_type
 	has_many :categories, through: :product_categories

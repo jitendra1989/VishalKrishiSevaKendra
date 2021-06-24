@@ -1,6 +1,0 @@
-= f.fields_for :product_specifications do |specification|
-  = render 'product_specification_fields', f: specification
-.links
-  = link_to_add_association 'Add Specification', f, :product_specifications, class: 'add-product btn btn-default'
-  %br
-  %br

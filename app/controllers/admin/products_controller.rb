@@ -7,9 +7,6 @@ class Admin::ProductsController < Admin::ApplicationController
 	end
 
 	def edit
-		puts"========="
-		puts params
-		puts"========="
 		if params[:step] == 'image_specifications'
 			@product = Product.includes(product_characteristics: [:characteristic_image, :characteristic]).find(params[:id])
 		else

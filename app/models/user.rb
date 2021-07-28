@@ -15,6 +15,7 @@ class User < ApplicationRecord
 	has_many :user_roles, dependent: :destroy
 	has_many :roles, through: :user_roles
 	has_many :receipts, dependent: :destroy
+	has_many :villages
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	scope :regular, -> { where(flags: 0) }

@@ -5,8 +5,9 @@ class Village < ApplicationRecord
   before_create :before_create_mth
   before_save :before_save_mth
 
-  # include MyModule
-  extend MyModule
+  include MyModule
+  # extend MyModule
+  include Trashable
 
 
 

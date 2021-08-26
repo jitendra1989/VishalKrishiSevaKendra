@@ -45,6 +45,11 @@ class User < ApplicationRecord
 		regular? ? self.roles.maximum(:discount_percent) || 0 : 100
 	end
 
+	def self.total_orders
+		res = User.joins(:orders).select("users.name, COUNT(orders.user_id) as total_orders").group("users.name").order("COUNT(orders.user_id) DESC")
+		return res
+	end
+
 	private
 		def generate_token(column)
 			begin

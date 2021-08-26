@@ -9,6 +9,10 @@
 		<%= stylesheet_link_tag 'front/application', media: 'all', 'data-turbolinks-track' => true %>
 		<%= javascript_include_tag 'front/application', 'data-turbolinks-track' => true %>
 		<%= render 'google_analytics' unless ENV['GOOGLE_ANALYTICS_ACCOUNT'].nil? %>
+
+    <%= javascript_pack_tag "application" %>
+    <%= stylesheet_pack_tag "application" %>
+
 		<%= csrf_meta_tags %>
 	</head>
 	<body>

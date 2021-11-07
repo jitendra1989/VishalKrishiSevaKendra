@@ -2,8 +2,15 @@ steps:
   - label: ':pipeline: Pipeline upload example2'
     command: echo "Hello Buildkite!"
 
-  - name: ':pipeline: check fileeee' 
-    command: ./run-tests --password="$$APPLICATION_PASSWORD"
+  -label: ":thinking_face: Check the env var exists"
+  command: "./check_environment_var.sh"
+
+  - wait: ~
+
+  # This example references GIT_SHORT_HASH directly, so should be escaped 
+  # so the agent executing the job fetches from its own environment
+  - label: ":white_check_mark: Use the env var somewhere else!"
+    command: "buildkite-agent annotate \"**The evaluated environment variable was:** GIT_SHORT_HASH=$$GIT_SHORT_HASH :tada:\""
 
   - name: ':pipeline: check test file'
     command: "/VishalKrishiSevaKendra/custom-fold/test.rb"

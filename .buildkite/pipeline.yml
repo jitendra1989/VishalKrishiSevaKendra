@@ -5,7 +5,7 @@ steps:
   -label: ":thinking_face: Check the env var exists"
   command: "./check_environment_var.sh"
 
-  - wait: ~
+  - wait:
 
   # This example references GIT_SHORT_HASH directly, so should be escaped 
   # so the agent executing the job fetches from its own environment

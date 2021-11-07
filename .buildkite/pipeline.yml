@@ -1,6 +1,3 @@
 steps:
-  - label: 'Build24'
-
-  - wait
-
-  - label: 'This is second label'
+  - label: 'Build'
+    command: mvn clean compile

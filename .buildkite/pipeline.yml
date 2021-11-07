@@ -1,5 +1,5 @@
 steps:
-  - label: ':pipeline: Pipeline upload example'
+  - label: ':pipeline: Pipeline upload example2'
     command: echo "Hello Buildkite!"
 
   - name: ':pipeline: check test file'

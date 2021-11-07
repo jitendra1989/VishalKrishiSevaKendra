@@ -1,6 +1,5 @@
 steps:
-  - label: 'Build'
-    command: mvn clean compile
+  - label: 'Build2'
 
   - wait
 

@@ -1,0 +1,7 @@
+steps:
+  - label: 'Build'
+    command: mvn clean compile
+
+  - wait
+
+  - label: 'This is second label'

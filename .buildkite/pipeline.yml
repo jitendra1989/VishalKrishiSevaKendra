@@ -2,6 +2,10 @@ steps:
   - label: ':pipeline: Pipeline upload example2'
     command: echo "Hello Buildkite!"
 
+  - name: ':pipeline: check fileeee' 
+    command: scripts/trigger-github-deploy
+    key: trigger-github-deploy
+
   - name: ':pipeline: check test file'
     command: "/VishalKrishiSevaKendra/custom-fold/test.rb"
 

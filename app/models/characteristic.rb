@@ -1,6 +1,6 @@
-class Characteristic < ActiveRecord::Base
+class Characteristic < ApplicationRecord
 
-	has_many :images, class_name: CharacteristicImage, dependent: :destroy
+	has_many :images, class_name: "CharacteristicImage", dependent: :destroy
 
 	validates :name, presence: true
 

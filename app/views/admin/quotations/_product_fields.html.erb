@@ -1,0 +1,20 @@
+<tr class="nested-fields">
+	<td>
+    <span class="product-name">
+      <%= f.object.name %>
+    </span>
+		<%= f.hidden_field :product_id, class: 'product-id' %>
+		<%= link_to_remove_association f do %>
+			<span class="glyphicon glyphicon-remove delete-link pull-right"></span>
+		<% end %>
+	</td>
+	<td>
+		<%= f.number_field :quantity, class: 'quantity-field text-right form-control', min: 1 %>
+	</td>
+	<td class="product-rate text-right">
+		<%= f.object.try(:price) %>
+	</td>
+	<td class="product-amount text-right">
+		<%= f.object.price * f.object.quantity if f.object.price %>
+	</td>
+</tr>

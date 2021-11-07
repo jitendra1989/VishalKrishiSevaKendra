@@ -1,4 +1,4 @@
-class OrderItemImageCustomisation < ActiveRecord::Base
+class OrderItemImageCustomisation < ApplicationRecord
   belongs_to :order_item, counter_cache: :image_customisations_count
   belongs_to :characteristic
   belongs_to :characteristic_image

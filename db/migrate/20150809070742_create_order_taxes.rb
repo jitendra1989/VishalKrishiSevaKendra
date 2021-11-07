@@ -1,4 +1,4 @@
-class CreateOrderTaxes < ActiveRecord::Migration
+class CreateOrderTaxes < ActiveRecord::Migration[5.2]
   def change
     create_table :order_taxes do |t|
       t.references :order, index: true

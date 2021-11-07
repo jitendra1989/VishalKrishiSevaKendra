@@ -1,4 +1,4 @@
-class CreateQuotationProducts < ActiveRecord::Migration
+class CreateQuotationProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :quotation_products do |t|
       t.references :quotation, index: true

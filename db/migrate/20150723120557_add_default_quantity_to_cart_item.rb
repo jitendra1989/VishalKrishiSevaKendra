@@ -1,4 +1,4 @@
-class AddDefaultQuantityToCartItem < ActiveRecord::Migration
+class AddDefaultQuantityToCartItem < ActiveRecord::Migration[5.2]
   def up
     change_column :cart_items, :quantity, :integer, null: false, default: 0
   end

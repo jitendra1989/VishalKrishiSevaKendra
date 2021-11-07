@@ -1,4 +1,4 @@
-class ProductTypeTax < ActiveRecord::Base
+class ProductTypeTax < ApplicationRecord
   belongs_to :product_type
   belongs_to :tax
   has_ancestry

@@ -1,4 +1,4 @@
-class CreateOnlineTaxes < ActiveRecord::Migration
+class CreateOnlineTaxes < ActiveRecord::Migration[5.2]
   def change
     create_table :online_taxes do |t|
       t.string :name

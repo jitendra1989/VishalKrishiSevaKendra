@@ -1,4 +1,4 @@
-class RolePermission < ActiveRecord::Base
+class RolePermission < ApplicationRecord
   belongs_to :role
   belongs_to :permission
   after_save :set_user_permissions

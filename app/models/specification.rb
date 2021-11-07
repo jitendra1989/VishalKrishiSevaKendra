@@ -1,4 +1,4 @@
-class Specification < ActiveRecord::Base
+class Specification < ApplicationRecord
 	UNITS = %w(inches gram)
 	has_many :product_specifications, dependent: :destroy
 

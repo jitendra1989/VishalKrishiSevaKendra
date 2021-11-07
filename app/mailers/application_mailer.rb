@@ -7,6 +7,6 @@ class ApplicationMailer < ActionMailer::Base
 
 	private
 		def set_common_variables
-			@common = { site_name: Rails.application.class.parent, reply_to: %(info@damiandegoa.com), site_url: front_root_url }
+			@common = { site_name: Rails.application.class.parent, reply_to: %(jrathor12@gmail.com), site_url: front_root_url }
 		end
 end

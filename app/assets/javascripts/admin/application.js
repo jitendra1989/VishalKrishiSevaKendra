@@ -17,5 +17,4 @@
 //= require bootstrap/modal
 //= require bootstrap/tooltip
 //= require cocoon
-//= require froala_editor.min.js
 //= require_tree .

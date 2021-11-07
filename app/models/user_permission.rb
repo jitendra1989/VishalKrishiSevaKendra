@@ -1,4 +1,4 @@
-class UserPermission < ActiveRecord::Base
+class UserPermission < ApplicationRecord
   belongs_to :user
   belongs_to :permission
 end

@@ -1,4 +1,4 @@
-class CartItemImageCustomisation < ActiveRecord::Base
+class CartItemImageCustomisation < ApplicationRecord
   belongs_to :cart_item, counter_cache: :image_customisations_count
   belongs_to :characteristic
   belongs_to :characteristic_image

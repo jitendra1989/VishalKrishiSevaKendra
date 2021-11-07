@@ -1,4 +1,4 @@
-class QuotationProduct < ActiveRecord::Base
+class QuotationProduct < ApplicationRecord
   belongs_to :quotation
   belongs_to :product
 

@@ -1,4 +1,4 @@
-class CreateRequirementItemImageCustomisations < ActiveRecord::Migration
+class CreateRequirementItemImageCustomisations < ActiveRecord::Migration[5.2]
   def change
     create_table :requirement_item_image_customisations do |t|
       t.references :requirement_item, index: { name: 'index_req_item_riic' }

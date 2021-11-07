@@ -1,4 +1,4 @@
-class CouponCode < ActiveRecord::Base
+class CouponCode < ApplicationRecord
 	has_many :product_coupons, dependent: :destroy
 	has_many :products, through: :product_coupons
 	has_many :category_coupons, dependent: :destroy

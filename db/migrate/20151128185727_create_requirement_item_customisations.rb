@@ -1,4 +1,4 @@
-class CreateRequirementItemCustomisations < ActiveRecord::Migration
+class CreateRequirementItemCustomisations < ActiveRecord::Migration[5.2]
   def change
     create_table :requirement_item_customisations do |t|
       t.references :requirement_item, index: true

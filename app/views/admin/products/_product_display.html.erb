@@ -1,0 +1,47 @@
+<div class="product-box">
+  <%= link_to [:admin, product] do %>
+    <div class="product-image">
+      <%#= image_tag "/uploads/development/product_images/c5aae5d4-6cbe-43c5-9dce-9e1d41f8548b.jpeg" %>
+      <%#= image_tag(product.images.first.name_url) %>
+      <%= image_tag product.images.first.try(:name).try(:small).try(:url), class: "img-responsive" %>
+    </div>
+  <% end %>
+  <%= link_to [:admin, product] do %>
+    <div class="product-name">
+      <%= product.name %>
+    </div>
+  <% end %>
+  <div class="product-code">
+    <%= product.code %>
+  </div>
+  <div class="product-description">
+    <%= product.description %>
+  </div>
+  <div class="product-price">
+    <%= decorated_price(product) %>
+  </div>
+  <div class="pull-left">
+    <% if product.is_a? ProductGroup %>
+      <%= link_to 'Stock', add_stock_admin_product_group_path(product), class: 'btn btn-default' %>
+    <% else %>
+      <%= link_to 'Stock', admin_product_stocks_path(product), class: 'btn btn-default' %>
+    <% end %>
+    <%= link_to [:edit, :admin, product], class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to [:admin, product], method: :delete, class: 'delete-link btn btn-default', 'data-confirm' => 'Are you sure?' do %>
+      <span class="glyphicon glyphicon-remove"></span>
+    <% end %>
+  </div>
+  <% if product.outlet_stock_quantity(@current_user.outlet) > 0 %>
+    <div class="pull-right">
+      <%= form_tag add_admin_carts_path, class: 'form-inline inline-form' do %>
+        <%= hidden_field_tag :product_id, product.id %>
+        <%= number_field_tag :quantity, 1, min: 1, max: product.outlet_stock_quantity(@current_user.outlet), class: 'product-quantity text-right form-control' %>
+        <%= button_tag class: 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+<h1>Listing casts</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @casts.each do |cast| %>
+      <tr>
+        <td>
+          <%= cast.name %>
+        </td>
+        <td>
+          <%= link_to 'Show', admin_cast_path(cast) %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_admin_cast_path(cast) %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', admin_cast_path(cast), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<%= link_to 'New Cast', new_admin_cast_path %>

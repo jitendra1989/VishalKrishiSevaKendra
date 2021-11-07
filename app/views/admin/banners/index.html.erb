@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Banners</h2>
+  </div>
+  <div class="col-md-12">
+    <div class="profile-box">
+      <div class="row">
+        <div class="col-md-6">
+          <%= paginate @banners %>
+        </div>
+        <div class="col-md-6">
+          <div class="text-right">
+            <%= link_to 'New Banner', new_admin_banner_path %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <br/>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Image</th>
+              <th class="text-center">Actions</th>
+            </tr>
+            <% @banners.each do |banner| %>
+              <tr>
+                <td>
+                  <%= banner.name %>
+                </td>
+                <td class="text-capitalize">
+                  <%= banner.location.humanize %>
+                </td>
+                <td>
+                  <%#= image_tag banner.image.small %>
+                  <%= image_tag(banner.image) %>
+                </td>
+                <td class="actions text-center">
+                  <%= link_to edit_admin_banner_path(banner) do %>
+                    <span class="glyphicon glyphicon-pencil"></span>
+                  <% end %>
+                  <%= link_to admin_banner_path(banner), method: :delete, class: 'delete-link', 'data-confirm' => 'Are you sure?' do %>
+                    <span class="glyphicon glyphicon-remove"></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+        <div class="col-md-12">
+          <%= paginate @banners %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

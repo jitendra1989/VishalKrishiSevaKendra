@@ -1,4 +1,4 @@
-class CreateWorkshopLogs < ActiveRecord::Migration
+class CreateWorkshopLogs < ActiveRecord::Migration[5.2]
   def change
     create_table :workshop_logs do |t|
       t.references :user, index: true

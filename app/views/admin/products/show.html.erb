@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="col-md-12">
+		<h2>
+			<%= "#{@product.class}" %>
+		</h2>
+	</div>
+	<div class="col-md-12">
+		<div class="profile-box">
+			<div class="text-right">
+				<%= link_to "Edit  #{@product.class}", [:edit, :admin, @product] %>
+			</div>
+			<p>
+				<strong class="title">Name:</strong>
+				<%= @product.name %>
+			</p>
+			<p>
+				<strong class="title">Code:</strong>
+				<%= @product.code %>
+			</p>
+			<p>
+				<strong class="title">Description:</strong>
+				<%= @product.description %>
+			</p>
+			<p>
+				<strong class="title">Price:</strong>
+				<%= large_decorated_price(@product) %>
+			</p>
+			<p>
+				<strong class="title">Active:</strong>
+				<%= @product.active %>
+			</p>
+			<p>
+				<strong class="title">Product Type:</strong>
+				<%= @product.product_type.name %>
+			</p>
+			<p>
+				<strong class="title">Product Images:</strong>
+				<%= image_tag @product.images.first.try(:name).try(:medium).try(:url) %>
+			</p>
+			<strong class="title">Specifications:</strong>
+			<table class="table">
+				<% @product.product_specifications.includes(:specification).pluck(:name, :value, :units).each do |specification| %>
+					<tr>
+						<th>
+							<%= specification[0] %>
+						</th>
+						<td>
+							<%= "#{specification[1]} #{specification[2]}" %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

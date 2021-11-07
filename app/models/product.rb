@@ -1,16 +1,16 @@
-class Product < ActiveRecord::Base
-	extend FriendlyId
-	friendly_id :name, use: :slugged
+class Product < ApplicationRecord
+	# extend FriendlyId
+	# friendly_id :name, use: :slugged
 
 	acts_as_paranoid
 
-	has_many :product_categories, dependent: :destroy
+	has_many :product_categories#, dependent: :destroy
 	has_many :stocks
-	has_many :cart_items, dependent: :destroy
+	has_many :cart_items#, dependent: :destroy
 	has_many :online_cart_items, dependent: :destroy
 	belongs_to :product_type
 	has_many :categories, through: :product_categories
-	has_many :images, class_name: ProductImage, dependent: :destroy
+	has_many :images, class_name: "ProductImage", dependent: :destroy
 	has_many :sales_relationships, dependent: :destroy
 	has_many :cross_sells
 	has_many :cross_sale_products, through: :cross_sells, source: :related_product
@@ -20,7 +20,7 @@ class Product < ActiveRecord::Base
 	has_many :characteristics, through: :product_characteristics, dependent: :destroy
 	has_many :product_coupons, dependent: :destroy
 	has_many :coupon_codes, through: :product_coupons
-	has_many :inverse_group_items, class_name: GroupItem, foreign_key: :related_product_id, dependent: :destroy
+	has_many :inverse_group_items, class_name: "GroupItem", foreign_key: :related_product_id, dependent: :destroy
 	has_many :groupings, through: :inverse_group_items, source: :product #product group
 
 	delegate :taxes, to: :product_type

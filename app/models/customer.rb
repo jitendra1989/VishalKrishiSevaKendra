@@ -1,4 +1,4 @@
-class Customer < ActiveRecord::Base
+class Customer < ApplicationRecord
 	acts_as_paranoid
 
 	has_many :quotations
@@ -16,7 +16,7 @@ class Customer < ActiveRecord::Base
 
 		validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }, if: lambda { |c| !c.admin_customer || !c.email.blank?  }
 		validates :mobile, length: { is: 10 }
-		validates :pincode, length: { is: 6 }, format: { with: /\A403\d{3}\z/ , message: 'must be based in Goa' }
+		validates :pincode, length: { is: 6 }
 	end
 
 

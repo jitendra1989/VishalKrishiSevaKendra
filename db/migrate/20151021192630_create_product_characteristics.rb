@@ -1,4 +1,4 @@
-class CreateProductCharacteristics < ActiveRecord::Migration
+class CreateProductCharacteristics < ActiveRecord::Migration[5.2]
   def change
     create_table :product_characteristics do |t|
       t.references :product, index: true

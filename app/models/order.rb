@@ -1,11 +1,11 @@
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   belongs_to :customer, counter_cache: true
   belongs_to :user
   belongs_to :outlet
   belongs_to :invoice
   has_many :receipts, dependent: :destroy
-  has_many :items, class_name: OrderItem, dependent: :destroy
-  has_many :taxes, class_name: OrderTax, dependent: :destroy
+  has_many :items, class_name: "OrderItem", dependent: :destroy
+  has_many :taxes, class_name: "OrderTax", dependent: :destroy
 
   attr_accessor :cart_id
 

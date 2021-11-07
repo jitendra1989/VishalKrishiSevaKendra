@@ -1,0 +1,11 @@
+<%= form_for [:admin, @characteristic] do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: 'required' %>
+    <%= f.text_field :name, required: true, class: 'form-control' %>
+  </div>
+  <%= render 'images', f: f %>
+  <div class="form-group">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
+  </div>
+<% end %>

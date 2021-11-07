@@ -1,4 +1,4 @@
-class CreateRequirementItems < ActiveRecord::Migration
+class CreateRequirementItems < ActiveRecord::Migration[5.2]
   def change
     create_table :requirement_items do |t|
       t.references :requirement, index: true

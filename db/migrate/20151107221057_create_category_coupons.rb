@@ -1,4 +1,4 @@
-class CreateCategoryCoupons < ActiveRecord::Migration
+class CreateCategoryCoupons < ActiveRecord::Migration[5.2]
   def change
     create_table :category_coupons do |t|
       t.references :category, index: true

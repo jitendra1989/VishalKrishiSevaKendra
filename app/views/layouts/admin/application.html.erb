@@ -1,11 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Damian de Goa</title>
+	<title>Vishal Krishi Seva Kendra</title>
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<%= favicon_link_tag "favicon.ico" %>
 	<%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+
+  <%= javascript_pack_tag "application" %>
+  <%= stylesheet_pack_tag "application" %>
+
 	<%= csrf_meta_tags %>
 </head>
 
@@ -16,7 +20,7 @@
 			<div class="row">
 				<div class="col-md-5">
 					<%= link_to admin_root_path do %>
-						<%= image_tag 'logo.png' %>
+						<%= image_tag 'logo2.png', style: 'height: 140px; width: 200px '%>
 					<% end %>
 				</div>
 				<div class="col-md-7">
@@ -81,6 +85,9 @@
 								</li>
 								<li>
 									<%= link_to 'Roles', admin_roles_path %>
+								</li>
+								<li>
+									<%= link_to 'Casts', admin_casts_path %>
 								</li>
 								<li>
 									<%= link_to 'Available Permissions', admin_permissions_path %>

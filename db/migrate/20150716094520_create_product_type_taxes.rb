@@ -1,4 +1,4 @@
-class CreateProductTypeTaxes < ActiveRecord::Migration
+class CreateProductTypeTaxes < ActiveRecord::Migration[5.2]
   def change
     create_table :product_type_taxes do |t|
       t.references :product_type, index: true

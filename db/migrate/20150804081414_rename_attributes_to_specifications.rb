@@ -1,4 +1,4 @@
-class RenameAttributesToSpecifications < ActiveRecord::Migration
+class RenameAttributesToSpecifications < ActiveRecord::Migration[5.2]
   def up
     remove_foreign_key :product_attributes, :attributes
     rename_table :attributes, :specifications

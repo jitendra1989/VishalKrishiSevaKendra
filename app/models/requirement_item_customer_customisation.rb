@@ -1,4 +1,4 @@
-class RequirementItemCustomerCustomisation < ActiveRecord::Base
+class RequirementItemCustomerCustomisation < ApplicationRecord
 	mount_uploader :image, CharacteristicImageUploader
 	belongs_to :requirement_item, counter_cache: :customer_customisations_count
 

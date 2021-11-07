@@ -1,4 +1,4 @@
-class Stock < ActiveRecord::Base
+class Stock < ApplicationRecord
   belongs_to :product
   belongs_to :outlet
   before_create :set_defaults

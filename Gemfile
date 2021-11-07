@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+# gem 'rails', '4.2.5'
+# gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 # Use mysql as the database for Active Record
 gem 'pg', '0.20.0'
 # Use SCSS for stylesheets
@@ -11,7 +13,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'#, '~> 4.2'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -20,13 +22,13 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', github: 'rails/jbuilder', branch: 'master'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem "webpacker"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -56,6 +58,13 @@ gem 'sidekiq'
 gem 'sinatra', require: nil
 gem 'wysiwyg-rails'
 
+#=========for upgrade===========
+gem 'e2mmap'
+gem 'scanf'
+gem 'thwait'
+gem 'bootsnap'
+gem 'record_tag_helper', '~> 1.0'
+
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
@@ -80,7 +89,8 @@ group :development, :test do
 
 	gem 'rspec-rails'
 	gem 'guard-rspec'
-	gem 'factory_girl_rails'
+	gem 'factory_bot'
+  gem 'puma'
 end
 group :test do
 	gem 'capybara'

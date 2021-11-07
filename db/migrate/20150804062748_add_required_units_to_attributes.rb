@@ -1,4 +1,4 @@
-class AddRequiredUnitsToAttributes < ActiveRecord::Migration
+class AddRequiredUnitsToAttributes < ActiveRecord::Migration[5.2]
   def up
     remove_column :attributes, :outlet_only
     add_column :attributes, :required, :boolean, default: false, null: false, after: :name

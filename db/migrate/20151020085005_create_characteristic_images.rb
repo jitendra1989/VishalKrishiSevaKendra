@@ -1,4 +1,4 @@
-class CreateCharacteristicImages < ActiveRecord::Migration
+class CreateCharacteristicImages < ActiveRecord::Migration[5.2]
   def change
     create_table :characteristic_images do |t|
       t.string :name

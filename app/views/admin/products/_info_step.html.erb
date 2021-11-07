@@ -1,0 +1,31 @@
+<div class="form-group">
+  <%= f.label :name, class: 'required' %>
+  <%= f.text_field :name, required: true, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :code, class: 'required' %>
+  <%= f.text_field :code, required: true, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :description, class: 'required' %>
+  <%= f.text_area :description, required: true, class: 'form-control' %>
+</div>
+<%= render 'grouped_products', f: f if @product.is_a? ProductGroup %>
+<div class="form-group">
+  <%= f.label :price, class: 'required' %>
+  <%= f.number_field :price, required: true, step: :any, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :sale_price %>
+  <%= f.number_field :sale_price, step: :any, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :product_type_id %>
+  <%= f.select :product_type_id, ProductType.pluck(:name, :id), {}, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.check_box :saleable_online %>
+  <%= f.label :saleable_online, 'Sell Online' %>
+  <%= f.hidden_field :customised %>
+  <%= f.hidden_field :requirement_id %>
+</div>

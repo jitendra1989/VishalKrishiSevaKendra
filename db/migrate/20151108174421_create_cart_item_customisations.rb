@@ -1,4 +1,4 @@
-class CreateCartItemCustomisations < ActiveRecord::Migration
+class CreateCartItemCustomisations < ActiveRecord::Migration[5.2]
   def change
     create_table :cart_item_customisations do |t|
       t.references :cart_item, index: true

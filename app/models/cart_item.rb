@@ -1,9 +1,9 @@
-class CartItem < ActiveRecord::Base
+class CartItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart
 
-  has_many :customisations, class_name: CartItemCustomisation, dependent: :destroy
-  has_many :image_customisations, class_name: CartItemImageCustomisation, dependent: :destroy
+  has_many :customisations, class_name: "CartItemCustomisation", dependent: :destroy
+  has_many :image_customisations, class_name: "CartItemImageCustomisation", dependent: :destroy
 
   validates :quantity, presence: true, numericality: true
 

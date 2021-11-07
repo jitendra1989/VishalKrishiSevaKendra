@@ -1,4 +1,4 @@
-class Outlet < ActiveRecord::Base
+class Outlet < ApplicationRecord
 	acts_as_paranoid
 
 	has_many :users

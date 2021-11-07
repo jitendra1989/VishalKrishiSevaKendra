@@ -153,6 +153,7 @@ Rails.application.routes.draw do
         get 'images'
       end
     end
+    resources :casts
     resources :users do
       member do
         get 'reset-password' => 'users#reset_password', as: :reset_password

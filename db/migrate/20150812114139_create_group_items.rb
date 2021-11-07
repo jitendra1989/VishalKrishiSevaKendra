@@ -1,4 +1,4 @@
-class CreateGroupItems < ActiveRecord::Migration
+class CreateGroupItems < ActiveRecord::Migration[5.2]
   def change
     create_table :group_items do |t|
       t.references :product, index: true

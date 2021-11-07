@@ -1,7 +1,7 @@
-class Quotation < ActiveRecord::Base
+class Quotation < ApplicationRecord
   belongs_to :customer
   belongs_to :user
-  has_many :products, class_name: QuotationProduct, dependent: :destroy
+  has_many :products, class_name: "QuotationProduct", dependent: :destroy
 
   accepts_nested_attributes_for :products, reject_if: :all_blank
 

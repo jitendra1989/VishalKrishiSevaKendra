@@ -1,4 +1,4 @@
-class CreateStockNotifications < ActiveRecord::Migration
+class CreateStockNotifications < ActiveRecord::Migration[5.2]
   def change
     create_table :stock_notifications do |t|
       t.references :customer, index: true, null: false

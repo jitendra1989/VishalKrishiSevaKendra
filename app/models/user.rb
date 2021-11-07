@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 	include FlagShihTzu
 
 	has_flags 1 => :store_boss,
@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 	has_many :user_roles, dependent: :destroy
 	has_many :roles, through: :user_roles
 	has_many :receipts, dependent: :destroy
+	has_many :villages
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	scope :regular, -> { where(flags: 0) }
@@ -42,6 +43,11 @@ class User < ActiveRecord::Base
 
 	def allowed_discount
 		regular? ? self.roles.maximum(:discount_percent) || 0 : 100
+	end
+
+	def self.total_orders
+		res = User.joins(:orders).select("users.name, COUNT(orders.user_id) as total_orders").group("users.name").order("COUNT(orders.user_id) DESC")
+		return res
 	end
 
 	private

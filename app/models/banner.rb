@@ -1,5 +1,6 @@
-class Banner < ActiveRecord::Base
-	mount_uploader :image, BannerUploader
+class Banner < ApplicationRecord
+	# mount_uploader :image, BannerUploader
+	has_one_attached :image
 
 	enum location: [:top, :column_1, :column_2, :column_3, :column_4]
 

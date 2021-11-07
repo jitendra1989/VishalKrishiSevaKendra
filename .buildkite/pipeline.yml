@@ -3,8 +3,7 @@ steps:
     command: echo "Hello Buildkite!"
 
   - name: ':pipeline: check fileeee' 
-    command: scripts/trigger-github-deploy
-    key: trigger-github-deploy
+    command: ./run-tests --password="$$APPLICATION_PASSWORD"
 
   - name: ':pipeline: check test file'
     command: "/VishalKrishiSevaKendra/custom-fold/test.rb"

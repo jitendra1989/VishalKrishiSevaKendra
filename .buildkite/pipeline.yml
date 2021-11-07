@@ -7,7 +7,7 @@ steps:
     plugins:
       - seek-oss/aws-sm#v2.3.1:
           env:
-            SECRET_FROM_OTHER_ACCOUNT: "arn:aws:secretsmanager:us-east-2:212711382622:secret:TestSecret-8B86NG"
+            SECRET_FROM_OTHER_ACCOUNT: "arn:aws:secretsmanager:us-east-2:212711382622:secret:TestSecret"
           file:
             - path: "save-my-other-secret-here"
-              secret-id: "arn:aws:secretsmanager:us-east-2:212711382622:secret:TestSecret-8B86NG"
+              secret-id: "arn:aws:secretsmanager:us-east-2:212711382622:secret:TestSecret"

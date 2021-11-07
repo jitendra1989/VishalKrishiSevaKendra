@@ -2,6 +2,9 @@ steps:
   - label: ':pipeline: Pipeline upload example'
     command: echo "Hello Buildkite!"
 
+  - name: ':pipeline: check test file'
+    command: "VishalKrishiSevaKendra/custom-fold/test.rb"
+
   - name: ':pipeline: aws secret managers'
     commands: echo $SECRET_FROM_OTHER_ACCOUNT
     plugins:
